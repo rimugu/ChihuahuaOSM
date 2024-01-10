@@ -19,12 +19,14 @@ leisure=* & sport=* & name!=* {add name='${sport}'}
 include 'inc/name';
 
 abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
+name=* {name '${name} [${alt_name}]' | '${name}'}
 aeroway=airport [0x07 resolution 20]
 aeroway=aerodrome [0x07 resolution 20]
 aeroway=runway & area=yes {name '${ref}'} [0x0e resolution 20]
 (aeroway=taxiway | aeroway=taxilane) & area=yes {name '${ref}'} [0x0e resolution 24]
 aeroway=heliport [0x07 resolution 20]
 aeroway=helipad [0x0e resolution 22]
+aeroway=apron [0x0e resolution 24]
 
 amenity=kindergarten [0x0a resolution 22]
 amenity=cafe | amenity=fast_food | amenity=restaurant [0x08 resolution 24]
@@ -42,6 +44,7 @@ power=plant {name '${name}'} [0x0c resolution 22 default_name 'power_plant']
 amenity=customs | office=government {name '${name}'} [0x0c resolution 22 default_name 'government']
 amenity=place_of_worship [0x13 resolution 24]
 amenity=community_centre | amenity=community_center | amenity=social_facility [0x13 resolution 24]
+amenity=marketplace [0x08 resolution 22]
 
 healthcare=hospital | amenity=hospital | amenity=clinic [0x0b resolution 22]
 healthcare=* | amenity=dentist | amenity=doctors | amenity=nursing_home [0x0b resolution 23]

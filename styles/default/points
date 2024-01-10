@@ -11,6 +11,7 @@
 addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
 abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
+name=* {name '${name} [${alt_name}]' | '${name}'}
 
 # impose routing/speed restrictions due to access/barrier. See option --link-pois-to-ways
 
@@ -131,6 +132,7 @@ aeroway=terminal [0x2f04 resolution 24]
 amenity=atm [0x2f06 resolution 24 continue]
 amenity=arts_centre [0x2c04 resolution 24]
 amenity=bank [0x2f06 resolution 24]
+amenity=bureau_de_change [0x2f06 resolution 24 default_name 'currency_exchange']
 amenity=bar [0x2d02 resolution 24 continue]
 amenity=bench [0x6605 resolution 24 continue]
 amenity=biergarten [0x2d02 resolution 24]
@@ -199,6 +201,7 @@ amenity=fitness_centre | amenity=gym | leisure=fitness_centre [0x2d0a resolution
 amenity=payment_centre | amenity=payment_terminal [0x2f00 resolution 24 default_name 'payment'] #0x4c00 info 0x2f06 bank 0x2f00 generic
 amenity=weighbridge [0x3200 resolution 24 default_name 'weighbridge']
 man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack {name '${name} (petrolum)' | '(petrolum)'} [0x0640d resolution 24 default_name 'oil_well']
+amenity=marketplace [0x2e06 resolution 24]
 
 landuse=military [0x640b resolution 24]
 landuse=village_green & name=* [0x2c06 resolution 24]
@@ -284,6 +287,7 @@ shop=sports [0x2e12 resolution 24]
 shop=wine | craft=winery | craft=distillery [0x2c0a resolution 24]
 shop=alcohol | craft=brewery [0x2d02 resolution 24]
 shop=books [0x2e14 resolution 24]
+craft=* [0x0b00 resolution 24 default_name 'craft']
 # to here
 
 shop=bakers [0x2e02 resolution 24]
@@ -303,7 +307,7 @@ shop=clothes [0x2e07 resolution 24]
 shop=computer [0x2e0b resolution 24]
 shop=convenience [0x2e02 resolution 24]
 shop=department_store [0x2e01 resolution 24]
-shop=doityourself [0x2e09 resolution 24]
+shop=doityourself | shop=trade [0x2e09 resolution 24]
 shop=fashion [0x2e07 resolution 24]
 shop=furniture [0x2e09 resolution 24]
 shop=garden_centre [0x2e08 resolution 24]

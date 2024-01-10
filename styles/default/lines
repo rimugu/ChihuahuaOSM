@@ -12,6 +12,7 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
 #abandoned=yes {deletealltags}  # old, depreciated, ambiguous, method of handling abandoned
 #abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
+name=* {name '${name} [${alt_name}]' | '${name}'}
 #location=underground {name '${name} (underground)' | '(underground)'}
 # [0x0a continue with_actions]
 
@@ -37,7 +38,7 @@ bridge=* & highway=* {name '${name} (bridge)' | '(bridge)'} [0x10101 resolution 
 tunnel=* & highway=* {name '${name} (tunnel)' | '(tunnel)'} [0x10101 resolution 24 continue with_actions]
 bridge=* & railway=* {name '${name} (bridge)' | '(bridge)'} [0x14 resolution 24 continue with_actions]
 tunnel=* & railway=* {name '${name} (tunnel)' | '(tunnel)'} [0x14 resolution 24 continue with_actions]
-highway=* & oneway=yes [0x10013 resolution 24 continue with_actions]
+#highway=* & oneway=yes [0x10013 resolution 24 continue with_actions]
 tunnel=* & waterway=* {name '${name} (tunnel)' | '(tunnel)'} [0x26 resolution 24 continue with_actions]
 
 #To identify as tunnel labeling, railroad image of things to update
