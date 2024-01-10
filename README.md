@@ -1,5 +1,5 @@
 # ChihuahuaOSM
-Adventure map for Chihuahua and souroundings
+Adventure map for Chihuahua, Texas, New Mexico, Coahuila and Durango and souroundings based on OpenStreetMap using mkgmap
 
 Presentación
 
