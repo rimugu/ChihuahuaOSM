@@ -10,7 +10,7 @@ rem #  History Log:                                                             
 rem #  ------------                                                                #
 rem #  Log #    Date         Description of change                                 #
 rem #  -----    ----------   ---------------------------------------------         #
-rem #  N/A      2023-12-05   First Github version                                  #
+rem #  N/A      2021-08-26   Initial creation                                      #
 rem ################################################################################
 
 echo(
@@ -47,16 +47,16 @@ echo DEM_DIR %DEM_DIR%
 set input_DIR=%Home_DIR%input\
 echo inpput_DIR %input_DIR%
 
-goto get_data_section_3
+rem goto get_data_section_20
 rem goto join_section
 rem goto split_section
 goto mkgmap_section
 
-rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM46.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-106.914,30.354,-106.104,31.342%%5D"
+rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM65.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-105.294,29.366,-104.484,30.354%%5D"
 
 rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM49.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-106.914,33.318,-106.104,34.306%%5D"
 
-:get_data_section_1
+:get_data_section_10
 echo(
 echo GET OSM DATA 1 %TIME%
 echo 51.9Mb average
@@ -78,6 +78,11 @@ echo 18	049Mb 0:22
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM18.osm --url "%Source_Server%*%%5Bbbox=-109.344,32.33,-108.534,33.318%%5D"
 echo 19	074Mb 0:31
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM19.osm --url "%Source_Server%*%%5Bbbox=-109.344,33.318,-108.534,34.306%%5D"
+
+rem goto join_section
+
+
+:get_data_section_13
 echo 21	113Mb 0:43
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM21.osm --url "%Source_Server%*%%5Bbbox=-108.534,25.414,-107.724,26.402%%5D"
 echo 22	047Mb 0:21
@@ -94,8 +99,12 @@ echo 27	027Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM27.osm --url "%Source_Server%*%%5Bbbox=-108.534,31.342,-107.724,32.33%%5D"
 echo 28	095Mb 0:42
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM28.osm --url "%Source_Server%*%%5Bbbox=-108.534,32.33,-107.724,33.318%%5D"
-echo 29	066Mb 0:30
+echo 29	067Mb 0:30
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM29.osm --url "%Source_Server%*%%5Bbbox=-108.534,33.318,-107.724,34.306%%5D"
+
+rem goto join_section
+
+:get_data_section_16
 echo 31	053Mb 0:33
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM31.osm --url "%Source_Server%*%%5Bbbox=-107.724,25.414,-106.914,26.402%%5D"
 echo 32	035Mb 0:21
@@ -112,13 +121,13 @@ echo 37	059Mb 0:25
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM37.osm --url "%Source_Server%*%%5Bbbox=-107.724,31.342,-106.914,32.33%%5D"
 echo 38	074Mb 0:28
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM38.osm --url "%Source_Server%*%%5Bbbox=-107.724,32.33,-106.914,33.318%%5D"
-echo 39	089Mb 0:40
+echo 39	090Mb 0:40
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM39.osm --url "%Source_Server%*%%5Bbbox=-107.724,33.318,-106.914,34.306%%5D"
 
 goto join_section
 rem pause
 
-:get_data_section_2
+:get_data_section_20
 echo GET OSM DATA 2 %TIME%
 echo 38.0Mb average
 echo 41	028Mb 0:15
@@ -133,12 +142,16 @@ echo 45	019Mb 0:23
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM45.osm --url "%Source_Server%*%%5Bbbox=-106.914,29.366,-106.104,30.354%%5D"
 echo 46	018Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM46.osm --url "%Source_Server%*%%5Bbbox=-106.914,30.354,-106.104,31.342%%5D"
-echo 47	259Mb 1:24
+echo 47	263Mb 1:24
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM47.osm --url "%Source_Server%*%%5Bbbox=-106.914,31.342,-106.104,32.33%%5D"
 echo 48	042Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM48.osm --url "%Source_Server%*%%5Bbbox=-106.914,32.33,-106.104,33.318%%5D"
 echo 49	052Mb 0:29
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM49.osm --url "%Source_Server%*%%5Bbbox=-106.914,33.318,-106.104,34.306%%5D"
+
+rem goto join_section
+
+:get_data_section_23
 echo 51	024Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM51.osm --url "%Source_Server%*%%5Bbbox=-106.104,25.414,-105.294,26.402%%5D"
 echo 52	042Mb 0:19
@@ -157,6 +170,10 @@ echo 58	046Mb 0:27
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM58.osm --url "%Source_Server%*%%5Bbbox=-106.104,32.33,-105.294,33.318%%5D"
 echo 59	030Mb 0:17
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM59.osm --url "%Source_Server%*%%5Bbbox=-106.104,33.318,-105.294,34.306%%5D"
+
+rem goto join_section
+
+:get_data_section_26
 echo 61	021Mb 0:10
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM61.osm --url "%Source_Server%*%%5Bbbox=-105.294,25.414,-104.484,26.402%%5D"
 echo 62	019Mb 0:12
@@ -179,7 +196,7 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM69
 goto join_section
 rem pause
 
-:get_data_section_3
+:get_data_section_30
 echo GET OSM DATA 3 %TIME%
 echo 19.0Mb average
 echo 71	016Mb 0:11
@@ -196,10 +213,14 @@ echo 76	021Mb 0:12
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM76.osm --url "%Source_Server%*%%5Bbbox=-104.484,30.354,-103.674,31.342%%5D"
 echo 77	055Mb 0:17
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM77.osm --url "%Source_Server%*%%5Bbbox=-104.484,31.342,-103.674,32.33%%5D"
-echo 78	120Mb 0:31
+echo 78	130Mb 0:31
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM78.osm --url "%Source_Server%*%%5Bbbox=-104.484,32.33,-103.674,33.318%%5D"
 echo 79	015Mb 0:12
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM79.osm --url "%Source_Server%*%%5Bbbox=-104.484,33.318,-103.674,34.306%%5D"
+
+rem goto join_section
+
+:get_data_section_33
 echo 81	077Mb 0:33
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM81.osm --url "%Source_Server%*%%5Bbbox=-103.674,25.414,-102.864,26.402%%5D"
 echo 82	006Mb 0:08
@@ -214,10 +235,14 @@ echo 86	029Mb 0:15
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM86.osm --url "%Source_Server%*%%5Bbbox=-103.674,30.354,-102.864,31.342%%5D"
 echo 87	084Mb 0:16
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM87.osm --url "%Source_Server%*%%5Bbbox=-103.674,31.342,-102.864,32.33%%5D"
-echo 88	114Mb 0:16
+echo 88	118Mb 0:16
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM88.osm --url "%Source_Server%*%%5Bbbox=-103.674,32.33,-102.864,33.318%%5D"
-echo 89	015Mb 0:12
+echo 89	016Mb 0:12
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM89.osm --url "%Source_Server%*%%5Bbbox=-103.674,33.318,-102.864,34.306%%5D"
+
+rem goto join_section
+
+:get_data_section_36
 echo 91	011Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM91.osm --url "%Source_Server%*%%5Bbbox=-102.864,25.414,-102.054,26.402%%5D"
 echo 92	009Mb 0:07
@@ -239,7 +264,7 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM99
 
 rem pause
 
-
+goto join_section
 
 :join_section
 echo(
@@ -339,6 +364,7 @@ rem --overview-dem-dist=165580
 rem --overview-dem-dist=55000  349MB 669MB
 
 rem points
+rem amenity=bureau_de_change [0x2f06 resolution 24 default_name 'currency_exchange']
 rem amenity=drinking_water | man_made=water_tap | fountain=bottle_refill [0x5000 resolution 24 default_name 'drinking_water']
 rem place=suburb [0x0a00 resolution 22 default_name 'suburb']
 rem place=village [0x0900 resolution 22 default_name 'village']
@@ -391,6 +417,8 @@ rem information=* [0x4c02 resolution 24 default_name 'information']
 rem amenity=townhall | office=government [0x3003 resolution 24]
 rem shop=wine | craft=winery | craft=distillery [0x2c0a resolution 24]
 rem shop=alcohol | craft=brewery [0x2d02 resolution 24]
+rem shop=doityourself | shop=trade [0x2e09 resolution 24]
+rem craft=* [0x0b00 resolution 24 default_name 'craft']
 rem amenity=place_of_worship [0x6404 resolution 24]
 rem amenity=weighbridge [0x3200 resolution 24 default_name 'weighbridge']
 rem man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack {name '${name} (petrolum)' | '(petrolum)'} [0x0640d resolution 24 default_name 'oil_well']
@@ -400,6 +428,7 @@ rem power=tower [0x6411 resolution 24]
 rem building=yes [0x0b00 resolution 24 default_name 'building']
 rem is_in=* [0x0b00 resolution 24 default_name 'note']
 rem natural=tree [0x3200 resolution 24 default_name 'tree']
+rem amenity=marketplace [0x2e06 resolution 24]
 
 rem polygons
 rem ( water=lake | water=pond | natural=water | water=reservoir | water=basin) & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
@@ -407,6 +436,7 @@ rem landuse=farmland [0x4e resolution 20 default_name 'farmland']
 rem landuse=farmyard [0x26 resolution 22 default_name 'farmyard']
 rem amenity=border_control | barrier=border_control [0x3006 resolution 20 default_name 'border_control']
 rem amenity=* & area!=no & amenity!=grave_yard {add name='${amenity|subst:"_=> "}'} [0x13 resolution 24]
+rem amenity=marketplace [0x08 resolution 22]
 rem building=* & building!=no [0x13 resolution 24 default_name 'building']
 rem sport=horse_racing {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
 rem landuse=commercial {name '${name}'} [0x08 resolution 24 default_name 'commercial']
@@ -443,13 +473,14 @@ rem amenity=community_centre | amenity=community_center | amenity=social_facilit
 rem man_made=wastewater_plant | utility=sewerage [0x0c resolution 22 default_name 'wastewater']
 rem man_made=water_works [0x0c resolution 22 default_name 'waste_works']
 rem leisure=miniature_golf [0x17 resolution 24 default_name 'miniature_golf']
+rem aeroway=apron [0x0e resolution 24]
 
 rem lines
 rem abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
 rem location=underground {name '${name} (underground)' | '(underground)'}
 rem bridge=* & highway=* {name '${name} (bridge)' | '(bridge)'} [0x10101 resolution 24 continue with_actions]
 rem bridge=* & railway=* {name '${name} (bridge)' | '(bridge)'} [0x14 resolution 24 continue with_actions]
-rem highway=* & oneway=yes [0x10013 resolution 24 continue]
+rem #highway=* & oneway=yes [0x10013 resolution 24 continue]
 rem leisure=track & area!=yes {name '${name} (${sport})' | '${sport}'} [0x10705 resolution 22]
 rem highway=raceway | highway=gallop {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
 rem barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=yes [0x10503 resolution 24 default_name 'barrier'] #pink line <----
