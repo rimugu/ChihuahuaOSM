@@ -10,7 +10,8 @@
 
 addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
-water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
+#water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
+water=* & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 #water=pond | natural=water | water=reservoir | water=basin
 
 leisure=* & sport=* & name=* {set name='${name} (${sport})'}
@@ -19,7 +20,7 @@ leisure=* & sport=* & name!=* {add name='${sport}'}
 include 'inc/name';
 
 abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
-name=* {name '${name} [${alt_name}]' | '${name}'}
+name=* {name '${name} [${official_name}]' | '${name} [${designation}]' | '${name} [${alt_name}]' | '${name}'}
 aeroway=airport [0x07 resolution 20]
 aeroway=aerodrome [0x07 resolution 20]
 aeroway=runway & area=yes {name '${ref}'} [0x0e resolution 20]
@@ -40,7 +41,7 @@ amenity=school [0x0a resolution 22]
 amenity=supermarket [0x08 resolution 22]
 amenity=university [0x0a resolution 21]
 amenity=waste_disposal | landuse=landfill {name '${name}'} [0x0c resolution 22 default_name 'waste_disposal']
-power=plant {name '${name}'} [0x0c resolution 22 default_name 'power_plant']
+power=plant {name '${name} (power_plant)' | '(abandoned)'} [0x0c resolution 22 default_name 'power_plant']
 amenity=customs | office=government {name '${name}'} [0x0c resolution 22 default_name 'government']
 amenity=place_of_worship [0x13 resolution 24]
 amenity=community_centre | amenity=community_center | amenity=social_facility [0x13 resolution 24]
@@ -69,7 +70,7 @@ leisure=track & area=yes [0x19 resolution 21]
 leisure=water_park [0x09 resolution 21]
 leisure=miniature_golf [0x17 resolution 24 default_name 'miniature_golf']
 
-sport=horse_racing {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
+sport=horse_racing | leisure=horse_riding {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
 
 place=village [0x03 resolution 19] # grey
 place=suburb [0x02 resolution 19]
@@ -152,7 +153,7 @@ pipeline=substation {name '${name}'} [0x0c resolution 24 default_name 'pipeline_
 lansuse=brownfield {name '${name}'} [0x0c resolution 22 default_name 'brownfield']
 # landuse=residential [0x0d resolution 19-23 default_name 'residential']
 landuse=residential [0x02 resolution 22 default_name 'residential'] 
-landuse=retail [0x08 resolution 20-23]
+landuse=retail [0x08 resolution 24 default_name 'retail']
 landuse=village_green [0x15 resolution 20]
 landuse=vineyard [0x4e resolution 20]
 landuse=orchard [0x4e resolution 20]

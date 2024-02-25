@@ -8,10 +8,16 @@
 # and http://wiki.openstreetmap.org/wiki/Mkgmap/help/Custom_styles
 # for more information.
 
+# Style notes
+# https://www.manualslib.com/manual/56306/Garmin-H.html?page=88
+# https://www.mkgmap.org.uk/pipermail/mkgmap-dev/2020q2/030945.html
+# https://wiki.openstreetmap.org/wiki/OSM_Map_On_Garmin/Polyline_Types
+
 addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
-abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
-name=* {name '${name} [${alt_name}]' | '${name}'}
+abandoned=yes {name '${name} (abandoned)' | '(abandoned)'} 
+name=* {name '${name} [${official_name}]' | '${name} [${designation}]' | '${name} [${alt_name}]' | '${name}'} 
+#name=* {name '${name} [${alt_name}]' | '${name}'}
 
 # impose routing/speed restrictions due to access/barrier. See option --link-pois-to-ways
 
@@ -202,6 +208,7 @@ amenity=payment_centre | amenity=payment_terminal [0x2f00 resolution 24 default_
 amenity=weighbridge [0x3200 resolution 24 default_name 'weighbridge']
 man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack {name '${name} (petrolum)' | '(petrolum)'} [0x0640d resolution 24 default_name 'oil_well']
 amenity=marketplace [0x2e06 resolution 24]
+amenity=events_venue [0x2e06 resolution 24]
 
 landuse=military [0x640b resolution 24]
 landuse=village_green & name=* [0x2c06 resolution 24]
@@ -210,6 +217,7 @@ healthcare=hospital | amenity=hospital | amenity=clinic [0x3002 resolution 22]
 healthcare=* | amenity=dentist | amenity=doctors [0x3002 resolution 24]
 
 highway=motorway_junction & exit:road_ref=* {add exit:to='${exit_to}' | '${destination}'} [0x2000 resolution 24]
+highway=motorway_junction [0x0b00 resolution 24 default_name 'junction']
 
 highway=services {add exit:facility="0x02,I,0x47,Features"} [0x230f resolution 20 default_name 'Services']
 
@@ -236,7 +244,7 @@ leisure=sports_center | leisure=sports_centre {name '${name} (${sport})' | '${sp
 leisure=stadium {name '${name} (${sport})' | '${sport}'} [0x2c08 resolution 24]
 (leisure=swimming_pool | amenity=swimming_pool) & access!=private & access!=no [0x2d09 resolution 24]
 leisure=track {name '${name} (${sport})' | '${sport}'} [0x2c08 resolution 24]
-leisure=water_park [0x2d09 resolution 24]
+leisure=water_park [0x2d09 resolution 24 default_name 'water_park']
 
 man_made=tower | man_made=mast | landmark=chimney [0x6411 resolution 24]
 man_made=antenna [0x6411 resolution 24 default_name 'antenna']
@@ -443,10 +451,12 @@ natural=bay [0x6604 resolution 24 default_name 'bay']
 waterway=rapids [0x650e resolution 22 default_name 'rapids']
 waterway=dam [0x650e resolution 22 default_name 'dam']
 
-landuse=cemetery | landuse=cemetary | amenity=grave_yard [0x6403 resolution 24]
-(landuse=wood | landuse=forest | natural=wood) & name=* [0x6618 resolution 24]
+landuse=cemetery | landuse=cemetary | amenity=grave_yard [0x6403 resolution 24 default_name 'grave_yard']
+(landuse=wood | landuse=forest | natural=wood) & name=* [0x6618 resolution 24 default_name 'wood']
 
 #power=tower [0x6411 resolution 24]
+#power=generator {name '${operator} (generator)' | '(generator)'} [0x6411 resolution 24 default_name 'generator']
+power=generator {name '(generator)'} [0x6411 resolution 24 default_name 'generator']
 #power=pole
 #natural=tree [0x3200 resolution 24 default_name 'tree']
 

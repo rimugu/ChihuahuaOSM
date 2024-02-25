@@ -12,7 +12,8 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
 #abandoned=yes {deletealltags}  # old, depreciated, ambiguous, method of handling abandoned
 #abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
-name=* {name '${name} [${alt_name}]' | '${name}'}
+name=* & ref=* {name '${name} [${ref}]' | '${name}'}
+#name=* {name '${name} [${ref|highway-symbol:"box:4:8"}|${alt_name}]' | '${name}'}
 #location=underground {name '${name} (underground)' | '(underground)'}
 # [0x0a continue with_actions]
 
@@ -113,6 +114,7 @@ highway=* & (
     sport=via_ferrata)
     {set mkgmap:unpaved=1 ; name '${name} (unp)' | '(unp)'}
 (highway=bridleway | highway=path | highway=track) & mkgmap:unpaved!=0 {add mkgmap:unpaved=1 ; name '${name} (unp)' | '(unp)'}
+(highway=cycleway) & mkgmap:unpaved!=0 {add mkgmap:unpaved=1 ; name '${name} (unp) [cycloway]' | '(unp) [cycloway]'}
 (highway=unsurfaced | highway=via_ferrata) {set mkgmap:unpaved=1}
 
 highway=* & mkgmap:unpaved!=1 & smoothness~'.*(bad|horrible|impassable)' {add mkgmap:road-speed=-2}
@@ -201,7 +203,6 @@ highway=secondary [0x04 road_class=2 road_speed=3 resolution 20]
 highway=secondary_link & mkgmap:fast_road=yes [0x08 road_class=3 road_speed=1 resolution 22]
 highway=secondary_link [0x08 road_class=2 road_speed=1 resolution 22]
 highway=tertiary [0x05 road_class=1 road_speed=3 resolution 20 default_name 'tertiary_road']
-highway=tertiary [0x05 road_class=1 road_speed=3 resolution 20 default_name 'tertiary_road']
 highway=tertiary_link [0x08 road_class=1 road_speed=1 resolution 22 default_name 'tertiary_road']
 highway=minor [0x06 road_class=1 road_speed=3 resolution 21 default_name 'minor_road']
 highway=unclassified [0x06 road_class=0 road_speed=3 resolution 21 default_name 'minor_road']
@@ -243,8 +244,9 @@ highway=pedestrian {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resol
 
 highway=living_street [0x06 road_class=0 road_speed=1 resolution 22 default_name 'residential']
 #highway=residential [0x06 road_class=0 road_speed=2 resolution 22 default_name 'residential']
-highway=residential & oneway!=* [0x06 road_class=0 road_speed=1 resolution 24]
-highway=residential [0x12 road_class=0 road_speed=1 resolution 24 continue] # invisible routable line
+#highway=residential & oneway!=* [0x06 road_class=0 road_speed=1 resolution 24]
+highway=residential [0x06 road_class=0 road_speed=1 resolution 24 default_name 'residential']
+#highway=residential [0x12 road_class=0 road_speed=1 resolution 24 continue] # invisible routable line
 highway=residential [0x10600 resolution 24] #extended line showing arrow 
 highway=bridleway [0x07 road_class=0 road_speed=0 resolution 23]
 highway=byway [0x16 road_class=0 road_speed=0 resolution 23]
@@ -257,15 +259,15 @@ highway=service & service=parking_aisle [0x07 road_class=0 road_speed=1 resoluti
 highway=service & (service=alley | service=driveway) [0x07 road_class=0 road_speed=0 resolution 23]
 highway=service [0x07 road_class=0 road_speed=2 resolution 22 default_name 'service_road']
 
-highway=cycleway [0x11 road_class=0 road_speed=1 resolution 23]
+highway=cycleway {name '${name} [cycleway]' | '[cycleway]'} [0x11 road_class=0 road_speed=1 resolution 23 default_name 'cycleway']
 
 # highway=footway is often an area as well, continue for polygon processing
-highway=footway {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 23 continue with_actions]
+highway=footway {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 23 default_name 'footway' continue with_actions]
 
 highway=trail {set highway=path; add bicycle=no}  # fix common bad tagging
 
 highway=path [0x16 road_class=0 road_speed=0 resolution 23  default_name 'path'] 
-highway=track [0x0a road_class=0 road_speed=1 resolution 22 default_name 'track'] 
+highway=track [0x0a road_class=0 road_speed=1 resolution 23 default_name 'track'] 
 highway=unsurfaced [0x0a road_class=0 road_speed=1 resolution 22]
 highway=road {add mkgmap:dead-end-check=false} [0x06 road_class=0 road_speed=1 resolution 22]
 man_made=embankment | man_made=levee [0x10101 resolution 22 default_name 'embankment']
@@ -277,7 +279,7 @@ highway=turning_loop | highway=turning_circle | highway=layby | highway=escape |
 # These are too specialized to have routing, so shouldn't drop into the mop-up, but, maybe needing TYP, can be shown on the map
 #highway=raceway | highway=gallop {add name='${highway}'} [0x30 resolution 23]
 #highway=raceway | highway=gallop {add name='${highway}'} [0x1c resolution 23]
-highway=raceway | highway=gallop {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
+highway=raceway | highway=gallop  | spot=motor {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
 #highway=raceway | highway=gallop {add name='${highway}'} [0x23 resolution 23] #blue line
 #highway=raceway | highway=gallop {add name='${highway}'} [0x0a resolution 23] #dotter wide lane
 
@@ -344,7 +346,7 @@ boundary=political [0x1c resolution 19]
 #boundary=region & name='Continental Divide' [0x0d resolution 22] #black line
 boundary=region & name='Continental Divide' [0x1c resolution 22] #gray admin line
 # 0x01 orange line routable
-# 0x12 black line routable
+# 0x12 black line routable - not visible gps
 
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x17 resolution 24]
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10a15 resolution 24] #blue line
