@@ -6,17 +6,11 @@ rem #  Description:                                                             
 rem #                                                                              #
 rem # 1. Creates garmin maps from OSM info                                         #
 rem #                                                                              #
-rem #  History Log:                                                                #
-rem #  ------------                                                                #
-rem #  Log #    Date         Description of change                                 #
-rem #  -----    ----------   ---------------------------------------------         #
-rem #  N/A      2021-08-26   Initial creation                                      #
 rem ################################################################################
 
 echo(
 echo(
-rem echo Starting MakeMap.bat v2021-08-26
-echo ....STARTING BuildMap.bat v2023-05-16 %TIME%
+echo ....STARTING BuildMap.bat v2024-02-25 %TIME%
 echo(
 
 set Source_Server=http://overpass.openstreetmap.ru/cgi/xapi_meta?
@@ -34,11 +28,12 @@ set osmosis_DIR=%Home_DIR%osmosis-0.48.3\bin\
 echo osmosis_DIR %osmosis_DIR%
 set osmosis_temp=%Home_DIR%osmosis-temp\
 echo osmosis_temp %osmosis_temp%
+set osmconvert=%Home_DIR%osmconvert64-0.8.8p.exe
 set Split_temp_DIR=%Home_DIR%split-temp\
 echo Split_temp_DIR %Split_temp_DIR%
 set split_DIR=%Home_DIR%splitter-r653\
 echo split_DIR %split_DIR%
-set mkgmap_DIR=%Home_DIR%mkgmap-r4916\
+set mkgmap_DIR=%Home_DIR%mkgmap-r4917\
 echo mkgmap_DIR %mkgmap_DIR% 
 set Img_DIR=%Home_DIR%img\
 echo Img_DIR %Img_DIR%
@@ -47,12 +42,17 @@ echo DEM_DIR %DEM_DIR%
 set input_DIR=%Home_DIR%input\
 echo inpput_DIR %input_DIR%
 
-rem goto get_data_section_20
-rem goto join_section
+echo(
+java --version
+echo(
+
+rem goto get_data_section_70
+rem goto join_section_osmosis
+rem goto join_section_osmconvert
 rem goto split_section
 goto mkgmap_section
 
-rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM65.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-105.294,29.366,-104.484,30.354%%5D"
+rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM41.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-106.914,25.414,-106.104,26.402%%5D"
 
 rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM49.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-106.914,33.318,-106.104,34.306%%5D"
 
@@ -61,61 +61,61 @@ echo(
 echo GET OSM DATA 1 %TIME%
 echo 51.9Mb average
 echo 11	105Mb 0:38
-cmd /c curl.exe --parallel --keepalive-time 5 --output %Home_DIR%ChihuahuaOSM11.osm --url "%Source_Server%*%%5Bbbox=-109.344,25.414,-108.534,26.402%%5D"
+cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM11.osm --url "%Source_Server%*%%5Bbbox=-109.344,25.414,-108.534,26.402%%5D"
 echo 12	039Mb 0:23
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM12.osm --url "%Source_Server%*%%5Bbbox=-109.344,26.402,-108.534,27.39%%5D"
 echo 13	025Mb 0:25
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM13.osm --url "%Source_Server%*%%5Bbbox=-109.344,27.39,-108.534,28.378%%5D"
-echo 14	029Mb 0:16
+echo 14	030Mb 0:16
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM14.osm --url "%Source_Server%*%%5Bbbox=-109.344,28.378,-108.534,29.366%%5D"
 echo 15	024Mb 0:17
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM15.osm --url "%Source_Server%*%%5Bbbox=-109.344,29.366,-108.534,30.354%%5D"
 echo 16	019Mb 0:11
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM16.osm --url "%Source_Server%*%%5Bbbox=-109.344,30.354,-108.534,31.342%%5D"
-echo 17	134Mb 0:45
+echo 17	135Mb 0:45
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM17.osm --url "%Source_Server%*%%5Bbbox=-109.344,31.342,-108.534,32.33%%5D"
 echo 18	049Mb 0:22
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM18.osm --url "%Source_Server%*%%5Bbbox=-109.344,32.33,-108.534,33.318%%5D"
 echo 19	074Mb 0:31
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM19.osm --url "%Source_Server%*%%5Bbbox=-109.344,33.318,-108.534,34.306%%5D"
 
-rem goto join_section
+rem goto join_section_osmconvert
 
 
-:get_data_section_13
+:get_data_section_20
 echo 21	113Mb 0:43
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM21.osm --url "%Source_Server%*%%5Bbbox=-108.534,25.414,-107.724,26.402%%5D"
 echo 22	047Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM22.osm --url "%Source_Server%*%%5Bbbox=-108.534,26.402,-107.724,27.39%%5D"
-echo 23	036Mb 0:16
+echo 23	037Mb 0:16
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM23.osm --url "%Source_Server%*%%5Bbbox=-108.534,27.39,-107.724,28.378%%5D"
 echo 24	025Mb 0:15
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM24.osm --url "%Source_Server%*%%5Bbbox=-108.534,28.378,-107.724,29.366%%5D"
-echo 25	028Mb 0:17
+echo 25	029Mb 0:17
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM25.osm --url "%Source_Server%*%%5Bbbox=-108.534,29.366,-107.724,30.354%%5D"
 echo 26	021Mb 0:15
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM26.osm --url "%Source_Server%*%%5Bbbox=-108.534,30.354,-107.724,31.342%%5D"
 echo 27	027Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM27.osm --url "%Source_Server%*%%5Bbbox=-108.534,31.342,-107.724,32.33%%5D"
-echo 28	095Mb 0:42
+echo 28	094Mb 0:42
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM28.osm --url "%Source_Server%*%%5Bbbox=-108.534,32.33,-107.724,33.318%%5D"
 echo 29	067Mb 0:30
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM29.osm --url "%Source_Server%*%%5Bbbox=-108.534,33.318,-107.724,34.306%%5D"
 
-rem goto join_section
+rem goto join_section_osmconvert
 
-:get_data_section_16
-echo 31	053Mb 0:33
+:get_data_section_30
+echo 31	054Mb 0:33
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM31.osm --url "%Source_Server%*%%5Bbbox=-107.724,25.414,-106.914,26.402%%5D"
 echo 32	035Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM32.osm --url "%Source_Server%*%%5Bbbox=-107.724,26.402,-106.914,27.39%%5D"
-echo 33	038Mb 0:25
+echo 33	039Mb 0:25
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM33.osm --url "%Source_Server%*%%5Bbbox=-107.724,27.39,-106.914,28.378%%5D"
 echo 34	031Mb 0:10
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM34.osm --url "%Source_Server%*%%5Bbbox=-107.724,28.378,-106.914,29.366%%5D"
-echo 35	019Mb 0:11
+echo 35	020Mb 0:11
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM35.osm --url "%Source_Server%*%%5Bbbox=-107.724,29.366,-106.914,30.354%%5D"
-echo 36	056Mb 0:29
+echo 36	057Mb 0:29
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM36.osm --url "%Source_Server%*%%5Bbbox=-107.724,30.354,-106.914,31.342%%5D"
 echo 37	059Mb 0:25
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM37.osm --url "%Source_Server%*%%5Bbbox=-107.724,31.342,-106.914,32.33%%5D"
@@ -124,65 +124,65 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM38
 echo 39	090Mb 0:40
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM39.osm --url "%Source_Server%*%%5Bbbox=-107.724,33.318,-106.914,34.306%%5D"
 
-goto join_section
+goto join_section_osmconvert
 rem pause
 
-:get_data_section_20
+:get_data_section_40
 echo GET OSM DATA 2 %TIME%
 echo 38.0Mb average
 echo 41	028Mb 0:15
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM41.osm --url "%Source_Server%*%%5Bbbox=-106.914,25.414,-106.104,26.402%%5D"
-echo 42	030Mb 0:17
+echo 42	031Mb 0:17
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM42.osm --url "%Source_Server%*%%5Bbbox=-106.914,26.402,-106.104,27.39%%5D"
 echo 43	044Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM43.osm --url "%Source_Server%*%%5Bbbox=-106.914,27.39,-106.104,28.378%%5D"
-echo 44	074Mb 0:40
+echo 44	075Mb 0:40
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM44.osm --url "%Source_Server%*%%5Bbbox=-106.914,28.378,-106.104,29.366%%5D"
 echo 45	019Mb 0:23
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM45.osm --url "%Source_Server%*%%5Bbbox=-106.914,29.366,-106.104,30.354%%5D"
 echo 46	018Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM46.osm --url "%Source_Server%*%%5Bbbox=-106.914,30.354,-106.104,31.342%%5D"
-echo 47	263Mb 1:24
+echo 47	266Mb 1:24
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM47.osm --url "%Source_Server%*%%5Bbbox=-106.914,31.342,-106.104,32.33%%5D"
-echo 48	042Mb 0:21
+echo 48	043Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM48.osm --url "%Source_Server%*%%5Bbbox=-106.914,32.33,-106.104,33.318%%5D"
 echo 49	052Mb 0:29
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM49.osm --url "%Source_Server%*%%5Bbbox=-106.914,33.318,-106.104,34.306%%5D"
 
-rem goto join_section
+rem goto join_section_osmconvert
 
-:get_data_section_23
+:get_data_section_50
 echo 51	024Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM51.osm --url "%Source_Server%*%%5Bbbox=-106.104,25.414,-105.294,26.402%%5D"
-echo 52	042Mb 0:19
+echo 52	043Mb 0:19
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM52.osm --url "%Source_Server%*%%5Bbbox=-106.104,26.402,-105.294,27.39%%5D"
 echo 53	053Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM53.osm --url "%Source_Server%*%%5Bbbox=-106.104,27.39,-105.294,28.378%%5D"
-echo 54	057Mb 0:23
+echo 54	058Mb 0:23
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM54.osm --url "%Source_Server%*%%5Bbbox=-106.104,28.378,-105.294,29.366%%5D"
 echo 55	009Mb 0:09
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM55.osm --url "%Source_Server%*%%5Bbbox=-106.104,29.366,-105.294,30.354%%5D"
-echo 56	017Mb 0:07
+echo 56	018Mb 0:07
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM56.osm --url "%Source_Server%*%%5Bbbox=-106.104,30.354,-105.294,31.342%%5D"
-echo 57	018Mb 0:15
+echo 57	019Mb 0:15
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM57.osm --url "%Source_Server%*%%5Bbbox=-106.104,31.342,-105.294,32.33%%5D"
-echo 58	046Mb 0:27
+echo 58	047Mb 0:27
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM58.osm --url "%Source_Server%*%%5Bbbox=-106.104,32.33,-105.294,33.318%%5D"
 echo 59	030Mb 0:17
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM59.osm --url "%Source_Server%*%%5Bbbox=-106.104,33.318,-105.294,34.306%%5D"
 
-rem goto join_section
+rem goto join_section_osmconvert
 
-:get_data_section_26
+:get_data_section_60
 echo 61	021Mb 0:10
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM61.osm --url "%Source_Server%*%%5Bbbox=-105.294,25.414,-104.484,26.402%%5D"
-echo 62	019Mb 0:12
+echo 62	020Mb 0:12
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM62.osm --url "%Source_Server%*%%5Bbbox=-105.294,26.402,-104.484,27.39%%5D"
-echo 63	020Mb 0:13
+echo 63	021Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM63.osm --url "%Source_Server%*%%5Bbbox=-105.294,27.39,-104.484,28.378%%5D"
 echo 64	015Mb 0:11
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM64.osm --url "%Source_Server%*%%5Bbbox=-105.294,28.378,-104.484,29.366%%5D"
-echo 65	022Mb 0:16
+echo 65	023Mb 0:16
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM65.osm --url "%Source_Server%*%%5Bbbox=-105.294,29.366,-104.484,30.354%%5D"
 echo 66	019Mb 0:11
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM66.osm --url "%Source_Server%*%%5Bbbox=-105.294,30.354,-104.484,31.342%%5D"
@@ -193,10 +193,10 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM68
 echo 69	035Mb 0:20
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM69.osm --url "%Source_Server%*%%5Bbbox=-105.294,33.318,-104.484,34.306%%5D"
 
-goto join_section
+goto join_section_osmconvert
 rem pause
 
-:get_data_section_30
+:get_data_section_70
 echo GET OSM DATA 3 %TIME%
 echo 19.0Mb average
 echo 71	016Mb 0:11
@@ -209,53 +209,53 @@ echo 74	021Mb 0:10
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM74.osm --url "%Source_Server%*%%5Bbbox=-104.484,28.378,-103.674,29.366%%5D"
 echo 75	029Mb 0:21
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM75.osm --url "%Source_Server%*%%5Bbbox=-104.484,29.366,-103.674,30.354%%5D"
-echo 76	021Mb 0:12
+echo 76	022Mb 0:12
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM76.osm --url "%Source_Server%*%%5Bbbox=-104.484,30.354,-103.674,31.342%%5D"
-echo 77	055Mb 0:17
+echo 77	057Mb 0:17
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM77.osm --url "%Source_Server%*%%5Bbbox=-104.484,31.342,-103.674,32.33%%5D"
-echo 78	130Mb 0:31
+echo 78	135Mb 0:31
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM78.osm --url "%Source_Server%*%%5Bbbox=-104.484,32.33,-103.674,33.318%%5D"
 echo 79	015Mb 0:12
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM79.osm --url "%Source_Server%*%%5Bbbox=-104.484,33.318,-103.674,34.306%%5D"
 
-rem goto join_section
+rem goto join_section_osmconvert
 
-:get_data_section_33
-echo 81	077Mb 0:33
+:get_data_section_80
+echo 81	078Mb 0:33
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM81.osm --url "%Source_Server%*%%5Bbbox=-103.674,25.414,-102.864,26.402%%5D"
-echo 82	006Mb 0:08
+echo 82	007Mb 0:08
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM82.osm --url "%Source_Server%*%%5Bbbox=-103.674,26.402,-102.864,27.39%%5D"
 echo 83	004Mb 0:04
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM83.osm --url "%Source_Server%*%%5Bbbox=-103.674,27.39,-102.864,28.378%%5D"
-echo 84	020Mb 0:11
+echo 84	021Mb 0:11
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM84.osm --url "%Source_Server%*%%5Bbbox=-103.674,28.378,-102.864,29.366%%5D"
-echo 85	025Mb 0:14
+echo 85	026Mb 0:14
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM85.osm --url "%Source_Server%*%%5Bbbox=-103.674,29.366,-102.864,30.354%%5D"
 echo 86	029Mb 0:15
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM86.osm --url "%Source_Server%*%%5Bbbox=-103.674,30.354,-102.864,31.342%%5D"
-echo 87	084Mb 0:16
+echo 87	132Mb 0:16
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM87.osm --url "%Source_Server%*%%5Bbbox=-103.674,31.342,-102.864,32.33%%5D"
-echo 88	118Mb 0:16
+echo 88	126Mb 0:16
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM88.osm --url "%Source_Server%*%%5Bbbox=-103.674,32.33,-102.864,33.318%%5D"
 echo 89	016Mb 0:12
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM89.osm --url "%Source_Server%*%%5Bbbox=-103.674,33.318,-102.864,34.306%%5D"
 
-rem goto join_section
+rem goto join_section_osmconvert
 
-:get_data_section_36
+:get_data_section_90
 echo 91	011Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM91.osm --url "%Source_Server%*%%5Bbbox=-102.864,25.414,-102.054,26.402%%5D"
-echo 92	009Mb 0:07
+echo 92	010Mb 0:07
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM92.osm --url "%Source_Server%*%%5Bbbox=-102.864,26.402,-102.054,27.39%%5D"
 echo 93	004Mb 0:03
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM93.osm --url "%Source_Server%*%%5Bbbox=-102.864,27.39,-102.054,28.378%%5D"
-echo 94	009Mb 0:06
+echo 94	010Mb 0:06
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM94.osm --url "%Source_Server%*%%5Bbbox=-102.864,28.378,-102.054,29.366%%5D"
 echo 95	021Mb 0:08
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM95.osm --url "%Source_Server%*%%5Bbbox=-102.864,29.366,-102.054,30.354%%5D"
 echo 96	022Mb 0:14
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM96.osm --url "%Source_Server%*%%5Bbbox=-102.864,30.354,-102.054,31.342%%5D"
-echo 97	098Mb 0:37
+echo 97	099Mb 0:37
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM97.osm --url "%Source_Server%*%%5Bbbox=-102.864,31.342,-102.054,32.33%%5D"
 echo 98	051Mb 0:24
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM98.osm --url "%Source_Server%*%%5Bbbox=-102.864,32.33,-102.054,33.318%%5D"
@@ -264,11 +264,11 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM99
 
 rem pause
 
-goto join_section
+goto join_section_osmconvert
 
-:join_section
+:join_section_osmosis
 echo(
-echo JOIN THE DATA - multiple osm files into one and trim %TIME%
+echo JOIN THE DATA - multiple osm files into one and trim using osmosis %TIME%
 echo(
 
 REM a file not found error in the next steps could be a Java misconfiguration
@@ -306,6 +306,81 @@ REM error on osm data faulty
 REM SEVERE: Thread for task 1-rx failed
 REM org.openstreetmap.osmosis.core.OsmosisRuntimeException: An output error has occurred, aborting.
 
+REM org.openstreetmap.osmosis.core.pipeline.common.ActiveTaskManager waitForCompletion
+REM org.openstreetmap.osmosis.core.Osmosis main
+REM SEVERE: Execution aborted.
+REM ????
+
+
+goto split_section
+
+
+:join_section_osmconvert
+echo(
+echo JOIN THE DATA - multiple osm files into one and trim using osmconvert %TIME%
+echo(
+
+REM https://wiki.openstreetmap.org/wiki/Osmconvert#Windows
+@echo on
+
+cmd /c %osmconvert% ^
+ %input_DIR%ChihuahuaOSM11.osm %input_DIR%ChihuahuaOSM12.osm %input_DIR%ChihuahuaOSM13.osm %input_DIR%ChihuahuaOSM14.osm %input_DIR%ChihuahuaOSM15.osm %input_DIR%ChihuahuaOSM16.osm %input_DIR%ChihuahuaOSM17.osm %input_DIR%ChihuahuaOSM18.osm %input_DIR%ChihuahuaOSM19.osm^
+ %input_DIR%ChihuahuaOSM21.osm %input_DIR%ChihuahuaOSM22.osm %input_DIR%ChihuahuaOSM23.osm %input_DIR%ChihuahuaOSM24.osm %input_DIR%ChihuahuaOSM25.osm %input_DIR%ChihuahuaOSM26.osm %input_DIR%ChihuahuaOSM27.osm %input_DIR%ChihuahuaOSM28.osm %input_DIR%ChihuahuaOSM29.osm^
+ %input_DIR%ChihuahuaOSM31.osm %input_DIR%ChihuahuaOSM32.osm %input_DIR%ChihuahuaOSM33.osm %input_DIR%ChihuahuaOSM34.osm %input_DIR%ChihuahuaOSM35.osm %input_DIR%ChihuahuaOSM36.osm %input_DIR%ChihuahuaOSM37.osm %input_DIR%ChihuahuaOSM38.osm %input_DIR%ChihuahuaOSM39.osm^
+ %input_DIR%ChihuahuaOSM41.osm %input_DIR%ChihuahuaOSM42.osm %input_DIR%ChihuahuaOSM43.osm %input_DIR%ChihuahuaOSM44.osm %input_DIR%ChihuahuaOSM45.osm %input_DIR%ChihuahuaOSM46.osm %input_DIR%ChihuahuaOSM47.osm %input_DIR%ChihuahuaOSM48.osm %input_DIR%ChihuahuaOSM49.osm^
+  %input_DIR%ChihuahuaOSM51.osm %input_DIR%ChihuahuaOSM52.osm %input_DIR%ChihuahuaOSM53.osm %input_DIR%ChihuahuaOSM54.osm %input_DIR%ChihuahuaOSM55.osm %input_DIR%ChihuahuaOSM56.osm %input_DIR%ChihuahuaOSM57.osm %input_DIR%ChihuahuaOSM58.osm %input_DIR%ChihuahuaOSM59.osm^
+ %input_DIR%ChihuahuaOSM61.osm %input_DIR%ChihuahuaOSM62.osm %input_DIR%ChihuahuaOSM63.osm %input_DIR%ChihuahuaOSM64.osm %input_DIR%ChihuahuaOSM65.osm %input_DIR%ChihuahuaOSM66.osm %input_DIR%ChihuahuaOSM67.osm %input_DIR%ChihuahuaOSM68.osm %input_DIR%ChihuahuaOSM69.osm^
+ %input_DIR%ChihuahuaOSM71.osm %input_DIR%ChihuahuaOSM72.osm %input_DIR%ChihuahuaOSM73.osm %input_DIR%ChihuahuaOSM74.osm %input_DIR%ChihuahuaOSM75.osm %input_DIR%ChihuahuaOSM76.osm %input_DIR%ChihuahuaOSM77.osm %input_DIR%ChihuahuaOSM78.osm %input_DIR%ChihuahuaOSM79.osm^
+ %input_DIR%ChihuahuaOSM81.osm %input_DIR%ChihuahuaOSM82.osm %input_DIR%ChihuahuaOSM83.osm %input_DIR%ChihuahuaOSM84.osm %input_DIR%ChihuahuaOSM85.osm %input_DIR%ChihuahuaOSM86.osm %input_DIR%ChihuahuaOSM87.osm %input_DIR%ChihuahuaOSM88.osm %input_DIR%ChihuahuaOSM89.osm^
+ %input_DIR%ChihuahuaOSM91.osm %input_DIR%ChihuahuaOSM92.osm %input_DIR%ChihuahuaOSM93.osm %input_DIR%ChihuahuaOSM94.osm %input_DIR%ChihuahuaOSM95.osm %input_DIR%ChihuahuaOSM96.osm %input_DIR%ChihuahuaOSM97.osm %input_DIR%ChihuahuaOSM98.osm %input_DIR%ChihuahuaOSM99.osm^
+ --out-osm -o=%osmosis_temp%Chihuahua_temp.osm
+ 
+@echo off
+IF %ERRORLEVEL% NEQ 0 ( 
+	echo ....ERROR 100 - %ERRORLEVEL%....%TIME%
+	exit /b 100	
+)
+ 
+@echo off
+echo(
+echo TRIM using osmconvert %TIME%
+echo(
+@echo on
+ 
+cmd /c %osmconvert% ^
+ %osmosis_temp%Chihuahua_temp.osm ^
+ -b=-109.344,25.414,-102.053,34.304 --complete-multipolygons --complete-ways^
+ --out-osm -o=%osmosis_temp%Chihuahua.osm
+ 
+ 
+del /q %osmosis_temp%Chihuahua_temp.osm
+
+@echo off
+IF %ERRORLEVEL% NEQ 0 ( 
+	echo ....ERROR 150 - %ERRORLEVEL%....%TIME%
+	exit /b 100	
+)
+
+REM bound southwestern and northeastern corners (WSEN). (Bottom Left / Top Right)
+
+
+REM Osmium
+REM osmium --progress --verbose --input-format=osm --overwrite --merge ^
+REM pip install osmium
+REM %input_DIR%ChihuahuaOSM11.osm %input_DIR%ChihuahuaOSM12.osm %input_DIR%ChihuahuaOSM13.osm %input_DIR%ChihuahuaOSM14.osm %input_DIR%ChihuahuaOSM15.osm %input_DIR%ChihuahuaOSM16.osm %input_DIR%ChihuahuaOSM17.osm %input_DIR%ChihuahuaOSM18.osm %input_DIR%ChihuahuaOSM19.osm^
+REM %input_DIR%ChihuahuaOSM21.osm %input_DIR%ChihuahuaOSM22.osm %input_DIR%ChihuahuaOSM23.osm %input_DIR%ChihuahuaOSM24.osm %input_DIR%ChihuahuaOSM25.osm %input_DIR%ChihuahuaOSM26.osm %input_DIR%ChihuahuaOSM27.osm %input_DIR%ChihuahuaOSM28.osm %input_DIR%ChihuahuaOSM29.osm^
+REM %input_DIR%ChihuahuaOSM31.osm %input_DIR%ChihuahuaOSM32.osm %input_DIR%ChihuahuaOSM33.osm %input_DIR%ChihuahuaOSM34.osm %input_DIR%ChihuahuaOSM35.osm %input_DIR%ChihuahuaOSM36.osm %input_DIR%ChihuahuaOSM37.osm %input_DIR%ChihuahuaOSM38.osm %input_DIR%ChihuahuaOSM39.osm^
+REM %input_DIR%ChihuahuaOSM41.osm %input_DIR%ChihuahuaOSM42.osm %input_DIR%ChihuahuaOSM43.osm %input_DIR%ChihuahuaOSM44.osm %input_DIR%ChihuahuaOSM45.osm %input_DIR%ChihuahuaOSM46.osm %input_DIR%ChihuahuaOSM47.osm %input_DIR%ChihuahuaOSM48.osm %input_DIR%ChihuahuaOSM49.osm^
+REM  %input_DIR%ChihuahuaOSM51.osm %input_DIR%ChihuahuaOSM52.osm %input_DIR%ChihuahuaOSM53.osm %input_DIR%ChihuahuaOSM54.osm %input_DIR%ChihuahuaOSM55.osm %input_DIR%ChihuahuaOSM56.osm %input_DIR%ChihuahuaOSM57.osm %input_DIR%ChihuahuaOSM58.osm %input_DIR%ChihuahuaOSM59.osm^
+REM %input_DIR%ChihuahuaOSM61.osm %input_DIR%ChihuahuaOSM62.osm %input_DIR%ChihuahuaOSM63.osm %input_DIR%ChihuahuaOSM64.osm %input_DIR%ChihuahuaOSM65.osm %input_DIR%ChihuahuaOSM66.osm %input_DIR%ChihuahuaOSM67.osm %input_DIR%ChihuahuaOSM68.osm %input_DIR%ChihuahuaOSM69.osm^
+REM %input_DIR%ChihuahuaOSM71.osm %input_DIR%ChihuahuaOSM72.osm %input_DIR%ChihuahuaOSM73.osm %input_DIR%ChihuahuaOSM74.osm %input_DIR%ChihuahuaOSM75.osm %input_DIR%ChihuahuaOSM76.osm %input_DIR%ChihuahuaOSM77.osm %input_DIR%ChihuahuaOSM78.osm %input_DIR%ChihuahuaOSM79.osm^
+REM %input_DIR%ChihuahuaOSM81.osm %input_DIR%ChihuahuaOSM82.osm %input_DIR%ChihuahuaOSM83.osm %input_DIR%ChihuahuaOSM84.osm %input_DIR%ChihuahuaOSM85.osm %input_DIR%ChihuahuaOSM86.osm %input_DIR%ChihuahuaOSM87.osm %input_DIR%ChihuahuaOSM88.osm %input_DIR%ChihuahuaOSM89.osm^
+REM %input_DIR%ChihuahuaOSM91.osm %input_DIR%ChihuahuaOSM92.osm %input_DIR%ChihuahuaOSM93.osm %input_DIR%ChihuahuaOSM94.osm %input_DIR%ChihuahuaOSM95.osm %input_DIR%ChihuahuaOSM96.osm %input_DIR%ChihuahuaOSM97.osm %input_DIR%ChihuahuaOSM98.osm %input_DIR%ChihuahuaOSM99.osm^
+REM --bbox=-109.344,34.304,-102.053,25.414
+REM --output Chihuahua.osm
+
+goto split_section
+
 :split_section
 echo(
 echo SPLIT SECTION - make osm into pbf %TIME%
@@ -314,13 +389,15 @@ echo(
 rem java -jar C:\temp\DirectChihuahuaOSM\splitter-r653\splitter.jar --help
 @echo on
 java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=5 --max-nodes=1000000 --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
- --geonames-file=%Home_DIR%cities1000.zip --output-dir=%Split_temp_DIR% %osmosis_temp%Chihuahua.osm
+ --geonames-file=%Home_DIR%cities500.zip --output-dir=%Split_temp_DIR% %osmosis_temp%Chihuahua.osm
 @echo off
 
 IF %ERRORLEVEL% NEQ 0 ( 
 	echo ....ERROR 300 - %ERRORLEVEL%....%TIME%
 	exit /b 300
 )
+
+rem citie file https://download.geonames.org/export/dump/
 
 rem styles
 rem 	
@@ -345,8 +422,7 @@ java -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --family-id
  --hide-gmapsupp-on-pc --family-name="ChihuahuaOSM" --process-destination --order-by-decreasing-area --process-exits --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance"^
  --fix-roundabout-direction --reduce-point-density=4 --reduce-point-density-polygon=8 --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right^
  --description="Chihuahua Texas New Mexico Coahuila Durango OSM" --transparent --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
- --preserve-element-order ^
- --overview-dem-dist=276160 %Split_temp_DIR%*.pbf 
+ --overview-dem-dist=276160 %Split_temp_DIR%*.pbf
 
 @echo off
 
@@ -355,15 +431,19 @@ IF %ERRORLEVEL% NEQ 0 (
 	exit /b 400
 )
 
-rem CFMaster.TYP
+rem bounds and sea preconfig files https://www.thkukuk.de/osm/data/
+
+rem C:\temp\DirectChihuahuaOSM\styles\default\CFMaster.TYP
 rem --levels=0:24,1:22,2:20,3:18,4:16,5:14
 rem --overview-levels = 4:17,5:16,6:15,7:14,8:13 
 rem --dem-dists=3312,13248,26512,53024
 rem --overview-dem-dist=276160 349MB 
 rem --overview-dem-dist=165580
 rem --overview-dem-dist=55000  349MB 669MB
+rem --preserve-element-order ^
 
 rem points
+rem name=* {name '${name} [${official_name}]' | '${name} [${alt_name}]' | '${name}'}
 rem amenity=bureau_de_change [0x2f06 resolution 24 default_name 'currency_exchange']
 rem amenity=drinking_water | man_made=water_tap | fountain=bottle_refill [0x5000 resolution 24 default_name 'drinking_water']
 rem place=suburb [0x0a00 resolution 22 default_name 'suburb']
@@ -392,8 +472,10 @@ rem tourism=camp_pitch [0x2b05 resolution 24 default_name 'camp_pitch']
 rem tourism=lean_to | amenity=shelter [0x2b05 resolution 24 default_name 'shelter']
 rem tourism=cabin [0x2b02 resolution 24]
 rem amenity=fitness_centre | amenity=gym | leisure=fitness_centre [0x2d0a resolution 24 default_name='fitness_centre']
+rem leisure=water_park [0x2d09 resolution 24 default_name 'water_park']
 rem historic=museum {name '${name} (museum)'} [0x2c02 resolution 24 default_name 'museum'] 
 rem tourism=museum {name '${name} (museum)'} [0x2c02 resolution 24 default_name 'museum']
+rem highway=motorway_junction [0x0b00 resolution 24 default_name 'junction']
 rem historic=archaeological_site | historic=ruins {name '${name} (ruins)'} [0x2c02 resolution 24 default_name 'ruins']
 rem historic=memorial {name '${name} (memorial)'} [0x2c02 resolution 24 default_name 'memorial']
 rem historic=battlefield {name '${name} (battlefield)'} [0x2c02 resolution 24 default_name 'battlefield']
@@ -429,8 +511,13 @@ rem building=yes [0x0b00 resolution 24 default_name 'building']
 rem is_in=* [0x0b00 resolution 24 default_name 'note']
 rem natural=tree [0x3200 resolution 24 default_name 'tree']
 rem amenity=marketplace [0x2e06 resolution 24]
+rem amenity=events_venue [0x2e06 resolution 24]
+rem landuse=cemetery | landuse=cemetary | amenity=grave_yard [0x6403 resolution 24 default_name 'grave_yard']
+rem (landuse=wood | landuse=forest | natural=wood) & name=* [0x6618 resolution 24 default_name 'wood']
+rem power=generator {name '${operator} (generator)' | '(generator)'} [0x6411 resolution 24 default_name 'generator']
 
 rem polygons
+rem name=* {name '${name} [${official_name}]' | '${name} [${alt_name}]' | '${name}'}
 rem ( water=lake | water=pond | natural=water | water=reservoir | water=basin) & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 rem landuse=farmland [0x4e resolution 20 default_name 'farmland']
 rem landuse=farmyard [0x26 resolution 22 default_name 'farmyard']
@@ -438,13 +525,13 @@ rem amenity=border_control | barrier=border_control [0x3006 resolution 20 defaul
 rem amenity=* & area!=no & amenity!=grave_yard {add name='${amenity|subst:"_=> "}'} [0x13 resolution 24]
 rem amenity=marketplace [0x08 resolution 22]
 rem building=* & building!=no [0x13 resolution 24 default_name 'building']
-rem sport=horse_racing {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
+rem sport=horse_racing | leisure=horse_riding {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
 rem landuse=commercial {name '${name}'} [0x08 resolution 24 default_name 'commercial']
 rem landuse=industrial {name '${name}'} [0x0c resolution 22 default_name 'industrial']
 rem pipeline=substation {name '${name}'} [0x0c resolution 24 default_name 'pipeline_susbstation']
 rem lansuse=brownfield {name '${name}'} [0x0c resolution 22 default_name 'brownfield']
 rem landuse=residential [0x02 resolution 19-23 default_name 'residential']
-rem landuse=retail [0x08 resolution 20-23]
+rem landuse=retail [0x08 resolution 24 default_name 'retail']
 rem office=telecommunications [0x2f05 resolution 24 default_name 'telecommunications_office']
 rem uncomment shop=convenience and others
 rem leisure=nature_reserve [0x16 resolution 19 default_name 'nature_reserve']
@@ -457,6 +544,7 @@ rem landuse=meadow | natural=mesa | natural=valley [0x53 resolution 20 default_n
 rem landuse=grass | natural=grassland [0x53 resolution 20 default_name 'grass']
 rem man_made=storage_tank & content=water [0x3f resolution 20 default_name 'storage_tank']
 rem amenity=waste_disposal {name '${name}'} [0x0c resolution 22 default_name 'waste_disposal']
+rem power=plant {name '${name} (power_plant)' | '(abandoned)'} [0x0c resolution 22 default_name 'power_plant']
 rem amenity=customs | office=government {name '${name}'} [0x0c resolution 22 default_name 'government']
 rem landuse=reservoir | (natural=water & water=reservoir) | water=basin [0x3f resolution 20]
 rem landuse=basin [0x3f resolution 20 default_name 'basin']
@@ -476,13 +564,14 @@ rem leisure=miniature_golf [0x17 resolution 24 default_name 'miniature_golf']
 rem aeroway=apron [0x0e resolution 24]
 
 rem lines
+rem name=* & ref=* {name '${name} [${ref}]' | '${name}'}
 rem abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
 rem location=underground {name '${name} (underground)' | '(underground)'}
 rem bridge=* & highway=* {name '${name} (bridge)' | '(bridge)'} [0x10101 resolution 24 continue with_actions]
 rem bridge=* & railway=* {name '${name} (bridge)' | '(bridge)'} [0x14 resolution 24 continue with_actions]
 rem #highway=* & oneway=yes [0x10013 resolution 24 continue]
 rem leisure=track & area!=yes {name '${name} (${sport})' | '${sport}'} [0x10705 resolution 22]
-rem highway=raceway | highway=gallop {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
+rem highway=raceway | highway=gallop  | spot=motor {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
 rem barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=yes [0x10503 resolution 24 default_name 'barrier'] #pink line <----
 rem natural=water & name='Laguna de Mayrán' [0x26 resolution 22] #***
 rem aeroway=airstrip {name '${ref}'} [0x27 resolution 22 default_name 'airstrip' continue]
@@ -512,18 +601,35 @@ rem tunnel=* & highway=* {name '${name} (tunnel)' | '(tunnel)'} [0x10101 resolut
 rem tunnel=* & railway=* {name '${name} (tunnel)' | '(tunnel)'} [0x14 resolution 24 continue with_actions]
 rem tunnel=* & waterway=* {name '${name} (tunnel)' | '(tunnel)'} [0x26 resolution 24 continue with_actions]
 rem highway=tertiary [0x05 road_class=1 road_speed=3 resolution 20 default_name 'tertiary_road']
-rem highway=tertiary [0x05 road_class=1 road_speed=3 resolution 20 default_name 'tertiary_road']
 rem highway=tertiary_link [0x08 road_class=1 road_speed=1 resolution 22 default_name 'tertiary_road']
 rem highway=minor [0x06 road_class=1 road_speed=3 resolution 21 default_name 'minor_road']
 rem highway=unclassified [0x06 road_class=0 road_speed=3 resolution 21 default_name 'minor_road']
 rem highway=living_street [0x06 road_class=0 road_speed=1 resolution 22 default_name 'residential']
 rem highway=residential [0x06 road_class=0 road_speed=2 resolution 22 default_name 'residential']
 rem highway=service [0x07 road_class=0 road_speed=2 resolution 22 default_name 'service_road']
+rem highway=cycleway {name '${name} [cycleway]' | '[cycleway]'} [0x11 road_class=0 road_speed=1 resolution 23 default_name 'cycleway']
+rem highway=footway {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 23 default_name 'footway' continue with_actions]
 rem highway=path [0x16 road_class=0 road_speed=0 resolution 23  default_name 'path'] 
-rem highway=track [0x0a road_class=0 road_speed=1 resolution 22 default_name 'track'] 
+rem highway=track [0x0a road_class=0 road_speed=1 resolution 23 default_name 'track'] 
 
 rem start javaw.exe -Xmx12G -Djava.util.logging.config.file=logging.properties --add-opens java.base/java.util=ALL-UNNAMED -jar OsmAndMapCreator.jar
 
+REM disable next line if osmand map should be created
+goto end_section
+
+:OsmAnd_Map_Creator
+echo(
+%Home_DIR%\makeOsmAnd.bat
+
+
+IF %ERRORLEVEL% NEQ 0 ( 
+	echo ....ERROR 500 - %ERRORLEVEL%....%TIME%
+	exit /b 500
+)
+
+
+
+:end_section
 echo(
 echo ....SUCCESS 0 - %ERRORLEVEL%....%TIME%
 exit /b 400
