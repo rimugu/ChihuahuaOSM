@@ -11,12 +11,6 @@ Si están interesados en un área en particular y no tiene mucho detalle, denos 
 
 Personalmente espero usar este mapa para continuar extendiendo el Great Divide Mountain Bike Route (División Continental) hacia Méjico.
 
-Si me pueden compartir una imagen del mapa en su GPS y me dicen que modelo es, se los agradeceré. 
-
-En etrex 30x (modelo reciente con nuevas curvas de nivel, con sombreado DEM y maximo nivel de detalle).
-
- Breve historia de estos mapas
- 
 Descargas
  
 https://libreriacrisol.blogspot.com/p/mapa-de-aventura-en-chihuahua-para-gps.html
