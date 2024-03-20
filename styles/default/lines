@@ -12,7 +12,7 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
 #abandoned=yes {deletealltags}  # old, depreciated, ambiguous, method of handling abandoned
 #abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
-name=* & ref=* {name '${name} [${ref}]' | '${name}'}
+name=* & ref=* & highway!=* {name '${name} [${ref}]' | '${name}'} #if ref is included it does not add unpaved to name
 #name=* {name '${name} [${ref|highway-symbol:"box:4:8"}|${alt_name}]' | '${name}'}
 #location=underground {name '${name} (underground)' | '(underground)'}
 # [0x0a continue with_actions]
@@ -36,6 +36,7 @@ highway=* & name=* {set mkgmap:street='${name}'}
 highway=* & (toll=yes | toll=true) {set mkgmap:toll=yes}
 
 bridge=* & highway=* {name '${name} (bridge)' | '(bridge)'} [0x10101 resolution 24 continue with_actions]
+#bridge=* & highway=* {name '${name} (bridge)' | '(bridge)'} [0x0107 resolution 24 continue with_actions]
 tunnel=* & highway=* {name '${name} (tunnel)' | '(tunnel)'} [0x10101 resolution 24 continue with_actions]
 bridge=* & railway=* {name '${name} (bridge)' | '(bridge)'} [0x14 resolution 24 continue with_actions]
 tunnel=* & railway=* {name '${name} (tunnel)' | '(tunnel)'} [0x14 resolution 24 continue with_actions]
@@ -96,23 +97,31 @@ mkgmap:exit_hint=true | mkgmap:dest_hint=* {name '${tmp:exit_hint} ${tmp:dest_hi
 highway=* & (surface=asphalt | surface=paved | surface=sett |
     surface=concrete | surface=concrete:lanes | surface=concrete:plates |
     surface=paving_stones | surface=cobblestone |
-    surface=cobblestone:flattened | surface=metal | surface=wood)
+    surface=cobblestone:flattened | surface=metal | surface=wood | surface=chipseal)
     {set mkgmap:unpaved=0 ; name '${name} (pav)' | '(pav)' }
 highway=* & tracktype=grade1 & surface!=* {set mkgmap:unpaved=0}
 
-highway=* & surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand)' | '(sand)'}
+highway=* & surface=sand {name '${name} (sand)' | '(sand)'}
+highway=* & surface=gravel {name '${name} (gravel)' | '(gravel)'}
+highway=* & surface=unpaved {name '${name} (unp)' | '(unpa)'}
+highway=* & surface=ground {name '${name} (gro)' | '(ground)'}
+highway=* & surface=dirt {name '${name} (dirt)' | '(dirt)'}
+highway=* & surface=compacted {name '${name} (compac)' | '(compac)'}
+highway=* & surface!=*  {name '${name} (unkn)' | '(unkn)'}
 
 # Flag unpaved roads.
 highway=* & mkgmap:unpaved!=0 & (
     surface=* |
     mtb:scale=* |
     tracktype~'grade[2-6]')
-    {add mkgmap:unpaved=1 ; name '${name} (unp)' | '(unp)' }
+    {add mkgmap:unpaved=1}
+	#{add mkgmap:unpaved=1 ; name '${name} (unp)' | '(unp)' }
 highway=* & (
     mtb:scale~'[2-6].' |
     sac_scale~'.*(mountain|alpine)_hiking' |
     sport=via_ferrata)
-    {set mkgmap:unpaved=1 ; name '${name} (unp)' | '(unp)'}
+    {set mkgmap:unpaved=1}
+	#{set mkgmap:unpaved=1 ; name '${name} (unp)' | '(unp)'}
 (highway=bridleway | highway=path | highway=track) & mkgmap:unpaved!=0 {add mkgmap:unpaved=1 ; name '${name} (unp)' | '(unp)'}
 (highway=cycleway) & mkgmap:unpaved!=0 {add mkgmap:unpaved=1 ; name '${name} (unp) [cycloway]' | '(unp) [cycloway]'}
 (highway=unsurfaced | highway=via_ferrata) {set mkgmap:unpaved=1}
@@ -145,7 +154,7 @@ highway=path & foot=designated
 
 leisure=track & area!=yes {name '${name} (${sport})' | '${sport}'} [0x10705 resolution 22]
 man_made=pier | man_made=piste:halfpipe {add highway=footway; name '${ref} ${name}' | '${ref}' | '${name}'}
-#sport=horse_racing {add name='${horse_raising|subst:"_=> "}'} [0x10705 resolution 24]
+sport=horse_racing | leisure=horse_riding {add name='${horse_raising|subst:"_=> "}'} [0x10705 resolution 24 default_name 'horse_racing']
 
 man_made=breakwater & is_closed()=false & mkgmap:mp_created!=true [0x17 resolution 22 default_name 'Breakwater']
 
@@ -279,7 +288,7 @@ highway=turning_loop | highway=turning_circle | highway=layby | highway=escape |
 # These are too specialized to have routing, so shouldn't drop into the mop-up, but, maybe needing TYP, can be shown on the map
 #highway=raceway | highway=gallop {add name='${highway}'} [0x30 resolution 23]
 #highway=raceway | highway=gallop {add name='${highway}'} [0x1c resolution 23]
-highway=raceway | highway=gallop  | spot=motor {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
+highway=raceway | highway=gallop  | sport=motor {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
 #highway=raceway | highway=gallop {add name='${highway}'} [0x23 resolution 23] #blue line
 #highway=raceway | highway=gallop {add name='${highway}'} [0x0a resolution 23] #dotter wide lane
 
@@ -356,8 +365,8 @@ boundary=region & name='Continental Divide' [0x1c resolution 22] #gray admin lin
 #0x10705 brown line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10605 resolution 24] #blue line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=yes {add name='${barrier|subst:"_=> "}'} [0x10503 resolution 24 default_name 'barrier'] #pink line <----
+barrier=* & power=* {delete barrier}
 barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=yes [0x10503 resolution 24 default_name 'barrier'] #pink line <----
-barrier=* [0x10503 resolution 24 default_name 'barrier']
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10403 resolution 24] #black line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10703 resolution 24] #grey line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10505 resolution 24] #pink line
@@ -392,11 +401,12 @@ natural=mountain_range [0x10503 resolution 18 default_name 'mountain_range']
 natural=valley [0x10503 resolution 18 default_name 'valley'] # ????
 natural=arete [0x10503 resolution 24 default_name 'arete']
 natural=gorge | natural=canyon [0x26 resolution 22 default_name 'gorge']
+natural=tree_row [0x10503 resolution 24 default_name 'tree_row']
 
-waterway=canal [0x1f resolution 21]
-waterway=river [0x1f resolution 18]
+waterway=canal [0x1f resolution 22 default_name 'canal']
+waterway=river [0x1f resolution 18 default_name 'river']
 waterway=rapids|waterway=waterfall [0x1f resolution 22]
-waterway=stream | waterway=drain [0x18 resolution 22]
+waterway=stream | waterway=drain [0x18 resolution 22 default_name 'stream']
 waterway=dam [0x10503 resolution 22 default_name 'dam']
 
 # mop up any remaining water lines
@@ -426,7 +436,8 @@ highway=primary                        & ref=* {name '${ref|highway-symbol:box}'
 (highway=secondary | highway=tertiary) & ref=* {name '${ref|highway-symbol:oval}'; addlabel '${name}'}
 
 name=* {name '${name}'}
-highway=* & ref=* & highway!=motorway & highway!=trunk & highway!=primary & highway!=secondary & highway!=tertiary
+#highway=* & ref=* & highway!=motorway & highway!=trunk & highway!=primary & highway!=secondary & highway!=tertiary
+highway=*
     {addlabel '${ref}'}
 
 highway=* & int_ref=* {addlabel '${int_ref}'}

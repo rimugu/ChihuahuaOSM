@@ -123,7 +123,7 @@ place=hamlet [0x0b00 resolution 24 default_name 'hamlet']
 place=farm [0x0b00 resolution 24 default_name 'farm']
 place=isolated_dwelling [0x0b00 resolution 24 default_name 'isolated_dwelling']
 place=locality [0x0b00 resolution 24 default_name 'locality']
-building=yes [0x0b00 resolution 24 default_name 'building']
+building=yes [0x0b00 resolution 24 default_name 'building' continue]
 is_in=* [0x0b00 resolution 24 default_name 'note']
 
 place=island & name=* [0x650c resolution 20]
@@ -178,7 +178,7 @@ amenity=nursing_home [0x2f14 resolution 24]
 (amenity=parking | amenity=parking_entrance) & access!=private & access!=no {add name='${access} parking'| 'Parking'} [0x2f0b resolution 24]
 amenity=pharmacy [0x2e05 resolution 24]
 # amenity=place_of_worship [0x2c0b resolution 24]
-amenity=place_of_worship [0x6404 resolution 24]
+amenity=place_of_worship | building=convent | building=church [0x6404 resolution 24]
 amenity=police [0x3001 resolution 24]
 amenity=post_box [0x2f15 resolution 24 default_name 'Post box']
 amenity=post_office [0x2f05 resolution 24]
@@ -203,7 +203,7 @@ amenity=townhall | office=government [0x3003 resolution 24]
 amenity=university [0x2c05 resolution 24]
 # amenity=zoo is superceded by tourism=zoo
 amenity=zoo [0x2c07 resolution 24]
-amenity=fitness_centre | amenity=gym | leisure=fitness_centre [0x2d0a resolution 24 default_name='fitness_centre']
+amenity=fitness_centre | amenity=gym | leisure=fitness_centre [0x2d0a resolution 24 default_name 'fitness_centre']
 amenity=payment_centre | amenity=payment_terminal [0x2f00 resolution 24 default_name 'payment'] #0x4c00 info 0x2f06 bank 0x2f00 generic
 amenity=weighbridge [0x3200 resolution 24 default_name 'weighbridge']
 man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack {name '${name} (petrolum)' | '(petrolum)'} [0x0640d resolution 24 default_name 'oil_well']
@@ -228,6 +228,7 @@ historic=battlefield {name '${name} (battlefield)'} [0x2c02 resolution 24 defaul
 historic=monument {name '${name} (monument)'} [0x2c02 resolution 24 default_name 'monument']
 historic=wayside_cross {name '${name} (wayside_cross)'} [0x2c02 resolution 24 default_name 'wayside_cross']
 historic=boundary_stone {name '${name} (boundary)'} [0x2c02 resolution 24 default_name 'boundary']
+historic=city_gate {name '${name} (city_gate)'} [0x2c02 resolution 24 default_name 'city_gate']
 historic=yes {name '${name} (historic)'} [0x2c02 resolution 24 default_name 'historic']
 
 leisure=common & name=* [0x2c06 resolution 24]
@@ -245,6 +246,7 @@ leisure=stadium {name '${name} (${sport})' | '${sport}'} [0x2c08 resolution 24]
 (leisure=swimming_pool | amenity=swimming_pool) & access!=private & access!=no [0x2d09 resolution 24]
 leisure=track {name '${name} (${sport})' | '${sport}'} [0x2c08 resolution 24]
 leisure=water_park [0x2d09 resolution 24 default_name 'water_park']
+leisure=beach_resort [0x2d09 resolution 24 default_name 'resort']
 
 man_made=tower | man_made=mast | landmark=chimney [0x6411 resolution 24]
 man_made=antenna [0x6411 resolution 24 default_name 'antenna']
@@ -274,7 +276,7 @@ natural=rock [0x6614 resolution 24]
 natural=volcano [0x2c0c resolution 24]
 natural=bay & name=* [0x6503 resolution 20]
 natural=dune [0x6502 resolution 22 default_name 'dune']
-mountain_pass=yes | natural=saddle {name '${name} pass'} [0x0b00 resolution 24 default_name 'mountain_pass']
+mountain_pass=yes | natural=saddle {name '${name} pass'} [0x5208 resolution 24 default_name 'mountain_pass'] #0x0b00 small dot
 natural=sinkhole [0x640c resolution 24 default_name 'sinkhole']
 natural=gorge | natural=canyon [0x6400 resolution 22 default_name 'gorge']
 
@@ -301,7 +303,7 @@ craft=* [0x0b00 resolution 24 default_name 'craft']
 shop=bakers [0x2e02 resolution 24]
 shop=bakery [0x2e02 resolution 24]
 shop=beauty [0x2f10 resolution 24]
-shop=bicycle [0x2f13 resolution 24]
+shop=bicycle [0x2d0a resolution 24] #2c08 2f13
 shop=boat [0x2f09 resolution 24]
 shop=butcher [0x2e0c resolution 24]
 shop=car [0x2f07 resolution 24]
@@ -327,7 +329,7 @@ shop=mall [0x2e04 resolution 24]
 shop=organic [0x2e0a resolution 24]
 shop=outdoor [0x2e08 resolution 24]
 shop=shoes [0x2e07 resolution 24]
-shop=supermarket [0x2e02 resolution 24]
+shop=supermarket [0x2e01 resolution 24]
 shop=tires [0x2f07 resolution 24]
 shop=tyres [0x2f07 resolution 24]
 shop=* & name=* [0x2e0c resolution 24]
@@ -368,7 +370,7 @@ tourism=resort [0x2b04 resolution 24]
 tourism=theme_park [0x2c01 resolution 24]
 tourism=viewpoint {name '${name} - ${description}' | '${name}'} [0x2c04 resolution 24]
 tourism=wine_cellar [0x2c0a resolution 24]
-tourism=zoo [0x2c07 resolution 24]
+tourism=zoo [0x2c07 resolution 24 default_name 'zoo']
 tourism=* & name!=* & tourism!=yes & tourism!=no {set name='${tourism|subst:"_=> "}'}
 tourism=* & tourism!=no & tmp:stopMopUp!=yes [0x2c0d resolution 24]
 
@@ -381,7 +383,7 @@ amenity=fast_food [0x2a07 resolution 24]
 # "Food & Drink" Search has categories as follows, corresponding to 0x2a00 - 0x2a13:
 #   All, American, Asian, Barbeque, Chinese, Deli/Bakery, International, Fast Food, Italian, Mexican, Pizza,
 #     Seafood, Steak/Grill, Bagel/Donut, Cafe/Diner, French, German, British Isles, Speciality Food Products, Other
-amenity=restaurant & cuisine!=*
+amenity=restaurant & cuisine!=* 
     [0x2a00 resolution 24]
 cuisine=american | cuisine=burger
     [0x2a01 resolution 24]

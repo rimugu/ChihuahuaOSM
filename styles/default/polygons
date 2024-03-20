@@ -30,8 +30,7 @@ aeroway=helipad [0x0e resolution 22]
 aeroway=apron [0x0e resolution 24]
 
 amenity=kindergarten [0x0a resolution 22]
-amenity=cafe | amenity=fast_food | amenity=restaurant [0x08 resolution 24]
-amenity=food_court [0x08 resolution 22]
+amenity=cafe | amenity=fast_food | amenity=restaurant | amenity=food_court [0x08 resolution 24]
 amenity=college [0x0a resolution 22]
 parking=underground | parking=multi-storey [0x06 resolution 22]
 amenity=parking | parking=surface [0x05 resolution 22]
@@ -41,9 +40,10 @@ amenity=school [0x0a resolution 22]
 amenity=supermarket [0x08 resolution 22]
 amenity=university [0x0a resolution 21]
 amenity=waste_disposal | landuse=landfill {name '${name}'} [0x0c resolution 22 default_name 'waste_disposal']
-power=plant {name '${name} (power_plant)' | '(abandoned)'} [0x0c resolution 22 default_name 'power_plant']
+power=plant {name '${name} (power_plant)' | '(power_plant)'} [0x0c resolution 20 default_name 'power_plant']
+power=substation {name '${name} (substation)' | '(substation)'} [0x0c resolution 22 default_name 'substation']
 amenity=customs | office=government {name '${name}'} [0x0c resolution 22 default_name 'government']
-amenity=place_of_worship [0x13 resolution 24]
+amenity=place_of_worship | building=convent | building=church [0x13 resolution 24]
 amenity=community_centre | amenity=community_center | amenity=social_facility [0x13 resolution 24]
 amenity=marketplace [0x08 resolution 22]
 
@@ -99,6 +99,7 @@ water=basin & intermittent=yes {name '${name} (intermittent)' | '(intermittent_b
 water=basin | landuse=basin | landuse=basin | basin=*[0x3f resolution 20 default_name 'basin']
 
 man_made=storage_tank & content=water [0x3f resolution 20 default_name 'storage_tank']
+man_made=reservoir [0x3f resolution 20 default_name 'storage_tank']
 
 #historic=* & historic!=no & historic!=yes & boundary!=* {add name='${historic|subst:"_=> "}'} [0x22 resolution 21]
 historic=* & historic!=no & boundary!=* {add name='${historic|subst:"_=> "}'} [0x22 resolution 21]
@@ -128,6 +129,7 @@ waterway=* & waterway!=no & area!=no {add name='${waterway|subst:"_=> "}'} [0x3b
 
 landuse=allotments [0x4e resolution 21]
 landuse=cemetery | landuse=cemetary | amenity=grave_yard [0x1a resolution 21]
+landuse=religious [0x1a resolution 21 default_name 'religious_area']
 landuse=commercial {name '${name}'} [0x08 resolution 24 default_name 'commercial']
 landuse=construction [0x0c resolution 21]
 landuse=farm [0x26 resolution 22]
@@ -138,8 +140,8 @@ natural=wood [0x50 resolution 20]
 landuse=greenfield [0x1c resolution 20]
 landuse=meadow | natural=mesa | natural=valley [0x53 resolution 20 default_name 'meadow']
 landuse=grass | natural=grassland [0x53 resolution 20 default_name 'grass']
-natural=scrub [0x4f resolution 20]
-natural=heath [0x4f resolution 24]
+natural=scrub [0x4f resolution 20 default_name 'scrub']
+natural=heath [0x4f resolution 24 default_name 'heath']
 # landuse=meadow | landuse=grass | natural=mesa [0x25 resolution 19] #does not show
 # landuse=meadow | landuse=grass | natural=mesa [0x23 resolution 19] #does not show
 # landuse=meadow | landuse=grass | natural=mesa [0x1d resolution 19] #does not show
