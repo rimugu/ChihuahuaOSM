@@ -343,7 +343,6 @@ del /q %Split_temp_DIR%
 @echo(
 
 java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=5 --max-nodes=2400000 --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
- --mixed --status-freq=240 --drop-version
  --geonames-file=%Home_DIR%cities500.zip --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
 @echo off
 
@@ -378,12 +377,12 @@ del /q %Img_DIR%
 
 java -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=bounds,is_in,nearest^
  --index --show-profiles=1 --make-opposite-cycleways --housenumbers --add-pois-to-areas --generate-sea=land-tag=natural=land  --precomp-sea=%Home_DIR%sea-latest.zip^
- --bounds=%Home_DIR%bounds-latest --output-dir=%Img_DIR% --gmapsupp --mapname=24740001 --area-name=ChihuahuaOSM --code-page=1252 --improve-overview --order-by-decreasing-area^
+ --bounds=%Home_DIR%bounds-latest --output-dir=%Img_DIR% --mapname=24740001 --area-name=ChihuahuaOSM --code-page=1252 --improve-overview --order-by-decreasing-area^
  --allow-reverse-merge --remove-ovm-work-files "--style-file=%Home_DIR%styles\default" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=bilinear^
  --family-name="ChihuahuaOSM" --process-destination --process-exits --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance"^
- --fix-roundabout-direction --reduce-point-density=4 --reduce-point-density-polygon=8 --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right^
- --description="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
- --hide-gmapsupp-on-pc --link-pois-to-ways^
+ --fix-roundabout-direction - --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right^
+ --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
+ --link-pois-to-ways --simplify-lines=23:2.6,22:4.2,21:5.4,20:6 --simplify-polygons=23:2.6,22:4.2,21:5.4,20:6^
  --overview-dem-dist=276160 %Split_temp_DIR%*.pbf
 
 @echo off
@@ -406,6 +405,9 @@ rem --preserve-element-order ^
 rem --link-pois-to-ways make barriers part of routes
 rem --transparent (makes it not routable)
 rem --hide-gmapsupp-on-pc sets bit to not copy from device to pc
+rem --description="Chihuahua Texas New Mexico Coahuila Durango OSM" 
+rem --gmapsupp --hide-gmapsupp-on-pc 
+rem -reduce-point-density=4 --reduce-point-density-polygon=8
 
 rem points
 rem name=* {name '${name} [${official_name}]' | '${name} [${alt_name}]' | '${name}'}
