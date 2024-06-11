@@ -10,7 +10,7 @@ rem ############################################################################
 
 echo(
 echo(
-echo ....STARTING BuildMap.bat v2024-03-19 %TIME%
+echo ....STARTING BuildMap.bat v2024-04-05 %TIME%
 echo(
 
 set Source_Server=http://overpass.openstreetmap.ru/cgi/xapi_meta?
@@ -31,9 +31,9 @@ echo osm_temp %osm_temp%
 set osmconvert=%Home_DIR%osmconvert64-0.8.8p.exe
 set Split_temp_DIR=%Home_DIR%split-temp\
 echo Split_temp_DIR %Split_temp_DIR%
-set split_DIR=%Home_DIR%splitter-r653\
+set split_DIR=%Home_DIR%splitter-r654\
 echo split_DIR %split_DIR%
-set mkgmap_DIR=%Home_DIR%mkgmap-r4918\
+set mkgmap_DIR=%Home_DIR%mkgmap-r4919\
 echo mkgmap_DIR %mkgmap_DIR% 
 set Img_DIR=%Home_DIR%img\
 echo Img_DIR %Img_DIR%
@@ -67,9 +67,9 @@ echo ....Unknown parameter - 100 .... %TIME%
 exit /b 100
 
 
-rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM83.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-103.674,27.39,-102.864,28.378%%5D"
+rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM93.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-102.864,27.39,-102.054,28.378%%5D"
 
-rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM49.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-106.914,33.318,-106.104,34.306%%5D"
+rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM49.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-103.674,27.39,-102.864,28.378%%5D"
 
 :get_data_section_10
 echo(
@@ -343,7 +343,7 @@ del /q %Split_temp_DIR%
 @echo(
 
 java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=5 --max-nodes=2400000 --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
- --geonames-file=%Home_DIR%cities500.zip --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
+ --geonames-file=%Home_DIR%cities15000.zip --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
 @echo off
 
 IF %ERRORLEVEL% NEQ 0 ( 
@@ -377,12 +377,12 @@ del /q %Img_DIR%
 
 java -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=bounds,is_in,nearest^
  --index --show-profiles=1 --make-opposite-cycleways --housenumbers --add-pois-to-areas --generate-sea=land-tag=natural=land  --precomp-sea=%Home_DIR%sea-latest.zip^
- --bounds=%Home_DIR%bounds-latest --output-dir=%Img_DIR% --mapname=24740001 --area-name=ChihuahuaOSM --code-page=1252 --improve-overview --order-by-decreasing-area^
+ --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name=ChihuahuaOSM --code-page=1252 --improve-overview --order-by-decreasing-area^
  --allow-reverse-merge --remove-ovm-work-files "--style-file=%Home_DIR%styles\default" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=bilinear^
  --family-name="ChihuahuaOSM" --process-destination --process-exits --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance"^
- --fix-roundabout-direction - --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right^
+ --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right^
  --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
- --link-pois-to-ways --simplify-lines=23:2.6,22:4.2,21:5.4,20:6 --simplify-polygons=23:2.6,22:4.2,21:5.4,20:6^
+ --link-pois-to-ways --add-pois-to-lines=mid --simplify-lines=23:2.6,22:4.2,21:5.4,20:6 --simplify-polygons=23:2.6,22:4.2,21:5.4,20:6^
  --overview-dem-dist=276160 %Split_temp_DIR%*.pbf
 
 @echo off
@@ -410,9 +410,13 @@ rem --gmapsupp --hide-gmapsupp-on-pc
 rem -reduce-point-density=4 --reduce-point-density-polygon=8
 
 rem points
-rem name=* {name '${name} [${official_name}]' | '${name} [${alt_name}]' | '${name}'}
+rem incline=up {name 'up (inc)'} [0x6411 resolution 24]
+rem incline=down {name 'down (inc)'} [0x6411 resolution 24]
+rem incline=* {name '${incline} (inc)'} [0x6411 resolution 24]
+rem abandoned=yes {name '${name} (abandoned)' | '(abandoned)'} 
+rem name=* {name '${name} (${official_name})' | '${name} (${designation})' | '${name} (${alt_name})' | '${name} (${old_name})' | '${name}'}
 rem amenity=bureau_de_change [0x2f06 resolution 24 default_name 'currency_exchange']
-rem amenity=drinking_water | man_made=water_tap | fountain=bottle_refill [0x5000 resolution 24 default_name 'drinking_water']
+rem amenity=drinking_water | man_made=water_tap | fountain=bottle_refill | man_made=water_cache [0x5000 resolution 24 default_name 'drinking_water']
 rem place=suburb [0x0a00 resolution 22 default_name 'suburb']
 rem place=village [0x0900 resolution 22 default_name 'village']
 rem man_made=antenna [0x6411 resolution 24 default_name 'antenna']
@@ -426,44 +430,50 @@ rem man_made=reservoir [0x3f resolution 20 default_name 'storage_tank']
 rem barrier=toll_booth [0x2500 resolution 24 default_name 'toll_booth']
 rem barrier=cattle_grid [0x3200 resolution 24 default_name 'cattle_grid']
 rem highway=stop [0x3200 resolution 24 default_name 'stop']
+rem highway=milestone {name '${distance} [milestone]' |  '${name} [milestone]' | '[milestone]'} [0x0b00 resolution 24]
 rem highway=traffic_signals [0x3200 resolution 24 default_name 'traffic_signals']
+rem traffic_calming=* [0x3200 resolution 24 default_name 'calm']
 rem man_made=corral [0x3200 resolution 24 default_name 'corral']
 rem ford=yes [0x3200 resolution 24 default_name 'ford']
 rem highway=rest_area [0x2f0c resolution 22 default_name 'rest_area']
 rem advertising=* [0x3200 resolution 24 default_name 'sign']
-rem place=hamlet [0x0b00 resolution 24 default_name 'hamlet']
-rem place=farm [0x0b00 resolution 24 default_name 'farm']
-rem place=isolated_dwelling [0x0b00 resolution 24 default_name 'isolated_dwelling']
-rem place=locality [0x0b00 resolution 24 default_name 'locality']
+rem place=hamlet {name '${name} (hamlet)' | '(hamlet)'} [0x0b00 resolution 24]
+rem place=farm {name '${name} (farm)' | '(farm)'} [0x0b00 resolution 24]
+rem place=isolated_dwelling {name '${name} (isolated_dwelling)' | '(isolated_dwelling)'} [0x0b00 resolution 24]
+rem place=locality {name '${name} (locality)' | '(locality)'} [0x0b00 resolution 24]
 rem tourism=camp_site [0x2b05 resolution 23 default_name 'camp_site']
 rem tourism=camp_pitch [0x2b05 resolution 24 default_name 'camp_pitch']
 rem tourism=lean_to | amenity=shelter [0x2b05 resolution 24 default_name 'shelter']
 rem tourism=cabin [0x2b02 resolution 24]
+rem tourism=viewpoint {name '${name} - ${description}' | '${name} [viewpoint]' | '[viewpoint]'} [0x2c04 resolution 24]
 rem amenity=fitness_centre | amenity=gym | leisure=fitness_centre [0x2d0a resolution 24 default_name 'fitness_centre']
 rem leisure=water_park [0x2d09 resolution 24 default_name 'water_park']
 rem leisure=beach_resort [0x2d09 resolution 24 default_name 'resort']
-rem historic=museum {name '${name} (museum)'} [0x2c02 resolution 24 default_name 'museum'] 
-rem tourism=museum {name '${name} (museum)'} [0x2c02 resolution 24 default_name 'museum']
+rem leisure=bandstand [0x2e06 resolution 24 default_name 'bandstand']
 rem highway=motorway_junction [0x0b00 resolution 24 default_name 'junction']
-rem historic=archaeological_site | historic=ruins {name '${name} (ruins)'} [0x2c02 resolution 24 default_name 'ruins']
-rem historic=memorial {name '${name} (memorial)'} [0x2c02 resolution 24 default_name 'memorial']
-rem historic=battlefield {name '${name} (battlefield)'} [0x2c02 resolution 24 default_name 'battlefield']
-rem historic=monument {name '${name} (monument)'} [0x2c02 resolution 24 default_name 'monument']
-rem historic=wayside_cross {name '${name} (wayside_cross)'} [0x2c02 resolution 24 default_name 'wayside_cross']
-rem historic=boundary_stone {name '${name} (boundary)'} [0x2c02 resolution 24 default_name 'boundary']
-rem historic=city_gate {name '${name} (city_gate)'} [0x2c02 resolution 24 default_name 'city_gate']
-rem historic=yes {name '${name} (historic)'} [0x2c02 resolution 24 default_name 'historic']
-rem mountain_pass=yes | natural=saddle [0x0b00 resolution 24 default_name 'mountain_pass']
+rem tourism=museum {name '${name} [museum]'} [0x2c02 resolution 24 default_name '[museum]']
+rem historic=museum {name '${name} [museum]' | '[museum]'} [0x2c02 resolution 24] 
+rem historic=archaeological_site | historic=ruins {name '${name} [ruins]' | '[ruins]'} [0x2c02 resolution 24]
+rem historic=memorial {name '${name} [memorial]' | '[memorial]'} [0x2c02 resolution 24]
+rem historic=battlefield {name '${name} [battlefield]' | '[battlefield]'} [0x2c02 resolution 24]
+rem historic=monument {name '${name} [monument]' | '[monument]'} [0x2c02 resolution 24]
+rem historic=wayside_cross {name '${name} [wayside_cross]' | '[wayside_cross]'} [0x2c02 resolution 24]
+rem historic=boundary_stone {name '${name} [boundary]' | '[boundary]'} [0x2c02 resolution 24]
+rem historic=city_gate {name '${name} [city_gate]' | '[city_gate]'} [0x2c02 resolution 24]
+rem historic=* {name '${name} [historic]' | '[historic]'} [0x2c02 resolution 24]
+rem natural=peak {name '${name} (${ele})' | '${name}' | '(${ele})'} [0x6616 resolution 24]
+rem mountain_pass=yes | natural=saddle {name '${name} (${ele}) [pass]' | '${name} [pass]' | '(${ele}) [pass]' | '[pass]'} [0x5208 resolution 24] #0x0b00 small dot
 rem military=checkpoint | military=check_point [0x2500 resolution 24 default_name 'military_checkpoint']
 rem amenity=border_control | barrier=border_control [0x2500 resolution 22S default_name 'border_control'] #custom
 rem landuse=quarry [0x640c resolution 22 default_name 'quarry']
-rem ( landuse=industrial & industrial=mine ) | historic=mine | man_made=adit | man_made=mineshaft | historic=mine_shaft [0x640c resolution 22 default_name 'mine']
+rem landuse=quarry {name '${name} [quarry]' | '[quarry]'} [0x0c resolution 19]
+rem ( landuse=industrial & industrial=mine ) | historic=mine | man_made=adit | man_made=mineshaft | historic=mine_shaft {name '${name} [mine]' | '[mine]'} [0x640c resolution 22]
 rem natural=hot_spring | leisure=hot_spring {name '${name} (spring)'} [0x2c0c resolution 24 default_name 'hot_springs']
 rem amenity=payment_centre | amenity=payment_terminal [0x2f00 resolution 24 default_name 'payment'] #0x4c00 info 0x2f06 bank 0x2f00 generic
 rem natural=cave_entrance {name '${name} (cave)'} [0x6601 resolution 24 default_name 'cave']
 rem natural=bay [0x6604 resolution 24 default_name 'bay']
 rem natural=sinkhole [0x640c resolution 24 default_name 'sinkhole']
-rem natural=gorge | natural=canyon [0x6400 resolution 22 default_name 'gorge']on
+rem natural=gorge | natural=canyon [0x26 resolution 22 default_name 'canyon']
 rem information=guidepost [0x4c02 resolution 24 default_name 'guidepost']
 rem information=* [0x4c02 resolution 24 default_name 'information']
 rem amenity=townhall | office=government [0x3003 resolution 24]
@@ -471,7 +481,7 @@ rem shop=wine | craft=winery | craft=distillery [0x2c0a resolution 24]
 rem shop=alcohol | craft=brewery [0x2d02 resolution 24]
 rem shop=doityourself | shop=trade [0x2e09 resolution 24]
 rem craft=* [0x0b00 resolution 24 default_name 'craft']
-rem amenity=place_of_worship | building=convent | building=church [0x6406 resolution 24]
+rem amenity=place_of_worship | building=convent | building=church | amenity=monastery [0x6404 resolution 24]
 rem amenity=weighbridge [0x3200 resolution 24 default_name 'weighbridge']
 rem man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack {name '${name} (petrolum)' | '(petrolum)'} [0x0640d resolution 24 default_name 'oil_well']
 rem waterway=canal [0x1f resolution 22 default_name 'canal']
@@ -479,19 +489,22 @@ rem waterway=river [0x1f resolution 18 default_name 'river']
 rem waterway=rapids [0x650e resolution 22 default_name 'rapids']
 rem waterway=stream | waterway=drain [0x18 resolution 22 default_name 'stream']
 rem waterway=dam [0x650e resolution 22 default_name 'dam']
+rem waterway=weir [0x10503 resolution 24 default_name 'weir']
+rem waterway=lock_gate[0x650e resolution 22 default_name 'lock_gate']
 rem power=tower [0x6411 resolution 24]
 rem building=yes [0x0b00 resolution 24 default_name 'building']
 rem is_in=* [0x0b00 resolution 24 default_name 'note']
 rem natural=tree [0x3200 resolution 24 default_name 'tree']
-rem amenity=marketplace [0x2e06 resolution 24]
-rem amenity=events_venue [0x2e06 resolution 24]
+rem amenity=marketplace [0x2e06 resolution 24 default_name 'marketplace']
+rem amenity=events_venue [0x2e06 resolution 24 default_name 'events_venue']
+rem amenity=community_centre | amenity=community_center | amenity=social_facility [0x3005 resolution 24]
 rem landuse=cemetery | landuse=cemetary | amenity=grave_yard [0x6403 resolution 24 default_name 'grave_yard']
 rem landuse=religious [0x1a resolution 21 default_name 'religious_area']
 rem (landuse=wood | landuse=forest | natural=wood) & name=* [0x6618 resolution 24 default_name 'wood']
 rem power=generator {name '${operator} (generator)' | '(generator)'} [0x6411 resolution 24 default_name 'generator']
 
 rem polygons
-rem name=* {name '${name} [${official_name}]' | '${name} [${alt_name}]' | '${name}'}
+rem leisure=* & sport=* {name '${name} [${sport}]' | '[${sport}]'}
 rem ( water=lake | water=pond | natural=water | water=reservoir | water=basin) & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 rem landuse=farmland [0x4e resolution 20 default_name 'farmland']
 rem landuse=farmyard [0x26 resolution 22 default_name 'farmyard']
@@ -500,8 +513,8 @@ rem amenity=* & area!=no & amenity!=grave_yard {add name='${amenity|subst:"_=> "
 rem amenity=marketplace [0x08 resolution 22]
 rem building=* & building!=no [0x13 resolution 24 default_name 'building']
 rem sport=horse_racing | leisure=horse_riding {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
-rem landuse=commercial {name '${name}'} [0x08 resolution 24 default_name 'commercial']
-rem landuse=industrial {name '${name}'} [0x0c resolution 22 default_name 'industrial']
+rem landuse=commercial {name '${name} [commercial]' | '[commercial]'} [0x08 resolution 24]
+rem landuse=industrial {name '${name} [industrial]' | '[industrial]'} [0x0c resolution 22]
 rem pipeline=substation {name '${name}'} [0x0c resolution 24 default_name 'pipeline_susbstation']
 rem lansuse=brownfield {name '${name}'} [0x0c resolution 22 default_name 'brownfield']
 rem landuse=residential [0x02 resolution 19-23 default_name 'residential']
@@ -515,11 +528,12 @@ rem boundary=state_park [0x16 resolution 20 default_name 'state_park']
 rem tourism=camp_site [0x16 resolution 24 default_name 'camp_site']
 rem boundary=aboriginal_lands [0x0d resolution 22 default_name 'aboriginal_lands']
 rem landuse=meadow | natural=mesa | natural=valley [0x53 resolution 20 default_name 'meadow']
-rem landuse=grass | natural=grassland [0x53 resolution 20 default_name 'grass']
+rem landuse=grass | natural=grassland {name '${name} (grass)'} [0x53 resolution 20 default_name 'grass']
 rem man_made=storage_tank & content=water [0x3f resolution 20 default_name 'storage_tank']
+rem man_made=water_well [0x3f resolution 20 default_name 'water_well']
 rem amenity=waste_disposal {name '${name}'} [0x0c resolution 22 default_name 'waste_disposal']
 rem power=plant {name '${name} (power_plant)' | '(power_plant)'} [0x0c resolution 20 default_name 'power_plant']
-rem 4power=substation {name '${name} (substation)' | '(substation)'} [0x0c resolution 22 default_name 'substation']
+rem power=substation {name '${name} (substation)' | '(substation)'} [0x0c resolution 22 default_name 'substation']
 rem amenity=customs | office=government {name '${name}'} [0x0c resolution 22 default_name 'government']
 rem landuse=reservoir | (natural=water & water=reservoir) | water=basin [0x3f resolution 20]
 rem landuse=basin [0x3f resolution 20 default_name 'basin']
@@ -538,15 +552,12 @@ rem man_made=wastewater_plant | utility=sewerage [0x0c resolution 22 default_nam
 rem man_made=water_works [0x0c resolution 22 default_name 'waste_works']
 rem leisure=miniature_golf [0x17 resolution 24 default_name 'miniature_golf']
 rem aeroway=apron [0x0e resolution 24]
+rem military=danger_area [0x11 resolution 20 default_name 'military']
+rem military=barracks [0x04 resolution 23 default_name 'military']
+rem landuse=military| military=airfield | military=range {name '${name} (${alt_name}) [military]' | '${name} [military]' | '[military]'} [0x04 resolution 20 ]
+rem name=* {name '${name} (${official_name})' | '${name} (${designation})' | '${name} (${alt_name})' | '${name} (${old_name})' | '${name}'}
 
 rem lines
-rem highway=* & surface=sand {name '${name} (sand)' | '(sand)'}
-rem highway=* & surface=gravel {name '${name} (gravel)' | '(gravel)'}
-rem highway=* & surface=unpaved {name '${name} (unp)' | '(unpa)'}
-rem highway=* & surface=ground {name '${name} (gro)' | '(ground)'}
-rem highway=* & surface=dirt {name '${name} (dirt)' | '(dirt)'}
-rem highway=* & surface=compacted {name '${name} (compac)' | '(compac)'}
-rem highway=* & surface!=*  {name '${name} (unkn)' | '(unkn)'}
 rem name=* & ref=* {name '${name} [${ref}]' | '${name}'}
 rem abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
 rem location=underground {name '${name} (underground)' | '(underground)'}
@@ -564,7 +575,7 @@ rem natural=cliff [0x10503 resolution 24 default_name 'cliff']
 rem natural=ridge [0x10503 resolution 18 default_name 'ridge']
 rem natural=mountain_range [0x10503 resolution 18 default_name 'mountain_range']
 rem natural=valley [0x10503 resolution 18 default_name 'valley'] # ????
-rem natural=arete [0x10503 resolution 24 default_name 'arete']
+rem natural=arete [0x10503 resolution 24 default_name 'arete'] #peaked ridges
 rem natural=gorge | natural=canyon [0x26 resolution 22 default_name 'gorge']
 rem power=minor_line [0x29 resolution 24 default_name 'minor_power_line']
 rem man_made=embankment | man_made=levee [0x10101 resolution 22 default_name 'embankment']
@@ -572,7 +583,7 @@ rem man_made=pipeline & location=underground {name '${name} (underground)' | '(u
 rem man_made=pipeline [0x28 resolution 22 default_name 'pipeline']
 rem man_made=cable & location=underground {name '${name} (underground)' | '(underground_cable)'} [0x28 resolution 22]
 rem boundary=region & name='Continental Divide' [0x1c resolution 22]
-rem railway=abandoned {name '${name} (abandoned)'} [0x14 resolution 22]
+rem railway=abandoned {name '${name} (abandoned)' | '(abandoned)'} [0x14 resolution 22]
 rem (railway=rail | railway=tram | railway=disused | railway=subway | railway=narrow_gauge | railway=light_rail | railway=preserved) & (tunnel=yes) {name '${name} (tunnel)'} [0x14 resolution 22]
 rem aerialway=gondola | aerialway=cable_car | aerialway=chair_lift[0x10403 resolution 22 default_name 'aerialway']
 rem aerialway=zip_line | aerialway=zipline [0x10101 resolution 24 default_name 'zipline']
