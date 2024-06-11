@@ -11,16 +11,15 @@
 addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
 #water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
-water=* & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
+water=* & intermittent=yes {name '${name} (interm)' | '(interm)'}
 #water=pond | natural=water | water=reservoir | water=basin
 
-leisure=* & sport=* & name=* {set name='${name} (${sport})'}
-leisure=* & sport=* & name!=* {add name='${sport}'}
+leisure=* & sport=* {name '${name} [${sport}]' | '[${sport}]'}
+#leisure=* & sport=* & name!=* {add name='${sport}'}
 
 include 'inc/name';
 
 abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
-name=* {name '${name} [${official_name}]' | '${name} [${designation}]' | '${name} [${alt_name}]' | '${name}'}
 aeroway=airport [0x07 resolution 20]
 aeroway=aerodrome [0x07 resolution 20]
 aeroway=runway & area=yes {name '${ref}'} [0x0e resolution 20]
@@ -34,16 +33,16 @@ amenity=cafe | amenity=fast_food | amenity=restaurant | amenity=food_court [0x08
 amenity=college [0x0a resolution 22]
 parking=underground | parking=multi-storey [0x06 resolution 22]
 amenity=parking | parking=surface [0x05 resolution 22]
-amenity=prison [0x04 resolution 22]
+amenity=prison [0x04 resolution 22 default_name 'prison']
 amenity=school [0x0a resolution 22]
 # amenity=supermarket is superceded by shop=supermarket or landuse=retail
 amenity=supermarket [0x08 resolution 22]
 amenity=university [0x0a resolution 21]
 amenity=waste_disposal | landuse=landfill {name '${name}'} [0x0c resolution 22 default_name 'waste_disposal']
 power=plant {name '${name} (power_plant)' | '(power_plant)'} [0x0c resolution 20 default_name 'power_plant']
-power=substation {name '${name} (substation)' | '(substation)'} [0x0c resolution 22 default_name 'substation']
+power=substation {name '${name} [substation]' | '[substation]'} [0x0c resolution 22]
 amenity=customs | office=government {name '${name}'} [0x0c resolution 22 default_name 'government']
-amenity=place_of_worship | building=convent | building=church [0x13 resolution 24]
+amenity=place_of_worship | building=convent | building=church [0x13 resolution 24 default_name 'church']
 amenity=community_centre | amenity=community_center | amenity=social_facility [0x13 resolution 24]
 amenity=marketplace [0x08 resolution 22]
 
@@ -58,7 +57,7 @@ leisure=nature_reserve [0x16 resolution 19 default_name 'nature_reserve']
 boundary=protected_area [0x16 resolution 19 default_name 'protected_area']
 boundary=national_park [0x16 resolution 19 default_name 'national_park']
 boundary=state_park [0x16 resolution 20 default_name 'state_park']
-tourism=camp_site [0x16 resolution 24 default_name 'camp_site']
+tourism=camp_site {name '${name} [camp_site]' | '[camp_site]'} [0x16 resolution 24]
 boundary=aboriginal_lands [0x0d resolution 22 default_name 'aboriginal_lands']
 leisure=park [0x17 resolution 20]
 leisure=pitch [0x19 resolution 21]
@@ -67,8 +66,9 @@ leisure=recreation_ground [0x19 resolution 22]
 leisure=sports_center | leisure=sports_centre [0x19 resolution 20]
 leisure=stadium [0x19 resolution 20]
 leisure=track & area=yes [0x19 resolution 21]
-leisure=water_park [0x09 resolution 21]
-leisure=miniature_golf [0x17 resolution 24 default_name 'miniature_golf']
+leisure=water_park {name '${name} [water_park]' | '[water_park]'} [0x09 resolution 21]
+leisure=miniature_golf {name '${name} [mini_golf]' | '[mini_golf]'} [0x17 resolution 24]
+leisure=dance [0x12 resolution 24]
 
 sport=horse_racing | leisure=horse_riding {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
 
@@ -99,6 +99,7 @@ water=basin & intermittent=yes {name '${name} (intermittent)' | '(intermittent_b
 water=basin | landuse=basin | landuse=basin | basin=*[0x3f resolution 20 default_name 'basin']
 
 man_made=storage_tank & content=water [0x3f resolution 20 default_name 'storage_tank']
+man_made=water_well [0x3f resolution 20 default_name 'water_well']
 man_made=reservoir [0x3f resolution 20 default_name 'storage_tank']
 
 #historic=* & historic!=no & historic!=yes & boundary!=* {add name='${historic|subst:"_=> "}'} [0x22 resolution 21]
@@ -121,25 +122,25 @@ natural=waterfall | waterway=waterfall [0x47 resolution 21]
 natural=sea {add mkgmap:skipSizeFilter=true; set mkgmap:drawLevel=2} [0x32 resolution 10]
 natural=bare_rock | bare_rock=malpais [0x52 resolution 20 default_name 'bare_rock']
 
-waterway=riverbank [0x46 resolution 20]
+waterway=riverbank [0x46 resolution 20 default_name 'riverbank']
 
 # mop up any remaining water areas
 waterway=* & waterway!=no & area!=no {add name='${waterway|subst:"_=> "}'} [0x3b resolution 22]
 
 
 landuse=allotments [0x4e resolution 21]
-landuse=cemetery | landuse=cemetary | amenity=grave_yard [0x1a resolution 21]
+landuse=cemetery | landuse=cemetary | amenity=grave_yard {name '${name} [cemetery]' | '[cemetery]'} [0x1a resolution 21]
 landuse=religious [0x1a resolution 21 default_name 'religious_area']
-landuse=commercial {name '${name}'} [0x08 resolution 24 default_name 'commercial']
+landuse=commercial {name '${name} [commercial]' | '[commercial]'} [0x08 resolution 24]
 landuse=construction [0x0c resolution 21]
-landuse=farm [0x26 resolution 22]
+landuse=farm [0x26 resolution 22 default_name 'farm']
 landuse=farmland [0x4e resolution 20 default_name 'farmland']
 landuse=farmyard [0x26 resolution 22 default_name 'farmyard']
 landuse=forest | landuse=wood [0x50 resolution 20 default_name 'forest']
-natural=wood [0x50 resolution 20]
-landuse=greenfield [0x1c resolution 20]
+natural=wood [0x50 resolution 20 default_name 'wood']
+landuse=greenfield [0x1c resolution 20 default_name 'greenfield']
 landuse=meadow | natural=mesa | natural=valley [0x53 resolution 20 default_name 'meadow']
-landuse=grass | natural=grassland [0x53 resolution 20 default_name 'grass']
+landuse=grass | natural=grassland {name '${name} (grass)'} [0x53 resolution 20 default_name 'grass']
 natural=scrub [0x4f resolution 20 default_name 'scrub']
 natural=heath [0x4f resolution 24 default_name 'heath']
 # landuse=meadow | landuse=grass | natural=mesa [0x25 resolution 19] #does not show
@@ -147,32 +148,30 @@ natural=heath [0x4f resolution 24 default_name 'heath']
 # landuse=meadow | landuse=grass | natural=mesa [0x1d resolution 19] #does not show
 # landuse=meadow | landuse=grass | natural=mesa [0x1b resolution 19] #does not show
 # landuse=meadow | landuse=grass [0x1c resolution 19] #does not show
-landuse=quarry [0x0c resolution 19]
-landuse=recreation_ground [0x19 resolution 19]
+landuse=quarry {name '${name} [quarry]' | '[quarry]'} [0x0c resolution 19]
+landuse=recreation_ground [0x19 resolution 19 default_name 'recreation']
 # dedicate resolution 24 for building=* instead of related landuse=*
-landuse=industrial {name '${name}'} [0x0c resolution 22 default_name 'industrial']
+landuse=industrial {name '${name} [industrial]' | '[industrial]'} [0x0c resolution 22]
 pipeline=substation {name '${name}'} [0x0c resolution 24 default_name 'pipeline_susbstation']
 lansuse=brownfield {name '${name}'} [0x0c resolution 22 default_name 'brownfield']
 # landuse=residential [0x0d resolution 19-23 default_name 'residential']
 landuse=residential [0x02 resolution 22 default_name 'residential'] 
 landuse=retail [0x08 resolution 24 default_name 'retail']
 landuse=village_green [0x15 resolution 20]
-landuse=vineyard [0x4e resolution 20]
-landuse=orchard [0x4e resolution 20]
+landuse=vineyard [0x4e resolution 20 default_name 'vineyard']
+landuse=orchard [0x4e resolution 20 default_name 'orchard']
 landuse=aquaculture [0x3f resolution 20 default_name 'aquaculture']
 landuse=brownfield [0x02 resolution 24 default_name 'brownfield'] 
 landuse=salt_pond [0x3f resolution 20 default_name 'salt_pond']
 
-military=airfield [0x04 resolution 20 default_name 'military']
-military=barracks [0x04 resolution 23 default_name 'military']
 military=danger_area [0x11 resolution 20 default_name 'military']
-military=range [0x04 resolution 20 default_name 'military']
-landuse=military [0x04 resolution 20 default_name 'military'] 
+military=barracks [0x04 resolution 23 default_name 'military']
+landuse=military| military=airfield | military=range {name '${name} (${alt_name}) [military]' | '${name} [military]' | '[military]'} [0x04 resolution 20 ]
 
 
 # building tag should be last
 amenity=* & area!=no & amenity!=grave_yard {add name='${amenity|subst:"_=> "}'} [0x13 resolution 24]
-building=* & building!=no [0x13 resolution 24 default_name 'building']
+#building=* & building!=no [0x13 resolution 24 default_name 'building']
 tourism=* & area!=no & waterway!=* {add name='${tourism|subst:"_=> "}'} [0x21 resolution 24]
 
 # man_made can be used on areas or lines
@@ -183,6 +182,8 @@ man_made=* & area!=no {add name='${man_made|subst:"_=> "}'} [0x24 resolution 24]
 # render small named islands
 place=island & name=* & area_size() < 1000000 [0x53 resolution 19]
 place=islet & name=* [0x53 resolution 20]
+
+name=* {name '${name} (${official_name})' | '${name} (${designation})' | '${name} (${alt_name})' | '${name} (${old_name})' | '${name}'}
 
 <finalize>
 # The finalizer section is executed for each element when a rule with an element type matches

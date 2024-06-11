@@ -156,7 +156,9 @@ if ( highway=cycleway ) then
 end 
 
 leisure=track & area!=yes {name '${name} (${sport})' | '${sport}'} [0x10705 resolution 22]
-man_made=pier | man_made=piste:halfpipe {add highway=footway; name '${ref} ${name}' | '${ref}' | '${name}'}
+man_made=pier | man_made=quay | man_made=groyn | man_made=piste:halfpipe {add highway=footway; name '${ref} ${name}' | '${ref}' | '${name}'} # might also have natural=water
+dock=drydock | waterway=dock {add highway=footway; name '${ref} ${name}' | '${ref}' | '${name}'}
+
 sport=horse_racing | leisure=horse_riding {add name='${horse_raising|subst:"_=> "}'} [0x10705 resolution 24 default_name 'horse_racing']
 
 man_made=breakwater & is_closed()=false & mkgmap:mp_created!=true [0x17 resolution 22 default_name 'Breakwater']
@@ -227,25 +229,25 @@ if ( highway=tertiary ) then
 end 
 highway=tertiary_link [0x08 road_class=1 road_speed=1 resolution 22 default_name 'tertiary_link']
 #if ( highway=minor ) then
-#	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [minor_road]' | '(sand) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-#	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [minor_road]' | '(gravel) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-#	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [minor_road]' | '(unp) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-#	surface=dirt {add mkgmap:unpaved=1 ; name '${name}(dirt) [minor_road]' | '(dirt) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-#	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [minor_road]' | '(compac) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-#	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [minor_road]' | '(ground) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-#	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [minor_road]' | '(unkn) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-#	surface=* {name '${name} (pav) [minor_road]' | '(pav) [minor_road]'} [0x06 road_class=1 road_speed=1 resolution 21]
+#	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [minor]' | '(sand) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+#	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [minor]' | '(gravel) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+#	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [minor]' | '(unp) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+#	surface=dirt {add mkgmap:unpaved=1 ; name '${name}(dirt) [minor]' | '(dirt) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+#	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [minor]' | '(compac) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+#	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [minor]' | '(ground) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+#	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [minor]' | '(unkn) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+#	surface=* {name '${name} (pav) [minor]' | '(pav) [minor]'} [0x06 road_class=1 road_speed=1 resolution 21]
 #end 
 #highway=unclassified [0x06 road_class=0 road_speed=3 resolution 21 default_name 'minor_road']
 if ( highway=unclassified | highway=minor ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [minor_road]' | '(sand) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [minor_road]' | '(gravel) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [minor_road]' | '(unp) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [minor_road]' | '(dirt) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [minor_road]' | '(compac) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [minor_road]' | '(ground) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [minor_road]' | '(unkn) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
-	surface=* {name '${name} (pav) [minor_road]' | '(pav) [minor_road]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [minor]' | '(sand) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [minor]' | '(gravel) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [minor]' | '(unp) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [minor]' | '(dirt) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [minor]' | '(compac) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [minor]' | '(ground) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [minor]' | '(unkn) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
+	surface=* {name '${name} (pav) [minor]' | '(pav) [minor]'} [0x06 road_class=1 road_speed=3 resolution 21]
 end 
 
 #bridge ~ '(yes|boardwalk|cantilever|covered|low_water_crossing|movable|trestle|viaduct)' &
@@ -283,14 +285,14 @@ highway=yes {set highway=footway}  # fix common bad tagging - little bits of pat
 # highway=pedestrian could be closed polygon to represent a 'square', add route regardless and continue for polygon processing
 #highway=pedestrian {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 22 continue with_actions]
 if ( highway=pedestrian ) then
-	surface=sand {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (sand) [pedestrian]' | '(sand) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
-	surface=gravel {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (gravel) [pedestrian]' | '(gravel) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
-	surface=unpaved {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unp) [pedestrian]' | '(unp) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
-	surface=dirt {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (dirt) [pedestrian]' | '(dirt) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
-	surface=compacted {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (compac) [pedestrian]' | '(compac) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
-	surface=ground {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (ground) [pedestrian]' | '(ground) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
-	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unkn) [pedestrian]' | '(unkn) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
-	surface=* {set tmp:stopMopUp=yes ; name '${name} (pav) [pedestrian]' | '(pav) [pedestrian]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface=sand {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (sand) [pede]' | '(sand) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface=gravel {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (gravel) [pede]' | '(gravel) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface=unpaved {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unp) [pede]' | '(unp) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface=dirt {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (dirt) [pede]' | '(dirt) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface=compacted {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (compac) [pede]' | '(compac) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface=ground {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (ground) [pede]' | '(ground) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unkn) [pede]' | '(unkn) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
+	surface=* {set tmp:stopMopUp=yes ; name '${name} (pav) [pede]' | '(pav) [pede]'} [0x16 road_class=0 road_speed=0 resolution 22]
 end 
 
 #highway=living_street [0x06 road_class=0 road_speed=1 resolution 22 default_name 'residential']
@@ -298,14 +300,14 @@ end
 #highway=residential & oneway!=* [0x06 road_class=0 road_speed=1 resolution 24]
 #highway=residential [0x06 road_class=0 road_speed=1 resolution 24 default_name 'residential']
 if ( highway=residential | highway=living_street) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [residential]' | '(sand) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [residential]' | '(gravel) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [residential]' | '(unp) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [residential]' | '(dirt) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [residential]' | '(compac) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [residential]' | '(ground) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [residential]' | '(unkn) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=* {name '${name} (pav) [residential]' | '(pav) [residential]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [resi]' | '(sand) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [resi]' | '(gravel) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [resi]' | '(unp) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [resi]' | '(dirt) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [resi]' | '(compac) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [resi]' | '(ground) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [resi]' | '(unkn) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=* {name '${name} (pav) [resi]' | '(pav) [resi]'} [0x06 road_class=0 road_speed=1 resolution 24]
 end 
 #highway=residential [0x12 road_class=0 road_speed=1 resolution 24 continue] # invisible routable line
 #highway=residential [0x10600 resolution 24] #extended line showing arrow 
@@ -320,14 +322,14 @@ highway=service & service=parking_aisle [0x07 road_class=0 road_speed=1 resoluti
 highway=service & (service=alley | service=driveway) [0x07 road_class=0 road_speed=0 resolution 23]
 #highway=service [0x07 road_class=0 road_speed=2 resolution 22 default_name 'service_road']
 if ( highway=service ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [service_road]' | '(sand) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [service_road]' | '(gravel) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [service_road]' | '(unp) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [service_road]' | '(dirt) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [service_road]' | '(compac) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [service_road]' | '(ground) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [service_road]' | '(unkn) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
-	surface=* {name '${name} (pav) [service_road]' | '(pav) [service_road]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [service]' | '(sand) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [service]' | '(gravel) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [service]' | '(unp) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [service]' | '(dirt) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [service]' | '(compac) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [service]' | '(ground) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [service]' | '(unkn) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
+	surface=* {name '${name} (pav) [service]' | '(pav) [service]'} [0x07 road_class=0 road_speed=2 resolution 22]
 end 
 
 # highway=footway is often an area as well, continue for polygon processing
@@ -370,14 +372,14 @@ if ( highway=track ) then
 end 
 #highway=unsurfaced [0x0a road_class=0 road_speed=1 resolution 22]
 if ( highway=unsurfaced ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [unsurfaced]' | '(sand) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [unsurfaced]' | '(gravel) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [unsurfaced]' | '(unp) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [unsurfaced]' | '(dirt) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [unsurfaced]' | '(compac) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [unsurfaced]' | '(ground) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [unsurfaced]' | '(unkn) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
-	surface=* {name '${name} (pav) [unsurfaced]' | '(pav) [unsurfaced]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [unsur]' | '(sand) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [unsur]' | '(gravel) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [unsur]' | '(unp) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [unsur]' | '(dirt) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [unsur]' | '(compac) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [unsur]' | '(ground) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [unsur]' | '(unkn) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
+	surface=* {name '${name} (pav) [unsur]' | '(pav) [unsur]'} [0x0a road_class=1 road_speed=1 resolution 22]
 end 
 #highway=road {add mkgmap:dead-end-check=false} [0x06 road_class=0 road_speed=1 resolution 22]
 if ( highway=road ) then
@@ -392,14 +394,14 @@ if ( highway=road ) then
 end 
 #man_made=embankment | man_made=levee [0x10101 resolution 22 default_name 'embankment']
 if ( highway=embankment | man_made=levee) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [embankment]' | '(sand) [embankment]'} [0x10101 resolution 22]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [embankment]' | '(gravel) [embankment]'} [0x10101 resolution 22]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [embankment]' | '(unp) [embankment]'} [0x10101 resolution 22]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [embankment]' | '(dirt) [embankment]'} [0x10101 resolution 22]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [embankment]' | '(compac) [embankment]'} [0x10101 resolution 22]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [embankment]' | '(ground) [embankment]'} [0x10101 resolution 22]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [embankment]' | '(unkn) [embankment]'} [0x10101 resolution 22]
-	surface=* {name '${name} (pav) [embankment]' | '(pav) [embankment]'} [0x10101 resolution 22]
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [emban]' | '(sand) [emban]'} [0x10101 resolution 22]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [emban]' | '(gravel) [emban]'} [0x10101 resolution 22]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [emban]' | '(unp) [emban]'} [0x10101 resolution 22]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [emban]' | '(dirt) [emban]'} [0x10101 resolution 22]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [emban]' | '(compac) [emban]'} [0x10101 resolution 22]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [emban]' | '(ground) [emban]'} [0x10101 resolution 22]
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [emban]' | '(unkn) [emban]'} [0x10101 resolution 22]
+	surface=* {name '${name} (pav) [emban]' | '(pav) [emban]'} [0x10101 resolution 22]
 end 
 
 # handle some rarer bits of road. Do just in case joining paths or bits of one-way roads
@@ -435,7 +437,7 @@ railway=platform & tmp:stopMopUp!=yes [0x16 road_class=0 road_speed=0 resolution
     [0x14 resolution 22]
 (railway=rail | railway=tram | railway=disused | railway=subway | railway=narrow_gauge | railway=light_rail | railway=preserved) & (tunnel=yes)
     {name '${name} (tunnel)'} [0x14 resolution 22]
-railway=abandoned {name '${name} (abandoned)'} [0x14 resolution 22]
+railway=abandoned {name '${name} (abandoned)' | '(abandoned)'} [0x14 resolution 22]
 
 man_made=pipeline & location=underground {name '${name} (underground)' | '(underground_pipeline)'} [0x28 resolution 22]
 man_made=pipeline [0x28 resolution 22 default_name 'pipeline']
@@ -520,8 +522,8 @@ natural=cliff [0x10503 resolution 24 default_name 'cliff']
 natural=ridge [0x10503 resolution 18 default_name 'ridge']
 natural=mountain_range [0x10503 resolution 18 default_name 'mountain_range']
 natural=valley [0x10503 resolution 18 default_name 'valley'] # ????
-natural=arete [0x10503 resolution 24 default_name 'arete']
-natural=gorge | natural=canyon [0x26 resolution 22 default_name 'gorge']
+natural=arete [0x10503 resolution 24 default_name 'arete'] #peaked ridges
+natural=gorge | natural=canyon [0x26 resolution 22 default_name 'canyon']
 natural=tree_row [0x10503 resolution 24 default_name 'tree_row']
 
 waterway=canal [0x1f resolution 22 default_name 'canal']
@@ -529,6 +531,7 @@ waterway=river [0x1f resolution 18 default_name 'river']
 waterway=rapids|waterway=waterfall [0x1f resolution 22]
 waterway=stream | waterway=drain [0x18 resolution 22 default_name 'stream']
 waterway=dam [0x10503 resolution 22 default_name 'dam']
+waterway=weir [0x10503 resolution 24 default_name 'weir']
 
 # mop up any remaining water lines
 waterway=* & waterway!=no & (area=no | (is_closed()=false & mkgmap:mp_created!=true))
