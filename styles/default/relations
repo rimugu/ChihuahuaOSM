@@ -130,4 +130,4 @@ type=route & route=road & historic!=yes & ref=*
 }
 
 #Does nothing?!
-power=plant {name '${name} (power_plant)' | '(abandoned)'} [0x0c resolution 22 default_name 'power_plant']
+#power=plant {name '${name} (power_plant)' | '(abandoned)'} [0x0c resolution 22 default_name 'power_plant']
