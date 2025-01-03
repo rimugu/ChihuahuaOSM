@@ -5,12 +5,13 @@ rem #  Script Name: BuidlMap.bat                                                
 rem #  Description:                                                                #
 rem #                                                                              #
 rem # 1. Creates garmin maps from OSM info                                         #
+rem # -109.344,25.414 to -102.054,34.306
 rem #                                                                              #
 rem ################################################################################
 
 echo(
 echo(
-echo ....STARTING BuildMap.bat v2024-06-17 %TIME%
+echo ....STARTING BuildMap.bat v2024-09-02 %TIME%
 echo(
 
 set Source_Server=http://overpass.openstreetmap.ru/cgi/xapi_meta?
@@ -33,7 +34,7 @@ set Split_temp_DIR=%Home_DIR%split-temp\
 echo Split_temp_DIR %Split_temp_DIR%
 set split_DIR=%Home_DIR%splitter-r654\
 echo split_DIR %split_DIR%
-set mkgmap_DIR=%Home_DIR%mkgmap-r4921\
+set mkgmap_DIR=%Home_DIR%mkgmap-r4922\
 echo mkgmap_DIR %mkgmap_DIR% 
 set Img_DIR=%Home_DIR%img\
 echo Img_DIR %Img_DIR%
@@ -48,7 +49,7 @@ echo(
 
 rem its recomended use extract.bbbike.org extract (osm 7z) and extract to osmosis temp (Chihuahua.osm) to save steps get_data and join_section
 
-IF "%~1"=="" goto split_section
+IF "%~1"=="" goto usage
 IF "%~1"=="10" goto get_data_section_10
 IF "%~1"=="20" goto get_data_section_20
 IF "%~1"=="30" goto get_data_section_30
@@ -62,14 +63,31 @@ IF "%~1"=="--split" goto split_section
 IF "%~1"=="--make" goto mkgmap_section
 IF "%~1"=="--join" goto join_section_osmosis
 
+
+:usage
+
+
 echo(
-echo ....Unknown parameter - 100 .... %TIME%
+echo "BuildMap 10" get data section 10
+echo "BuildMap 20" get data section 20
+echo "BuildMap 30" get data section 30
+echo "BuildMap 40" get data section 40
+echo "BuildMap 50" get data section 50
+echo "BuildMap 60" get data section 60
+echo "BuildMap 70" get data section 70
+echo "BuildMap 80" get data section 80
+echo "BuildMap 90" get data section 90
+echo "BuildMap --join"  go directly to join_section_osmosis
+echo "BuildMap --split" go directly to split_section
+echo "BuildMap --make"  go directly to mkgmap_section
+
+echo .... exit 100 .... %TIME%
 exit /b 100
 
 
 rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM93.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-102.864,27.39,-102.054,28.378%%5D"
 
-rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM49.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-103.674,27.39,-102.864,28.378%%5D"
+rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM83.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-103.674,27.39,-102.864,28.378%%5D"
 
 :get_data_section_10
 echo(
@@ -262,7 +280,7 @@ echo 91	011Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM91.osm --url "%Source_Server%*%%5Bbbox=-102.864,25.414,-102.054,26.402%%5D"
 echo 92	010Mb 0:07
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM92.osm --url "%Source_Server%*%%5Bbbox=-102.864,26.402,-102.054,27.39%%5D"
-echo 93	004Mb 0:03
+echo 93	005Mb 0:03
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM93.osm --url "%Source_Server%*%%5Bbbox=-102.864,27.39,-102.054,28.378%%5D"
 echo 94	010Mb 0:06
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM94.osm --url "%Source_Server%*%%5Bbbox=-102.864,28.378,-102.054,29.366%%5D"
@@ -309,7 +327,7 @@ cmd /c %osmosis_DIR%osmosis.bat^
  --merge --merge --merge --merge --merge --merge --merge --merge^
  --bounding-box top=34.304 left=-109.344 bottom=25.414 right=-102.053 --sort --write-xml %osm_temp%Chihuahua.osm
 
- @echo off
+@echo off
  rem --wx %Home_DIR%ChihuahuaOSM.osm
 IF %ERRORLEVEL% NEQ 0 ( 
 	echo ....ERROR 100 - %ERRORLEVEL%....%TIME%
@@ -345,6 +363,7 @@ del /q %Split_temp_DIR%
 java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=5 --max-nodes=2400000 --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
  --geonames-file=%Home_DIR%cities15000.zip --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
 @echo off
+
 
 IF %ERRORLEVEL% NEQ 0 ( 
 	echo ....ERROR 300 - %ERRORLEVEL% .... %TIME%
@@ -395,6 +414,8 @@ IF %ERRORLEVEL% NEQ 0 (
 rem bounds and sea preconfig files https://www.thkukuk.de/osm/data/
 
 rem C:\temp\DirectChihuahuaOSM\styles\default\CFMaster.TYP
+rem --dem-interpolation=auto
+rem --dem-interpolation=bilinear
 rem --levels=0:24,1:22,2:20,3:18,4:16,5:14
 rem --overview-levels = 4:17,5:16,6:15,7:14,8:13 
 rem --dem-dists=3312,13248,26512,53024
