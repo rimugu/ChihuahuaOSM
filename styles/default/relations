@@ -20,14 +20,15 @@
 (type=boundary | type=multipolygon) & boundary=administrative & name=*
 { apply
   {
-    set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name}' | '${name}';
+    set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name}' | '${name}'; addlabel '${admin_level}' ;
   }
 }
 
 # Public transportation routes.
 # We could want to sort the matching relations by ref first.
 type=route
-& (route=bus|route=trolleybus|route=ferry|route=subway|route=train|route=tram)
+#& (route=bus|route=trolleybus|route=ferry|route=subway|route=train|route=tram)
+& (route=bus|route=trolleybus|route=ferry|route=subway|route=train|route=tram|route=road)
 & (ref=* | name=*)
 {
   add ref='${name}'; # if ref is missing, use name
@@ -128,6 +129,3 @@ type=route & route=road & historic!=yes & ref=*
         add ref='${ref}';
     }
 }
-
-#Does nothing?!
-#power=plant {name '${name} (power_plant)' | '(abandoned)'} [0x0c resolution 22 default_name 'power_plant']
