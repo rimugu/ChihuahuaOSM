@@ -17,10 +17,12 @@
 # Currently, the matching relations will be processed and the names
 # appended to the boundary lines in an arbitrary order.
 
-(type=boundary | type=multipolygon) & boundary=administrative & name=*
+#(type=boundary | type=multipolygon) & boundary=administrative & name=* 
+(type=boundary | type=multipolygon) & boundary=administrative
 { apply
   {
-    set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name}' | '${name}'; addlabel '${admin_level}' ;
+    #set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name} [boundary]' | '${name} [boundary]' | '[boundary]'; addlabel '${admin_level}' 
+	set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name} [boundary]' | '${name} [boundary]' | '[boundary]' 
   }
 }
 
