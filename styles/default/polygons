@@ -13,7 +13,7 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 #water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 #water=pond | natural=water | water=reservoir | water=basin
 
-leisure=* & sport=* {name '${name} (${sport}) [leisure]' | '(${sport}) [leisure]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
+#leisure=* & sport=* {name '${name} (${sport}) [leisure]' | '(${sport}) [leisure]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
 #leisure=* & sport=* & name!=* {add name='${sport}'}
 
 include 'inc/name';
@@ -133,6 +133,17 @@ water=lake & salt=yes
 	{name '${name} {${alt_name}} (salt) (unkn) [lake]' | '${name} (salt) (unkn) [lake]' | '(salt) (unkn) [lake]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 water=lake {name '${name} {${alt_name}} (unkn) [lake]' | '${name} (unkn) [lake]' | '(unkn) [lake]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 
+(natural=water & water=river & tidal=yes & intermitent=yes) {name '${name} (interm) (tidal) [river]' | '(interm) (tidal) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+	[0x46 resolution 20-24]
+(natural=water & water=river & tidal=yes & intermitent=no) {name '${name} (perm) (tidal) [river]' | '(perm) (tidal) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+	[0x46 resolution 20-24]
+(natural=water & water=river & tidal=yes) {name '${name} (unkn) (tidal) [river]' | '(unkn) (tidal) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+	[0x46 resolution 20-24]
+	
+(natural=water & water=river & intermitent=yes) {name '${name} (interm) [river]' | '(interm) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
+(natural=water & water=river & intermitent=no) {name '${name} (perm) [river]' | '(perm) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
+
+(natural=water & water=river) {name '${name} (unkn) [river]' | '(unkn) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
 
 natural=water & intermittent=yes & salt=yes {name '${name} {${alt_name}} (salt) (interm) [water]' | '${name} (salt) (interm) [water]' | '(interm) [water]'} [0x3f resolution 20-24]
 natural=water & intermittent=yes {name '${name} {${alt_name}} (interm) [water]' | '${name} (interm) [water]' | '(interm) [water]'} [0x3f resolution 20-24]
@@ -141,6 +152,12 @@ natural=water & intermittent=no {name '${name} {${alt_name}} (perm) [water]' | '
 natural=water & salt=yes {name '${name} {${alt_name}} (salt) (unkn) [water]' | '${name}(salt)  (unkn) [water]' | '(salt) (unkn) [water]'} [0x3f resolution 20-24]
 natural=water {name '${name} {${alt_name}} (unkn) [water]' | '${name} (unkn) [water]' | '(unkn) [water]'} [0x3f resolution 20-24]
 
+natural=water & water=canal {name '${name} {${alt_name}} [canal]' | '${name} [canal]' | '[wetland]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x48 resolution 22-24]
+natural=water & water=lock {name '${name} {${alt_name}} [lock]' | '${name} [lock]' | '[wetland]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c resolution 24]
+natural=water & area_size() < 100000 {name '${name} {${alt_name}} (small) [lake]' | '${name} (small) [lake]' | '(small) [lake]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x41 resolution 22-24] # Small Lake
+natural=water {name '${name} [lake]' | '[lake]' ; addlabel '${phone}' | '${website}' | '${operator}'; addlabel '${phone}' | '${website}' | '${operator}'} [0x3c resolution 18]
+
 water=* & intermittent=yes & salt=yes {name '${name} {${alt_name}} (salt) (interm)' | '${name} (salt) (interm)' | '(salt) (interm)'} [0x3f resolution 20-24]
 water=* & intermittent=yes {name '${name} {${alt_name}} (interm)' | '${name} (interm)' | '(interm)'} [0x3f resolution 20-24]
 water=* & intermittent=no & salt=yes {name '${name} {${alt_name}} (salt) (perm)' | '${name} (salt) (perm)' | '(salt) (perm)'} [0x3f resolution 20-24]
@@ -148,6 +165,7 @@ water=* & intermittent=no {name '${name} {${alt_name}} (perm)' | '${name} (perm)
 water=* & salt=yes {name '${name} {${alt_name}} (salt) (unkn) [water]' | '${name} (salt) (unkn) [water]' | '((salt) unkn) [water]'} [0x3f resolution 20-24]
 water=* {name '${name} {${alt_name}} (unkn) [water]' | '${name} (unkn) [water]' | '(unkn) [water]'} [0x3f resolution 20-24]
 
+man_made=silo {name '${name} (${crops}}) [silo]' | '${name} [silo]' | '(${crops}}) [silo]' | '[silo]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
 man_made=storage_tank & content=water {name '${name} [water_storage]' | '[water_storage]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 man_made=storage_tank & content=* {name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
 man_made=storage_tank {name '${name} (unkn) [storage_tank]' | '(unkn) [storage_tank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
@@ -162,17 +180,25 @@ dock=* {name '${name} (${dock}) [dock]' | '(${dock})  [dock]' ; addlabel '${phon
 natural=bay {name '${name} {${alt_name}} [bay]' | '${name} [bay]' | '[bay]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3d resolution 18]
 natural=glacier {name '${name} {${alt_name}} [glacier]' | '${name} [glacier]' | '[glacier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4d resolution 18]
 natural=crevace {name '${name} {${alt_name}} [crevace]' | '${name} [crevace]' | '[crevace]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4d resolution 18]
-natural=marsh {name '${name} {${alt_name}} [marsh]' | '${name} [marsh]' | '[marsh]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x51 resolution 20-24]
 natural=tundra {name '${name} {${alt_name}} [tundra]' | '${name} [tundra]' | '[tundra]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x52 resolution 18]
 natural=mud {name '${name} {${alt_name}} [mud]' | '${name} [mud]' | '[mud]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x51 resolution 20-24]
 natural=beach {name '${name} {${alt_name}} [beach]' | '${name} [beach]' | '[beach]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x53 resolution 20-24] 
 natural=sand | natural=dune {name '${name} {${alt_name}} [sand]' | '${name} [sand]' | '[sand]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x53 resolution 20-24]
-natural=wetland {name '${name} {${alt_name}} [wetland]' | '${name} [wetland]' | '[wetland]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x51 resolution 20-24]
-natural=water & water=canal {name '${name} {${alt_name}} [canal]' | '${name} [canal]' | '[wetland]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x48 resolution 22-24]
-natural=water & water=lock {name '${name} {${alt_name}} [lock]' | '${name} [lock]' | '[wetland]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c resolution 24]
-natural=water & area_size() < 100000 {name '${name} {${alt_name}} (small) [lake]' | '${name} (small) [lake]' | '(small) [lake]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'} [0x41 resolution 22-24] # Small Lake
-natural=water {name '${name} [lake]' | '[lake]' ; addlabel '${phone}' | '${website}' | '${operator}'; addlabel '${phone}' | '${website}' | '${operator}'} [0x3c resolution 18]
+natural=wetland 
+	{name '${name} {${alt_name}} (salt=${salt}) (tidal=${tidal}) [wetland]' | 
+	'${name} {${alt_name}} (tidal=${tidal}) [wetland]' |
+	'${name} {${alt_name}} (salt=${salt}) [wetland]' |
+	'${name} {${alt_name}} [wetland]' | 
+	'${name} (salt=${salt}) (tidal=${tidal}) [wetland]' |
+	'${name} (tidal=${tidal}) [wetland]' |
+	'${name} (salt=${salt}) [wetland]' |
+	'${name} [wetland]' | 
+	'(salt=${salt}) (tidal=${tidal}) [wetland]' |
+	'(tidal=${tidal}) [wetland]' |
+	'(salt=${salt}) [wetland]' |
+	'[wetland]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+	[0x51 resolution 20-24]
+natural=marsh {name '${name} {${alt_name}} [marsh]' | '${name} [marsh]' | '[marsh]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x51 resolution 20-24]
 natural=waterfall | waterway=waterfall 
 	{name '${name} {${alt_name}} (${height}) [waterfall]' | '${name} (${height}) [waterfall]' | '(${height}) [waterfall]' | '${name} (${height}) [waterfall]' | '(${height}) [waterfall]' | '${name} {${alt_name}} [waterfall]' | '${name} [waterfall]' | '[waterfall]' ; addlabel '${height}' | '${phone}' | '${website}' | '${operator}'} 
 		[0x47 resolution 20-24]
@@ -180,10 +206,9 @@ natural=sea {add mkgmap:skipSizeFilter=true; set mkgmap:drawLevel=2} [0x32 resol
 natural=bare_rock | bare_rock=malpais {name '${name} {${alt_name}} [bare_rock]' | '${name} [bare_rock]' | '[bare_rock]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x52 resolution 20-24]
 natural=scree | natural=shingle {name '${name} {${alt_name}} [gravel]' | '${name} [gravel]' | '[gravel]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x52 resolution 20-24] # Scree is an accumulation of unconsolidated angular stones. # Shingle bare, unvegetated area of gravel/pebbles that have been rounded and sorted by water transport, usually in river beds.
-natural=cliff {name '${name} (${height}) [valley]' | '${name} [valley]' | '(${height}) [valley]' | '[valley]'} [0x52 resolution 20-24]
+natural=cliff {name '${name} (${height}) [cliff]' | '${name} [cliff]' | '(${height}) [cliff]' | '[cliff]'} [0x52 resolution 20-24]
 
 waterway=riverbank {name '${name} (interm) [riverbank]' | '(interm) [riverbank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24] 
-(natural=water & water=river) {name '${name} (interm) [river]' | '(interm) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
 
 # mop up any remaining water areas
 waterway=* & waterway!=no & area!=no {add name='${waterway|subst:"_=> "}'} [0x3b resolution 22-24]
@@ -204,8 +229,10 @@ landuse=farmland
 landuse=farmyard 
 	{name '${name} {${alt_name}} (${crop}) [farmyard]' | '${name} {${alt_name}} (${produce}) [farmyard]' | '${name} (${crop}) [farmyard]' | '${name} (${produce}) [farmyard]' | '${name} {${alt_name}} [farmyard]' | '${name} [farmyard]' | '(${crop}) [farmyard]' | '$({produce}) [farmyard]' | '[farmyard]' ;
 	addlabel '${phone}' | '${website}' | '${operator}'}  	[0x02 resolution 20-24] #0x26 0x0f 0x10 0x12 does not show
-landuse=forest | landuse=wood {name '${name} {${alt_name}} [forest]' | '${name} [forest]' | '[forest]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x50 resolution 20-24]
-natural=wood {name '${name} {${alt_name}} [wood]' | '${name} [wood]' | '[wood]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x50 resolution 20-24]
+landuse=forest | landuse=wood {name '${name} {${alt_name}} (${leaf_cycle}) [managed_wood]' |  '${name} {${alt_name}} [managed_wood]' | '${name} [managed_wood]' | '(${leaf_cycle}) [managed_wood]' | '[managed_wood]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+	[0x50 resolution 20-24]
+natural=wood {name '${name} {${alt_name}} (${leaf_cycle}) [forest]' |  '${name} {${alt_name}} [forest]' | '${name} [forest]' | '(${leaf_cycle}) [forest]' | '[forest]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+	[0x50 resolution 20-24]
 landuse=greenfield {name '${name} {${alt_name}} [greenfield]' | '${name} [greenfield]' | '[greenfield]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 20-24]
 landuse=meadow {name '${name} {${alt_name}} [meadow]' | '${name} [meadow]' | '[meadow]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x53 resolution 20-24]
 natural=mesa | natural=plateau {name '${name} {${alt_name}} [mesa]' | '${name} [mesa]' | '[mesa]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x53 resolution 20-24]
@@ -218,7 +245,8 @@ natural=heath {name '${name} {${alt_name}} [heath]' | '${name} [heath]' | '[heat
 # landuse=meadow | landuse=grass | natural=mesa [0x1d resolution 19] #does not show
 # landuse=meadow | landuse=grass | natural=mesa [0x1b resolution 19] #does not show
 # landuse=meadow | landuse=grass [0x1c resolution 19] #does not show
-landuse=quarry {name '${name} {${alt_name}} [quarry]' | '${name} [quarry]' | '[quarry]' ; addlabel '${operator}' | '${phone}' | '${website}'} [0x0c resolution 19]
+landuse=quarry {name '${name} {${alt_name}} (${resource}) [quarry]' | '${name} {${alt_name}} [quarry]' | '${name} (${resource}) [quarry]' | '${name} [quarry]' | '(${resource}) [quarry]' | '[quarry]' ; addlabel '${operator}' | '${phone}' | '${website}'} 
+	[0x0c resolution 19]
 landuse=recreation_ground {name '${name} {${alt_name}} [recreation]' | '${name} [recreation]' | '[recreation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 19]
 # dedicate resolution 24 for building=* instead of related landuse=*
 industrial=machinery | industrial=machine_shop {name '${name} {${alt_name}} [machinery]' | '${name} [machinery]' | '[machinery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
@@ -237,10 +265,11 @@ landuse=aquaculture
 (landuse=industrial & industrial=mine) | man_made=mine | man_mades=urface_mine
 	{name '${name} {${alt_name}} [mine]' | '${name} [industrial]' | '[industrial]' ; addlabel '${operator}' | '${phone}' | '${website}'} [0x0c resolution 22-24]
 landuse=salt_pond {name '${name} {${alt_name}} [salt_pond]' | '${name} [salt_pond]' | '[salt_pond]' ; addlabel '${operator}'} [0x3f resolution 20-24]
-landuse=industrial 
-	{name '${name} {${alt_name}} (${type}) [industrial]' | '${name} (${type}) [industrial]' | '${name} {${alt_name}} [industrial]' | '${name} [industrial]' | '[industrial]' ; addlabel '${operator}' | '${phone}' | '${website}'} [0x0c resolution 22-24]
 landuse=auto_wrecker |  industrial=scrap_yard
 	{name '${name} {${alt_name}} [scrap_yard]' | '${name} [scrap_yard]' | '[scrap_yard]' ; addlabel '${operator}' | '${phone}' | '${website}'} [0x0c resolution 22-24] #yonke
+landuse=industrial 
+	{name '${name} {${alt_name}} (${type}) [industrial]' | '${name} (${type}) [industrial]' | '${name} {${alt_name}} [industrial]' | '${name} [industrial]' | '[industrial]' ; addlabel '${operator}' | '${phone}' | '${website}'} [0x0c resolution 22-24]
+
 
 leisure=common {name '${name} [common]' | '[common]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1d resolution 21]
 leisure=garden {name '${name} [garden]' | '[garden]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x20 resolution 21]
@@ -259,11 +288,11 @@ tourism=camp_site
 boundary=aboriginal_lands {name '${name} {${alt_name}} [aboriginal_lands]' | '${name} [aboriginal_lands]' | '[aboriginal_lands]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0d resolution 22-24] #rojiso
 leisure=park | place=square {name '${name} [park]' | '[park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
-leisure=pitch {name '${name} [pitch]' | '[pitch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 21]
+leisure=pitch {name '${name} (${sport) [pitch]' | '${name} [pitch]' | '(${sport}) [pitch]' | '[pitch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 21] #smaller than a sport_centre
 leisure=playground {name '${name} [playground]' | '[playground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
 playground=* {name '${name} [${playground}]' | '[${playground}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
 leisure=recreation_ground {name '${name} [recreation_ground]' | '[recreation_ground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
-leisure=sports_center | leisure=sports_centre {name '${name} {${alt_name}} [${sport}]' | '${name} [${sport}]' | '[${sport}]' | '[sport_cente]' ; 
+leisure=sports_center | leisure=sports_centre {name '${name} {${alt_name}} (${sport}) [sports_center]' | '${name} (${sport}) [sports_center]' | '${name} [sports_center]' | ' (${sport}) [sports_center]' | '[sport_cente]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 20-24]
 leisure=stadium | building=stadium {name '${name} {${alt_name}} [stadium]' | '${name} [stadium]' | '[stadium]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 20-24]
 leisure=track & area=yes {name '${name} [${sport}]' | '[${sport}]' | '[track]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 21]
@@ -292,9 +321,10 @@ building=* & building!=no {name '${name} (${building}) [building]' | '(${buildin
 
 # man_made can be used on areas or lines
 man_made=wastewater_plant | utility=sewerage {name '${name} [wastewater]' | '[wastewater]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
-man_made=water_works {name '${name} [waste_works]' | '[waste_works]'} [0x0c resolution 22-24]
+man_made=water_works {name '${name} [waste_works]' | '[waste_works]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 man_made=observatory | man_made=telescope {name '${name} [observatory]' | '[observatory]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0a resolution 20-24] 
-man_made=* & area!=no {add name='${man_made|subst:"_=> "}'} [0x24 resolution 24]
+#man_made=* & area!=no {add name='${man_made|subst:"_=> "}'} [0x24 resolution 24]
+man_made=* & area!=no {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x24 resolution 24]
 
 # render small named islands
 #place=island & name=* & area_size() < 1000000 [0x53 resolution 19]
@@ -308,6 +338,8 @@ natural=* & natural!=land & area_size < 1000
 amenity=* & area_size < 1000 {name '${name} {${alt_name}} [${amenity}]' | '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0b resolution 24]
 sport=* & area_size < 1000 {name '${name} (${sport}) [sport]' | '(${sport}) [sport]'} [0x19 resolution 24]
 power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
+#historic=* Defined 175
+#tourism=* Defined in 313
 place=* & area_size < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
