@@ -11,7 +11,7 @@ rem ############################################################################
 
 echo(
 echo(
-echo ....STARTING BuildMap.bat v2024-09-02 %TIME%
+echo ....STARTING BuildMap.bat v2025-04-23 %TIME%
 echo(
 
 set Source_Server=http://overpass.openstreetmap.ru/cgi/xapi_meta?
@@ -25,7 +25,7 @@ rem http://www.informationfreeway.org/api/0.6/*%5Bname=Sylt%5D
 echo Source_Server %Source_Server%
 set Home_DIR=C:\temp\DirectChihuahuaOSM\
 echo Home_DIR %Home_DIR%
-set osmosis_DIR=%Home_DIR%osmosis-0.48.3\bin\
+set osmosis_DIR=%Home_DIR%osmosis-0.49.2\bin\
 echo osmosis_DIR %osmosis_DIR%
 set osm_temp=%Home_DIR%osm-temp\
 echo osm_temp %osm_temp%
@@ -34,7 +34,7 @@ set Split_temp_DIR=%Home_DIR%split-temp\
 echo Split_temp_DIR %Split_temp_DIR%
 set split_DIR=%Home_DIR%splitter-r654\
 echo split_DIR %split_DIR%
-set mkgmap_DIR=%Home_DIR%mkgmap-r4922\
+set mkgmap_DIR=%Home_DIR%mkgmap-r4923\
 echo mkgmap_DIR %mkgmap_DIR% 
 set Img_DIR=%Home_DIR%img\
 echo Img_DIR %Img_DIR%
@@ -63,11 +63,10 @@ IF "%~1"=="--split" goto split_section
 IF "%~1"=="--make" goto mkgmap_section
 IF "%~1"=="--join" goto join_section_osmosis
 
-
 :usage
 
-
 echo(
+echo Option "%~1" not found
 echo "BuildMap 10" get data section 10
 echo "BuildMap 20" get data section 20
 echo "BuildMap 30" get data section 30
@@ -87,12 +86,12 @@ exit /b 100
 
 rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM93.osm --url "http://overpass.openstreetmap.ru/cgi/xapi_meta?*%5Bbbox=-102.864,27.39,-102.054,28.378%%5D"
 
-rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM83.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-103.674,27.39,-102.864,28.378%%5D"
+rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM83.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-103.674,27.39,-102.864,28.3
 
 :get_data_section_10
 echo(
 echo GET OSM DATA 1 %TIME%
-echo 51.9Mb average
+echo 51.9Mb average	
 echo 11	105Mb 0:38
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM11.osm --url "%Source_Server%*%%5Bbbox=-109.344,25.414,-108.534,26.402%%5D"
 echo 12	039Mb 0:23
@@ -395,13 +394,14 @@ del /q %Img_DIR%
 @echo(
 
 java -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=bounds,is_in,nearest^
- --index --show-profiles=1 --make-opposite-cycleways --housenumbers --add-pois-to-areas --generate-sea=land-tag=natural=land  --precomp-sea=%Home_DIR%sea-latest.zip^
+ --index --show-profiles=1 --make-opposite-cycleways --housenumbers --generate-sea=land-tag=natural=land  --precomp-sea=%Home_DIR%sea-latest.zip^
  --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name="Chihuahua" --code-page=1252 --improve-overview --order-by-decreasing-area^
- --allow-reverse-merge --remove-ovm-work-files "--style-file=%Home_DIR%styles\default" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=bilinear^
- --family-name="ChihuahuaOSM crisol.snowdrift175@passinbox.com" --process-destination --process-exits --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance"^
- --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right --copyright-message=" crisol.snowdrift175@passinbox.com"^
+ --allow-reverse-merge --remove-ovm-work-files "--style-file=%Home_DIR%styles\default" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=auto^
+ --family-name="ChihuahuaOSM crisol.snowdrift175@passinbox.com" --process-destination --process-exits ^
+ --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right --copyright-message=" crisol.snowdrift175@passinbox.com "^
  --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
- --link-pois-to-ways --add-pois-to-lines=mid --simplify-lines=23:2.6,22:4.2,21:5.4,20:6 --simplify-polygons=23:2.6,22:4.2,21:5.4,20:6^
+ --link-pois-to-ways --split-name-index --road-name-config=%Home_DIR%styles\roadNameConfig.txt^
+ --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" -add-pois-to-lines=mid^
  --overview-dem-dist=276160 %Split_temp_DIR%*.pbf
 
 @echo off
@@ -413,6 +413,7 @@ IF %ERRORLEVEL% NEQ 0 (
 
 rem bounds and sea preconfig files https://www.thkukuk.de/osm/data/
 
+rem --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name="Chihuahua" --code-page=1252 --improve-overview --order-by-decreasing-area^
 rem C:\temp\DirectChihuahuaOSM\styles\default\CFMaster.TYP
 rem --dem-interpolation=auto
 rem --dem-interpolation=bilinear
@@ -429,6 +430,9 @@ rem --hide-gmapsupp-on-pc sets bit to not copy from device to pc
 rem --description="Chihuahua Texas New Mexico Coahuila Durango OSM" 
 rem --gmapsupp --hide-gmapsupp-on-pc 
 rem -reduce-point-density=4 --reduce-point-density-polygon=8
+rem --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" -add-pois-to-lines=mid^
+rem --simplify-lines=23:2.6,22:4.2,21:5.4,20:6 --simplify-polygons=23:2.6,22:4.2,21:5.4,20:6
+rem --split-name-index #increase index size but improves search?
 
 rem start javaw.exe -Xmx12G -Djava.util.logging.config.file=logging.properties --add-opens java.base/java.util=ALL-UNNAMED -jar OsmAndMapCreator.jar
 
