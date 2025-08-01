@@ -192,8 +192,10 @@ aeroway=helipad {name '${name} [helipad]' | '[helipad]' ; addlabel '${phone}' | 
 aeroway=terminal {name '${name} [terminal]' | '[terminal]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 24]
 aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 24]
 
+amenity=atm & cash_in=yes {name '${name} (${network}) (cash_in) [atm]' | '${name} (cash_in) [atm]' | '(cash_in) [atm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24 continue]
 amenity=atm {name '${name} (${network}) [atm]' | '${name} [atm]' | '[atm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24 continue]
 amenity=arts_centre {name '${name} [arts_centre]' | '[arts_centre]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
+amenity=bank & atm=yes {name '${name} (atm) [bank]' | '(atm) [bank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24]
 amenity=bank {name '${name} [bank]' | '[bank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24]
 amenity=bureau_de_change {name '${name} [currency_exchange]' | '[currency_exchange]'} [0x2f06 resolution 24]
 amenity=bar {name '${name} [bar]' | '[bar]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d02 resolution 24 continue]
@@ -201,7 +203,8 @@ amenity=bench {name '${name} [bench]' | '[bench]' ; addlabel '${phone}' | '${web
 amenity=biergarten {name '${name} [biergarten]' | '[biergarten]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d02 resolution 24] #An open-air area where beer is served and you are allowed to bring your own food.
 amenity=border_control | barrier=border_control {name '${name} [border_control]' | '[border_control]' ;
 	addlabel '${phone}' | '${website}'} [0x2500 resolution 22-24] #custom
-amenity=bus_station {name '${name} [bus_station]' | '[bus_station]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 23]
+amenity=bus_station 
+	{name '${name} (int ${internet_access}) [bus_station]' | '${name} [bus_station]' | '(int ${internet_access}) [bus_station]' | '[bus_station]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 23]
 amenity=cafe {delete cuisine} [0x2a0e resolution 24 continue with_actions]
 amenity=car_club {name '${name} [car_club]' | '[car_club]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f0d resolution 24]
 amenity=car_rental {name '${name} [car_rental]' | '[car_rental]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f02 resolution 24]
@@ -220,11 +223,11 @@ amenity=community_centre | amenity=community_center | amenity=social_facility
 	{name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3005 resolution 24]
 amenity=courthouse [0x3004 resolution 24]
 amenity=drinking_water | fountain=bottle_refill | fountain=drinking_water
-	{name '${name} (fee ${fee}) [drinking_water]' | '(fee ${fee}) [drinking_water]' | '${name} [drinking_water]' | '[drinking_water]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
+	{name '${name} (${access}) (fee ${fee}) [drinking_water]' | '${name} (fee ${fee}) [drinking_water]' | '(${access}) (fee ${fee}) [drinking_water]' | '(fee ${fee}) [drinking_water]' | '${name} (${access}) [drinking_water]' | '${name} [drinking_water]' | '(${access}) [drinking_water]' | '[drinking_water]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=water_cache 
 	{name '${name} (fee ${fee}) [water_cache]' | '(fee ${fee}) [water_cache]' | '${name} [water_cache]' | '[water_cache]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=water_tap | fountain=bottle_refill | man_made=water_cache | amenity = water_point
-	{name '${name} (drinkable ${drinkable}) [water_tap]' | '(drinkable ${drinkable}) [water_tap]' | '${name} [water_tap]' | '[water_tap]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
+	{name '${name} (${access}) (drinkable ${drinkable}) [water_tap]' | '${name} (drinkable ${drinkable}) [water_tap]' | ' (${access}) (drinkable ${drinkable}) [water_tap]' | '(drinkable ${drinkable}) [water_tap]' | '${name} (${access}) [water_tap]' | '${name} [water_tap]' | '(${access}) [water_tap]' | '[water_tap]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
 amenity=embassy & country=* {set name='${country} ${name|def:Embassy}' ; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 24]
 amenity=embassy & country!=* {name '${name} [embassy]' | '[embassy]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 24]
 office=diplomatic | colsulate=* | diplomatic=* {name '${name} [diplomatic]' | '[diplomatic]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 22-24]
@@ -256,7 +259,8 @@ amenity=nightclub {name '${name} [nightclub]' | '[nightclub]' ; addlabel '${phon
 amenity=nursing_home {name '${name} [nursing_home]' | '[nursing_home]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f14 resolution 24]
 (amenity=parking | amenity=parking_entrance) & access!=private & access!=no {add name='${access} [parking]'| '[parking]' ; 
 	addlabel 'fee ${fee}' | '${phone}' | '${website}' | '${operator}'} [0x2f0b resolution 24]
-amenity=pharmacy {name '${name} [pharmacy]' | '[pharmacy]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24]
+(amenity=pharmacy | healthcare=pharmacy) & dispensing=yes {name '${name} (dispensing) [pharmacy]' | '(dispensing) [pharmacy]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24]
+amenity=pharmacy | healthcare=pharmacy {name '${name} [pharmacy]' | '[pharmacy]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24]
 # amenity=place_of_worship [0x2c0b resolution 24]
 (amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} [catholic_church]' | '[catholic_church]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
@@ -290,7 +294,7 @@ amenity=telephone {name '${name} (fee ${fee}) [telephone]' |  '${name} [telephon
 	[0x2f12 resolution 24]
 amenity=theatre [0x2d01 resolution 24]
 amenity=toilets {name '${name} (access ${access}) [toilets]' | '(access ${access}) [toilets]' | '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
-amenity=toilets {name '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
+#amenity=toilets {name '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
 amenity=townhall {name '${name} [townhall]' | '[townhall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 office=government | office=administrative {name '${name} (${office})' | '[${office}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 amenity=university {name '${name} [university]' | '[university]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 24]
@@ -299,9 +303,12 @@ amenity=zoo | tourism=zoo {name '${name} [zoo]' | '[zoo]' ; addlabel '${phone}' 
 amenity=fitness_centre | amenity=gym | leisure=fitness_centre {name '${name} [fitness_centre]' | '[fitness_centre]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d0a resolution 24]
 amenity=payment_centre | amenity=payment_terminal {name '${name} [payment]' | '[payment]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x2f00 resolution 24] #0x4c00 info 0x2f06 bank 0x2f00 generic
-amenity=weighbridge {name '${name} [weighbridge]' | '[weighbridge]'} [0x2400 resolution 24] # Weight station 0x3200
+amenity=weighbridge 
+	{name '${name} ${maxweight}t (${access}) [weighbridge]' | '${name} (${access}) [weighbridge]' | '${name} ${maxweight}t [weighbridge]' | '${name} [weighbridge]' | '(${access}) ${maxweight}t [weighbridge]' | '(${access}) [weighbridge]' | '${maxweight}t [weighbridge]' | '[weighbridge]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+	[0x2400 resolution 24] # Weight station 0x3200
 man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack 
-	{name '${name} (${substance}) [petroleum_well]' | '${name} [petroleum_well]' | '(${substance}) [petroleum_well]' |'[petroleum_well]'} [0x0640d resolution 24]
+	{name '${name} (${substance}) [petroleum_well]' | '${name} [petroleum_well]' | '(${substance}) [petroleum_well]' |'[petroleum_well]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x0640d resolution 24]
 amenity=marketplace {name '${name} [marketplace]' | '[marketplace]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24]
 amenity=events_venue {name '${name} [events_venue]' | '[events_venue]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24] #0x2e06 is fuel
 club=chess {name '${name} [chess]' | '[chess]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d0a resolution 24]
@@ -313,9 +320,9 @@ landuse=military {name '${name} [military]' | '[military]' ; addlabel '${phone}'
 landuse=village_green & name=* [0x2c06 resolution 24]
 
 healthcare=hospital | amenity=hospital {name '${name} [hospital]' | '[hospital]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 22-24]
-amenity=clinic {name '${name} [clinic]' | '[clinic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 22-24]
-amenity=dentist {name '${name} [dentist]' | '[dentist]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
-amenity=doctors {name '${name} [doctors]' | '[doctors]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
+amenity=clinic | healthcare=clinic {name '${name} [clinic]' | '[clinic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 22-24]
+amenity=dentist | healthcare=dentist {name '${name} [dentist]' | '[dentist]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
+amenity=doctors | healthcare=doctor {name '${name} [doctors]' | '[doctors]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
 healthcare=physiotherapist {name '${name} [physiotherapist]' | '[physiotherapist]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
 healthcare=* {name '${name} (${healthcare}) [healthcare]' | '(${healthcare}) [healthcare]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
 
@@ -349,22 +356,22 @@ leisure=pitch {name '${name} (${sport}) [pitch]' | '${name} [pitch]' | '(${sport
 leisure=playground {name '${name} [${sport}]' | '[${sport}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c06 resolution 24]
 leisure=recreation_ground {name '${name} [recreation]' | '[recreation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c08 resolution 24]
 leisure=sports_center | leisure=sports_centre 
-	{name '${name} (fee ${fee) (${sport}) [sport_centre]' | '${name} (${sport}) [sport_centre]' | '${name} (fee ${fee) [sport_centre]' | '${name} [sport_centre]' |
-	'(fee ${fee) (${sport}) [sport_centre]' | '(${sport}) [sport_centre]' | '(fee ${fee) [sport_centre]' | '[sport_centre]'; addlabel '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} (fee ${fee}) (${sport}) [sport_centre]' | '${name} (${sport}) [sport_centre]' | '${name} (fee ${fee}}) [sport_centre]' | '${name} [sport_centre]' |
+	'(fee ${fee}) (${sport}) [sport_centre]' | '(${sport}) [sport_centre]' | '(fee ${fee}) [sport_centre]' | '[sport_centre]'; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x2d0a resolution 24]
 leisure=stadium | building=stadium {name '${name} [${sport}]' | '[${sport}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c08 resolution 24]
-(leisure=swimming_pool | amenity=swimming_pool) {name '${name} (${access}]) [${sport}]' | '${name} [${sport}]' | '${access}]) [${sport}]' | '[${sport}]' ; 
+(leisure=swimming_pool | amenity=swimming_pool) {name '${name} (${access}]) [pool]' | '${name} [pool}]' | '${access}]) [pool]' | '[pool]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2d09 resolution 24]
 leisure=track {name '${name} [track]' | '[track]' ; addlabel '${phone}' | '${website}' | '${operator}'}  [0x2c08 resolution 24]
 leisure=water_park 
-	{name '${name} (fee ${fee) [water_park]' | '${name} [water_park]' | '(fee ${fee) [water_park]' | '[water_park]' ; 
+	{name '${name} (fee ${fee}) [water_park]' | '${name} [water_park]' | '(fee ${fee}) [water_park]' | '[water_park]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 20-24] #0x2d09
 leisure=beach_resort {name '${name} [beach_resort]' | '[beach_resort]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d09 resolution 24]
 leisure=dance {name '${name} [dance]' | '[dance]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24]
 leisure=bandstand {name '${name} [bandstand]' | '[bandstand]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24] #kiosko
 
 man_made=tower | man_made=mast 
-	{name '${name} (${height}) [tower]' | '${name} [tower]' | '(${height}) [tower]' | '[tower]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6411 resolution 24]
+	{name '${name} (${height}m) [tower]' | '${name} [tower]' | '(${height}m) [tower]' | '[tower]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6411 resolution 24]
 landmark=chimney | man_made=chimney {name '${name} [chimney]' | '[chimney]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6411 resolution 24]
 
 (man_made=antenna | tower=communication) & communication:television=* {name '${name} [tv_antenna]' | '[tv_antenna]' ; addlabel 'television' ; addlabel '${operator}'} [0x6411 resolution 24] 
@@ -377,12 +384,12 @@ man_made=antenna | tower=communication {name '${name} [antenna]' | '[antenna]' ;
 
 man_made=monitoring_station | man_made=measurement_station {name '${name} [monitoring]' | '[monitoring]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6411 resolution 24]
 man_made=surveillance {name '${name} [surveillance]' | '[surveillance]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24] 
-man_made=observatory | man_made=telescope {name '${name} [observatory]' | '[observatory]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f12 resolution 22-24] 
+man_made=observatory | man_made=telescope {name '${name} (${access}) [observatory]' | '${name} [observatory]' | '(${access}) [observatory]' | '[observatory]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f12 resolution 22-24] 
 
 
-man_made=windpump {name '${name} (${height}) [windpump]' | '${name} [windpump]' | '(${height}) [windpump]' | '[windpump]' ; addlabel '${operator}'} [0x6411 resolution 24]
+man_made=windpump {name '${name} (${height}m) [windpump]' | '${name} [windpump]' | '(${height}m) [windpump]' | '[windpump]' ; addlabel '${operator}'} [0x6411 resolution 24]
 man_made=windmill {name '${name} [windmill]' | '[windmill]' ; addlabel '${operator}'} [0x6411 resolution 24 ]
-man_made=water_tower {name '${name} (${height}) [water_tower]' | '${name} [water_tower]' | '(${height}) [water_tower]' | '[water_tower]' ; addlabel '${operator}'} [0x6411 resolution 24]
+man_made=water_tower {name '${name} (${height}m) [water_tower]' | '${name} [water_tower]' | '(${height}m) [water_tower]' | '[water_tower]' ; addlabel '${operator}'} [0x6411 resolution 24]
 man_made=water_tank {name '${name} [water_tank]' | '[water_tank]' ; addlabel '${operator}'} [0x6411 resolution 22-24 ]
 man_made=tank {name '${name} [tank]' | '[tank]' ; addlabel '${operator}'} [0x6411 resolution 24 ]
 man_made=water_well 
@@ -418,8 +425,10 @@ advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]
 
 # Edge 705 displays 0x650a(glacier),0x6511(spring),0x6512(stream),0x6513,0x6603,0x6614(rock) as hollow white circles, no menu
 natural=cave_entrance 
-	{name '${name} {${alt_name}} (${fee}) [cave]' | '${name} {${alt_name}} [cave]' | '${name} (${fee}) [cave]' | '${name} [cave]' | '(${fee}) [cave]' | '[cave]' ; 
-	addlabel '${access} ${ele} ${direction}' | '${access} ${ele}' | '${access} ${direction}' |  ' ${ele} ${direction}' | '${access}' | '${ele}' | '${direction}'} 
+	{name '${name} {${alt_name}} (${access}) (${fee}) [cave]' | '${name} (${access}) (${fee}) [cave]' |  '(${access}) (${fee}) [cave]' | 
+	'${name} {${alt_name}} (${fee}) [cave]' | '${name} {${alt_name}} [cave]' | '${name} (${fee}) [cave]' | '(${fee}) [cave]' | 
+	'${name} {${alt_name}} (${access}) [cave]' | '${name} {${alt_name}} [cave]' | '${name} (${access}) [cave]' | '${name} [cave]' | '(${access}) [cave]' | '[cave]' ; 
+	addlabel '${ele}m ${direction}' | '${ele}m' | '${direction}'} 
 	[0x6601 resolution 20-24]
 natural=cape {name '${name} {${alt_name}} [cape]' | '${name} [cape]' | '[cape]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6606 resolution 24]
 natural=cliff {name '${name} {${alt_name}} (${ele}m) [cliff]' | '${name} {${alt_name}} [cliff]' | '${name} (${ele}m) [cliff]' | '${name} [cliff]' | '[cliff]' ; 
@@ -437,7 +446,7 @@ natural=bay {name '${name} {${alt_name}} [bay]' | '${name} [bay]' | '[bay]' ; ad
 natural=dune {name '${name} {${alt_name}} [dune]' | '${name} [dune]' | '[dune]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6502 resolution 22-24]
 mountain_pass=yes | natural=saddle 
 	{name '${name} {${alt_name}} (${ele}m) [pass]' | '${name} (${ele}m) [pass]' | '${name} [pass]' | '(${ele}m) [pass]' | '[pass]' ; addlabel '${phone}' | '${website}' | '${operator}'}	 
-	[0x5208 resolution 22-24] #0x0b00 small dot
+	[0x5208 resolution 24] #0x0b00 small dot
 natural=sinkhole {name '${name} (${ele}m) (${sinkhole}) [sinkhole]' | '${name} (${ele}m) [sinkhole]' | '${name} [sinkhole]' | '(${ele}m) [sinkhole]' |  '[sinkhole]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 24]
 natural=gorge | natural=canyon {name '${name} {${alt_name}} [canyon]' | '${name} [canyon]' | '[canyon]' ; addlabel '${operator}' ; 
@@ -522,45 +531,45 @@ amenity=fast_food {name '${name} (${cuisine}) [fast_food]' | '${name} [fast_food
 # All, American, Asian, Barbeque, Chinese, Deli/Bakery, International, Fast Food, Italian, Mexican, Pizza,
 # Seafood, Steak/Grill, Bagel/Donut, Cafe/Diner, French, German, British Isles, Speciality Food Products, Other
 amenity=restaurant & cuisine!=* 
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a00 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a00 resolution 24]
 cuisine=american | cuisine=burger
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a01 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a01 resolution 24]
 cuisine=asian | cuisine=japanese | cuisine=indian | cuisine=curry | cuisine=thai | cuisine=sushi | cuisine=korean
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a02 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a02 resolution 24]
 cuisine=barbecue | cuisine=bbq | cuisine=kebab | cuisine=chicken
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a03 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a03 resolution 24]
 cuisine=chinese | cuisine=vietnamese
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a04 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a04 resolution 24]
 cuisine=deli | cuisine=sandwich
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a05 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a05 resolution 24]
 cuisine=international
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a06 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a06 resolution 24]
 cuisine=fast_food
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a07 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a07 resolution 24]
 cuisine=italian | cuisine=pasta
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a08 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a08 resolution 24]
 cuisine=mexican | cuisine=spanish | cuisine=tapas
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a09 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a09 resolution 24]
 cuisine~'.*pizza.*'
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0a resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0a resolution 24]
 cuisine=seafood | cuisine=sea_food | cuisine=fish
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0b resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0b resolution 24]
 cuisine=steak | cuisine=grill | cuisine=steak_house
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0c resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0c resolution 24]
 cuisine=bagel | cuisine=donut
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0d resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0d resolution 24]
 cuisine=cafe | cuisine=diner | cuisine=coffee_shop
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0e resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0e resolution 24]
 cuisine=french
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0f resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a0f resolution 24]
 cuisine=german | cuisine=bavarian
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a10 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a10 resolution 24]
 cuisine=british | cuisine=fish_and_chips
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a11 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a11 resolution 24]
 cuisine=speciality | cuisine=local | cuisine=regional
- {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]'| '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a12 resolution 24]
+ {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a12 resolution 24]
 #amenity=restaurant {add name='${cuisine|subst:"_=> "}' ; addlabel '${phone}' | '${website}' | '${operator}'}
-amenity=restaurant {name '${name} [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'}
+amenity=restaurant {name '${name} (${cuisine}) [restaurant]' | '${name} [restaurant]' | '${name} [restaurant]' | '(${cuisine}) [restaurant]' | '[restaurant]' ; addlabel '${phone}' | '${website}' | '${operator}'}
  [0x2a13 resolution 24]
 #common ones not handled:
 # ice_cream,greek,turkish,noodle,portugese,pasties,lebanese,brazilian,mediterranean,oriental,caribbean,vegetarian
@@ -604,9 +613,12 @@ natural=water & (water=canal | water=lock) & name=* {name '${name} [water]' | '[
 natural=water & salt=yes {name '${name} (salt) [water]' | '(salt) [water]' ; addlabel 'intermittent=$[intermittent]' } [0x6603 resolution 24]
 natural=water {name '${name} [water]' | '[water]' ; addlabel 'intermittent=$[intermittent]' } [0x6603 resolution 24]
 
+(natural=waterfall | waterway=waterfall ) & intermittent=yes
+	{name '${name} {${alt_name}} (${height}m) (interm) [waterfall]' | '${name} (${height}m) (interm) [waterfall]' | '(${height}m) (interm) [waterfall]' | '${name} (${height}m) (interm) [waterfall]' | '(${height}m) (interm) [waterfall]' | '${name} {${alt_name}} (interm) [waterfall]' | '${name} (interm) [waterfall]' | '(interm) [waterfall]' ; addlabel '${phone}' | '${website}' | '${operator}'}
+	[0x2c04 resolution 19-24] #0x6508 0x2c0d
 natural=waterfall | waterway=waterfall 
-	{name '${name} {${alt_name}} (${height}) [waterfall]' | '${name} (${height}) [waterfall]' | '(${height}) [waterfall]' | '${name} (${height}) [waterfall]' | '(${height}) [waterfall]' | '${name} {${alt_name}} [waterfall]' | '${name} [waterfall]' | '[waterfall]' ; addlabel '${height}' | '${phone}' | '${website}' | '${operator}'}
-	[0x2c0d resolution 19-24] #0x6508
+	{name '${name} {${alt_name}} (${height}m) [waterfall]' | '${name} (${height}m) [waterfall]' | '(${height}m) [waterfall]' | '${name} (${height}m) [waterfall]' | '(${height}m) [waterfall]' | '${name} {${alt_name}} [waterfall]' | '${name} [waterfall]' | '[waterfall]' ; addlabel '${phone}' | '${website}' | '${operator}'}
+	[0x2c04 resolution 19-24] #0x6508 0x2c0d
 natural=wetland & name=* {name '${name} (${wetland}) [wetland]' | '${name} [wetland]' | '(${wetland}) [wetland]' | '[wetland]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6513 resolution 24]
 natural=bay {name '${name} [bay]' | '[bay]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6604 resolution 24]
@@ -633,14 +645,21 @@ tourism=caravan_site
 	{name '${name} {${alt_name}} [caravan_site]' | '${name} [caravan_site]' | '[caravan_site]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b05 resolution 24]
 tourism=chalet {name '${name} {${alt_name}} [chalet]' | '${name} [chalet]' | '[chalet]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
 tourism=guest_house 
-	{name '${name} {${alt_name}} [guest_house]' | '${name} [guest_house]' | '[guest_house]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
-tourism=hostel {name '${name} {${alt_name}} [hostel]' | '${name} [hostel]' | '[hostel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
+	{name '${name} {${alt_name}} (${guest_house}) (int ${internet_access}) [guest_house]' | '${name} {${alt_name}} (int ${internet_access}) [guest_house]' | '${name} {${alt_name}} (${guest_house}) [guest_house]' | '${name} {${alt_name}} (${guest_house}) [guest_house]' | '${name} {${alt_name}} [guest_house]' | '${name} (int ${internet_access}) (${guest_house}) [guest_house]'  | '${name} (int ${internet_access}) [guest_house]' | '${name} (${guest_house}) [guest_house]' | '${name} [guest_house]' | '(int ${internet_access}) (${guest_house}) [guest_house]' | '(int ${internet_access}) [guest_house]' | '(${guest_house}) [guest_house]' | '[guest_house]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
+tourism=hostel 
+	{name '${name} {${alt_name}} (${guest_house}) (int ${internet_access}) [hostel]' | '${name} {${alt_name}} (int ${internet_access}) [hostel]' | '${name} {${alt_name}} (${guest_house}) [hostel]' | '${name} {${alt_name}} (${guest_house}) [hostel]' | '${name} {${alt_name}} [hostel]' | '${name} (int ${internet_access}) (${guest_house}) [hostel]'  | '${name} (int ${internet_access}) [hostel]' | '${name} (${guest_house}) [hostel]' | '${name} [hostel]' | '(int ${internet_access}) (${guest_house}) [hostel]' | '(int ${internet_access}) [hostel]' | '(${guest_house}) [hostel]' | '[hostel]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
+#tourism=hostel {name '${name} {${alt_name}} [hostel]' | '${name} [hostel]' | '[hostel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
 tourism=cabin {name '${name} {${alt_name}} [cabin]' | '${name} [cabin]' | '[cabin]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
 # Have both hotel &| restaurant POIs
-tourism=hotel {set tmp:stopMopUp=yes; name '${name} {${alt_name}} [hotel]' | '${name} [hotel]' | '[hotel]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
-	[0x2b01 resolution 24 continue with_actions]
-tourism=motel {set tmp:stopMopUp=yes; name '${name} {${alt_name}} [motel]' | '${name} [motel]' | '[motel]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
-	[0x2b01 resolution 24 continue with_actions]
+#tourism=hotel {set tmp:stopMopUp=yes; name '${name} {${alt_name}} [hotel]' | '${name} [hotel]' | '[hotel]' ; addlabel '${phone}' | '${website}' | '${operator}'}  [0x2b01 resolution 24 continue with_actions] 
+tourism=hotel 
+	{set tmp:stopMopUp=yes; name '${name} {${alt_name}} (int ${internet_access}) [hotel]' | '${name} {${alt_name}} [hotel]' | '${name} (int ${internet_access}) [hotel]' | '${name} [hotel]' | '(int ${internet_access}) [hotel]' | '[hotel]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2b01 resolution 24 continue with_actions] 
+tourism=motel 
+	{set tmp:stopMopUp=yes; name '${name} {${alt_name}} (int ${internet_access}) [motel]' | '${name} {${alt_name}} [motel]' | '${name} (int ${internet_access}) [motel]' | '${name} [motel]' | '(int ${internet_access}) [motel]' | '[motel]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2b01 resolution 24 continue with_actions]
 tourism=information {name '(${information}) [tourism]' | '[tourism_information]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c00 resolution 24]
 #information=guidepost [0x4c02 resolution 24 default_name '[guidepost]']
 information=* {name '${name} (${information}) [information]' | '(${information}) [information]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c02 resolution 24]
@@ -650,11 +669,12 @@ amenity=shelter {name '${name} {${alt_name}} (${shelter_type}) [shelter]' | '${n
 tourism=lean_to {name '${name} {${alt_name}} [lean_to]' | '${name} [lean_to]' | '[lean_to]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b05 resolution 24] 
 tourism=wilderness_hut {name '${name} [wilderness_hut]' | '[wilderness_hut]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b07 resolution 24]
 tourism=museum {name '${name} {${alt_name}} [museum]' | '${name} [museum]' | '[museum]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24]
-tourism=picnic_site {name '${name} [picnic_site]' | '[picnic_site]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4a00 resolution 24]
+tourism=picnic_site 
+	{name '${name} (${access}) [picnic_site]' |'${name} [picnic_site]' | '(${access}) [picnic_site]' | '[picnic_site]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4a00 resolution 24]
 tourism=resort {name '${name} {${alt_name}} [resort]' | '${name} [resort]' | '[resort]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b04 resolution 24]
 tourism=theme_park {name '${name} {${alt_name}} [theme_park]' | '${name} [theme_park]' | '[theme_park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c01 resolution 20-24]
 tourism=viewpoint 
-	{name '${name} {${alt_name}} ${description} [viewpoint]' | '${name} - ${description} [viewpoint]' | '${name} {${alt_name}} [viewpoint]' | '${name} [viewpoint]' | '[viewpoint]' ; 
+	{name '${name} {${alt_name}} ${description} (${direction}) [viewpoint]' | '${name} {${alt_name}} ${description} [viewpoint]' | '${name} ${description} (${direction}) [viewpoint]' | '${name} ${description} [viewpoint]' | '${name} {${alt_name}} (${direction}) [viewpoint]' | '${name} {${alt_name}} [viewpoint]' | '${name} (${direction}) [viewpoint]' | '${name} [viewpoint]' | '(${direction}) [viewpoint]' | '[viewpoint]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
 tourism=wine_cellar {name '${name} {${alt_name}} [wine_cellar]' | '${name} [wine_cellar]' | '[wine_cellar]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c0a resolution 24]
 tourism=zoo {name '${name} {${alt_name}} [zoo]' | '${name} [zoo]' | '[zoo]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c07 resolution 24]
@@ -662,6 +682,9 @@ tourism=hunting_lodge {name '${name} {${alt_name}} [hunting_lodge]' | '${name} [
 tourism=* & name!=* & tourism!=yes & tourism!=no {set name='${tourism|subst:"_=> "}' ; addlabel '${phone}' | '${website}' | '${operator}'}
 tourism=* & tourism!=no & tmp:stopMopUp!=yes {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c0d resolution 24]
 building=ruins {name '${name} [ruins]' | '[ruins]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c00 resolution 24]
+building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
+building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
+building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x0b00 resolution 24] # to use or not to use?
 
 landuse=cemetery | landuse=cemetary | amenity=grave_yard {name '${name} {${alt_name}} (${religion}) [cemetery]' | '${name} {${alt_name}} [cemetery]' | '${name} [cemetery]' | '[cemetery]' ;
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6403 resolution 24]
