@@ -12,6 +12,7 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 
 # Assign the street name for house number search
 highway=* & name=* {set mkgmap:street='${name}'}
+access=yes {set access=public}
 
 abandoned=* & abandoned!=no {name '${name} (abandoned)  [${abandoned}]' | '(abandoned)  [${abandoned}]'} 
 #abandoned=yes {deletealltags} # old, depreciated, ambiguous, method of handling abandoned
@@ -200,10 +201,10 @@ junction=roundabout & highway=* [0x0c road_class=0 road_speed=1 resolution 22-24
 # Ways that may or may not be useable
 
 # Treat ways under construction almost as highway=path, see also extra rule in inc/access
-highway=construction {add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
+highway=construction {name '[construction]' ; add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
 
 # Lower the road speed of ways under some construction.
-highway=* & construction=* & maxspeed!=* {add mkgmap:road-speed='-1'}
+highway=* & construction=* & maxspeed!=* {add mkgmap:road-speed='-1'} 
 # Lower the road speed of disused ways.
 highway=* & disused=yes & maxspeed!=* {add mkgmap:road-speed='-2'}
 
@@ -391,10 +392,18 @@ if ( highway=residential | highway=living_street) then
 	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [resi]' | '(ground) [resi]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
 	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 		[0x06 road_class=0 road_speed=1 resolution 24]
+	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
+	#	[0x12 road_class=0 road_speed=1 resolution 24 continue] #to use with TYP
+	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
+	#	[0x10600 resolution 24] #to use with TYP
 	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [resi]' | '(unkn) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
 	surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
+	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	#	[0x12 road_class=0 road_speed=1 resolution 24 continue] #to use with TYP
+	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	#	[0x1050e resolution 24] #to use with TYP
 	surface=* {name '${name} (pav) [resi]' | '(pav) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
 end 
@@ -714,9 +723,7 @@ man_made=cable & location=underground
 #0x10705 brown line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10605 resolution 24] #blue line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=yes {add name='${barrier|subst:"_=> "}'} [0x10503 resolution 24 default_name 'barrier'] #pink line <----
-barrier=* & power=* {delete barrier}  # some power areas are marked with both
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=* {name '${barrier} [barrier]' | '[barrier]' ; addlabel '${operator}'} [0x10503 resolution 24] #pink line <----
-barrier=* {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=* & ( barrier!=toll_booth | barrier!=border_control ) {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10403 resolution 24] #black line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10703 resolution 24] #grey line
@@ -729,6 +736,12 @@ barrier=* {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10101 resolution 24] #grey line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10805 resolution 24] #bold white line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x1c resolution 24] #administrive black line
+barrier=* & power=* {delete barrier}  # some power areas are marked with both
+barrier=* & landuse=* {delete barrier}  # some power areas are marked with both
+barrier=* {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+#barrier=* & is_closed()=false {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+#barrier=* & type()!=way {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}' ; echotags "way" } [0x10503 resolution 24] #pink line <----
+# type()=way
 
 route=ferry & (toll=no | toll=false) {set mkgmap:toll=no}
 route=ferry {set mkgmap:numbers=false; set mkgmap:ferry=1; add mkgmap:toll=yes}
@@ -740,52 +753,52 @@ route=ferry {name '${name} [ferry]' | '[ferry]' ; addlabel '${phone}' | '${websi
 (waterway=river | waterway=stream | waterway=rapids | waterway=waterfall) {add mkgmap:has-direction=true}
 
 waterway=river & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}) [river]' | '${name} {${old_name}} (interm) (${width}) [river]' | '${name} (interm) (${width}) [river]' |  '${name} (interm) [river]' | '(interm) (${width}) [river]' |  '(interm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} (interm) (${width}m) [river]' |  '${name} (interm) [river]' | '(interm) (${width}m) [river]' |  '(interm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x1f resolution 20-24] 
 waterway=river & intermittent=no 
-	{name '${name} {${old_name}} (perm) (${width}) [river]' | '${name} {${old_name}} (perm) (${width}) [river]' | '${name} (perm) (${width}) [river]' | '${name} (perm) [river]' | '(perm) (${width}) [river]' | '(perm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (perm) (${width}m) [river]' | '${name} {${old_name}} (perm) (${width}m) [river]' | '${name} (perm) (${width}m) [river]' | '${name} (perm) [river]' | '(perm) (${width}m) [river]' | '(perm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x1f resolution 18] # 0x1f river
 waterway=river 
-	{name '${name} {${old_name}} (unkn) (${width}) [river]' | '${name} {${old_name}} (unkn) (${width}) [river]' | '${name} (unkn) (${width}) [river]' | '${name} (unkn) [river]' | '(unkn) (${width}) [river]' | '(unkn) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (unkn) (${width}m) [river]' | '${name} {${old_name}} (unkn) (${width}m) [river]' | '${name} (unkn) (${width}m) [river]' | '${name} (unkn) [river]' | '(unkn) (${width}m) [river]' | '(unkn) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x1f resolution 18] #continuous
 
 waterway=canal & intermittent=yes 
 	{name '${name} 
-	{${old_name}} (interm) (${width}) (${usage}) [canal]' | '${name} {${old_name}} (interm) (${width}) [canal]' | '${name} {${old_name}} (interm) (${usage}) [canal]' | '${name} {${old_name}} (interm)  [canal]' |
-	'${name} (interm) (${width}) (${usage}) [canal]' | '${name} (interm) (${width}) [canal]' | '${name} (interm) (${usage}) [canal]' | '${name} (interm) [canal]' | 
-	'(interm) (${width}) (${usage}) [canal]' | '(interm) (${width}) [canal]' | '(interm) (${usage}) [canal]' | '(interm) [canal]' ; 
+	{${old_name}} (interm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (interm) (${width}m) [canal]' | '${name} {${old_name}} (interm) (${usage}) [canal]' | '${name} {${old_name}} (interm)  [canal]' |
+	'${name} (interm) (${width}m) (${usage}) [canal]' | '${name} (interm) (${width}m) [canal]' | '${name} (interm) (${usage}) [canal]' | '${name} (interm) [canal]' | 
+	'(interm) (${width}m) (${usage}) [canal]' | '(interm) (${width}m) [canal]' | '(interm) (${usage}) [canal]' | '(interm) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24] 
 waterway=canal & intermittent=no 
 	{name '${name} 
-	{${old_name}} (perm) (${width}) (${usage}) [canal]' | '${name} {${old_name}} (perm) (${width}) [canal]' | '${name} {${old_name}} (perm) (${usage}) [canal]' | '${name} {${old_name}} (perm)  [canal]' |
-	'${name} (perm) (${width}) (${usage}) [canal]' | '${name} (perm) (${width}) [canal]' | '${name} (perm) (${usage}) [canal]' | '${name} (perm) [canal]' | 
-	'(perm) (${width}) (${usage}) [canal]' | '(perm) (${width}) [canal]' | '(perm) (${usage}) [canal]' | '(perm) [canal]' ; 
+	{${old_name}} (perm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (perm) (${width}m) [canal]' | '${name} {${old_name}} (perm) (${usage}) [canal]' | '${name} {${old_name}} (perm)  [canal]' |
+	'${name} (perm) (${width}m) (${usage}) [canal]' | '${name} (perm) (${width}m) [canal]' | '${name} (perm) (${usage}) [canal]' | '${name} (perm) [canal]' | 
+	'(perm) (${width}m) (${usage}) [canal]' | '(perm) (${width}m) [canal]' | '(perm) (${usage}) [canal]' | '(perm) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
 waterway=canal 
 	{name '${name} 
-	{${old_name}} (unkn) (${width}) (${usage}) [canal]' | '${name} {${old_name}} (unkn) (${width}) [canal]' | '${name} {${old_name}} (unkn) (${usage}) [canal]' | '${name} {${old_name}} (unkn)  [canal]' |
-	'${name} (unkn) (${width}) (${usage}) [canal]' | '${name} (unkn) (${width}) [canal]' | '${name} (unkn) (${usage}) [canal]' | '${name} (unkn) [canal]' | 
-	'(unkn) (${width}) (${usage}) [canal]' | '(unkn) (${width}) [canal]' | '(unkn) (${usage}) [canal]' | '(unkn) [canal]' ; 
+	{${old_name}} (unkn) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (unkn) (${width}m) [canal]' | '${name} {${old_name}} (unkn) (${usage}) [canal]' | '${name} {${old_name}} (unkn)  [canal]' |
+	'${name} (unkn) (${width}m) (${usage}) [canal]' | '${name} (unkn) (${width}m) [canal]' | '${name} (unkn) (${usage}) [canal]' | '${name} (unkn) [canal]' | 
+	'(unkn) (${width}m) (${usage}) [canal]' | '(unkn) (${width}m) [canal]' | '(unkn) (${usage}) [canal]' | '(unkn) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
 	
 waterway=ditch & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}) [ditch]' | '${name} {${old_name}} (interm) (${width}) [ditch]' | '${name} (interm) (${width}) [ditch]' | '${name} (interm) [ditch]' | '(interm) (${width}) [ditch]' | '(interm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24] 
+	{name '${name} {${old_name}} (interm) (${width}m) [ditch]' | '${name} {${old_name}} (interm) (${width}m) [ditch]' | '${name} (interm) (${width}m) [ditch]' | '${name} (interm) [ditch]' | '(interm) (${width}m) [ditch]' | '(interm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24] 
 waterway=ditch & intermittent=no 
-	{name '${name} {${old_name}} (perm) (${width}) [ditch]' | '${name} {${old_name}} (perm) (${width}) [ditch]' | '${name} (interm) (${width}) [ditch]' | '${name} (perm) [ditch]' | '(perm) (${width}) [ditch]' | '(perm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 20-24]
+	{name '${name} {${old_name}} (perm) (${width}m) [ditch]' | '${name} {${old_name}} (perm) (${width}m) [ditch]' | '${name} (interm) (${width}m) [ditch]' | '${name} (perm) [ditch]' | '(perm) (${width}m) [ditch]' | '(perm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 20-24]
 waterway=ditch 
-	{name '${name} {${old_name}} (unkn) (${width}) [ditch]' | '${name} {${old_name}} (unkn) (${width}) [ditch]' | '${name} (unkn) (${width}) [ditch]' | '${name} (unkn) [ditch]' | '(unkn) (${width}) [ditch]' | '(unkn) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24]
+	{name '${name} {${old_name}} (unkn) (${width}m) [ditch]' | '${name} {${old_name}} (unkn) (${width}m) [ditch]' | '${name} (unkn) (${width}m) [ditch]' | '${name} (unkn) [ditch]' | '(unkn) (${width}m) [ditch]' | '(unkn) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24]
 
 waterway=stream & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}) [stream]' | '${name} {${old_name}} (interm) (${width}) [stream]' | '${name} (interm) (${width}) [stream]' |  '${name} (interm) [stream]' | '(interm) (${width}) [stream]' | '(interm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} (interm) (${width}m) [stream]' |  '${name} (interm) [stream]' | '(interm) (${width}m) [stream]' | '(interm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x26 resolution 21] # 0x26 intermittent dotted
 waterway=stream & intermittent=no 
-	{name '${name} {${old_name}} (perm) (${width}) [stream]' | '${name} {${old_name}} (perm) (${width}) [stream]' | '${name} (perm) (${width}) [stream]' | '${name} (perm) [stream]' | '(perm) (${width}) [stream]' | '(perm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (perm) (${width}m) [stream]' | '${name} {${old_name}} (perm) (${width}m) [stream]' | '${name} (perm) (${width}m) [stream]' | '${name} (perm) [stream]' | '(perm) (${width}m) [stream]' | '(perm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 19] # 0x18 stream
 waterway=stream 
-	{name '${name} {${old_name}} (unkn) (${width}) [stream]' | '${name} {${old_name}} (unkn) (${width}) [stream]' | '${name} (unkn) (${width}) [stream]' | '${name} (unkn) [stream]' | '(unkn) (${width}) [stream]' | '(unkn) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (unkn) (${width}m) [stream]' | '${name} {${old_name}} (unkn) (${width}m) [stream]' | '${name} (unkn) (${width}m) [stream]' | '${name} (unkn) [stream]' | '(unkn) (${width}m) [stream]' | '(unkn) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21]
 	
-natural=water & intermittent=yes & area!=yes& is_closed()=false
+natural=water & intermittent=yes & area!=yes & is_closed()=false
 	{name '${name} {${old_name}} (interm) [water]' | '${name} {${alt_name}} (interm) [water]' | '${name} (interm) [water]' | '(interm) [water]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x26 resolution 21] # 0x26 intermittent dotted
 natural=water & intermittent=no & area!=yes& is_closed()=false
@@ -861,13 +874,13 @@ waterway=dam | man_made=dam
 waterway=lock_gate | waterway=weir {name '${name} [lock_gate]' | '[lock_gate]' ; addlabel '${operator}'} [0x10503 resolution 24] # Weir is a barrier built across a river to control water speed and depth.
 
 waterway=* & intermittent=yes & area!=yes & waterway!=no & is_closed()=false
-	{name '${name} {${old_name}} (interm) (${width}) [${waterway]]' | '${name} {${alt_name}} (interm) (${width}) [${waterway]]' | '${name} (interm) (${width}) [${waterway]]' |  '${name} (interm) [${waterway]]' | '(interm) (${width}) [${waterway}]' | '(interm) [${waterway]]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (interm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (interm) (${width}m) [${waterway]]' | '${name} (interm) (${width}m) [${waterway]]' |  '${name} (interm) [${waterway]]' | '(interm) (${width}m) [${waterway}]' | '(interm) [${waterway]]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21] # 0x26 intermittent dotted
 waterway=* & intermittent=no & area!=yes & waterway!=no & is_closed()=false
-	{name '${name} {${old_name}} (perm) (${width}) [${waterway]]' | '${name} {${alt_name}} (perm) (${width}) [${waterway]]' | '${name} (perm) (${width}) [${waterway]]' | '${name} (perm) [${waterway]]' | '(perm) (${width}) [${waterway]]' | '(perm) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (perm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (perm) (${width}m) [${waterway]]' | '${name} (perm) (${width}m) [${waterway]]' | '${name} (perm) [${waterway]]' | '(perm) (${width}m) [${waterway]]' | '(perm) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 19] # 0x18 stream
 waterway=* & area!=yes & waterway!=no & is_closed()=false
-	{name '${name} {${old_name}} (unkn) (${width}) [${waterway]]' | '${name} {${alt_name}} (unkn) (${width}) [${waterway]]' | '${name} (unkn) (${width}) [${waterway]]' | '${name} (unkn) [${waterway]]' | '(unkn) (${width}) [${waterway]]' | '(unkn) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (unkn) (${width}m) [${waterway]]' | '${name} {${alt_name}} (unkn) (${width}m) [${waterway]]' | '${name} (unkn) (${width}m) [${waterway]]' | '${name} (unkn) [${waterway]]' | '(unkn) (${width}m) [${waterway]]' | '(unkn) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21]
 
 
@@ -879,14 +892,14 @@ include 'inc/contour_lines';
 
 #boundary=* {name '${name} (${boundary}) [boundary]' | '(${boundary}) [boundary]' ; addlabel '${admin_level}'} [0x1c resolution 24 continue]
 #abandoned=* {name '${name} (abandoned)  [${abandoned}]' | '(abandoned)  [${abandoned}]'} [0x1c resolution 24 continue]
-hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
-abandoned=* & abandoned!=no [0x1c resolution 24 continue]
+hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
+abandoned=* & abandoned!=no & is_closed()=false [0x1c resolution 24 continue]
 name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
 highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	[0x16 road_class=0 road_speed=0 resolution 22-24]
 route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${phone}' | '${website}' | '${operator}' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x10805 resolution 24]
-power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
+power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
 man_made=* & is_closed()=false {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
 railway=* {name '${name} [{$railway}]' |  '[{$railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
 
