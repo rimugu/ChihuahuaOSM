@@ -319,7 +319,7 @@ leisure=sports_center | leisure=sports_centre
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 20-24]
 leisure=stadium | building=stadium {name '${name} {${alt_name}} [stadium]' | '${name} [stadium]' | '[stadium]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 20-24]
 leisure=track & area=yes {name '${name} [${sport}]' | '[${sport}]' | '[track]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 21]
-leisure=water_park {name '${name} [water_park]' | '[water_park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x09 resolution 20-24]
+leisure=water_park {name '${name} {${alt_name}} [water_park]' | '${name} [water_park]' | '[water_park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x09 resolution 20-24]
 leisure=miniature_golf {name '${name} [mini_golf]' | '[mini_golf]' ; addlabel '${phone}' | '${website}' | '${operator}'}  [0x17 resolution 24]
 leisure=dance {name '${name} [dance]' | '[dance]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 24]
 tourism=theme_park {name '${name} [theme_park]' | '[theme_park]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
@@ -344,6 +344,7 @@ tourism=* & area!=no & waterway!=* {name '${name} (${tourism}) [tourism]' | '(${
 building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
 building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
 building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] # to use or not to use?
+building=greenhouse | landuse=greenhouse_horticulture {name '${name} [greenhouse]' | '[greenhouse]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] 
 building=* & building!=no {name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
 
 # man_made can be used on areas or lines

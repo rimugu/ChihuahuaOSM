@@ -81,6 +81,7 @@ barrier=bus_trap {
 barrier=gate | barrier=lift_gate | barrier=swing_gate {
  set mkgmap:road-speed=0;
  }
+ 
 barrier=* {add mkgmap:road-speed=1}
 barrier=* & access=* {addaccess '${access|subst:private=>no}'}
 
@@ -334,7 +335,7 @@ highway=milestone {name '${name} ${distance} [milestone]' | '${distance} [milest
 
 highway=services {add exit:facility="0x02,I,0x47,Features" ; name '${name} [services]' | '[services]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x230f resolution 20-24]
 
-historic=museum {name '${name} (${inscription}) [museum]' | '${name} [museum]' | '[museum]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24] #tourism=museum below
+historic=museum | tourism=museum {name '${name} (${inscription}) [museum]' | '${name} [museum]' | '[museum]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24] #tourism=museum below
 historic=archaeological_site | historic=ruins | historic=archeological_site 
 	{name '${name} (${archaeological_site}}) [archaeological_site]' | '${name} [archaeological_site]' |'[archaeological_site]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
@@ -398,8 +399,11 @@ man_made=water_well
 	{name '${name} (${access}) pump ${pump}) [water_well]' | '${name} (${access}) [water_well]' | '${name} (pump ${pump}) [water_well]' | '${name} [water_well]' | '(${access}) [water_well]' | '(pump ${pump}) [water_well]' | '[water_well]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=storage_tank 
 	{name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' | '${name} [storage_tank]' | '[storage_tank]' ; addlabel '${operator}'} [0x6411 resolution 24]
-
 #man_made=storage_tank {name '${name} [${storage_tank}]' | '[${storage_tank}]' ; addlabel '${operator}'} [0x6411 resolution 24]
+
+man_made=survey_point {name '${name} (${ref}) [survey_point]' | '(${ref}) [survey_point]' | '${name} [survey_point]' | '[survey_point]' ; addlabel '${operator}'} [0x6411 resolution 24]
+
+
 barrier=toll_booth & ( payment:cash=* | payment:coins=* ) 
 	{name '${name} (cash ${payment:cash} [${barrier}]' | '(cash ${payment:cash} [${barrier}]' | '${name} [${barrier}]' | '[${barrier}]' ; addlabel '${operator}'} 
 	[0x2500 resolution 24]
@@ -416,6 +420,7 @@ highway=stop {name '${name} [stop]' | '[stop]' ; addlabel '${phone}' | '${websi
 #highway=traffic_signals [0x3200 resolution 24 default_name '[traffic_signals]']
 highway=traffic_signals {name '(${traffic_signals}) [traffic_signals]' | '[traffic_signals]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x7010 resolution 24] # 0x0001c8
 traffic_calming=* {name '(${traffic_calming}) [calming]' | '[calming]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+highway=mini_roundabout {name '[mini_roundabout]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x7010 resolution 24]
 highway=speed_camera {name '(${maxspeed|conv:"mph=>kmh"}) [speed_camera]' | '[speed_camera]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 highway=trailhead {name '${name} (fee ${fee}) [trailhead]' | '${name} [trailhead]' | '(fee ${fee}) [trailhead]' | '[trailhead]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x3200 resolution 24]
@@ -462,7 +467,8 @@ railway=halt [0x2f08 resolution 23]
 	{name '${name} [${railway}]' | '[platform]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 23]
 highway=bus_stop {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
 railway=tram_stop {name '${name} [tram_stop]' | '[tram_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
-public_transport=platform & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) [0x2f17 resolution 24]
+public_transport=platform & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) 
+	[0x2f17 resolution 24]
 
 shop=* & name!=* & shop!=yes & shop!=no & shop!=none & shop!=vacant {set name='${shop|subst:"_=> "}'}
 # Uncomment the following lines to enable these extra POI that some devices support
@@ -693,6 +699,8 @@ building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${heigh
 building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x0b00 resolution 24] # to use or not to use?
 
 landuse=cemetery | landuse=cemetary | amenity=grave_yard {name '${name} {${alt_name}} (${religion}) [cemetery]' | '${name} {${alt_name}} [cemetery]' | '${name} [cemetery]' | '[cemetery]' ;
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x6403 resolution 24]
+cemetery=grave {name '${name} {${alt_name}} (${ele}m) [grave]' | '${name} {${alt_name}} (${religion}) [grave]' | '${name} {${alt_name}} [grave]' | '${name} [grave]' | '[grave]' ;
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6403 resolution 24]
 (landuse=wood | landuse=forest) & name=* {name '${name} {${alt_name}} [managed_wood]' | '${name} [managed_wood]' | '[managed_wood]'; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x6618 resolution 24]
