@@ -240,12 +240,30 @@ hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabe
 amenity=ferry_terminal | ferry=yes {name '${name} [ferry_terminal]' | '[ferry_terminal]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 22-24]
 # handle amenity=fast_food rules later in file
 amenity=fire_station {name '${name} [fire_station]' | '[fire_station]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3008 resolution 24]
-amenity=food_court {name '${name} [food_court]' | '[food_court]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2a13 resolution 24]
-amenity=clock {name '${name} [clock]' | '[clock]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
-amenity=research_institute | office=research {name '${name} [research]' | '[research]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x2f12 resolution 22-24]
-amenity=fountain {name '${name} [fountain]' | '[fountain]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
-amenity=bicycle_repair_station {name '${name} [bicycle_repair_station]' | '[bicycle_repair_station}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 22]
-
+amenity=bicycle_parking
+	{name '${name} (access ${access}) (cap ${capacity}) ($ ${charge}) [bicycle_parking]' | '(access ${access}) (cap ${capacity}) ($ ${charge}) [bicycle_parking]' |
+	'${name} (access ${access}) (cap ${capacity}) (fee ${fee}) [bicycle_parking]' | '(access ${access}) (cap ${capacity}) (fee ${fee}) [bicycle_parking]' |
+	'${name} (cap ${capacity}) ($ ${charge}) [bicycle_parking]' | '($ ${charge}) (fee ${fee}) [bicycle_parking]' |
+	'${name} (cap ${capacity}) (fee ${fee}) [bicycle_parking]' | '(cap ${capacity}) (fee ${fee}) [bicycle_parking]' |
+	'${name} (access ${access}) ($ ${charge}) [bicycle_parking]' | '(access ${access}) ($ ${charge}) [bicycle_parking]' |
+	'${name} (access ${access}) (fee ${fee}) [bicycle_parking]' | '(access ${access}) (fee ${fee}) [bicycle_parking]' |
+	'${name} ($ ${charge}) [bicycle_parking]' | '($ ${charge}) [bicycle_parking]' |
+	'${name} (fee ${fee}) [bicycle_parking]' | '(fee ${fee}) [bicycle_parking]'  |
+	'${name} (access ${access}) (cap ${capacity}) [bicycle_parking]' | '(access ${access}) (cap ${capacity}) [bicycle_parking]' |
+	'${name} ($ ${charge}) [bicycle_parking]' | '($ ${charge}) [bicycle_parking]' |
+	'${name} (cap ${capacity}) [bicycle_parking]' | '(cap ${capacity}) [bicycle_parking]' |
+	'${name} ($ ${charge}) [bicycle_parking]' | '($ ${charge}) [bicycle_parking]' |
+	'${name} (access ${access}) [bicycle_parking]' | '(access ${access}) [bicycle_parking]' |
+	'${name} ($ ${charge}) [bicycle_parking]' | '($ ${charge}) [bicycle_parking]' |
+	'${name} [bicycle_parking]' | '[bicycle_parking]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+amenity=bicycle_rental
+	{name '${name} (${website}) (${network}) (${operator}) [bicycle_rental]' | '(${website}) (${network}) (${operator}) [bicycle_rental]'  |
+	'${name} (${website}) (${operator}) [bicycle_rental]' | '(${website}) (${operator}) [bicycle_rental]'  |
+	'${name} (${website}) (${network}) [bicycle_rental]' | '(${network}) (${operator}) [bicycle_rental]'  |
+	'${name} (${website}) [bicycle_rental]' | '(${website}) [bicycle_rental]'  |
+	'${name} (${operator}) [bicycle_rental]' | '(${operator}) [bicycle_rental]'  |
+	'${name} (${network}) [bicycle_rental]' | '(${network}) [bicycle_rental]'  |
+	'${name} [bicycle_rental]' | '[bicycle_rental]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 
 amenity=fuel & fuel:HGV_diesel=yes {name '${name} (HGV_diesel) [fuel]' | '(HGV_diesel) [fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f16 resolution 23]
 amenity=fuel & fuel:diesel=yes {name '${name} (diesel) [fuel]' | '(diesel) [fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f16 resolution 23]
@@ -693,6 +711,7 @@ tourism=zoo {name '${name} {${alt_name}} [zoo]' | '${name} [zoo]' | '[zoo]' ; ad
 tourism=hunting_lodge {name '${name} {${alt_name}} [hunting_lodge]' | '${name} [hunting_lodge]' | '[hunting_lodge]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b04 resolution 24]
 tourism=* & name!=* & tourism!=yes & tourism!=no {set name='${tourism|subst:"_=> "}' ; addlabel '${phone}' | '${website}' | '${operator}'}
 tourism=* & tourism!=no & tmp:stopMopUp!=yes {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c0d resolution 24]
+
 building=ruins {name '${name} [ruins]' | '[ruins]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c00 resolution 24]
 building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
 building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
@@ -727,7 +746,7 @@ place=* & place!=islet {name '${name} [${place}]' | '[${place}]' ; addlabel '${p
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 landuse=* & landuse!=farmland & landuse!=grass & landuse!=forest & landuse!=orchard & landuse!=vineyard & landuse!=mesa & landuse!=retail & landuse!=cemetery & landuse!=wood & landuse!=residential 
 	{name '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
-amenity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+amen1ity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 boundary=* {name '${name} [${boundaryboundary}]' | '[${administrative}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x32000 resolution 24]
 emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6410 resolution 24]
