@@ -194,11 +194,11 @@ aeroway=helipad {name '${name} [helipad]' | '[helipad]' ; addlabel '${phone}' | 
 aeroway=terminal {name '${name} [terminal]' | '[terminal]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 24]
 aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 24]
 
-amenity=atm & cash_in=yes {name '${name} (${network}) (cash_in) [atm]' | '${name} (cash_in) [atm]' | '(cash_in) [atm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24 continue]
-amenity=atm {name '${name} (${network}) [atm]' | '${name} [atm]' | '[atm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24 continue]
-amenity=arts_centre {name '${name} [arts_centre]' | '[arts_centre]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
 amenity=bank & atm=yes {name '${name} (atm) [bank]' | '(atm) [bank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24]
 amenity=bank {name '${name} [bank]' | '[bank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24]
+amenity=atm & cash_in=yes {name '${operator} (${network}) (cash_in) [atm]' | '${operator} (cash_in) [atm]' | '(cash_in) [atm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24]
+amenity=atm {name '${operator} (${network}) [atm]' | '${operator} [atm]' | '[atm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f06 resolution 24]
+amenity=arts_centre {name '${name} [arts_centre]' | '[arts_centre]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
 amenity=bureau_de_change {name '${name} [currency_exchange]' | '[currency_exchange]'} [0x2f06 resolution 24]
 amenity=bar {name '${name} [bar]' | '[bar]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d02 resolution 24 continue]
 amenity=bench {name '${name} [bench]' | '[bench]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6605 resolution 24]
@@ -325,13 +325,14 @@ amenity=payment_centre | amenity=payment_terminal {name '${name} [payment]' | '[
 amenity=weighbridge 
 	{name '${name} ${maxweight}t (${access}) [weighbridge]' | '${name} (${access}) [weighbridge]' | '${name} ${maxweight}t [weighbridge]' | '${name} [weighbridge]' | '(${access}) ${maxweight}t [weighbridge]' | '(${access}) [weighbridge]' | '${maxweight}t [weighbridge]' | '[weighbridge]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x2400 resolution 24] # Weight station 0x3200
+amenity=marketplace {name '${name} [marketplace]' | '[marketplace]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24]
+amenity=events_venue {name '${name} [events_venue]' | '[events_venue]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24] #0x2e06 is fuel
+amenity=ranger_station {name '${name} [ranger_station]' | '[ranger_station]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c17 resolution 22-24]
+	
 man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack 
 	{name '${name} (${substance}) [petroleum_well]' | '${name} [petroleum_well]' | '(${substance}) [petroleum_well]' |'[petroleum_well]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0640d resolution 24]
-amenity=marketplace {name '${name} [marketplace]' | '[marketplace]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24]
-amenity=events_venue {name '${name} [events_venue]' | '[events_venue]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24] #0x2e06 is fuel
 club=chess {name '${name} [chess]' | '[chess]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d0a resolution 24]
-amenity=ranger_station {name '${name} [ranger_station]' | '[ranger_station]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c17 resolution 22-24]
 office=research {name '${name} [research]' | '[research]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 office=* {name '${name} (${office}) [office]' | '(${office}) [office]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 
@@ -446,7 +447,6 @@ traffic_sign=* {name '(${maxspeed|conv:"mph=>kmh"}) (${traffic_sign}) [sign]' | 
 man_made=corral {name '(${name}) [corral]' | '[corral]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24 ]
 ford=yes {name '${name} (${surface}) (${depth}m) [ford]' | '${name} (${depth}m) [ford]' | '(${surface}) (${depth}m) [ford]' | '(${depth}m) [ford]' | '${name} (${surface}) [ford]' | '${name} [ford]' | '(${surface}) [ford]' | '[ford]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24 ]
 highway=rest_area {name '${name} [rest_area]' | '[rest_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f0c resolution 22-24]
-advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 
 # Edge 705 displays 0x650a(glacier),0x6511(spring),0x6512(stream),0x6513,0x6603,0x6614(rock) as hollow white circles, no menu
 natural=cave_entrance 
@@ -746,7 +746,7 @@ place=* & place!=islet {name '${name} [${place}]' | '[${place}]' ; addlabel '${p
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 landuse=* & landuse!=farmland & landuse!=grass & landuse!=forest & landuse!=orchard & landuse!=vineyard & landuse!=mesa & landuse!=retail & landuse!=cemetery & landuse!=wood & landuse!=residential 
 	{name '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
-amen1ity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+amenity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 boundary=* {name '${name} [${boundaryboundary}]' | '[${administrative}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x32000 resolution 24]
 emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6410 resolution 24]
@@ -755,6 +755,7 @@ man_made=* {name '${name} [${man__made}]' | '[${man__made}]' ; addlabel '${phone
 #building=yes {name '${name} [building]' | '[building]' ; addlabel 'levels ${levels}'} [0x0b00 resolution 24] # to use or not to use?
 building=* & building!=yes & building!=house 
 	{name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x0b00 resolution 24] # to use or not to use?
+advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 abandoned=* & abandoned!=no [0x0b00 resolution 24]
 is_in=* {name '${name} (${is_in}) [is_in]'} [0x0b00 resolution 24 default_name 'is_in'] #should't this be at the end?
 
