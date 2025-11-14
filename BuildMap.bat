@@ -6,12 +6,14 @@ rem #  Description:                                                             
 rem #                                                                              #
 rem # 1. Creates garmin maps from OSM info                                         #
 rem # -109.344,25.414 to -102.054,34.306
+rem #
+rem # with gmapsupp using gmapsupp.img, can be made transparent and remove accents
 rem #                                                                              #
 rem ################################################################################
 
 echo(
 echo(
-echo ....STARTING BuildMap.bat v2025-04-23 %TIME%
+echo ....STARTING BuildMap.bat v2025-11-14 %TIME%
 echo(
 
 set Source_Server=http://overpass.openstreetmap.ru/cgi/xapi_meta?
@@ -363,13 +365,14 @@ java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=
  --geonames-file=%Home_DIR%cities15000.zip --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
 @echo off
 
+rem geonames http://download.geonames.org/export/dump
 
 IF %ERRORLEVEL% NEQ 0 ( 
 	echo ....ERROR 300 - %ERRORLEVEL% .... %TIME%
 	exit /b 300
 )
 
-rem cities file https://download.geonames.org/export/dump/
+rem geonames cities file https://download.geonames.org/export/dump/
 
 
 rem styles
@@ -393,16 +396,16 @@ del /q %Img_DIR%
 
 @echo(
 
-java -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=bounds,is_in,nearest^
- --index --show-profiles=1 --make-opposite-cycleways --housenumbers --generate-sea=land-tag=natural=land  --precomp-sea=%Home_DIR%sea-latest.zip^
+java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=nearest,is_in,bounds^
+ --index --show-profiles=1 --make-opposite-cycleways --housenumbers --generate-sea=land-tag=natural=land --precomp-sea=%Home_DIR%sea-latest.zip^
  --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name="Chihuahua" --code-page=1252 --improve-overview --order-by-decreasing-area^
  --allow-reverse-merge --remove-ovm-work-files "--style-file=%Home_DIR%styles\default" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=auto^
- --family-name="ChihuahuaOSM crisol.snowdrift175@passinbox.com" --process-destination --process-exits ^
+ --family-name="ChihuahuaOSM crisol.snowdrift175@passinbox.com" --process-destination --process-exits --max-routing-island-len=500^
  --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right --copyright-message=" crisol.snowdrift175@passinbox.com "^
  --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
- --link-pois-to-ways --split-name-index --road-name-config=%Home_DIR%styles\roadNameConfig.txt^
- --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" -add-pois-to-lines=mid^
- --overview-dem-dist=276160 %Split_temp_DIR%*.pbf
+ --link-pois-to-ways --split-name-index --road-name-config=%Home_DIR%styles\roadNameConfig.txt --poi-address --gmapsupp --hide-gmapsupp-on-pc^
+ --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" --add-pois-to-lines=mid^
+ --overview-dem-dist=276160 %Split_temp_DIR%*.pbf 
 
 @echo off
 
@@ -425,7 +428,7 @@ rem --overview-dem-dist=165580
 rem --overview-dem-dist=55000  349MB 669MB
 rem --preserve-element-order ^
 rem --link-pois-to-ways make barriers part of routes
-rem --transparent (makes it not routable)
+rem --transparent (makes it not routable if used in the same pass)
 rem --hide-gmapsupp-on-pc sets bit to not copy from device to pc
 rem --description="Chihuahua Texas New Mexico Coahuila Durango OSM" 
 rem --gmapsupp --hide-gmapsupp-on-pc 
@@ -433,6 +436,9 @@ rem -reduce-point-density=4 --reduce-point-density-polygon=8
 rem --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" -add-pois-to-lines=mid^
 rem --simplify-lines=23:2.6,22:4.2,21:5.4,20:6 --simplify-polygons=23:2.6,22:4.2,21:5.4,20:6
 rem --split-name-index #increase index size but improves search?
+rem --code-page=1252
+rem  --report-roundabout-issues --report-routing-islands^
+rem https://cferrero.net/maps/improve_OSM.html
 
 rem start javaw.exe -Xmx12G -Djava.util.logging.config.file=logging.properties --add-opens java.base/java.util=ALL-UNNAMED -jar OsmAndMapCreator.jar
 
