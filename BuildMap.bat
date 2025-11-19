@@ -404,7 +404,7 @@ java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --famil
  --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right --copyright-message=" crisol.snowdrift175@passinbox.com "^
  --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
  --link-pois-to-ways --split-name-index --road-name-config=%Home_DIR%styles\roadNameConfig.txt --poi-address --gmapsupp --hide-gmapsupp-on-pc^
- --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" --add-pois-to-lines=mid^
+ --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" --add-pois-to-lines=mid --ignore-fixme-values^
  --overview-dem-dist=276160 %Split_temp_DIR%*.pbf 
 
 @echo off
