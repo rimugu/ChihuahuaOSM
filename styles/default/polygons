@@ -358,7 +358,8 @@ place=island {name '${name} [island]' | '[island]' ; addlabel '${phone}' | '${we
 place=islet {name '${name} [islet]' | '[islet]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x53 resolution 20-24]
 
 hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
-landuse=* & area_size < 1000 {name '${name} {${alt_name}} [${landuse}]' | '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
+landuse=* & area_size < 1000 
+	{name '${name} {${alt_name}} [${landuse}]' | '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
 natural=* & natural!=land & area_size < 1000 
 	{name '${name} {${alt_name}} [${natural}]' | '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4f resolution 24]
@@ -367,7 +368,7 @@ sport=* & area_size < 1000 {name '${name} (${sport}) [sport]' | '(${sport}) [spo
 power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 #historic=* Defined 175
 #tourism=* Defined in 313
-place=* #& area_size < 1000 
+place=* & area_size < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
 abandoned=* & abandoned:!=no  [0x03 resolution 24]
