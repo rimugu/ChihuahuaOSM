@@ -367,7 +367,7 @@ sport=* & area_size < 1000 {name '${name} (${sport}) [sport]' | '(${sport}) [spo
 power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 #historic=* Defined 175
 #tourism=* Defined in 313
-place=* & area_size < 1000 
+place=* #& area_size < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
 abandoned=* & abandoned:!=no  [0x03 resolution 24]
