@@ -13,8 +13,6 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 #water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 #water=pond | natural=water | water=reservoir | water=basin
 
-include 'inc/name';
-
 abandoned=* & abandoned!=no {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x03 resolution 24]
 amenity=funeral_home {add shop='funeral_directors'}
 access=yes {set access=public}
@@ -374,7 +372,8 @@ place=* & area_size < 1000
 	[0x03 resolution 19] # grey
 abandoned=* & abandoned:!=no  [0x03 resolution 24]
 abandoned:landuse=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]' } [0x03 resolution 24]
-	
+
+include 'inc/name';
 name=* & area_size < 1000 {name '${name} {${official_name}}' | '${name} {${designation}}' | '${name} {${alt_name}}' | '${name} {${old_name}}' | '${name}'}
 
 <finalize>
