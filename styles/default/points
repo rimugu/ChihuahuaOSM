@@ -262,6 +262,7 @@ amenity=bicycle_rental
 	'${name} (${operator}) [bicycle_rental]' | '(${operator}) [bicycle_rental]'  |
 	'${name} (${network}) [bicycle_rental]' | '(${network}) [bicycle_rental]'  |
 	'${name} [bicycle_rental]' | '[bicycle_rental]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+amenity=fountain {name '${name} (${fountain}) [${amenity}]' | '(${fountain}) [${amenity}]' | '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 
 amenity=fuel & fuel:HGV_diesel=yes {name '${name} (HGV_diesel) [fuel]' | '(HGV_diesel) [fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f16 resolution 23]
 amenity=fuel & fuel:diesel=yes {name '${name} (diesel) [fuel]' | '(diesel) [fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f16 resolution 23]
@@ -412,7 +413,7 @@ man_made=water_tower {name '${name} (${height}m) [water_tower]' | '${name} [wate
 man_made=water_tank {name '${name} [water_tank]' | '[water_tank]' ; addlabel '${operator}'} [0x6411 resolution 22-24 ]
 man_made=tank {name '${name} [tank]' | '[tank]' ; addlabel '${operator}'} [0x6411 resolution 24 ]
 man_made=water_well 
-	{name '${name} (${access}) pump ${pump}) [water_well]' | '${name} (${access}) [water_well]' | '${name} (pump ${pump}) [water_well]' | '${name} [water_well]' | '(${access}) [water_well]' | '(pump ${pump}) [water_well]' | '[water_well]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
+	{name '${name} (access ${access}) pump ${pump}) [water_well]' | '${name} (access ${access}) [water_well]' | '${name} (pump ${pump}) [water_well]' | '${name} [water_well]' | '(access ${access}) [water_well]' | '(pump ${pump}) [water_well]' | '[water_well]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=storage_tank 
 	{name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' | '${name} [storage_tank]' | '[storage_tank]' ; addlabel '${operator}'} [0x6411 resolution 24]
 #man_made=storage_tank {name '${name} [${storage_tank}]' | '[${storage_tank}]' ; addlabel '${operator}'} [0x6411 resolution 24]
@@ -456,7 +457,8 @@ natural=cape {name '${name} {${alt_name}} [cape]' | '${name} [cape]' | '[cape]' 
 natural=cliff {name '${name} {${alt_name}} (${ele}m) [cliff]' | '${name} {${alt_name}} [cliff]' | '${name} (${ele}m) [cliff]' | '${name} [cliff]' | '[cliff]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6607 resolution 24]
 #natural=peak {name '${name|def:}${ele|height:ft=>m|def:}'} [0x6616 resolution 24]8
-natural=peak {name '${name} (${ele}m) [peak]' | '${name} [peak]' | '(${ele}m) [peak]' | '[peak]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x6616 resolution 24]
+natural=peak 
+	{name '${name} {${alt_name}}' (${ele}m) [peak]' | '${name} {${alt_name}}' [peak]' | '{${alt_name}}' (${ele}m) [peak]' | '{${alt_name}}' [peak]' | '${name} (${ele}m) [peak]' | '${name} [peak]' | '(${ele}m) [peak]' | '[peak]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x6616 resolution 24]
 natural=rock | natural=stone {name '${name} {${alt_name}} [rock]' | '${name} [rock]' | '[rock]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6614 resolution 24]
 natural=volcano 
 	{name '${name} (${ele}m) (${volcano:status}) [volcano]' | '${name} (${ele}m) [volcano]' | '${name} (${volcano:status}) [volcano]' | '(${ele}m) [volcano]' | '(${volcano:status}) [volcano]' | '${name} [volcano]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
@@ -751,6 +753,7 @@ landuse=* & landuse!=farmland & landuse!=grass & landuse!=forest & landuse!=orch
 amenity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 boundary=* {name '${name} [${boundaryboundary}]' | '[${administrative}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x32000 resolution 24]
 emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6410 resolution 24]
+tourism=yes {name '${name} [tourism]' | '[tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c00 resolution 24]
 tourism=* {name '${name} [${tourism}]' | '[${tourism}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c00 resolution 24]
 man_made=* {name '${name} [${man__made}]' | '[${man__made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24] 
 #information=guidepost [0x4c02 resolution 24 default_name '[guidepost]']
