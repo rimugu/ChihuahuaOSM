@@ -263,6 +263,8 @@ amenity=bicycle_rental
 	'${name} (${network}) [bicycle_rental]' | '(${network}) [bicycle_rental]'  |
 	'${name} [bicycle_rental]' | '[bicycle_rental]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 amenity=fountain {name '${name} (${fountain}) [${amenity}]' | '(${fountain}) [${amenity}]' | '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+amenity=sanitary_dump_station | amenity=dumpstation
+	{name '${name} (${access}) (fee ${fee}) [sanitary_dump_station]' | '${name} (fee ${fee}) [sanitary_dump_station]' | '(${access}) (fee ${fee}) [sanitary_dump_station]' | '(fee ${fee}) [sanitary_dump_station]' | '${name} (${access}) [sanitary_dump_station]' | '${name} [sanitary_dump_station]' | '(${access}) [sanitary_dump_station]' | '[sanitary_dump_station]' ; addlabel '${operator}'} [0x3200 resolution 24]
 
 amenity=fuel & fuel:HGV_diesel=yes {name '${name} (HGV_diesel) [fuel]' | '(HGV_diesel) [fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f16 resolution 23]
 amenity=fuel & fuel:diesel=yes {name '${name} (diesel) [fuel]' | '(diesel) [fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f16 resolution 23]
@@ -456,9 +458,9 @@ natural=cave_entrance
 natural=cape {name '${name} {${alt_name}} [cape]' | '${name} [cape]' | '[cape]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6606 resolution 24]
 natural=cliff {name '${name} {${alt_name}} (${ele}m) [cliff]' | '${name} {${alt_name}} [cliff]' | '${name} (${ele}m) [cliff]' | '${name} [cliff]' | '[cliff]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6607 resolution 24]
-#natural=peak {name '${name|def:}${ele|height:ft=>m|def:}'} [0x6616 resolution 24]8
+#natural=peak {name '${name|def:}${ele|height:ft=>m|def:}'} [0x6616 resolution 24]
 natural=peak 
-	{name '${name} {${alt_name}}' (${ele}m) [peak]' | '${name} {${alt_name}}' [peak]' | '{${alt_name}}' (${ele}m) [peak]' | '{${alt_name}}' [peak]' | '${name} (${ele}m) [peak]' | '${name} [peak]' | '(${ele}m) [peak]' | '[peak]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x6616 resolution 24]
+	{name '${name} {${alt_name}} (${ele}m) [peak]' | '${name} {${alt_name}} [peak]' | '{${alt_name}} (${ele}m) [peak]' | '{${alt_name}} [peak]' | '${name} (${ele}m) [peak]' | '${name} [peak]' | '(${ele}m) [peak]' | '[peak]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x6616 resolution 24]
 natural=rock | natural=stone {name '${name} {${alt_name}} [rock]' | '${name} [rock]' | '[rock]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6614 resolution 24]
 natural=volcano 
 	{name '${name} (${ele}m) (${volcano:status}) [volcano]' | '${name} (${ele}m) [volcano]' | '${name} (${volcano:status}) [volcano]' | '(${ele}m) [volcano]' | '(${volcano:status}) [volcano]' | '${name} [volcano]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
@@ -482,7 +484,19 @@ railway=halt [0x2f08 resolution 23]
 # if option --add-pois-to-lines in effect, add just 1 POI
 (railway=platform | (public_transport=platform & railway=*)) & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) 
 	{name '${name} [${railway}]' | '[platform]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 23]
-highway=bus_stop {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+#highway=bus_stop {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+if ( highway=bus_stop ) then
+	if ( shelter=* ) then
+		if ( bench=* ) then
+			bin=* {name '${name} (shelter/bench/bin) [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+			() {name '${name} (shelter/bench) [bus_stop]' | '(shelter/bench) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+		end
+		bin=* {name '${name} (shelter/bin) [bus_stop]' | '(shelter/bin) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+		() {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+	end
+	bin=* {name '${name} (bin) [bus_stop]' | '(bin) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+	() {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+end 
 railway=tram_stop {name '${name} [tram_stop]' | '[tram_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
 public_transport=platform & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) 
 	[0x2f17 resolution 24]
@@ -620,7 +634,8 @@ landuse=reservoir | water=reservoir {name '${name} [reservoir]' | '[reservoir]' 
 landuse=quarry {name '${name} [quarry]' | '[quarry]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 22-24]
 ( landuse=industrial & industrial=mine ) | historic=mine | man_made=adit | man_made=mine 
 	{name '${name} [mine]' | '[mine]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 22-24]
-man_made=mineshaft | historic=mine_shaft {name '${name} [mine_shaft]' | '[mine_shaft]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 22-24]
+man_made=mineshaft | historic=mine_shaft 
+	{name '${name} (${resource}) [mine_shaft]' | '(${resource}) [mine_shaft]' | '${name} [mine_shaft]' | '[mine_shaft]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 22-24]
 industrial=machinery | industrial=machine_shop {name '${name} [machinery]' | '[machinery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 24]
 landuse=industrial 
 	{name '${name} {${alt_name}} (${industrial}) [industrial]' | '${name} (${industrial}) [industrial]' | '${name} {${alt_name}} [industrial]' | '${name} [industrial]' | '(${industrial}) [industrial]' | '[industrial]' ; 
