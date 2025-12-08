@@ -863,7 +863,8 @@ natural=arete
 	[0x10503 resolution 24] #peaked ridges
 natural=gorge | natural=canyon 
 	{name '${name} (${height}) [canyon]' | '${name} [canyon]' | '(${height}) [canyon]' | '[canyon]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} [0x26 resolution 22-24]
-natural=tree_row {name '${name} [tree_row]' | '[tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
+natural=tree_row & leaf_type=* {name '${name} (${denotation}) (lef ${leaf_type}) [tree_row]' | '(${denotation}) (lef ${leaf_type}) [tree_row]' | '${name} (lef ${leaf_type}) [tree_row]' | '(lef ${leaf_type}) [tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
+natural=tree_row {name '${name} (${denotation}) [tree_row]' | '(${denotation}) [tree_row]' | '${name} [tree_row]' | '[tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 natural=* & area=no {name '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 
 
@@ -902,6 +903,7 @@ route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${
 power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
 man_made=* & is_closed()=false {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
 railway=* {name '${name} [{$railway}]' |  '[{$railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
+historic=* {name '${name} [${historic}]' |  '[${historic}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 
 <finalize>
 # The finalizer section is executed for each element when a rule with an element type matches
