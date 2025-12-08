@@ -279,8 +279,11 @@ amenity=kindergarten {name '${name} [kindergarten]' | '[kindergarten]' ; addlabe
 amenity=library {name '${name} [library]' | '[library]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
 amenity=nightclub {name '${name} [nightclub]' | '[nightclub]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d02 resolution 24]
 amenity=nursing_home {name '${name} [nursing_home]' | '[nursing_home]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f14 resolution 24]
-(amenity=parking | amenity=parking_entrance) & access!=private & access!=no {add name='${access} [parking]'| '[parking]' ; 
-	addlabel 'fee ${fee}' | '${phone}' | '${website}' | '${operator}'} [0x2f0b resolution 24]
+(amenity=parking | amenity=parking_entrance) 
+	{add name='${name} (${access}) ($ ${fee} ${charge}) [parking]' | '(${access}) ($ ${fee} ${charge}) [parking]' | '${name} (${access}) [parking]' | '${name} ($ ${fee} ${charge}) [parking]' | '(${access}) [parking]' |  '${name} [parking]' | '($ ${fee} ${charge}) [parking]' | '[parking]' |
+		'${name} (${access}) ($ ${fee}) [parking]' | '(${access}) ($ ${fee}) [parking]' | '${name} (${access}) [parking]' | '${name} ($ ${fee}) [parking]' | '(${access}) [parking]' |  '${name} [parking]' | '($ ${fee}) [parking]' | '[parking]'; 
+	addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x2f0b resolution 24]
+#& access!=private & access!=no  {add name='${access} [parking]'| '[parking]'
 # amenity=place_of_worship [0x2c0b resolution 24]
 (amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} [catholic_church]' | '[catholic_church]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
