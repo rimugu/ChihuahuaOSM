@@ -863,7 +863,7 @@ natural=arete
 	[0x10503 resolution 24] #peaked ridges
 natural=gorge | natural=canyon 
 	{name '${name} (${height}) [canyon]' | '${name} [canyon]' | '(${height}) [canyon]' | '[canyon]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} [0x26 resolution 22-24]
-natural=tree_row & leaf_type=* {name '${name} (${denotation}) (lef ${leaf_type}) [tree_row]' | '(${denotation}) (lef ${leaf_type}) [tree_row]' | '${name} (lef ${leaf_type}) [tree_row]' | '(lef ${leaf_type}) [tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
+natural=tree_row & leaf_type=* {name '${name} (${denotation}) (leaf ${leaf_type}) [tree_row]' | '(${denotation}) (leaf ${leaf_type}) [tree_row]' | '${name} (leaf ${leaf_type}) [tree_row]' | '(leaf ${leaf_type}) [tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 natural=tree_row {name '${name} (${denotation}) [tree_row]' | '(${denotation}) [tree_row]' | '${name} [tree_row]' | '[tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 natural=* & area=no {name '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 
