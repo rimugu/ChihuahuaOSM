@@ -41,7 +41,7 @@ parking=underground & charge=*
 parking=underground
 	{name '${name} (${access}) ($ ${fee}) [underground parking]' | '(${access}) ($ ${fee}) [underground parking]' | '${name} (${access}) [underground parking]' | '(${access}) [underground parking]'| '${name} ($ ${fee}) [underground parking]' | '($ ${fee}) [underground parking]' | '${name} [underground parking]' | '[underground parking]' 
 	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x06 resolution 22-24]
-( amenity=parking | parking=surface )  & charge=*
+( amenity=parking | parking=surface ) & charge=*
 	{name '${name} (${access}) ($ ${charge}) [parking]' | '(${access}) ($ ${charge}) [parking]' | '${name} ($ ${charge}) [parking]' | '($ ${charge}) [parking]' 
 	;  addlabel '${operator}' | '${website}' | '${operator}'} [0x06 resolution 20-24]
 amenity=parking | parking=surface 
@@ -194,11 +194,6 @@ man_made=storage_tank & content=*
 	{name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
 man_made=storage_tank {name '${name} (unkn) [storage_tank]' | '(unkn) [storage_tank]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
 man_made=water_well {name '${name} [water_well]' | '[water_well]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-
-#historic=* & historic!=no & historic!=yes & boundary!=* {add name='${historic|subst:"_=> "}'} [0x22 resolution 21]
-#historic=* & historic!=no & boundary!=* {add name='${historic|subst:"_=> "}'
-historic=* & historic!=no & boundary!=* 
-	{name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 20-24]
 
 dock=* {name '${name} (${dock}) [dock]' | '(${dock})  [dock]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c resolution 22-24] # might also have natural=water
 
@@ -353,26 +348,24 @@ hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabe
 
 # building tag should be last
 #amenity=* & area!=no & amenity!=grave_yard {add name='${amenity|subst:"_=> "}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
-tourism=* & area!=no & waterway!=* {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 
 building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
 building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
 building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] # to use or not to use?
 building=greenhouse | landuse=greenhouse_horticulture {name '${name} [greenhouse]' | '[greenhouse]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] 
-building=* & building!=no {name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
 
 # man_made can be used on areas or lines
 man_made=wastewater_plant | utility=sewerage {name '${name} [wastewater]' | '[wastewater]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 man_made=water_works {name '${name} [waste_works]' | '[waste_works]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 man_made=observatory | man_made=telescope {name '${name} [observatory]' | '[observatory]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0a resolution 20-24] 
-#man_made=* & area!=no {add name='${man_made|subst:"_=> "}'} [0x24 resolution 24]
-man_made=* & area!=no {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x24 resolution 24]
 
 # render small named islands
 #place=island & name=* & area_size() < 1000000 [0x53 resolution 19]
 place=island {name '${name} [island]' | '[island]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x53 resolution 19]
 place=islet {name '${name} [islet]' | '[islet]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x53 resolution 20-24]
 
+#man_made=* & area!=no {add name='${man_made|subst:"_=> "}'} [0x24 resolution 24]
+man_made=* & area!=no {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x24 resolution 24]
 hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 landuse=* & area_size < 1000 
 	{name '${name} {${alt_name}} [${landuse}]' | '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
@@ -382,11 +375,15 @@ natural=* & natural!=land & area_size < 1000
 amenity=* & area_size < 1000 {name '${name} {${alt_name}} [${amenity}]' | '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0b resolution 24]
 sport=* & area_size < 1000 {name '${name} (${sport}) [sport]' | '(${sport}) [sport]'} [0x19 resolution 24]
 power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
-#historic=* Defined 175
-#tourism=* Defined in 313
+#historic=* & historic!=no & historic!=yes & boundary!=* {add name='${historic|subst:"_=> "}'} [0x22 resolution 21]
+#historic=* & historic!=no & boundary!=* {add name='${historic|subst:"_=> "}'
+historic=* & historic!=no & boundary!=* 
+	{name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 20-24]
+tourism=* & area!=no & waterway!=* {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 place=* & area_size < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
+building=* & building!=no {name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
 abandoned=* & abandoned:!=no  [0x03 resolution 24]
 abandoned:landuse=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]' } [0x03 resolution 24]
 
