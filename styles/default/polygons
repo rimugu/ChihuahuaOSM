@@ -76,10 +76,16 @@ building=convent {name '${name} [${convent}]' | '[${convent}]' ; addlabel '${pho
 amenity=community_centre | amenity=community_center | amenity=social_facility 
 	{name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 amenity=marketplace {name '${name} [marketplace]' | '[marketplace]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x08 resolution 22-24]
-amenity=toilets {name '${name} (${access}) [toilets]' | '${name} [toilets]' | '(${access}) [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x13 resolution 24]
-amenity=embassy {name '${name} [embassy]' | '[embassy]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x0c resolution 24]
+amenity=toilets 
+	{name '${name} (${access}) (fee ${fee}) [toilets]' | '(${access}) (fee ${fee}) [toilets]' | '${name} (fee ${fee}) [toilets]' | '(fee ${fee}) [toilets]' | '${name} (${access}) [toilets]' | '(${access}) [toilets]' | '${name} [toilets]' | '[toilets]' 
+	; addlabel '${access}' | '${operator}'} [0x13 resolution 24]
+amenity=embassy 
+	{name '${name} (${country}) [embassy]' | '(${country}) [embassy]' | '${name} [embassy]' | '[embassy]' 
+	; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
 amenity=research_institute | office=research {name '${name} [research]' | '[research]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x0a resolution 22-24]
-office=diplomatic | colsulate=* | diplomatic=* {name '${name} [diplomatic]' | '[diplomatic]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x0c resolution 22-24]
+office=diplomatic | colsulate=* | diplomatic=* 
+	{name '${name} (${country}) [diplomatic]' | '(${country}) [diplomatic]' | '${name} [diplomatic]' | '[diplomatic]' 
+	; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 office=* {name '${name} (${office}) [office]' | '(${office}) [office]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x0c resolution 24]
 amenity=fuel {name '${name} (${fuel}) [fuel]' | '${name} [fuel]' | '(${fuel}) [fuel]' | '[fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 amenity=warehouse | industrial=warehouse {name '${name} [warehouse]' | '[warehouse]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]

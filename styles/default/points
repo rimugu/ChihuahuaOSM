@@ -229,9 +229,12 @@ man_made=water_cache
 	{name '${name} (fee ${fee}) [water_cache]' | '(fee ${fee}) [water_cache]' | '${name} [water_cache]' | '[water_cache]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=water_tap | fountain=bottle_refill | man_made=water_cache | amenity = water_point
 	{name '${name} (${access}) (drinkable ${drinkable}) [water_tap]' | '${name} (drinkable ${drinkable}) [water_tap]' | ' (${access}) (drinkable ${drinkable}) [water_tap]' | '(drinkable ${drinkable}) [water_tap]' | '${name} (${access}) [water_tap]' | '${name} [water_tap]' | '(${access}) [water_tap]' | '[water_tap]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
-amenity=embassy & country=* {set name='${country} ${name|def:Embassy}' ; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 24]
-amenity=embassy & country!=* {name '${name} [embassy]' | '[embassy]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 24]
-office=diplomatic | colsulate=* | diplomatic=* {name '${name} [diplomatic]' | '[diplomatic]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 22-24]
+amenity=embassy
+	{name '${name} (${country}) [embassy]' | '(${country}) [embassy]' | '${name} [embassy]' | '[embassy]' 
+	; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 24]
+office=diplomatic | colsulate=* | diplomatic=* 
+	{name '${name} (${country}) [diplomatic]' | '(${country}) [diplomatic]' | '${name} [diplomatic]' | '[diplomatic]' 
+	; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 22-24]
 amenity=emergency_phone | emergency=phone {name '${name} [emergency_phone]' | '[emergency_phone]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f12 resolution 22-24]
 emergency=fire_hydrant {name '${name} [${emergency}]' | '[${emergency}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x5000 resolution 24]
 water_source=main {name '${name} (fee ${fee}) [main]' | '(fee ${fee}) [main]' | '${name} [main]' | '[main]' ; addlabel '${operator}'} [0x5000 resolution 24]
@@ -329,7 +332,9 @@ amenity=taxi {name '${name} [taxi]' | '[taxi]' ; addlabel '${phone}' | '${websit
 amenity=telephone {name '${name} (fee ${fee}) [telephone]' |  '${name} [telephone]' | '(fee ${fee}) [telephone]' | '[telephone]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x2f12 resolution 24]
 amenity=theatre [0x2d01 resolution 24]
-amenity=toilets {name '${name} (${access}) [toilets]' | '(${access}) [toilets]' | '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
+amenity=toilets 
+	{name '${name} (${access}) (fee ${fee}) [toilets]' | '(${access}) (fee ${fee}) [toilets]' | '${name} (fee ${fee}) [toilets]' | '(fee ${fee}) [toilets]' | '${name} (${access}) [toilets]' | '(${access}) [toilets]' | '${name} [toilets]' | '[toilets]' 
+	; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
 #amenity=toilets {name '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
 amenity=townhall {name '${name} [townhall]' | '[townhall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 office=government | office=administrative {name '${name} (${office})' | '[${office}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
