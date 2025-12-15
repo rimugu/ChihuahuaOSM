@@ -892,7 +892,7 @@ boundary=national {name '${name} [nat_boundary]' | '[nat_boundary]' ; addlabel '
 #boundary=political {name '${mkgmap:boundary_name} [pol_boundary]' | '[pol_boundary]' ; addlabel '${admin_level}' }[0x1c resolution 19]
 boundary=political {name '${name} [pol_boundary]' | '[pol_boundary]' ; addlabel '${admin_level}' }[0x1c resolution 19]
 
-boundary=region & name='Continental Divide' {name '${name} [trail]' | '[trail]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24] #gray admin line
+#boundary=region & name='Continental Divide' {name '${name} [trail]' | '[trail]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24] #gray admin line #replaced with natural=divide
 #boundary=* {name '${mkgmap:boundary_name} (${boundary}) [ot_boundary]' | '[ot_boundary]' } [0x1c resolution 22]
 # 0x01 orange line routable
 # 0x12 black line routable - not visible gps
@@ -919,6 +919,7 @@ natural=gorge | natural=canyon
 	{name '${name} (${height}) [canyon]' | '${name} [canyon]' | '(${height}) [canyon]' | '[canyon]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} [0x26 resolution 22-24]
 natural=tree_row & leaf_type=* {name '${name} (${denotation}) (leaf ${leaf_type}) [tree_row]' | '(${denotation}) (leaf ${leaf_type}) [tree_row]' | '${name} (leaf ${leaf_type}) [tree_row]' | '(leaf ${leaf_type}) [tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 natural=tree_row {name '${name} (${denotation}) [tree_row]' | '(${denotation}) [tree_row]' | '${name} [tree_row]' | '[tree_row]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
+natural=divide {name '${name} [divide]' | '[divide]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24] #gray admin line
 natural=* & area=no {name '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 
 
@@ -956,7 +957,7 @@ route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${
 	[0x10805 resolution 24]
 power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
 man_made=* & is_closed()=false {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
-railway=* {name '${name} [{$railway}]' |  '[{$railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
+railway=* {name '${name} [${railway}]' |  '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
 historic=* {name '${name} [${historic}]' |  '[${historic}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 
 <finalize>
