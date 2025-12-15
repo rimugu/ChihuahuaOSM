@@ -22,7 +22,10 @@ aeroway=airport | aeroway=aerodrome {name '${name} [airport]' | '[airport]' ; ad
 aeroway=runway & area=yes {name '${name} ${ref} [runway]' | '${ref} [runway]' | '[runway]'} [0x0e resolution 20-24]
 (aeroway=taxiway | aeroway=taxilane) & area=yes {name '${name} ${ref} [taxiway]' | '${ref} [taxiway]' | '[taxiway]'} [0x0e resolution 24]
 aeroway=heliport {name '${name} ${ref} [heliport]' | '${ref} [heliport]' | '[heliport]'} [0x07 resolution 20-24]
-aeroway=helipad {name '${name} ${ref} [helipad]' | '${ref} [helipad]' | '[helipad]'}[0x0e resolution 22-24]
+aeroway=helipad 
+	{name '${name} ${ref} (${surface}) (lit ${lit}) [helipad]' | '${ref} (${surface}) (lit ${lit}) [helipad]' | '(${surface}) (lit ${lit}) [helipad]' | '${name} ${ref} (${surface}) [helipad]' | '${ref} (${surface}) [helipad]' | '(${surface}) [helipad]' |
+	'${name} ${ref} (lit ${lit}) [helipad]' | '${ref} (lit ${lit}) [helipad]' | '(lit ${lit}) [helipad]' | '${name} ${ref} [helipad]' | '${ref} [helipad]' | '[helipad]'} 
+	[0x0e resolution 22-24]
 aeroway=apron {name '${name} [apron]' | '[apron]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0e resolution 24] # An apron or ramp is the surfaced part of an airport where planes park. 
 
 amenity=kindergarten {name '${name} [kindergarten]' | '[kindergarten]'} [0x0a resolution 22-24]

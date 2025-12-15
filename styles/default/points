@@ -188,7 +188,10 @@ place=islet {name '${name} [islet]' | '[islet]' ; addlabel '${phone}' | '${websi
 #aeroway=airport [0x5900 resolution 22-24]
 aeroway=airport  {name '${name} [airport]' | '[airport]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 22-24]
 aeroway=aerodrome {name '${name} [aerodrome]' | '[aerodrome]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 22-24]
-aeroway=helipad {name '${name} [helipad]' | '[helipad]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x5904 resolution 23]
+aeroway=helipad 
+	{name '${name} ${ref} (${surface}) (lit ${lit}) [helipad]' | '${ref} (${surface}) (lit ${lit}) [helipad]' | '(${surface}) (lit ${lit}) [helipad]' | '${name} ${ref} (${surface}) [helipad]' | '${ref} (${surface}) [helipad]' | '(${surface}) [helipad]' |
+	'${name} ${ref} (lit ${lit}) [helipad]' | '${ref} (lit ${lit}) [helipad]' | '(lit ${lit}) [helipad]' | '${name} ${ref} [helipad]' | '${ref} [helipad]' | '[helipad]'} 
+[0x5904 resolution 23]
 aeroway=terminal {name '${name} [terminal]' | '[terminal]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 24]
 aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f04 resolution 24]
 
