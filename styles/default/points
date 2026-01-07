@@ -31,6 +31,7 @@ access=yes {set access=public}
 
 
 #operator="Texas Parks & Wildlife Department" & tourism=information & information=guidepost { echotags "tourism+information"}
+#highway=bus_stop & osmid()=3203732751 { echotags "bus_stop"}
 #tourism=hotel & name="Hotel Krystal Urban Juárez" {echotags "hotelillo"}
  
 vehicle=* {
@@ -512,11 +513,15 @@ railway=halt [0x2f08 resolution 23]
 if ( highway=bus_stop ) then
 	if ( shelter=* ) then
 		if ( bench=* ) then
-			bin=* {name '${name} (shelter/bench/bin) [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+			bin=* {name '${name} (shelter/bench/bin) [bus_stop]' | '(shelter/bench/bin) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
 			() {name '${name} (shelter/bench) [bus_stop]' | '(shelter/bench) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
 		end
 		bin=* {name '${name} (shelter/bin) [bus_stop]' | '(shelter/bin) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
-		() {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+		() {name '${name} (shelter) [bus_stop]' | '(shelter) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+	end
+	if ( bench=* ) then
+		bin=* {name '${name} (bench/bin) [bus_stop]' | '(bench/bin) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
+		() {name '${name} (bench) [bus_stop]' | '(bench) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
 	end
 	bin=* {name '${name} (bin) [bus_stop]' | '(bin) [bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
 	() {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f17 resolution 24]
@@ -570,6 +575,7 @@ shop=shoes {name '${name} [shoes]' | '[shoes]' ; addlabel '${phone}' | '${websit
 shop=supermarket {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e01 resolution 24]
 shop=tires | shop=tyres {name '${name} [tires]' | '[tires]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f07 resolution 24]
 shop=books {name '${name} [book_store]' | '[book_store]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
+shop=ice_cream | amenity=ice_cream {name '${name} [ice_cream]' | '[ice_cream]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0c resolution 24]
 shop=* & name=* {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0c resolution 24]
 
 sport=9pin {name '${name} [9bowling]' | '[9bowling]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d07 resolution 24]
