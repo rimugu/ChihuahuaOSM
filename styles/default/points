@@ -14,6 +14,10 @@
 # https://wiki.openstreetmap.org/wiki/OSM_Map_On_Garmin/Polyline_Types
 
 addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
+include 'inc/address';
+#mkgmap:phone!=* & phone=* { set mkgmap:phone='${phone}' }
+#mkgmap:phone!=* & contact:phone=* { add mkgmap:phone='${contact:phone}' }
+#phone=* {add mkgmap:label:4='${phone}'}
 
 incline=up {name 'up [inc]'} [0x6411 resolution 22-24]
 incline=down {name 'down [inc]'} [0x6411 resolution 22-24]
@@ -305,13 +309,15 @@ amenity=parking | parking=surface
 	{name '${name} (${access}) ($ ${fee}) [parking]' | '(${access}) ($ ${fee}) [parking]' | '${name} (${access}) [parking]' | '${name} ($ ${fee}) [parking]' | '(${access}) [parking]' | '${name} [parking]' | '($ ${fee}) [parking]' | '[parking]'
 	;  addlabel '${operator}' | '${website}' | '${operator}'} [0x2f0b resolution 20-24]
 # amenity=place_of_worship [0x2c0b resolution 24]
-(amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} [catholic_church]' | '[catholic_church]' ; 
+(amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_church]' |  '${name} [catholic_church]' | ' (${phone}) [catholic_church]' | '[catholic_church]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
 (amenity=place_of_worship | building=church) & religion=christian {name '${name} [church]' | '[church]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 24]
-amenity=monastery & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} [catholic_monastery]' | '[catholic_monastery]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
-amenity=monastery {name '${name} [monastery]' | '[monastery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 22-24]
-building=convent & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} [catholic_convent]' | '[catholic_convent]' ; 
+amenity=monastery & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_monastery]' | '${name} [catholic_monastery]' | '(${phone}) [catholic_monastery]' | '[catholic_monastery]' ; 
+	addlabel '${mkgmap:phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
+#amenity=monastery & religion=christian & (denomination=catholic | denomination=roman_catholic) {addlabel '${name} ${phone} [catholic_monastery]' | '[catholic_monastery]' ; 
+#	addlabel '${phone}'; echo '${mkgmap:label:1}' ; echo '${mkgmap:label:2}'; echo '${mkgmap:label:3}'; echo '${mkgmap:label:4}' } [0x6404 resolution 20-24]
+amenity=monastery {name '${name} ${phone} [monastery]' | '[monastery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 22-24]
+building=convent & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_convent]' | '${name} [catholic_convent]' | '(${phone}) [catholic_convent]' | '[catholic_convent]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
 building=convent {name '${name} [convent]' | '[convent]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 24]
 amenity=police {name '${name} [police]' | '[police]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3001 resolution 24]
@@ -323,7 +329,7 @@ amenity=pub [0x2d02 resolution 24]
 amenity=public_building {name '${name} [public_building]' | '[public_building]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3007 resolution 24]
 amenity=recycling {name '${name} [recycling]' | '[recycling]'} [0x2f15 resolution 24]
 # handle amenity=restaurant rules later in file
-amenity=school & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (catholic) [${school}]' | '(catholic) [school]' ; 
+amenity=school & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) (catholic) [${school}]' | '${name} (catholic) [${school}]' | '(${phone}) (catholic) [school]' | '(catholic) [school]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 20-24]
 amenity=school {name '${name} [school]' | '[school]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 24]
 # amenity=shelter is ambiguous; when possible, consider using other tags:
@@ -472,6 +478,8 @@ traffic_sign=* {name '(${maxspeed|conv:"mph=>kmh"}) (${traffic_sign}) [sign]' | 
 man_made=corral {name '(${name}) [corral]' | '[corral]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24 ]
 ford=yes {name '${name} (${surface}) (${depth}m) [ford]' | '${name} (${depth}m) [ford]' | '(${surface}) (${depth}m) [ford]' | '(${depth}m) [ford]' | '${name} (${surface}) [ford]' | '${name} [ford]' | '(${surface}) [ford]' | '[ford]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24 ]
 highway=rest_area {name '${name} [rest_area]' | '[rest_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f0c resolution 22-24]
+inlet=* {name '${name} (${inlet}) [inlet]' | '({inlet}) [inlet]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+man_name=manhole {name '${name} (${manhole}) [manhole]' | '(${manhole}) [manhole]' | '[manhole]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 
 # Edge 705 displays 0x650a(glacier),0x6511(spring),0x6512(stream),0x6513,0x6603,0x6614(rock) as hollow white circles, no menu
 natural=cave_entrance 
