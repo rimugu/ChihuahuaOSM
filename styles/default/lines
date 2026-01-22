@@ -753,16 +753,23 @@ railway=platform & tmp:stopMopUp!=yes [0x16 road_class=0 road_speed=0 resolution
  {name '${name} (tunnel) [railway]'} [0x14 resolution 22-24]
 railway=abandoned | railway=disused {name '${name} (abandoned) [railway]' | '(abandoned) [railway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
 
+#man_made=pipeline & location=underground 
+#	{name '${name} (underground) (${diameter}) [pipeline]' | '${name} (underground) [pipeline]' | '(underground) (${diameter}) [pipeline]' | '(underground) [pipeline]' ; 
+#		addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+#man_made=pipeline & location=underground 
+#	{name '${name} (underground) [pipeline]' | '(underground) [pipeline]' ; 
+#	addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+#man_made=pipeline 
+#	{name '${name} (${diameter}) [pipeline]' | '${name} [pipeline]' | '(${diameter}) [pipeline]' | '[pipeline]' ; 
+#	addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+#man_made=pipeline {name '${name} [pipeline]' | '[pipeline]' ; addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+
 man_made=pipeline & location=underground 
-	{name '${name} (underground) (${diameter}) [pipeline]' | '${name} (underground) [pipeline]' | '(underground) (${diameter}) [pipeline]' | '(underground) [pipeline]' ; 
-		addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
-man_made=pipeline & location=underground 
-	{name '${name} (underground) [pipeline]' | '(underground) [pipeline]' ; 
-	addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+	{name '${name} (underground) (${substance}) (${diameter}) [pipeline]' | '${name} (underground) (${diameter}) [pipeline]' | '${name} (${substance}) (underground) [pipeline]' | '${name} (underground) [pipeline]' | '(underground) (${substance}) (${diameter}) [pipeline]' | '(underground) (${diameter}) [pipeline]' | '(underground) (${substance}) [pipeline]' | '(underground) [pipeline]' ; 
+		addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22]
 man_made=pipeline 
-	{name '${name} (${diameter}) [pipeline]' | '${name} [pipeline]' | '(${diameter}) [pipeline]' | '[pipeline]' ; 
-	addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
-man_made=pipeline {name '${name} [pipeline]' | '[pipeline]' ; addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+	{name '${name} (${substance}) (${diameter}) [pipeline]' | '${name} (${diameter}) [pipeline]' | 	'${name} (${substance}) [pipeline]' | '${name} [pipeline]' | '(${diameter}) (${substance}) [pipeline]' | 	'(${diameter}) [pipeline]' | '(${substance}) [pipeline]' | '[pipeline]' ; 
+		addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22]
 
 man_made=cable & location=underground 
 	{name '${name} (${operator}) (underground) [cable]' | '${name} (underground) [cable]' | '${operator} (undergr8ound) [cable]' | '(underground) [cable]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
