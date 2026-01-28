@@ -329,7 +329,7 @@ amenity=pub [0x2d02 resolution 24]
 amenity=public_building {name '${name} [public_building]' | '[public_building]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3007 resolution 24]
 amenity=recycling {name '${name} [recycling]' | '[recycling]'} [0x2f15 resolution 24]
 # handle amenity=restaurant rules later in file
-amenity=school & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) (catholic) [${school}]' | '${name} (catholic) [${school}]' | '(${phone}) (catholic) [school]' | '(catholic) [school]' ; 
+amenity=school & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) (catholic) [school]' | '${name} (catholic) [school]' | '(${phone}) (catholic) [school]' | '(catholic) [school]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 20-24]
 amenity=school {name '${name} [school]' | '[school]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 24]
 # amenity=shelter is ambiguous; when possible, consider using other tags:
@@ -406,13 +406,13 @@ leisure=nature_reserve {name '${name} [nature_reserve]' | '[nature_reserve]' ; a
 leisure=park {name '${name} [park]' | '[park]' ; addlabel '${phone}' | '${website}' | '${operator}'}[0x2c06 resolution 24]
 leisure=pitch {name '${name} (${sport}) [pitch]' | '${name} [pitch]' | '(${sport}) [pitch]' | '[pitch]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x2c08 resolution 24] #smaller than a sport_centre
-leisure=playground {name '${name} [${sport}]' | '[${sport}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c06 resolution 24]
+leisure=playground {name '${name} [playground]' | '[playground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c06 resolution 24]
 leisure=recreation_ground {name '${name} [recreation]' | '[recreation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c08 resolution 24]
 leisure=sports_center | leisure=sports_centre 
 	{name '${name} (fee ${fee}) (${sport}) [sport_centre]' | '${name} (${sport}) [sport_centre]' | '${name} (fee ${fee}}) [sport_centre]' | '${name} [sport_centre]' |
 	'(fee ${fee}) (${sport}) [sport_centre]' | '(${sport}) [sport_centre]' | '(fee ${fee}) [sport_centre]' | '[sport_centre]'; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x2d0a resolution 24]
-leisure=stadium | building=stadium {name '${name} [${sport}]' | '[${sport}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c08 resolution 24]
+leisure=stadium | building=stadium {name '${name} [stadium]' | '[stadium]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c08 resolution 24]
 (leisure=swimming_pool | amenity=swimming_pool) {name '${name} (${access}) [pool]' | '${name} [pool]' | '(${access}) [pool]' | '[pool]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2d09 resolution 24]
 leisure=track {name '${name} [track]' | '[track]' ; addlabel '${phone}' | '${website}' | '${operator}'}  [0x2c08 resolution 24]
@@ -556,8 +556,8 @@ craft=* {name '${name} (${craft}) [craft]' | '(${craft}) [craft]' ; addlabel '${
 
 shop=bakery | shop=bakers {name '${name} [bakery]' | '[bakery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e02 resolution 24]
 shop=tortilla | shop=tortillera {name '${name} [tortilla]' | '[tortilla]' ; addlabel '${phone}' | '${website}'} [0x2e02 resolution 24]
-shop=beauty {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f10 resolution 24]
-shop=boat {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f09 resolution 24]
+shop=beauty {name '${name} [beauty]' | '[beauty]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f10 resolution 24]
+shop=boat {name '${name} [boat_shop]' | '[boat_shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f09 resolution 24]
 shop=butcher {name '${name} [butcher]' | '[butcher]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0c resolution 24]
 shop=car {name '${name} [car]' | '[car]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f07 resolution 24]
 shop=car_dealer {name '${name} [car_dealer]' | '[car_dealer]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f07 resolution 24]
@@ -566,21 +566,21 @@ shop=car_rental {name '${name} [car_rental]' | '[car_rental]' ; addlabel '${phon
 shop=car_repair {name '${name} [car_repair]' | '[car_repair]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f03 resolution 24]
 shop=car_wrecker {name '${name} [car_wrecker]' | '[car_wrecker]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f0a resolution 24]
 shop=chemist {name '${name} [personal_care]' | '[personal_care]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24] #chemist, personal care
-shop=clothes {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e07 resolution 24]
+shop=clothes {name '${name} [clothes]' | '[clothes]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e07 resolution 24]
 shop=computer {name '${name} [computer]' | '[computer]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0b resolution 24]
-shop=department_store {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e01 resolution 24]
+shop=department_store {name '${name} [department_store]' | '[department_store]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e01 resolution 24]
 shop=doityourself | shop=trade {name '${name} [trade]' | '[computer]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e09 resolution 24]
 shop=fashion {name '${name} [fashion]' | '[fashion]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e07 resolution 24]
-shop=furniture {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e09 resolution 24]
+shop=furniture {name '${name} [furniture]' | '[furniture]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e09 resolution 24]
 shop=garden_centre | shop=garden_center {name '${name} [garden_center]' | '[garden_center]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e08 resolution 24]
 shop=general {name '${name} [general]' | '[general]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e03 resolution 24]
 shop=hardware {name '${name} [hardware]' | '[hardware]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e09 resolution 24]
-shop=hairdresser {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f10 resolution 24]
-shop=mall {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e04 resolution 24]
+shop=hairdresser {name '${name} [hairdresser]' | '[hairdresser]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f10 resolution 24]
+shop=mall {name '${name} ([mall]' | '[mall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e04 resolution 24]
 shop=organic {name '${name} [organic]' | '[organic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0a resolution 24]
 shop=outdoor {name '${name} [outdoor]' | '[outdoor]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e08 resolution 22-24]
 shop=shoes {name '${name} [shoes]' | '[shoes]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e07 resolution 24]
-shop=supermarket {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e01 resolution 24]
+shop=supermarket {name '${name} [supermarket]' | '[supermarket]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e01 resolution 24]
 shop=tires | shop=tyres {name '${name} [tires]' | '[tires]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f07 resolution 24]
 shop=books {name '${name} [book_store]' | '[book_store]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
 shop=ice_cream | amenity=ice_cream {name '${name} [ice_cream]' | '[ice_cream]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0c resolution 24]
@@ -710,7 +710,7 @@ waterway=lock_gate | waterway=weir {name '${name} [lock_gate]' | '[lock_gate]' ;
 
 tourism=attraction & historic=* 
 	{name '${name} {${alt_name}} [historic]' | '${name} [historic]' | '[historic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24]
-tourism=attraction {name '${name} {${alt_name}} [tourism]' | '${name} [tourism]' | '[tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
+tourism=attraction {name '${name} {${alt_name}} [attraction]' | '${name} [attraction]' | '[attraction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
 tourism=alpine_hut {name '${name} {${alt_name}} [alpine_hut]' | '${name} [alpine_hut]' | '[alpine_hut]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
 tourism=artwork {name '${name} {${alt_name}} [artwork]' | '${name} [artwork]' | '[artwork]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
 tourism=aquarium {name '${name} {${alt_name}} [aquarium]' | '${name} [aquarium]' | '[aquarium]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c07 resolution 24]

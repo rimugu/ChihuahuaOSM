@@ -157,7 +157,7 @@ man_made=pier | man_made=quay | man_made=groyn {name '${name} [pier]' | ' [pier]
 man_made=storage_tank & content!=water 
 	{name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' | '[storage_tank]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x28 resolution 24]
-dock=drydock | waterway=dock {add highway=footway; name '${ref} ${name}' | '${ref}' | '${name}'; addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 24]
+dock=drydock | waterway=dock {add highway=footway; name '${ref} ${name} [drydock]' | '${ref} [drydock]' | '${name} [drydock]' | '[drydock]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 24]
 
 #sport=horse_racing | leisure=horse_riding {add name='${horse_raising|subst:"_=> "}'} [0x10705 resolution 24 default_name 'horse_racing']
 sport=horse_racing | leisure=horse_riding {name '${name} [horse_racing]' | '[horse_racing]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 24]
@@ -316,13 +316,13 @@ if ( highway=secondary_link ) then
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
 end	
 highway=secondary & mkgmap:fast_road=yes & (oneway!=no & oneway=*) 
-	{name '${name} (pav) (one_way) [secondary_link]' | '(pav) (one_way)  [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+	{name '${name} (pav) (one_way) [secondary]' | '(pav) (one_way)  [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
 highway=secondary & mkgmap:fast_road=yes 
-	{name '${name} (pav) [secondary_link]' | '(pav) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+	{name '${name} (pav) [secondary]' | '(pav) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
 highway=secondary & (oneway!=no & oneway=*) 
-	{name '${name} (pav) (one_way) [secondary_link]' | '(pav) (one_way) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
+	{name '${name} (pav) (one_way) [secondary]' | '(pav) (one_way) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
 highway=secondary 
-	{name '${name} (pav) [secondary_link]' | '(pav) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
+	{name '${name} (pav) [secondary]' | '(pav) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
 
 if ( highway=tertiary ) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [tertiary]' | '(sand) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
