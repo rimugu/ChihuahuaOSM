@@ -214,6 +214,8 @@ amenity=border_control | barrier=border_control {name '${name} [border_control]'
 	addlabel '${phone}' | '${website}'} [0x2500 resolution 22-24] #custom
 amenity=bus_station 
 	{name '${name} (int ${internet_access}) [bus_station]' | '${name} [bus_station]' | '(int ${internet_access}) [bus_station]' | '[bus_station]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 23]
+aerialway=station 
+	{name '${name} (int ${internet_access}) [aerialway_station]' | '${name} [aerialway_station]' | '(int ${internet_access}) [aerialway_station]' | '[aerialway_station]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 23]
 amenity=cafe {delete cuisine} [0x2a0e resolution 24 continue with_actions]
 amenity=car_club {name '${name} [car_club]' | '[car_club]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f0d resolution 24]
 amenity=car_rental {name '${name} [car_rental]' | '[car_rental]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f02 resolution 24]
@@ -796,7 +798,7 @@ internet_access=* & internet_access!=no & internet_access!=yes
 office=* {name '${name} (${office}) [office]' | '(${office}) [office]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 natural=* & natural!=heath & natural!=scrub & natural!=sand & natural!=grassland & natural!=tree 
-	{name '${name} {${alt_name}} [${natural}]' | '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6606 resolution 24]
+	{name '${name} {${alt_name}} [${natural}]' | '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24] # 0x6606
 geological=* {name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 power=* & ( power!=tower & power!=pole ) {name '${name} (${power}) [power]' | '(${power}) [power]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 place=* & place!=islet {name '${name} [${place}]' | '[${place}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
@@ -816,6 +818,8 @@ water_source=* {name '${name} (${water_source}) [water_source]' | '(${water_sour
 #building=yes {name '${name} [building]' | '[building]' ; addlabel 'levels ${levels}'} [0x0b00 resolution 24] # to use or not to use?
 building=* & building!=yes & building!=house 
 	{name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x0b00 resolution 24] # to use or not to use?
+aerialway=* 
+	{name '${name} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 23]
 advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 abandoned=* & abandoned!=no [0x0b00 resolution 24]
 is_in=* {name '${name} (${is_in}) [is_in]'} [0x0b00 resolution 24 default_name 'is_in'] #should't this be at the end?
