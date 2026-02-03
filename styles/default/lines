@@ -28,10 +28,10 @@ aeroway=airstrip | abandoned=yes {name '${ref} (abandoned) [airstrip]' | '(aband
 aeroway=airstrip | aeroway=aerodrome {name '${ref} [airstrip]' | '[airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
 
 #aerialway=gondola | aerialway=cable_car | aerialway=chair_lift [0x1b resolution 22-24 default_name 'aerialway']
-aerialway=gondola | aerialway=cable_car | aerialway=chair_lift {name '${ref} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22-24]
-aerialway=zip_line | aerialway=zipline {name '${ref} [zipline]' | '[zipline]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
-highway=via_ferrata {name '${ref} [via_ferrata]' | '[via_ferrata]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
-highway=piste | highway=ski | piste:difficulty=* | piste:type=* | piste=* {name '${ref} [ski]' | '[ski]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+aerialway=gondola | aerialway=cable_car | aerialway=chair_lift {name '${name} ${ref} [aerialway]' | '${ref} [aerialway]' | '${name} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22-24]
+aerialway=zip_line | aerialway=zipline {name '${name} ${ref} [zipline]' | '${ref} [zipline]' | '${name} [zipline]' | '[zipline]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+highway=via_ferrata {name '${name} ${ref} [via_ferrata]' | '${ref} [via_ferrata]' | '${name} [via_ferrata]' | '[via_ferrata]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+highway=piste | highway=ski | piste:difficulty=* | piste:type=* | piste=* {name '${name} ${ref} [ski]' | '${ref} [ski]' | '${name} [ski]' | '[ski]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 
 # Mark highways with the toll flag
 highway=* & (toll=yes | toll=true) {set mkgmap:toll=yes}
