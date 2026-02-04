@@ -18,6 +18,8 @@ abandoned=* & abandoned!=no {name '${name} (abandoned) [${abandoned}]' | '(aband
 amenity=funeral_home {add shop='funeral_directors'}
 access=yes {set access=public}
 
+#natural=fell & osmid()=411910723 { echotags "fell" }
+
 aeroway=airport | aeroway=aerodrome {name '${name} [airport]' | '[airport]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24]
 #aeroway=aerodrome {name '${name} [aerodrome]' | '[aerodrome]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24] 
 aeroway=runway & area=yes {name '${name} ${ref} [runway]' | '${ref} [runway]' | '[runway]'} [0x0e resolution 20-24]
@@ -383,20 +385,20 @@ place=islet {name '${name} [islet]' | '[islet]' ; addlabel '${phone}' | '${websi
 #man_made=* & area!=no {add name='${man_made|subst:"_=> "}'} [0x24 resolution 24]
 man_made=* & area!=no {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x24 resolution 24]
 #hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
-landuse=* & area_size < 1000 
+landuse=* & area_size() < 1000 
 	{name '${name} {${alt_name}} [${landuse}]' | '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
-natural=* & natural!=land & area_size < 1000 
+natural=* & natural!=land & area_size() < 1000 
 	{name '${name} {${alt_name}} [${natural}]' | '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4f resolution 24]
-amenity=* & area_size < 1000 {name '${name} {${alt_name}} [${amenity}]' | '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0b resolution 24]
-sport=* & area_size < 1000 {name '${name} (${sport}) [sport]' | '(${sport}) [sport]'} [0x19 resolution 24]
+amenity=* & area_size() < 1000 {name '${name} {${alt_name}} [${amenity}]' | '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0b resolution 24]
+sport=* & area_size() < 1000 {name '${name} (${sport}) [sport]' | '(${sport}) [sport]'} [0x19 resolution 24]
 power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 #historic=* & historic!=no & historic!=yes & boundary!=* {add name='${historic|subst:"_=> "}'} [0x22 resolution 21]
 #historic=* & historic!=no & boundary!=* {add name='${historic|subst:"_=> "}'
 historic=* & historic!=no & boundary!=* 
 	{name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 20-24]
 tourism=* & area!=no & waterway!=* {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
-place=* & area_size < 1000 
+place=* & area_size() < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
 building=* & building!=no {name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
@@ -404,7 +406,7 @@ abandoned=* & abandoned:!=no  [0x03 resolution 24]
 abandoned:landuse=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]' } [0x03 resolution 24]
 
 include 'inc/name';
-name=* & area_size < 1000 {name '${name} {${official_name}}' | '${name} {${designation}}' | '${name} {${alt_name}}' | '${name} {${old_name}}' | '${name}'}
+name=* & area_size() < 1000 {name '${name} {${official_name}}' | '${name} {${designation}}' | '${name} {${alt_name}}' | '${name} {${old_name}}' | '${name}'}
 
 <finalize>
 # The finalizer section is executed for each element when a rule with an element type matches
