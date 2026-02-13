@@ -28,10 +28,10 @@ aeroway=airstrip | abandoned=yes {name '${ref} (abandoned) [airstrip]' | '(aband
 aeroway=airstrip | aeroway=aerodrome {name '${ref} [airstrip]' | '[airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
 
 #aerialway=gondola | aerialway=cable_car | aerialway=chair_lift [0x1b resolution 22-24 default_name 'aerialway']
-aerialway=gondola | aerialway=cable_car | aerialway=chair_lift {name '${name} ${ref} [aerialway]' | '${ref} [aerialway]' | '${name} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22-24]
-aerialway=zip_line | aerialway=zipline {name '${name} ${ref} [zipline]' | '${ref} [zipline]' | '${name} [zipline]' | '[zipline]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
-highway=via_ferrata {name '${name} ${ref} [via_ferrata]' | '${ref} [via_ferrata]' | '${name} [via_ferrata]' | '[via_ferrata]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
-highway=piste | highway=ski | piste:difficulty=* | piste:type=* | piste=* {name '${name} ${ref} [ski]' | '${ref} [ski]' | '${name} [ski]' | '[ski]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+aerialway=gondola | aerialway=cable_car | aerialway=chair_lift {name '${name} (${ref}) [aerialway]' | '${ref} [aerialway]' | '${name} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22-24]
+aerialway=zip_line | aerialway=zipline {name '${name} (${ref}) [zipline]' | '${ref} [zipline]' | '${name} [zipline]' | '[zipline]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+highway=via_ferrata {name '${name} (${ref}) [via_ferrata]' | '${ref} [via_ferrata]' | '${name} [via_ferrata]' | '[via_ferrata]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+highway=piste | highway=ski | piste:difficulty=* | piste:type=* | piste=* {name '${name} (${ref}) [ski]' | '${ref} [ski]' | '${name} [ski]' | '[ski]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 
 # Mark highways with the toll flag
 highway=* & (toll=yes | toll=true) {set mkgmap:toll=yes}
@@ -222,16 +222,18 @@ highway=* & disused=yes & maxspeed!=* {add mkgmap:road-speed='-2'}
 #highway=trunk_link [0x09 road_class=4 road_speed=2 resolution 20-24]
 #highway=* & motorroad=yes [0x02 road_class=4 road_speed=4 resolution 17]
 
-highway=motorway & mkgmap:fast_road=yes {name '${name} [motorway]' | '[motorway]'} [0x01 road_class=4 road_speed=7 resolution 14]
-highway=motorway {name '${name} [motorway]' | '[motorway]'} [0x01 road_class=4 road_speed=7 resolution 15]
-highway=motorway_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) {name '${name} [motorway_link]' | '[motorway_link]'} [0x0b road_class=4 road_speed=2 resolution 16]
-highway=motorway_link {name '${name} [motorway_link]' | '[motorway_link]'} [0x09 road_class=4 road_speed=2 resolution 16]
+highway=motorway & mkgmap:fast_road=yes {name '${name} (${ref}) [motorway]' | '${name} [motorway]' | '${ref} [motorway]' | '[motorway]'} [0x01 road_class=4 road_speed=7 resolution 14]
+highway=motorway {name '${name} (${ref}) [motorway]' | '${name} [motorway]' | '${ref} [motorway]' | '[motorway]'} [0x01 road_class=4 road_speed=7 resolution 15]
+highway=motorway_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) 
+	{name '${name} (${ref}) [motorway_link]' | '${name} [motorway_link]' | '${ref} [motorway_link]' | '[motorway_link]'} [0x0b road_class=4 road_speed=2 resolution 16]
+highway=motorway_link {name '${name} (${ref}) [motorway_link]' | '${name} [motorway_link]' | ' (${ref}) [motorway_link]' | '[motorway_link]'} [0x09 road_class=4 road_speed=2 resolution 16]
 
-highway=trunk & mkgmap:fast_road=yes {name '${name} [trunk]' | '[trunk]'} [0x02 road_class=4 road_speed=5 resolution 14]
-highway=trunk {name '${name} [trunk]' | '[trunk]'} [0x02 road_class=4 road_speed=5 resolution 17]
-highway=trunk_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) {name '${name} [trunk_link]' | '[trunk_link]'} [0x0b road_class=4 road_speed=2 resolution 20-24]
-highway=trunk_link {name '${name} [trunk_link]' | '[trunk_link]'} [0x09 road_class=4 road_speed=2 resolution 20-24]
-highway=* & motorroad=yes {name '${name} [motorroad]' | '[motorroad]'} [0x02 road_class=4 road_speed=4 resolution 17]
+highway=trunk & mkgmap:fast_road=yes {name '${name} (${ref}) [trunk]' | '${name} [trunk]' | '${ref} [trunk]' | '[trunk]'} [0x02 road_class=4 road_speed=5 resolution 14]
+highway=trunk {name '${name} (${ref}) [trunk]' | '${name} [trunk]' | '${ref} [trunk]' | '[trunk]'} [0x02 road_class=4 road_speed=5 resolution 17]
+highway=trunk_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) 
+	{name '${name} (${ref}) [trunk_link]' | '${name} [trunk_link]' | '${ref} [trunk_link]' | '[trunk_link]'} [0x0b road_class=4 road_speed=2 resolution 20-24]
+highway=trunk_link {name '${name} (${ref}) [trunk_link]' | '${name} [trunk_link]' | '${ref} [trunk_link]' | '[trunk_link]'} [0x09 road_class=4 road_speed=2 resolution 20-24]
+highway=* & motorroad=yes {name '${name} (${ref}) [motorroad]' | '${name} [motorroad]' | '${ref} [motorroad]' | '[motorroad]'} [0x02 road_class=4 road_speed=4 resolution 17]
 
 #highway=primary & mkgmap:fast_road=yes [0x03 road_class=4 road_speed=4 resolution 17]
 #highway=primary {name '${name} [primary]' | '[primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
@@ -251,127 +253,184 @@ if ( highway=primary & surface!=sand & surface!=gravel & surface!=unpaved & surf
 	highway=primary {name '${name} (pav) [primary]' | '(pav)  [primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
 end
 
-highway=primary & mkgmap:fast_road=yes {name '${name} [primary]' | '[primary]'} [0x03 road_class=4 road_speed=4 resolution 17]
-highway=primary {name '${name} [primary]' | '[primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
+highway=primary & mkgmap:fast_road=yes {name '${name} (${ref}) [primary]' | '${name} [primary]' | '${ref} [primary]' | '[primary]'} [0x03 road_class=4 road_speed=4 resolution 17]
+highway=primary {name '${name} (${ref}) [primary]' | '${name} [primary]' | '${name} (${ref}) [primary]' | '[primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
 
 if ( highway=primary_link & surface!=sand & surface!=gravel & surface!=unpaved & surface!=dirt & surface!=compacted & surface!=ground & surface=*) then
 	highway=primary_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) & mkgmap:fast_road=yes 
-		{name '${name} (pav) [primary_link]' | '[(pav) primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
+		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' | '${ref} (pav) [primary_link]' | '[(pav) primary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
 	highway=primary_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) 
-		{name '${name} (pav) [primary_link]' | '(pav) [primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
+		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' |  '${ref} (pav) [primary_link]' | '(pav) [primary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
 	highway=primary_link & mkgmap:fast_road=yes 
-		{name '${name} (pav) [primary_link]' | '(pav) [primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' | '${ref} (pav) [primary_link]' | '(pav) [primary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
 	highway=primary_link  
-		{name '${name} (pav) [primary_link]' | '(pav) [primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17 default_name 'primary_link']
+		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' | '${ref} (pav) [primary_link]' | '(pav) [primary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17 default_name 'primary_link']
 end
 
 highway=primary_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) & mkgmap:fast_road=yes 
-	{name '${name} [primary_link]' | '[primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
+	{name '${name} (${ref}) [primary_link]' | '${name} [primary_link]' | '${name} (${ref}) [primary_link]' | '[primary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
 highway=primary_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) 
-	{name '${name} [primary_link]' | '[primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
+	{name '${name} (${ref}) [primary_link]' | '${name} [primary_link]' | '${ref} [primary_link]' | '[primary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
 highway=primary_link & mkgmap:fast_road=yes 
-	{name '${name} [primary_link]' | '[primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+	{name '${name} (${ref}) [primary_link]' | '${name} [primary_link]' | '${ref} [primary_link]' | '[primary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
 highway=primary_link  
-	{name '${name} [primary_link]' | '[primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17 default_name 'primary_link']
+	{name '${name} (${ref}) [primary_link]' | '${name} [primary_link]' | '${ref} [primary_link]' | '[primary_link]'
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17 default_name 'primary_link']
 
 
 if ( highway=secondary ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [secondary]' | '(sand) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [secondary]' | '${name} (sand) [secondary]' | '${ref} (sand) [secondary]' | '(sand) [secondary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [secondary]' | '(gravel) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [secondary]' | '${name} (gravel) [secondary]' | '${ref} (gravel) [secondary]' | '(gravel) [secondary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [secondary]' | '(unp) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [secondary]' | '${name} (unp) [secondary]' | '${ref} (unp) [secondary]' | '(unp) [secondary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name}(dirt) [secondary]' | '(dirt) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [secondary]' | '${name} (dirt) [secondary]' | '${ref} (dirt) [secondary]' | '(dirt) [secondary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [secondary]' | '(compac) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [secondary]' | '${name} (compac) [secondary]' | '${ref} (compac) [secondary]' | '(compac) [secondary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [secondary]' | '(ground) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [secondary]' | '${name} (ground) [secondary]' | '${ref} (ground) [secondary]' | '(ground) [secondary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [secondary]' | '(unkn) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [secondary]' | '${name} (unkn) [secondary]' | '${ref} (unkn) [secondary]' | '(unkn) [secondary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
 end 
 highway=secondary & mkgmap:fast_road=yes & (oneway!=no & oneway=*) 
-{name '${name} (pav) (one_way) [secondary]' | '(pav) (one_way)  [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
-highway=secondary & mkgmap:fast_road=yes {name '${name} (pav) [secondary]' | '(pav) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
-highway=secondary & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [secondary]' | '(pav) (one_way) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
-highway=secondary {name '${name} (pav) [secondary]' | '(pav) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
+	{name '${name} (${ref}) (pav) (one_way) [secondary]' | '${name} (pav) (one_way) [secondary]' | '${ref} (pav) (one_way) [secondary]' | '(pav) (one_way)  [secondary]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+highway=secondary & mkgmap:fast_road=yes 
+	{name '${name} (${ref}) (pav) [secondary]' | '${name} (pav) [secondary]' | '${ref} (pav) [secondary]' | '(pav) [secondary]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+highway=secondary & (oneway!=no & oneway=*) 
+	{name '${name} (${ref}) (pav) (one_way) [secondary]' | '${name} (pav) (one_way) [secondary]' | '${ref} (pav) (one_way) [secondary]' | '(pav) (one_way) [secondary]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
+highway=secondary 
+	{name '${name} (${ref}) (pav) [secondary]' | '${name} (pav) [secondary]' | '${ref} (pav) [secondary]' | '(pav) [secondary]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
 	
 if ( highway=secondary_link ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [secondary_link]' | '(sand) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [secondary_link]' | '${name} (sand) [secondary_link]' | '${ref} (sand) [secondary_link]' | '(sand) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [secondary_link]' | '(gravel) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [secondary_link]' | '${name} (gravel) [secondary_link]' | '${ref} (gravel) [secondary_link]' | '(gravel) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [secondary_link]' | '(unp) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [secondary_link]' |  '${name} (unp) [secondary_link]' | '${ref} (unp) [secondary_link]' | '(unp) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name}(dirt) [secondary_link]' | '(dirt) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [secondary_link]' | '${name} (dirt) [secondary_link]' | '${ref} (dirt) [secondary_link]' | '(dirt) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [secondary_link]' | '(compac) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [secondary_link]' | '${name} (compac) [secondary_link]' | '${ref} (compac) [secondary_link]' | '(compac) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [secondary_link]' | '(ground) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 	
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [secondary_link]' | '${name} (ground) [secondary_link]' | '${ref} (ground) [secondary_link]' | '(ground) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 	
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [secondary_link]' | '(unkn) (one_way) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [secondary_link]' | '${name} (unkn) (one_way) [secondary_link]' | '${ref} (unkn) (one_way) [secondary_link]' | '(unkn) (one_way) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [secondary_link]' | '(unkn) [secondary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [secondary_link]' | '${name} (unkn) [secondary_link]' | '${ref} (unkn) [secondary_link]' | '(unkn) [secondary_link]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
 end	
-highway=secondary & mkgmap:fast_road=yes & (oneway!=no & oneway=*) 
-	{name '${name} (pav) (one_way) [secondary]' | '(pav) (one_way)  [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
-highway=secondary & mkgmap:fast_road=yes 
-	{name '${name} (pav) [secondary]' | '(pav) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
-highway=secondary & (oneway!=no & oneway=*) 
-	{name '${name} (pav) (one_way) [secondary]' | '(pav) (one_way) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
-highway=secondary 
-	{name '${name} (pav) [secondary]' | '(pav) [secondary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
+highway=secondary_link & mkgmap:fast_road=yes & (oneway!=no & oneway=*) 
+	{name '${name} (${ref}) (pav) (one_way) [secondary_link]' | '${name} (pav) (one_way) [secondary_link]' | '${ref} (pav) (one_way) [secondary_link]' | '(pav) (one_way)  [secondary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+highway=secondary_link & mkgmap:fast_road=yes 
+	{name '${name} (${ref}) (pav) [secondary_link]' | '${name} (pav) [secondary_link]' | '${ref} (pav) [secondary_link]' | '(pav) [secondary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
+highway=secondary_link & (oneway!=no & oneway=*) 
+	{name '${name} (${ref}) (pav) (one_way) [secondary_link]' | '${name} (pav) (one_way) [secondary_link]' | '${ref} (pav) (one_way) [secondary_link]' | '(pav) (one_way) [secondary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
+highway=secondary_link 
+	{name '${name} (${ref}) (pav) [secondary_link]' | '${name} (pav) [secondary_link]' | '${ref} (pav) [secondary_link]' | '(pav) [secondary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=3 resolution 17]
 
 if ( highway=tertiary ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [tertiary]' | '(sand) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [tertiary]' | '${name} (sand) [tertiary]' | '${ref} (sand) [tertiary]' | '(sand) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [tertiary]' | '(gravel) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [tertiary]' | '${name} (gravel) [tertiary]' | '${ref} (gravel) [tertiary]' | '(gravel) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [tertiary]' | '(unp) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [tertiary]' | '${name} (unp) [tertiary]' | '${ref} (unp) [tertiary]' | '(unp) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name}(dirt) [tertiary]' | '(dirt) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [tertiary]' | '${name} (dirt) [tertiary]' | '${ref} (dirt) [tertiary]' | '(dirt) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [tertiary]' | '(compac) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [tertiary]' | '${name} (compac) [tertiary]' | '${name} (compac) [tertiary]' | '${ref} (compac) [tertiary]' | '(compac) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [tertiary]' | '(ground) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [tertiary]' | '${name} (ground) [tertiary]' | '${ref} (ground) [tertiary]' | '(ground) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [tertiary]' | '(unkn) (one_way) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [tertiary]' | '${name} (unkn) (one_way) [tertiary]' | '${ref} (unkn) (one_way) [tertiary]' | '(unkn) (one_way) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [tertiary]' | '(unkn) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [tertiary]' | '${name} (unkn) [tertiary]' | '${ref} (unkn) [tertiary]' | '(unkn) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]	
-	surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [tertiary]' | '(pav) (one_way) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=* & (oneway!=no & oneway=*) {name '${name} (${ref}) (pav) (one_way) [tertiary]' | '${name} (pav) (one_way) [tertiary]' | '${ref} (pav) (one_way) [tertiary]' | '(pav) (one_way) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=1 resolution 17]
-	surface=* {name '${name} (pav) [tertiary]' | '(pav) [tertiary]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=* {name '${name} (${ref}) (pav) [tertiary]' | '${name} (pav) [tertiary]' | '${ref} (pav) [tertiary]' | '(pav) [tertiary]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=1 resolution 17]
 end 
 
-highway=tertiary_link {name '${name} (pav) [tertiary_link]' | '(pav) [tertiary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=1 road_speed=1 resolution 17]
+highway=tertiary_link {name '${name} (${ref}) (pav) [tertiary_link]' | '${name} (pav) [tertiary_link]' | '${ref} (pav) [tertiary_link]' | '(pav) [tertiary_link]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=1 road_speed=1 resolution 17]
 
 if ( highway=unclassified | highway=minor ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [minor]' | '(sand) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [minor]' | '${name} (sand) [minor]' | '${ref} (sand) [minor]' | '(sand) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [minor]' | '(gravel) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [minor]' | '${name} (gravel) [minor]' | '${ref} (gravel) [minor]' | '(gravel) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [minor]' | '(unp) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [minor]' | '${name} (unp) [minor]' | '${ref} (unp) [minor]' | '(unp) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [minor]' | '(dirt) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [minor]' | '${name} (dirt) [minor]' | '${ref} (dirt) [minor]' | '(dirt) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [minor]' | '(compac) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [minor]' | '${name} (compac) [minor]' | '${ref} (compac) [minor]' | '(compac) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [minor]' | '(ground) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [minor]' | '${name} (ground) [minor]' | '${ref} (ground) [minor]' | '(ground) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [minor]' | '(unkn) (one_way) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [minor]' | '${name} (unkn) (one_way) [minor]' | '${ref} (unkn) (one_way) [minor]' | '(unkn) (one_way) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21] 			#change resolution to find roads with no surface
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [minor]' | '(unkn) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [minor]' | '${name} (unkn) [minor]' | '${ref} (unkn) [minor]' | '(unkn) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21] 			#change resolution to find roads with no surface
-	surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [minor]' | '(pav) (one_way) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=* & (oneway!=no & oneway=*) {name '${name} (${ref}) (pav) (one_way) [minor]' | '${name} (pav) (one_way) [minor]' | '${ref} (pav) (one_way) [minor]' | '(pav) (one_way) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 20-24]
-	surface=* {name '${name} (pav) [minor]' | '(pav) [minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+	surface=* {name '${name} (${ref}) (pav) [minor]' | '${name} (pav) [minor]' | '${ref} (pav) [minor]' | '(pav) [minor]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 20-24]
 end 
-( highway=unclassified | highway=minor ) {name '${name} [minor]' | '[minor]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x06 road_class=1 road_speed=1 resolution 20-24 ]
+
+( highway=unclassified | highway=minor ) {name '${name} (${ref}) [minor]' | '${name} [minor]' | '${ref} [minor]' | '[minor]' 
+	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x06 road_class=1 road_speed=1 resolution 20-24 ]
 
 #bridge ~ '(yes|boardwalk|cantilever|covered|low_water_crossing|movable|trestle|viaduct)' &
 #	!(piste:type = * | building = * | railway = * | attraction = water_slide) &
@@ -408,46 +467,64 @@ highway=yes {set highway=footway} # fix common bad tagging - little bits of path
 # highway=pedestrian could be closed polygon to represent a 'square', add route regardless and continue for polygon processing
 #highway=pedestrian {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 22-24 continue with_actions]
 if ( highway=pedestrian ) then
-	surface=sand {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (sand) [pede]' | '(sand) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [pede]' | '${name} (sand) [pede]' | '${ref} (sand) [pede]' | '(sand) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=gravel {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (gravel) [pede]' | '(gravel) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [pede]' | '${name} (gravel) [pede]' | '${ref} (gravel) [pede]' | '(gravel) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=unpaved {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unp) [pede]' | '(unp) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [pede]' | '${name} (unp) [pede]' | '${ref} (unp) [pede]' | '(unp) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=dirt {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (dirt) [pede]' | '(dirt) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [pede]' | '${name} (dirt) [pede]' | '${ref} (dirt) [pede]' | '(dirt) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=compacted {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (compac) [pede]' | '(compac) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [pede]' | '${name} (compac) [pede]' | '${ref} (compac) [pede]' | '(compac) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=ground {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (ground) [pede]' | '(ground) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [pede]' | '${name} (ground) [pede]' | '${ref} (ground) [pede]' | '(ground) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unkn) [pede]' | '(unkn) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [pede]' | '${name} (unkn) [pede]' | '${ref} (ground) [pede]' | '(unkn) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=* {set tmp:stopMopUp=yes ; name '${name} (pav) [pede]' | '(pav) [pede]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {set tmp:stopMopUp=yes ; name '${name} (${ref}) (pav) [pede]' | '${name} (pav) [pede]' | '${ref} (pav) [pede]' | '(pav) [pede]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
 end 
 
 if ( highway=residential | highway=living_street) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [resi]' | '(sand) [resi]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [resi]' | '(gravel) [resi]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [resi]' | '(unp) [resi]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [resi]' | '(dirt) [resi]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [resi]' | '(compac) [resi]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [resi]' | '(ground) [resi]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [resi]' | '${name} (sand) [resi]' | '${ref} (sand) [resi]' | '(sand) [resi]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [resi]' | '${name} (gravel) [resi]' | '${ref} (gravel) [resi]' | '(gravel) [resi]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [resi]' | '${name} (unp) [resi]' | '${name} (${ref}) (unp) [resi]' | '(unp) [resi]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [resi]' | '${name} (dirt) [resi]' | '${ref} (dirt) [resi]' | '(dirt) [resi]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [resi]' | '${name} (compac) [resi]' | '${ref} (compac) [resi]' | '(compac) [resi]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [resi]' | '${name} (ground) [resi]' | '${ref} (ground) [resi]' | '(ground) [resi]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [resi]' | '${name} (unkn) (one_way) [resi]' | '$${ref} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 		[0x06 road_class=0 road_speed=1 resolution 24]
 	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 	#	[0x12 road_class=0 road_speed=1 resolution 24 continue] #to use with TYP
 	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 	#	[0x10600 resolution 24] #to use with TYP
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [resi]' | '(unkn) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [resi]' | '${name} (unkn) [resi]' | '${ref} (unkn) [resi]' |  '(unkn) [resi]'  
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
-	surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* & (oneway!=no & oneway=*) {name '${name} (${ref}) (pav) (one_way) [resi]' | '${name} (pav) (one_way) [resi]' | '${ref} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
 	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	#	[0x12 road_class=0 road_speed=1 resolution 24 continue] #to use with TYP
 	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	#	[0x1050e resolution 24] #to use with TYP
-	surface=* {name '${name} (pav) [resi]' | '(pav) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [resi]' | '${name} (pav) [resi]' | '${ref} (pav) [resi]' | '(pav) [resi]'  
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
 end 
 #highway=residential [0x12 road_class=0 road_speed=1 resolution 24 continue] # invisible routable line
@@ -455,41 +532,57 @@ end
 
 #highway=bridleway [0x07 road_class=0 road_speed=0 resolution 23 default_name 'bridleway'] #horse path
 if ( highway=bridleway) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [bridleway]' | '(sand) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [bridleway]' | '${name} (sand) [bridleway]' | '${ref} (sand) [bridleway]' | '(sand) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [bridleway]' | '(gravel) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [bridleway]' | '${name} (gravel) [bridleway]' | '${ref} (gravel) [bridleway]' | '(gravel) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [bridleway]' | '(unp) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [bridleway]' | '${name} (unp) [bridleway]' | '${ref} (unp) [bridleway]' | '(unp) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [bridleway]' | '(dirt) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'}
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [bridleway]' | '${name} (dirt) [bridleway]' | '${ref} (dirt) [bridleway]' | '(dirt) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'}
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [bridleway]' | '(compac) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [bridleway]' | '${name} (compac) [bridleway]' | '${ref} (compac) [bridleway]' | '(compac) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [bridleway]' | '(ground) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [bridleway]' | '${name} (ground) [bridleway]' | '${ref} (ground) [bridleway]' | '(ground) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [bridleway]' | '(unkn) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [bridleway]' | '${name} (unkn) [bridleway]' | '${ref} (unkn) [bridleway]' | '(unkn) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
-	surface=* {name '${name} (pav) [bridleway]' | '(pav) [bridleway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [bridleway]' | '${name} (pav) [bridleway]' | '${ref} (pav) [bridleway]' | '(pav) [bridleway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
 end 
 
 #highway=byway [0x16 road_class=0 road_speed=0 resolution 23 default_name 'byway'] #path?
 if ( highway=byway) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [byway]' | '(sand) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [byway]' | '${name} (sand) [byway]' | '(sand) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [byway]' | '(gravel) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [byway]' | '${name} (gravel) [byway]' | '${ref} (gravel) [byway]' |  '(gravel) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [byway]' | '(unp) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [byway]' | '${name} (unp) [byway]' | '${ref} (unp) [byway]' | '(unp) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [byway]' | '(dirt) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [byway]' | '${name} (dirt) [byway]' | '${ref} (dirt) [byway]' | '(dirt) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [byway]' | '(compac) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [byway]' | '${name} (compac) [byway]' | '${ref} (compac) [byway]' | '(compac) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [byway]' | '(ground) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [byway]' | '${name} (ground) [byway]' | '${ref} (ground) [byway]' | '(ground) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [byway]' | '(unkn) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [byway]' | '${name} (unkn) [byway]' | '${name} (unkn) [byway]' | '(unkn) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface=* {name '${name} (pav) [byway]' | '(pav) [byway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [byway]' | '${name} (pav) [byway]' | '${ref} (pav) [byway]' | '(pav) [byway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
 end 
 
@@ -501,21 +594,29 @@ highway=access_ramp {set highway=footway} # proposed
 #highway=service & (service=alley | service=driveway) [0x07 road_class=0 road_speed=0 resolution 23]
 #highway=service [0x07 road_class=0 road_speed=2 resolution 22-24 default_name 'service_road']
 if ( highway=service ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [${service}]' | '(sand) [${service}]' | '${name} (sand) [service]' | '(sand) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [${service}]' | '${name} (sand) [${service}]' | '${name} (sand) [${service}]' | '(${ref}) (sand) [${service}]' | '(sand) [${service}]' | '${name} (${ref}) (sand) [service]' | '${name} (sand) [service]' | '(${ref}) (sand) [service]' | '(sand) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [${service}]' | '(gravel) [${service}]' | '${name} (gravel) [service]' | '(gravel) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [${service}]' | '${name} (gravel) [${service}]' | '(${ref}) (gravel) [${service}]' | '(gravel) [${service}]' | '${name} (${ref}) (gravel) [service]' |  '${name} (gravel) [service]' | '(${ref}) (gravel) [service]' | '(gravel) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [${service}]' | '(unp) [${service}]' | '${name} (unp) [service]' | '(unp) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [${service}]' | '${name} (unp) [${service}]' | '(${ref}) (unp) [${service}]' | '(unp) [${service}]' | '${name} (${ref}) (unp) [service]' | '${name} (unp) [service]' | '(${ref}) (unp) [service]' | '(unp) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [${service}]' | '(dirt) [${service}]' | '${name} (dirt) [service]' | '(dirt) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [${service}]' | '${name} (dirt) [${service}]' | '(${ref}) (dirt) [${service}]' | '(dirt) [${service}]' | '${name} (${ref}) (dirt) [service]' | '${name} (dirt) [service]' | '(${ref}) (dirt) [service]' | '(dirt) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [${service}]' | '(compac) [${service}]' | '${name} (compac) [service]' | '(compac) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [${service}]' | '${name} (compac) [${service}]' | '(${ref}) (compac) [${service}]' | '(compac) [${service}]' | '${name} (${ref}) (compac) [service]' | '${name} (compac) [service]' | '(${ref}) (compac) [service]' | '(compac) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [${service}]' | '(ground) [${service}]' | '${name} (ground) [service]' | '(ground) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [${service}]' | '${name} (ground) [${service}]' | '(${ref}) (ground) [${service}]' | '(ground) [${service}]' | '${name} (${ref}) (ground) [service]' | '${name} (ground) [service]' | '(${ref}) (ground) [service]' | '(ground) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [${service}]' | '(unkn) [${service}]' | '${name} (unkn) [service]' | '(unkn) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [${service}]' | '${name} (unkn) [${service}]' | '(${ref}) (unkn) [${service}]' | '(unkn) [${service}]' | '${name} (${ref}) (unkn) [service]' | '${name} (unkn) [service]' | '(${ref}) (unkn) [service]' | '(unkn) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=* {name '${name} (pav) [${service}]' | '(pav) [${service}]' | '${name} (pav) [service]' | '(pav) [service]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [${service}]' | '${name} (pav) [${service}]' | '(${ref}) (pav) [${service}]' | '(pav) [${service}]' | '${name} (${ref}) (pav) [service]' | '${name} (pav) [service]' |  '(${ref}) (pav) [service]' | '(pav) [service]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
 end 
 
@@ -523,142 +624,198 @@ end
 # highway=footway is often an area as well, continue for polygon processing
 #highway=footway {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 23 default_name 'footway' continue with_actions]
 if ( highway=footway ) then
-	surface=sand {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (sand) [footway]' | '(sand) [footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [footway]' | '${name} (sand) [footway]' | '(${ref}) (sand) [footway]' | '(sand) [footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=gravel {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (gravel) [footway]' | '(gravel) [footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [footway]' | '${name} (gravel) [footway]' | '(${ref}) (gravel) [footway]' | '(gravel) [footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=unpaved {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unp) [footway]' | '(unp) [footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [footway]' | '${name} (unp) [footway]' | '(${ref}) (unp) [footway]' | '(unp) [footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=dirt {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (dirt) [footway]' | '(dirt) [footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [footway]' | '${name} (dirt) [footway]' | '(${ref}) (dirt) [footway]' | '(dirt) [footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=compacted {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (compac) [footway]' | '(compac) [footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [footway]' | '${name} (compac) [footway]' | '(${ref}) (compac) [footway]' | '(compac) [footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=ground {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (ground) [footway]' | '(ground) [footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [footway]' | '${name} (ground) [footway]' | '(${ref}) (ground) [footway]' | '(ground) [footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (unkn) [footway]' | '(unkn) [footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [footway]' | '${name} (unkn) [footway]' | '(${ref}) (unkn) [footway]' | '(unkn) [footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface=* {set tmp:stopMopUp=yes ; name '${name} [footway]' | '[footway]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {set tmp:stopMopUp=yes ; name '${name} (${ref}) [footway]' | '${name} [footway]' | '(${ref}) [footway]' | '[footway]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
 end 
 
 #highway=trail {set highway=path; add bicycle=no} # fix common bad tagging
 #highway=trail {set highway=path} 
 if ( highway=trail ) then
-	surface=sand {set highway=path; add mkgmap:unpaved=1 ; name '${name} (sand) [trail]' | '(sand) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [trail]' | '${name} (sand) [trail]' | '(${ref}) (sand) [trail]' | '(sand) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=gravel {set highway=path; add mkgmap:unpaved=1 ; name '${name} (gravel) [trail]' | '(gravel) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [trail]' | '${name} (gravel) [trail]' | '(${ref}) (gravel) [trail]' | '(gravel) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=unpaved {set highway=path; add mkgmap:unpaved=1 ; name '${name} (unp) [trail]' | '(unp) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [trail]' | '${name} (unp) [trail]' | '(${ref}) (unp) [trail]' | '(unp) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=dirt {set highway=path; add mkgmap:unpaved=1 ; name '${name} (dirt) [trail]' | '(dirt) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [trail]' | '${name} (dirt) [trail]' | '(${ref}) (dirt) [trail]' | '(dirt) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=compacted {set highway=path; add mkgmap:unpaved=1 ; name '${name} (compac) [trail]' | '(compac) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [trail]' | '${name} (compac) [trail]' | '(${ref}) (compac) [trail]' | '(compac) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	urface=ground {set highway=path; add mkgmap:unpaved=1 ; name '${name} (ground) [trail]' | '(ground) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [trail]' | '${name} (ground) [trail]' | '(${ref}) (ground) [trail]' | '(ground) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface!=* {set highway=path; add mkgmap:unpaved=1 ; name '${name} (unkn) [trail]' | '(unkn) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [trail]' | '${name} (unkn) [trail]' | '(${ref}) (unkn) [trail]' |  '(unkn) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=* {set highway=path; name '${name} (pav) [trail]' | '(pav) [trail]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {set highway=path; name '${name} (${ref}) (pav) [trail]' | '${name} (pav) [trail]' | '(${ref}) (pav) [trail]' | '(pav) [trail]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
 end 
 
 #highway=path [0x16 road_class=0 road_speed=0 resolution 23 default_name 'path'] 
 if ( highway=path ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [path]' | '(sand) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [path]' | '${name} (sand) [path]' | '(${ref}) (sand) [path]' | '(sand) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [path]' | '(gravel) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [path]' | '${name} (gravel) [path]' | '${name} (${ref}) (gravel) [path]' | '(gravel) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [path]' | '(unp) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [path]' | '${name} (unp) [path]' | '(${ref}) (unp) [path]' | '(unp) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [path]' | '(dirt) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [path]' | '${name} (dirt) [path]' | '(${ref}) (dirt) [path]' | '(dirt) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [path]' | '(compac) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [path]' | '${name} (compac) [path]' | '(${ref}) (compac) [path]' | '(compac) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [path]' | '(ground) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [path]' | '${name} (ground) [path]' | '(${ref}) (ground) [path]' | '(ground) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [path]' | '(unkn) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [path]' | '${name} (unkn) [path]' | '(${ref}) (unkn) [path]' | '(unkn) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
-	surface=* {name '${name} (pav) [path]' | '(pav) [path]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [path]' | '${name} (pav) [path]' | '(${ref}) (pav) [path]' | '(pav) [path]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
 end 
 
 #highway=track [0x0a road_class=0 road_speed=1 resolution 23 default_name 'track'] 
 if ( highway=track ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [track]' | '(sand) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [track]' | '${name} (sand) [track]' | '(${ref}) (sand) [track]' | '(sand) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [track]' | '(gravel) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [track]' | '${name} (gravel) [track]' | '(${ref}) (gravel) [track]' | '(gravel) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [track]' | '(unp) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [track]' | '${name} (unp) [track]' | '(${ref}) (unp) [track]' | '(unp) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [track]' | '(dirt) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [track]' | '${name} (dirt) [track]' | '(${ref}) (dirt) [track]' | '(dirt) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [track]' | '(compac) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [track]' | '${name} (compac) [track]' | '(${ref}) (compac) [track]' | '(compac) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	urface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [track]' | '(ground) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [track]' | '${name} (ground) [track]' | '(${ref}) (ground) [track]' | '(ground) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [track]' | '(unkn) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [track]' | '${name} (unkn) [track]' | '(${ref}) (unkn) [track]' | '(unkn) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=* {name '${name} (pav) [track]' | '(pav) [track]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [track]' | '${name} (pav) [track]' | '(${ref}) (pav) [track]' | '(pav) [track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
 end 
 
 #highway=unsurfaced [0x0a road_class=0 road_speed=1 resolution 22-24]
 if ( highway=unsurfaced ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [unsur]' | '(sand) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [unsur]' | '${name} (sand) [unsur]' | '(${ref}) (sand) [unsur]' | '(sand) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [unsur]' | '(gravel) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [unsur]' | '${name} (gravel) [unsur]' | '(${ref}) (gravel) [unsur]' | '(gravel) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [unsur]' | '(unp) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [unsur]' | '${name} (unp) [unsur]' | '(${ref}) (unp) [unsur]' | '(unp) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [unsur]' | '(dirt) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [unsur]' | '${name} (dirt) [unsur]' | '(${ref}) (dirt) [unsur]' | '(dirt) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [unsur]' | '(compac) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [unsur]' | '${name} (compac) [unsur]' | '${name} (${ref}) (compac) [unsur]' | '(compac) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [unsur]' | '(ground) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [unsur]' | '${name} (ground) [unsur]' | '(${ref}) (ground) [unsur]' | '(ground) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [unsur]' | '(unkn) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [unsur]' | '${name} (unkn) [unsur]' | '(${ref}) (unkn) [unsur]' | '(unkn) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface=* {name '${name} (pav) [unsur]' | '(pav) [unsur]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [unsur]' | '${name} (pav) [unsur]' | '(${ref}) (pav) [unsur]' | '(pav) [unsur]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
 end 
 
 #highway=road {add mkgmap:dead-end-check=false} [0x06 road_class=0 road_speed=1 resolution 22-24]
 if ( highway=road ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [road]' | '(sand) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [road]' | '(sand) [road]' | '${name} (sand) [road]' | '(${ref}) (sand) [road]' | '(sand) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [road]' | '(gravel) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [road]' | '${name} (gravel) [road]' | '(${ref}) (gravel) [road]' | '(gravel) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [road]' | '(unp) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [road]' | '${name} (unp) [road]' | '(${ref}) (unp) [road]' | '(unp) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [road]' | '(dirt) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [road]' | '${name} (dirt) [road]' | '(${ref}) (dirt) [road]' | '(dirt) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [road]' | '(compac) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [road]' | '${name} (compac) [road]' | '(${ref}) (compac) [road]' | '(compac) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [road]' | '(ground) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [road]' | '${name} (ground) [road]' | '(${ref}) (ground) [road]' | '(ground) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [road]' | '(unkn) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [road]' | '${name} (unkn) [road]' | '(${ref}) (unkn) [road]' | '(unkn) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
-	surface=* {name '${name} (pav) [road]' | '(pav) [road]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [road]' | '${name} (pav) [road]' | '$(${ref}) (pav) [road]' | '(pav) [road]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 22-24]
 end 
 
 #man_made=embankment | man_made=levee [0x10101 resolution 22-24 default_name 'embankment']
 if ( man_made=embankment | man_made=levee) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [embank]' | '(sand) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [embank]' | '${name} (sand) [embank]' | '(sand) [embank]' 
+		; addlabel '${access} ${incline}' | '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [embank]' | '(gravel) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [embank]' | '${name} (gravel) [embank]' | '(${ref}) (gravel) [embank]' | '(gravel) [embank]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (unp) [embank]' | '(unp) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [embank]' | '${name} (unp) [embank]' | '(${ref}) (unp) [embank]' | '(unp) [embank]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (dirt) [embank]' | '(dirt) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [embank]' | '${name} (dirt) [embank]' | '(${ref}) (dirt) [embank]' | '(dirt) [embank]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (compac) [embank]' | '(compac) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [embank]' | '${name} (compac) [embank]' | '(${ref}) (compac) [embank]' | '(compac) [embank]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (ground) [embank]' | '(ground) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [embank]' | '${name} (ground) [embank]' | '(${ref}) (ground) [embank]' | '(ground) [embank]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (unkn) [embank]' | '(unkn) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [embank]' | '${name} (unkn) [embank]' | '(${ref}) (unkn) [embank]' | '(unkn) [embank]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
-	surface=* {name '${name} (pav) [embank]' | '(pav) [embank]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	surface=* {name '${name} (${ref}) (pav) [embank]' | '${name} (pav) [embank]' | '(${ref}) (pav) [embank]' | '(pav) [embank]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x10101 resolution 22-24]
 end 
 
@@ -957,15 +1114,16 @@ include 'inc/contour_lines';
 #abandoned=* {name '${name} (abandoned)  [${abandoned}]' | '(abandoned)  [${abandoned}]'} [0x1c resolution 24 continue]
 hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
 abandoned=* & abandoned!=no & is_closed()=false [0x1c resolution 24 continue]
-name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
 highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	[0x16 road_class=0 road_speed=0 resolution 22-24]
 route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${phone}' | '${website}' | '${operator}' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x10805 resolution 24]
 power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
 man_made=* & is_closed()=false {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
+construction=* & is_closed()=false {name '${name} [construction]' | '[construction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
 railway=* {name '${name} [${railway}]' |  '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
 historic=* {name '${name} [${historic}]' |  '[${historic}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
 
 <finalize>
 # The finalizer section is executed for each element when a rule with an element type matches
