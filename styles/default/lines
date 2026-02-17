@@ -708,6 +708,60 @@ if ( highway=path ) then
 end 
 
 #highway=track [0x0a road_class=0 road_speed=1 resolution 23 default_name 'track'] 
+if ( highway=track & vehicle=no  ) then
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [no vehicle track]' | '${name} (sand) [no vehicle track]' | '(${ref}) (sand) [no vehicle track]' | '(sand) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [no vehicle track]' | '${name} (gravel) [no vehicle track]' | '(${ref}) (gravel) [no vehicle track]' | '(gravel) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [no vehicle track]' | '${name} (unp) [no vehicle track]' | '(${ref}) (unp) [no vehicle track]' | '(unp) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [no vehicle track]' | '${name} (dirt) [no vehicle track]' | '(${ref}) (dirt) [no vehicle track]' | '(dirt) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [no vehicle track]' | '${name} (compac) [no vehicle track]' | '(${ref}) (compac) [no vehicle track]' | '(compac) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [no vehicle track]' | '${name} (ground) [no vehicle track]' | '(${ref}) (ground) [no vehicle track]' | '(ground) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [no vehicle track]' | '${name} (unkn) [no vehicle track]' | '(${ref}) (unkn) [no vehicle track]' | '(unkn) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=* {name '${name} (${ref}) (pav) [no vehicle track]' | '${name} (pav) [no vehicle track]' | '(${ref}) (pav) [no vehicle track]' | '(pav) [no vehicle track]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+end 
+
+if ( highway=track & motor_vehicle=no ) then
+	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [no motor vehicle]' | '${name} (sand) [no motor vehicle]' | '(${ref}) (sand) [no motor vehicle]' | '(sand) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [no motor vehicle]' | '${name} (gravel) [no motor vehicle]' | '(${ref}) (gravel) [no motor vehicle]' | '(gravel) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [no motor vehicle]' | '${name} (unp) [no motor vehicle]' | '(${ref}) (unp) [no motor vehicle]' | '(unp) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [no motor vehicle]' | '${name} (dirt) [no motor vehicle]' | '(${ref}) (dirt) [no motor vehicle]' | '(dirt) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${ref}) (compac) [no motor vehicle]' | '${name} (compac) [no motor vehicle]' | '(${ref}) (compac) [no motor vehicle]' | '(compac) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [no motor vehicle]' | '${name} (ground) [no motor vehicle]' | '(${ref}) (ground) [no motor vehicle]' | '(ground) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [no motor vehicle]' | '${name} (unkn) [no motor vehicle]' | '(${ref}) (unkn) [no motor vehicle]' | '(unkn) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+	surface=* {name '${name} (${ref}) (pav) [no motor vehicle]' | '${name} (pav) [no motor vehicle]' | '(${ref}) (pav) [no motor vehicle]' | '(pav) [no motor vehicle]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x0a road_class=1 road_speed=1 resolution 22-24]
+end 
+
 if ( highway=track ) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [track]' | '${name} (sand) [track]' | '(${ref}) (sand) [track]' | '(sand) [track]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
