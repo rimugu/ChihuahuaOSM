@@ -38,11 +38,11 @@ access=yes {set access=public}
 #highway=bus_stop & osmid()=3203732751 { echotags "bus_stop"}
 #tourism=hotel & name="Hotel Krystal Urban Juárez" {echotags "hotelillo"}
  
-vehicle=* {
+vehicle=* & vehicle!=no{
  add bicycle='${vehicle}';
  add motor_vehicle='${vehicle}';
  }
-motor_vehicle=* {
+motor_vehicle=* & motor_vehicle!=no{
  add motorcar='${motor_vehicle}';
  add goods='${motor_vehicle}';
  add hgv='${motor_vehicle}';
@@ -294,22 +294,22 @@ amenity=nightclub {name '${name} [nightclub]' | '[nightclub]' ; addlabel '${phon
 amenity=nursing_home {name '${name} [nursing_home]' | '[nursing_home]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f14 resolution 24]
 parking=multi-storey & charge=*
 	{name '${name} (${access}) ($ ${charge}) [multi-storey parking]' | '(${access}) ($ ${charge}) [multi-storey parking]' | '${name} ($ ${charge}) [multi-storey parking]' | '($ ${charge}) [multi-storey parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 22-24] #0x2f0b
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x2f0b resolution 22-24] #0x2f0b
 parking=multi-storey 
 	{name '${name} (${access}) ($ ${fee}) [multi-storey parking]' | '(${access}) ($ ${fee}) [multi-storey parking]' | '${name} (${access}) [multi-storey parking]' | '(${access}) [multi-storey parking]' | '${name} ($ ${fee}) [multi-storey parking]' | '($ ${fee}) [multi-storey parking]' | '${name} [multi-storey parking]' | '[multi-storey parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 22-24]
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x2f0b resolution 22-24]
 parking=underground & charge=*
 	{name '${name} (${access}) ($ ${charge}) [underground parking]' | '(${access}) ($ ${charge}) [underground parking]' | '${name} ($ ${charge}) [underground parking]' | '($ ${charge}) [underground parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 22-24]
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x2f0b resolution 22-24]
 parking=underground
 	{name '${name} (${access}) ($ ${fee}) [underground parking]' | '(${access}) ($ ${fee}) [underground parking]' | '${name} (${access}) [underground parking]' | '(${access}) [underground parking]'| '${name} ($ ${fee}) [underground parking]' | '($ ${fee}) [underground parking]' | '${name} [underground parking]' | '[underground parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 22-24]
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x2f0b resolution 22-24]
 ( amenity=parking | parking=surface )  & charge=*
 	{name '${name} (${access}) ($ ${charge}) [parking]' | '(${access}) ($ ${charge}) [parking]' | '${name} ($ ${charge}) [parking]' | '($ ${charge}) [parking]' 
-	;  addlabel '${operator}' | '${website}' | '${operator}'} [0x3200 resolution 20-24]
+	;  addlabel '${operator}' | '${website}' | '${operator}'} [0x2f0b resolution 20-24]
 amenity=parking | parking=surface 
 	{name '${name} (${access}) ($ ${fee}) [parking]' | '(${access}) ($ ${fee}) [parking]' | '${name} (${access}) [parking]' | '${name} ($ ${fee}) [parking]' | '(${access}) [parking]' | '${name} [parking]' | '($ ${fee}) [parking]' | '[parking]'
-	;  addlabel '${operator}' | '${website}' | '${operator}'} [0x3200 resolution 20-24]
+	;  addlabel '${operator}' | '${website}' | '${operator}'} [0x2f0b resolution 20-24]
 # amenity=place_of_worship [0x2c0b resolution 24]
 (amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_church]' |  '${name} [catholic_church]' | ' (${phone}) [catholic_church]' | '[catholic_church]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
@@ -466,7 +466,7 @@ barrier=toll_booth & payment:cryptocurrencies=*
 	{name '${name} (cryptocurrency ${payment:cash} [${barrier}]' | '(cryptocurrency ${payment:cash} [${barrier}]' | '${name} [${barrier}]' | '[${barrier}]' ; addlabel '${operator}'} 
 	[0x2500 resolution 24]
 barrier=toll_booth {name '${name} [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2500 resolution 24]
-barrier=cattle_grid {name '${name} [cattle_grid]' | '[cattle_grid]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+barrier=cattle_grid {name '${name} vehicle ${motor_vehicle} [cattle_grid]' | '${name} [cattle_grid]' | 'vehicle ${motor_vehicle} [cattle_grid]' | '[cattle_grid]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 military=checkpoint | military=check_point {name '${name} [military_checkpoint]' | '[military_checkpoint]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2500 resolution 24]
 highway=stop {name '${name} [stop]' | '[stop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 #highway=traffic_signals [0x3200 resolution 24 default_name '[traffic_signals]']
@@ -586,7 +586,7 @@ shop=supermarket {name '${name} [supermarket]' | '[supermarket]' ; addlabel '${p
 shop=tires | shop=tyres {name '${name} [tires]' | '[tires]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f07 resolution 24]
 shop=books {name '${name} [book_store]' | '[book_store]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
 shop=ice_cream | amenity=ice_cream {name '${name} [ice_cream]' | '[ice_cream]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0c resolution 24]
-shop=* & name=* {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0c resolution 24]
+shop=* & name=* {name '${name} [${shop}]' | '[${shop}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e0c resolution 24]
 
 sport=9pin {name '${name} [9bowling]' | '[9bowling]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d07 resolution 24]
 sport=10pin | leisure=bowling_alley {name '${name} [bowling]' | '[bowling]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d07 resolution 24]
