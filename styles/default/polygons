@@ -66,8 +66,9 @@ power=plant {name '${name} (${plant:source}) [power_plant]' | '${name} [power_pl
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 20-24]
 power=substation {name '${name} [substation]' | '[substation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 amenity=customs {name '${name} [customs]' | '[customs]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 20-24] 
+office=government | office=administration 
+	{name '${name} (level ${admin__level}) [${office}]' | '${name} [${office}]' | '(level ${admin__level}) [${office}]' | '[${office}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
 government=* {name '${name} (${government}) [government]' | '(${government}) [government]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
-#office=government | office=administration {name '${name} [${office}]' | '${name} [${office}]' | '[${office}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 
 (amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_church]' | '${name} [catholic_church]' | '(${phone}) [catholic_church]' | '[catholic_church]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
@@ -350,6 +351,8 @@ leisure=water_park {name '${name} {${alt_name}} [water_park]' | '${name} [water_
 leisure=miniature_golf {name '${name} [mini_golf]' | '[mini_golf]' ; addlabel '${phone}' | '${website}' | '${operator}'}  [0x17 resolution 24]
 leisure=dance {name '${name} [dance]' | '[dance]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 24]
 tourism=theme_park {name '${name} [theme_park]' | '[theme_park]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
+tourism=museum {name '${name} {${alt_name}} (${museum}) [museum]' | '${name} (${museum}) [museum]' | '{${alt_name}} (${museum}) [museum]' | '(${museum}) [museum]' 
+	; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 leisure=beach_resort {name '${name} (${fee}) [resort]' |'${name} [resort]' | '[resort]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x09 resolution 20-24]
 leisure=swimming_pool 
 	{name '${name} (${access}) (${swimming_pool}) [pool]' | '${name} (${access}) [pool]' | '${name} (${swimming_pool}) [pool]' | '${name} [pool]' | '(${access}) (${swimming_pool}) [pool]' | '(${access}) [pool]' | '(${swimming_pool}) [pool]' | '[pool]' ; 
@@ -397,11 +400,14 @@ power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${web
 #historic=* & historic!=no & boundary!=* {add name='${historic|subst:"_=> "}'
 historic=* & historic!=no & boundary!=* 
 	{name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 20-24]
-tourism=* & area!=no & waterway!=* {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
+tourism=* & area!=no & waterway!=* {name '${name} {${alt_name}} (${tourism}) [tourism]' | '${name} (${tourism}) [tourism]' | '{${alt_name}} (${tourism}) [tourism]' | '(${tourism}) [tourism]' 
+	; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 place=* & area_size() < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
 building=* & building!=no {name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
+geological=*
+	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4d resolution 24] #0x52 does not show in basecamp
 abandoned=* & abandoned:!=no  [0x03 resolution 24]
 abandoned:landuse=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]' } [0x03 resolution 24]
 
