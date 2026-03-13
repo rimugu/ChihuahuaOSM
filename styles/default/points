@@ -42,7 +42,7 @@ vehicle=* & vehicle!=no{
  add bicycle='${vehicle}';
  add motor_vehicle='${vehicle}';
  }
-motor_vehicle=* & motor_vehicle!=no{
+motor_vehicle=* & motor_vehicle!=no & motor_vehicle!=yes{
  add motorcar='${motor_vehicle}';
  add goods='${motor_vehicle}';
  add hgv='${motor_vehicle}';
@@ -228,7 +228,7 @@ amenity=college {name '${name} [college]' | '[college]' ; addlabel '${phone}' | 
 amenity=concert_hall {name '${name} [concert_hall]' | '[concert_hall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24]
 amenity=conference_centre {name '${name} [conference_centre]' | '[conference_centre]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24]
 amenity=convention_center {name '${name} [convention_center]' | '[convention_center]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c09 resolution 24]
-(amenity=community_centre | amenity=community_center | amenity=social_facility) & social_facility=*
+(amenity=community_centre | amenity=community_center | amenity=social_facility) & social_facility=* # casa hogar y otros
 	{name '${name} (${social_facility}) [${amenity}]' | '(${social_facility}) [${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3005 resolution 24]
 amenity=community_centre | amenity=community_center | amenity=social_facility 
 	{name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3005 resolution 24]
@@ -319,8 +319,7 @@ amenity=monastery & religion=christian & (denomination=catholic | denomination=r
 #amenity=monastery & religion=christian & (denomination=catholic | denomination=roman_catholic) {addlabel '${name} ${phone} [catholic_monastery]' | '[catholic_monastery]' ; 
 #	addlabel '${phone}'; echo '${mkgmap:label:1}' ; echo '${mkgmap:label:2}'; echo '${mkgmap:label:3}'; echo '${mkgmap:label:4}' } [0x6404 resolution 20-24]
 amenity=monastery {name '${name} ${phone} [monastery]' | '[monastery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 22-24]
-building=convent & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_convent]' | '${name} [catholic_convent]' | '(${phone}) [catholic_convent]' | '[catholic_convent]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
+building=convent & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_convent]' | '${name} [catholic_convent]' | '(${phone}) [catholic_convent]' | '[catholic_convent]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 20-24]
 building=convent {name '${name} [convent]' | '[convent]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6404 resolution 24]
 amenity=police {name '${name} [police]' | '[police]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3001 resolution 24]
 amenity=post_box {name '${name} [post_box]' | '[post_box]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f15 resolution 24]
@@ -349,7 +348,8 @@ amenity=toilets
 	; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
 #amenity=toilets {name '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
 amenity=townhall {name '${name} [townhall]' | '[townhall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
-office=government | office=administrative {name '${name} (${office})' | '[${office}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
+office=government | office=administrative 
+	{name '${name} (level ${admin__level}) [government]' |  '${name} [government]' | ' (level ${admin__level}) [government]' | '[government]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 amenity=university {name '${name} [university]' | '[university]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 24]
 # amenity=zoo is superceded by tourism=zoo
 amenity=zoo | tourism=zoo {name '${name} [zoo]' | '[zoo]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c07 resolution 24]
@@ -387,7 +387,9 @@ highway=milestone {name '${name} ${distance} [milestone]' | '${distance} [milest
 
 highway=services {add exit:facility="0x02,I,0x47,Features" ; name '${name} [services]' | '[services]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x230f resolution 20-24]
 
-historic=museum | tourism=museum {name '${name} (${inscription}) [museum]' | '${name} [museum]' | '[museum]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24] #tourism=museum below
+historic=museum | tourism=museum 
+	{name '${name} {${alt_name}} (${inscription}) (${museum}) [museum]' | '${name} {${alt_name}} (${inscription}) [museum]' | '${name} (${inscription}) (${museum}) [museum]' | '${name} (${inscription}) [museum]' | '${name} {${alt_name}} (${museum}) [museum]' | '${name} {${alt_name}} [museum]' | '${name} (${museum})  [museum]' | '${name} [museum]' | '{${alt_name}} (${museum}) [museum]' | '{${alt_name}} [museum]' | '(${museum}) [museum]' | '[museum]' 
+	; addlabel '${phone}' | '${website}' | '${operator}'}  [0x2c02 resolution 24] #tourism=museum below
 historic=archaeological_site | historic=ruins | historic=archeological_site 
 	{name '${name} (${archaeological_site}}) [archaeological_site]' | '${name} [archaeological_site]' |'[archaeological_site]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
@@ -500,8 +502,8 @@ natural=rock | natural=stone {name '${name} {${alt_name}} [rock]' | '${name} [ro
 natural=volcano 
 	{name '${name} (${ele}m) (${volcano:status}) [volcano]' | '${name} (${ele}m) [volcano]' | '${name} (${volcano:status}) [volcano]' | '(${ele}m) [volcano]' | '(${volcano:status}) [volcano]' | '${name} [volcano]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x6608 resolution 20-24]
-natural=gayser
-	{name '${name} (${ele}m) [gayser]' |  '(${ele}m) [gayser]' | '${name} [gayser]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+natural=geyser
+	{name '${name} (${geyser:height}) (${ele}m) [geyser]' | '${name} (${ele}m) [geyser]' |  '(${geyser:height}) (${ele}m) [geyser]' | '(${ele}m) [geyser]' | '${name} (${geyser:height}) [geyser]' | '${name} [geyser]' | '[geyser]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x6608 resolution 20-24]
 natural=bay {name '${name} {${alt_name}} [bay]' | '${name} [bay]' | '[bay]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6503 resolution 20-24]
 natural=dune {name '${name} {${alt_name}} [dune]' | '${name} [dune]' | '[dune]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6502 resolution 22-24]
@@ -714,7 +716,9 @@ tourism=attraction & historic=*
 	{name '${name} {${alt_name}} [historic]' | '${name} [historic]' | '[historic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24]
 tourism=attraction {name '${name} {${alt_name}} [attraction]' | '${name} [attraction]' | '[attraction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
 tourism=alpine_hut {name '${name} {${alt_name}} [alpine_hut]' | '${name} [alpine_hut]' | '[alpine_hut]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b02 resolution 24]
-tourism=artwork {name '${name} {${alt_name}} [artwork]' | '${name} [artwork]' | '[artwork]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
+tourism=artwork 
+	{name '${name} {${alt_name}} (${artwork_type}) [artwork]' | '${name} {${alt_name}} [artwork]' | '${name} (${artwork_type}) [artwork]' | '${name} [artwork]' | '(${artwork_type}) [artwork]' | '[artwork]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c04 resolution 24]
 tourism=aquarium {name '${name} {${alt_name}} [aquarium]' | '${name} [aquarium]' | '[aquarium]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c07 resolution 24]
 tourism=bed_and_breakfast {name '${name} {${alt_name}} [bed_and_breakfast]' | '${name} [bed_and_breakfast]' | '[bed_and_breakfast]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x2b02 resolution 24]
@@ -789,6 +793,7 @@ power=generator {name '${operator} [generator]' | '[generator]' ; addlabel '${ph
 #crossing=marked {name '${name} {${alt_name}} [crossing]' | '${name} [crossing]' | '[crossing]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6406 resolution 24]
 crossing=* {name '${name} {${alt_name}} (${crossing}) [crossing]' | '${name} (${crossing}) [crossing]' | '(${crossing}) [crossing]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6406 resolution 24]
 #highway=turning_circle {name '${name} {${alt_name}} [turning_circle]' | '${name} [turning_circle]' | '[turning_circle]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
+noexit=motor_vehicle | noexit=vehicle{name '${name} {${alt_name}} [noexit_wehicle]' | '${name} [noexit_wehicle]' | '[noexit_wehicle]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 noexit=yes {name '${name} {${alt_name}} [noexit]' | '${name} [noexit]' | '[noexit]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 
 internet_access=yes {name '${name} [Internet]' | '[Internet]'} [0x2f12 resolution 24 continue with_actions]
@@ -799,6 +804,7 @@ office=* {name '${name} (${office}) [office]' | '(${office}) [office]' ; addlabe
 hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 natural=* & natural!=heath & natural!=scrub & natural!=sand & natural!=grassland & natural!=tree 
 	{name '${name} {${alt_name}} [${natural}]' | '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24] # 0x6606
+water=* {name '${name} (${water}) [water]' | '(${water}) [water]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6603 resolution 24]
 geological=* {name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 power=* & ( power!=tower & power!=pole ) {name '${name} (${power}) [power]' | '(${power}) [power]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 place=* & place!=islet {name '${name} [${place}]' | '[${place}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
@@ -820,6 +826,8 @@ building=* & building!=yes & building!=house
 	{name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x0b00 resolution 24] # to use or not to use?
 aerialway=* 
 	{name '${name} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 23]
+geological=*
+	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x32000 resolution 24]
 advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 abandoned=* & abandoned!=no [0x0b00 resolution 24]
 is_in=* {name '${name} (${is_in}) [is_in]'} [0x0b00 resolution 24 default_name 'is_in'] #should't this be at the end?
