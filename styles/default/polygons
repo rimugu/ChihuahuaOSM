@@ -67,7 +67,7 @@ power=plant {name '${name} (${plant:source}) [power_plant]' | '${name} [power_pl
 power=substation {name '${name} [substation]' | '[substation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 amenity=customs {name '${name} [customs]' | '[customs]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 20-24] 
 office=government | office=administration 
-	{name '${name} (level ${admin__level}) [${office}]' | '${name} [${office}]' | '(level ${admin__level}) [${office}]' | '[${office}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
+	{name '${name} (level ${admin_level}) [${office}]' | '${name} [${office}]' | '(level ${admin_level}) [${office}]' | '[${office}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
 government=* {name '${name} (${government}) [government]' | '(${government}) [government]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 
 (amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic) {name '${name} (${phone}) [catholic_church]' | '${name} [catholic_church]' | '(${phone}) [catholic_church]' | '[catholic_church]' ; 
