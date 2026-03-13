@@ -349,7 +349,7 @@ amenity=toilets
 #amenity=toilets {name '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
 amenity=townhall {name '${name} [townhall]' | '[townhall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 office=government | office=administrative 
-	{name '${name} (level ${admin__level}) [government]' |  '${name} [government]' | ' (level ${admin__level}) [government]' | '[government]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
+	{name '${name} (level ${admin_level}) [government]' |  '${name} [government]' | ' (level ${admin_level}) [government]' | '[government]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3003 resolution 24]
 amenity=university {name '${name} [university]' | '[university]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 24]
 # amenity=zoo is superceded by tourism=zoo
 amenity=zoo | tourism=zoo {name '${name} [zoo]' | '[zoo]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c07 resolution 24]
