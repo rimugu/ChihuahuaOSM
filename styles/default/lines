@@ -1008,9 +1008,13 @@ man_made=cable & location=underground
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10101 resolution 24] #grey line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10805 resolution 24] #bold white line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x1c resolution 24] #administrive black line
+
 barrier=* & power=* {delete barrier}  # some power areas are marked with both
 barrier=* & landuse=* {delete barrier}  # some power areas are marked with both
-barrier=* {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+barrier=* & historic=archaeological_site {delete barrier}  # some power areas are marked with both
+
+barrier=* & barrier!=yes {name '(${height}) (${fence_type}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '(${height}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+barrier=yes {name '(${height}) (${fence_type}) [barrier]' | '(${fence_type}) [barrier]' | '(${height}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=* & is_closed()=false {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=* & type()!=way {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}' ; echotags "way" } [0x10503 resolution 24] #pink line <----
 # type()=way
