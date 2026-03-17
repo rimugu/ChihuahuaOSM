@@ -375,6 +375,13 @@ building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${heigh
 building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] # to use or not to use?
 building=greenhouse | landuse=greenhouse_horticulture {name '${name} [greenhouse]' | '[greenhouse]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] 
 
+historic=archaeological_site
+	{name '${name} (${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '${name} (${archaeological_site}}) [archaeological_site]' | '${name} (${historic:civilization}) [archaeological_site]' | '${name} [archaeological_site]' | '(${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '(${archaeological_site}}) [archaeological_site]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
+historic=ruins
+	{name '${name} (${historic:civilization}) (${ruins}}) [ruins]' | '${name} (${ruins}}) [ruins]' | '${name} (${historic:civilization}) [ruins]' | '${name} [ruins]' | '(${historic:civilization}) (${ruins}}) [ruins]' | '(${ruins}}) [ruins]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
+	
 # man_made can be used on areas or lines
 man_made=wastewater_plant | utility=sewerage {name '${name} [wastewater]' | '[wastewater]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 man_made=water_works {name '${name} [water_works]' | '[water_works]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
