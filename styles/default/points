@@ -390,8 +390,11 @@ highway=services {add exit:facility="0x02,I,0x47,Features" ; name '${name} [serv
 historic=museum | tourism=museum 
 	{name '${name} {${alt_name}} (${inscription}) (${museum}) [museum]' | '${name} {${alt_name}} (${inscription}) [museum]' | '${name} (${inscription}) (${museum}) [museum]' | '${name} (${inscription}) [museum]' | '${name} {${alt_name}} (${museum}) [museum]' | '${name} {${alt_name}} [museum]' | '${name} (${museum})  [museum]' | '${name} [museum]' | '{${alt_name}} (${museum}) [museum]' | '{${alt_name}} [museum]' | '(${museum}) [museum]' | '[museum]' 
 	; addlabel '${phone}' | '${website}' | '${operator}'}  [0x2c02 resolution 24] #tourism=museum below
-historic=archaeological_site | historic=ruins | historic=archeological_site 
-	{name '${name} (${archaeological_site}}) [archaeological_site]' | '${name} [archaeological_site]' |'[archaeological_site]' ; 
+historic=archaeological_site
+	{name '${name} (${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '${name} (${archaeological_site}}) [archaeological_site]' | '${name} (${historic:civilization}) [archaeological_site]' | '${name} [archaeological_site]' | '(${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '(${archaeological_site}}) [archaeological_site]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
+historic=ruins
+	{name '${name} (${historic:civilization}) (${ruins}}) [ruins]' | '${name} (${ruins}}) [ruins]' | '${name} (${historic:civilization}) [ruins]' | '${name} [ruins]' | '(${historic:civilization}) (${ruins}}) [ruins]' | '(${ruins}}) [ruins]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
 historic=memorial {name '${name} (${memorial}) [memorial]' | '${name} [memorial]' | '[memorial]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24]
 historic=battlefield {name '${name} (${inscription}) [battlefield]' | '${name} [battlefield]' | '[battlefield]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
@@ -554,7 +557,8 @@ shop=wine | craft=winery | craft=wine {name '${name} [wine]' | '[wine]' ; addlab
 craft=distillery {name '${name} [distillery]' | '[distillery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c0a resolution 24]
 shop=alcohol {name '${name} [alcohol]' | '[alcohol]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d02 resolution 24]
 craft=brewery {name '${name} [brewery]' | '[brewery]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d02 resolution 24]
-shop=books {name '${name} [books_shop]' | '[books_shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
+shop=books {name '${name} (int ${internet_access}) [books_shop]' | '${name} [books_shop]' | '(int ${internet_access}) [books_shop]' | '[books_shop]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
 craft=* {name '${name} (${craft}) [craft]' | '(${craft}) [craft]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0b00 resolution 24]
 # to here
 
@@ -660,8 +664,9 @@ amenity=restaurant {name '${name} (${cuisine}) [restaurant]' | '${name} [restaur
 #amenity=fast_food [0x2a07 resolution 24]
 
 barrier=bollard | barrier=bus_trap | barrier=gate | barrier=block | barrier=cycle_barrier |
- barrier=stile | barrier=kissing_gate | barrier=lift_gate | barrier=swing_gate | barrier=*
- {name '${name} (${barrier}) [barrier]' | '(${barrier}) [barrier]' ; addlabel 'locked ${locked}' } [0x3200 resolution 22-24]
+	barrier=stile | barrier=kissing_gate | barrier=lift_gate | barrier=swing_gate | barrier=*
+	{name '${name} (${height}) (${barrier}) [barrier]' | '${name} (${barrier}) [barrier]' | '(${height}) (${barrier}) [barrier]' | '(${barrier}) [barrier]' ; 
+	addlabel 'locked ${locked}' } [0x3200 resolution 22-24]
 	#{add name='${barrier|subst:"_=> "}'} [0x3200 resolution 24 default_name '[barrier]']
 
 landuse=basin {name '${name} [basin]' | '[basin]' ; addlabel 'intermittent=$[intermittent]' } [0x6603 resolution 24]
