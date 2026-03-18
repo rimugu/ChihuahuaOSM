@@ -1011,7 +1011,7 @@ man_made=cable & location=underground
 
 barrier=* & power=* {delete barrier}  # some power areas are marked with both
 barrier=* & landuse=* {delete barrier}  # some power areas are marked with both
-barrier=* & historic=archaeological_site {delete barrier}  # some power areas are marked with both
+barrier=* & historic=* {delete barrier}  # some power areas are marked with both
 
 barrier=* & barrier!=yes {name '(${height}) (${fence_type}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '(${height}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 barrier=yes {name '(${height}) (${fence_type}) [barrier]' | '(${fence_type}) [barrier]' | '(${height}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
