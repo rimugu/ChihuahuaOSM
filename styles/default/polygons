@@ -322,9 +322,9 @@ leisure=garden {name '${name} [garden]' | '[garden]' ; addlabel '${phone}' | '${
 leisure=golf_course {name '${name} [golf_course]' | '[golf_course]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 21]
 leisure=ice_rink {name '${name} [ice_rink]' | '[ice_rink]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
 boundary=state_park {name '${name} [state_park]' | '[state_park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 20-24]
-leisure=nature_reserve {name '${name} [nature_reserve]' | '[nature_reserve]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
-boundary=national_park {name '${name} [national_park]' | '[national_park]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
-boundary=protected_area {name '${name} [protected_area]' | '[protected_area]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
+leisure=nature_reserve {name '${name} [nature_reserve]' | '[nature_reserve]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
+boundary=national_park {name '${name} [national_park]' | '[national_park]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
+boundary=protected_area {name '${name} [protected_area]' | '[protected_area]'; addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
 tourism=camp_site & fee=yes
 	{name '${name} {${alt_name}} (${access}) (fee) [camp_site]' | '${name} (${access}) (fee) [camp_site]' | '${name} (fee) [camp_site]' | '(${access}) (fee) [camp_site]' | '(fee) [camp_site]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x16 resolution 24]
@@ -412,6 +412,7 @@ tourism=* & area!=no & waterway!=* {name '${name} {${alt_name}} (${tourism}) [to
 place=* & area_size() < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
+boundary=* {name '${name} [${boundary}]' | '[${boundary}]' ;  addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 24]
 building=* & building!=no {name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
 geological=*
 	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4d resolution 24] #0x52 does not show in basecamp
