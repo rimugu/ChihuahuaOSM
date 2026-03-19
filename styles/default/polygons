@@ -336,6 +336,7 @@ tourism=camp_pitch
 	[0x16 resolution 24]
 boundary=aboriginal_lands {name '${name} {${alt_name}} [aboriginal_lands]' | '${name} [aboriginal_lands]' | '[aboriginal_lands]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0d resolution 22-24] #rojiso
+#boundary=timezone {name '${name} [${boundary}]' | '[${boundary}]' ;  addlabel '${phone}' | '${website}' | '${operator}'} [0x4b resolution 24] #no se muestra
 leisure=park | place=square {name '${name} [park]' | '[park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
 leisure=pitch {name '${name} (${sport}) [pitch]' | '${name} [pitch]' | '(${sport}) [pitch]' | '[pitch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 21] #smaller than a sport_centre
 leisure=playground {name '${name} [playground]' | '[playground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
@@ -376,10 +377,10 @@ building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>
 building=greenhouse | landuse=greenhouse_horticulture {name '${name} [greenhouse]' | '[greenhouse]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] 
 
 historic=archaeological_site
-	{name '${name} (${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '${name} (${archaeological_site}}) [archaeological_site]' | '${name} (${historic:civilization}) [archaeological_site]' | '${name} [archaeological_site]' | '(${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '(${archaeological_site}}) [archaeological_site]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
+	{name '${name} (${historic:civilization}) (${archaeological_site}) [archaeological_site]' | '${name} (${archaeological_site}) [archaeological_site]' | '${name} (${historic:civilization}) [archaeological_site]' | '${name} [archaeological_site]' | '(${historic:civilization}) (${archaeological_site}) [archaeological_site]' | '(${archaeological_site}) [archaeological_site]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
 historic=ruins
-	{name '${name} (${historic:civilization}) (${ruins}}) [ruins]' | '${name} (${ruins}}) [ruins]' | '${name} (${historic:civilization}) [ruins]' | '${name} [ruins]' | '(${historic:civilization}) (${ruins}}) [ruins]' | '(${ruins}}) [ruins]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
+	{name '${name} (${historic:civilization}) (${ruins}) [ruins]' | '${name} (${ruins}) [ruins]' | '${name} (${historic:civilization}) [ruins]' | '${name} [ruins]' | '(${historic:civilization}) (${ruins}) [ruins]' | '(${ruins}) [ruins]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
 	
 # man_made can be used on areas or lines
@@ -412,7 +413,7 @@ tourism=* & area!=no & waterway!=* {name '${name} {${alt_name}} (${tourism}) [to
 place=* & area_size() < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
-boundary=* {name '${name} [${boundary}]' | '[${boundary}]' ;  addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 24]
+#boundary=* & area_size() < 100000 {name '${name} [${boundary}]' | '[${boundary}]' ;  addlabel '${phone}' | '${website}' | '${operator}'} [0x4a resolution 24]
 building=* & building!=no {name '${name} (${building}) [building]' | '(${building}) [building]' ; addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
 geological=*
 	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4d resolution 24] #0x52 does not show in basecamp

@@ -289,7 +289,7 @@ amenity=fuel & shop=convenience
 amenity=fuel {name '${name} (${fuel}) [fuel]' | '${name} [fuel]' | '(${fuel}) [fuel]' | '[fuel]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f01 resolution 24]
 
 amenity=kindergarten {name '${name} [kindergarten]' | '[kindergarten]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c05 resolution 24]
-amenity=library {name '${name} [library]' | '[library]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
+amenity=library {name '${name} (int ${internet_access}) [library]' | '${name} [library]' | ' (int ${internet_access}) [library]' | '[library]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c03 resolution 24]
 amenity=nightclub {name '${name} [nightclub]' | '[nightclub]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2d02 resolution 24]
 amenity=nursing_home {name '${name} [nursing_home]' | '[nursing_home]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f14 resolution 24]
 parking=multi-storey & charge=*
@@ -372,14 +372,25 @@ office=research {name '${name} [research]' | '[research]' ; addlabel '${phone}' 
 landuse=military {name '${name} [military]' | '[military]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x640b resolution 24]
 landuse=village_green & name=* [0x2c06 resolution 24]
 
-healthcare=hospital | amenity=hospital {name '${name} [hospital]' | '[hospital]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 22-24]
-amenity=clinic | healthcare=clinic {name '${name} [clinic]' | '[clinic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 22-24]
-amenity=dentist | healthcare=dentist {name '${name} [dentist]' | '[dentist]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
-amenity=doctors | healthcare=doctor {name '${name} [doctors]' | '[doctors]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
-healthcare=physiotherapist {name '${name} [physiotherapist]' | '[physiotherapist]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
-(amenity=pharmacy | healthcare=pharmacy) & dispensing=yes {name '${name} (dispensing) [pharmacy]' | '(dispensing) [pharmacy]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24]
-amenity=pharmacy | healthcare=pharmacy {name '${name} [pharmacy]' | '[pharmacy]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24]
-healthcare=* {name '${name} (${healthcare}) [healthcare]' | '(${healthcare}) [healthcare]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
+healthcare=hospital | amenity=hospital 
+	{name '${name} (${healthcare:speciality}) [hospital]' | '${name} [hospital]' | '(${healthcare:speciality}) [hospital]' | '[hospital]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 22-24]
+amenity=clinic | healthcare=clinic 
+	{name '${name} (${healthcare:speciality}) [clinic]' | '${name} [clinic]' | '(${healthcare:speciality}) [clinic]' | '[clinic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 22-24]
+amenity=dentist | healthcare=dentist 
+	{name '${name} (${healthcare:speciality}) [dentist]' | '${name} [dentist]' | '(${healthcare:speciality}) [dentist]' | '[dentist]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
+amenity=doctors | healthcare=doctor 
+	{name '${name} (${healthcare:speciality}) [doctors]' | '${name} [doctors]' | '(${healthcare:speciality}) [doctors]' | '[doctors]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
+healthcare=physiotherapist 
+	{name '${name} (${healthcare:speciality}) [physiotherapist]' | '${name} [physiotherapist]' | '(${healthcare:speciality}) [physiotherapist]' | '[physiotherapist]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
+(amenity=pharmacy | healthcare=pharmacy) & dispensing=yes 
+	{name '${name} (${healthcare:speciality}) (dispensing) [pharmacy]' | '${name} (dispensing) [pharmacy]' | '(${healthcare:speciality}) (dispensing) [pharmacy]' | '(dispensing) [pharmacy]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24]
+amenity=pharmacy | healthcare=pharmacy 
+	{name '${name} (${healthcare:speciality}) [pharmacy]' | '${name} [pharmacy]' | '(${healthcare:speciality}) [pharmacy]' | '[pharmacy]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2e05 resolution 24]
+healthcare=* 
+	{name '${name} (${healthcare:speciality}) (${healthcare}) [healthcare]' | '${name} (${healthcare}) [healthcare]' | '(${healthcare:speciality}) (${healthcare}) [healthcare]' | '(${healthcare}) [healthcare]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3002 resolution 24]
 
 highway=motorway_junction & exit:road_ref=* {add exit:to='${exit_to}' | '${destination}'} [0x2000 resolution 24]
 highway=motorway_junction [0x0b00 resolution 24 default_name '[junction]']
@@ -391,10 +402,10 @@ historic=museum | tourism=museum
 	{name '${name} {${alt_name}} (${inscription}) (${museum}) [museum]' | '${name} {${alt_name}} (${inscription}) [museum]' | '${name} (${inscription}) (${museum}) [museum]' | '${name} (${inscription}) [museum]' | '${name} {${alt_name}} (${museum}) [museum]' | '${name} {${alt_name}} [museum]' | '${name} (${museum})  [museum]' | '${name} [museum]' | '{${alt_name}} (${museum}) [museum]' | '{${alt_name}} [museum]' | '(${museum}) [museum]' | '[museum]' 
 	; addlabel '${phone}' | '${website}' | '${operator}'}  [0x2c02 resolution 24] #tourism=museum below
 historic=archaeological_site
-	{name '${name} (${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '${name} (${archaeological_site}}) [archaeological_site]' | '${name} (${historic:civilization}) [archaeological_site]' | '${name} [archaeological_site]' | '(${historic:civilization}) (${archaeological_site}}) [archaeological_site]' | '(${archaeological_site}}) [archaeological_site]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
+	{name '${name} (${historic:civilization}) (${archaeological_site}) [archaeological_site]' | '${name} (${archaeological_site}) [archaeological_site]' | '${name} (${historic:civilization}) [archaeological_site]' | '${name} [archaeological_site]' | '(${historic:civilization}) (${archaeological_site}) [archaeological_site]' | '(${archaeological_site}) [archaeological_site]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
 historic=ruins
-	{name '${name} (${historic:civilization}) (${ruins}}) [ruins]' | '${name} (${ruins}}) [ruins]' | '${name} (${historic:civilization}) [ruins]' | '${name} [ruins]' | '(${historic:civilization}) (${ruins}}) [ruins]' | '(${ruins}}) [ruins]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
+	{name '${name} (${historic:civilization}) (${ruins}) [ruins]' | '${name} (${ruins}) [ruins]' | '${name} (${historic:civilization}) [ruins]' | '${name} [ruins]' | '(${historic:civilization}) (${ruins}) [ruins]' | '(${ruins}) [ruins]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
 historic=memorial {name '${name} (${memorial}) [memorial]' | '${name} [memorial]' | '[memorial]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 24]
 historic=battlefield {name '${name} (${inscription}) [battlefield]' | '${name} [battlefield]' | '[battlefield]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2c02 resolution 20-24]
@@ -817,7 +828,7 @@ leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | 
 landuse=* & landuse!=farmland & landuse!=grass & landuse!=forest & landuse!=orchard & landuse!=vineyard & landuse!=mesa & landuse!=retail & landuse!=cemetery & landuse!=wood & landuse!=residential 
 	{name '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
 amenity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3200 resolution 24]
-boundary=* {name '${name} [${boundaryboundary}]' | '[${administrative}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x32000 resolution 24]
+boundary=* & boundary!=timezone {name '${name} [${boundary}]' | '[${boundary}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x32000 resolution 24]
 emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6410 resolution 24]
 tourism=yes {name '${name} [tourism]' | '[tourism]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c00 resolution 24]
 tourism=* {name '${name} [${tourism}]' | '[${tourism}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4c00 resolution 24]
