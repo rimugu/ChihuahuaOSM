@@ -14,7 +14,7 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 highway=* & name=* {set mkgmap:street='${name}'}
 access=yes {set access=public}
 
-abandoned=* & abandoned!=no {name '${name} (abandoned)  [${abandoned}]' | '(abandoned)  [${abandoned}]'} 
+abandoned=* & abandoned!=no {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} 
 #abandoned=yes {deletealltags} # old, depreciated, ambiguous, method of handling abandoned
 #abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
 #name=* {name '${name} [${ref|highway-symbol:"box:4:8"}|${alt_name}]' | '${name}'}
@@ -151,7 +151,8 @@ highway=path & foot=designated
  {set highway=footway}
 
 
-leisure=track & area!=yes {name '${name} (${sport}) [track]' | '${name} [track]' | '(${sport}) [track]' | '[track]'; addlabel '${phone}' | '${website}' | '${operator}'} 
+leisure=track & area!=yes {name '${name} (${surface}) (${sport}) [track]' | '${name} (${sport}) [track]' | '${name} (${surface}) [track]' | '${name} [track]' | '(${surface}) (${sport}) [track]' | '(${sport}) [track]' | '(${surface}) [track]' | '[track]'; 
+	addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x10705 resolution 22-24]
 man_made=pier | man_made=quay | man_made=groyn {name '${name} [pier]' | ' [pier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 24]# might also have natural=water
 man_made=storage_tank & content!=water 
@@ -244,13 +245,13 @@ highway=* & motorroad=yes {name '${name} (${ref}) [motorroad]' | '${name} [motor
 #	{name '${name} [primary_link]' | '[primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
 #highway=primary_link & mkgmap:fast_road=yes 
 #	{name '${name} [primary_link]' | '[primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
-#highway=primary_link  
+#highway=primary_link 
 #	{name '${name} [primary_link]' | '[primary_link]' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17 default_name 'primary_link']
 
 
 if ( highway=primary & surface!=sand & surface!=gravel & surface!=unpaved & surface!=dirt & surface!=compacted & surface!=ground & surface=*) then
 	highway=primary & mkgmap:fast_road=yes {name '${name} (pav) [primary]' | '(pav) [primary]'} [0x03 road_class=4 road_speed=4 resolution 17]
-	highway=primary {name '${name} (pav) [primary]' | '(pav)  [primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
+	highway=primary {name '${name} (pav) [primary]' | '(pav) [primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
 end
 
 highway=primary & mkgmap:fast_road=yes {name '${name} (${ref}) [primary]' | '${name} [primary]' | '${ref} [primary]' | '[primary]'} [0x03 road_class=4 road_speed=4 resolution 17]
@@ -261,12 +262,12 @@ if ( highway=primary_link & surface!=sand & surface!=gravel & surface!=unpaved &
 		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' | '${ref} (pav) [primary_link]' | '[(pav) primary_link]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
 	highway=primary_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) 
-		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' |  '${ref} (pav) [primary_link]' | '(pav) [primary_link]' 
+		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' | '${ref} (pav) [primary_link]' | '(pav) [primary_link]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x0b road_class=4 road_speed=1 resolution 17]
 	highway=primary_link & mkgmap:fast_road=yes 
 		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' | '${ref} (pav) [primary_link]' | '(pav) [primary_link]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
-	highway=primary_link  
+	highway=primary_link 
 		{name '${name} (${ref}) (pav) [primary_link]' | '${name} (pav) [primary_link]' | '${ref} (pav) [primary_link]' | '(pav) [primary_link]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17 default_name 'primary_link']
 end
@@ -280,7 +281,7 @@ highway=primary_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*)
 highway=primary_link & mkgmap:fast_road=yes 
 	{name '${name} (${ref}) [primary_link]' | '${name} [primary_link]' | '${ref} [primary_link]' | '[primary_link]' 
 	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
-highway=primary_link  
+highway=primary_link 
 	{name '${name} (${ref}) [primary_link]' | '${name} [primary_link]' | '${ref} [primary_link]' | '[primary_link]'
 	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17 default_name 'primary_link']
 
@@ -309,7 +310,7 @@ if ( highway=secondary ) then
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
 end 
 highway=secondary & mkgmap:fast_road=yes & (oneway!=no & oneway=*) 
-	{name '${name} (${ref}) (pav) (one_way) [secondary]' | '${name} (pav) (one_way) [secondary]' | '${ref} (pav) (one_way) [secondary]' | '(pav) (one_way)  [secondary]' 
+	{name '${name} (${ref}) (pav) (one_way) [secondary]' | '${name} (pav) (one_way) [secondary]' | '${ref} (pav) (one_way) [secondary]' | '(pav) (one_way) [secondary]' 
 	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
 highway=secondary & mkgmap:fast_road=yes 
 	{name '${name} (${ref}) (pav) [secondary]' | '${name} (pav) [secondary]' | '${ref} (pav) [secondary]' | '(pav) [secondary]' 
@@ -328,7 +329,7 @@ if ( highway=secondary_link ) then
 	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [secondary_link]' | '${name} (gravel) [secondary_link]' | '${ref} (gravel) [secondary_link]' | '(gravel) [secondary_link]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [secondary_link]' |  '${name} (unp) [secondary_link]' | '${ref} (unp) [secondary_link]' | '(unp) [secondary_link]' 
+	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [secondary_link]' | '${name} (unp) [secondary_link]' | '${ref} (unp) [secondary_link]' | '(unp) [secondary_link]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
 	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${ref}) (dirt) [secondary_link]' | '${name} (dirt) [secondary_link]' | '${ref} (dirt) [secondary_link]' | '(dirt) [secondary_link]' 
@@ -348,7 +349,7 @@ if ( highway=secondary_link ) then
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
 end	
 highway=secondary_link & mkgmap:fast_road=yes & (oneway!=no & oneway=*) 
-	{name '${name} (${ref}) (pav) (one_way) [secondary_link]' | '${name} (pav) (one_way) [secondary_link]' | '${ref} (pav) (one_way) [secondary_link]' | '(pav) (one_way)  [secondary_link]' 
+	{name '${name} (${ref}) (pav) (one_way) [secondary_link]' | '${name} (pav) (one_way) [secondary_link]' | '${ref} (pav) (one_way) [secondary_link]' | '(pav) (one_way) [secondary_link]' 
 	; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=4 road_speed=1 resolution 17]
 highway=secondary_link & mkgmap:fast_road=yes 
 	{name '${name} (${ref}) (pav) [secondary_link]' | '${name} (pav) [secondary_link]' | '${ref} (pav) [secondary_link]' | '(pav) [secondary_link]' 
@@ -506,24 +507,24 @@ if ( highway=residential | highway=living_street) then
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
 	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [resi]' | '${name} (ground) [resi]' | '${ref} (ground) [resi]' | '(ground) [resi]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [resi]' | '${name} (unkn) (one_way) [resi]' | '$${ref} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [resi]' | '${name} (unkn) (one_way) [resi]' | '$${ref} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 		[0x06 road_class=0 road_speed=1 resolution 24]
-	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
+	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 	#	[0x12 road_class=0 road_speed=1 resolution 24 continue] #to use with TYP
-	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
+	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 	#	[0x10600 resolution 24] #to use with TYP
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [resi]' | '${name} (unkn) [resi]' | '${ref} (unkn) [resi]' |  '(unkn) [resi]'  
+	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [resi]' | '${name} (unkn) [resi]' | '${ref} (unkn) [resi]' | '(unkn) [resi]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
-	surface=* & (oneway!=no & oneway=*) {name '${name} (${ref}) (pav) (one_way) [resi]' | '${name} (pav) (one_way) [resi]' | '${ref} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  
+	surface=* & (oneway!=no & oneway=*) {name '${name} (${ref}) (pav) (one_way) [resi]' | '${name} (pav) (one_way) [resi]' | '${ref} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
-	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	#	[0x12 road_class=0 road_speed=1 resolution 24 continue] #to use with TYP
-	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]'  ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	#surface=* & (oneway!=no & oneway=*) {name '${name} (pav) (one_way) [resi]' | '(pav) (one_way) [resi]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	#	[0x1050e resolution 24] #to use with TYP
-	surface=* {name '${name} (${ref}) (pav) [resi]' | '${name} (pav) [resi]' | '${ref} (pav) [resi]' | '(pav) [resi]'  
+	surface=* {name '${name} (${ref}) (pav) [resi]' | '${name} (pav) [resi]' | '${ref} (pav) [resi]' | '(pav) [resi]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x06 road_class=0 road_speed=1 resolution 24]
 end 
@@ -563,7 +564,7 @@ if ( highway=byway) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [byway]' | '${name} (sand) [byway]' | '(sand) [byway]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [byway]' | '${name} (gravel) [byway]' | '${ref} (gravel) [byway]' |  '(gravel) [byway]' 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [byway]' | '${name} (gravel) [byway]' | '${ref} (gravel) [byway]' | '(gravel) [byway]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=2 resolution 22-24]
 	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [byway]' | '${name} (unp) [byway]' | '${ref} (unp) [byway]' | '(unp) [byway]' 
@@ -597,7 +598,7 @@ if ( highway=service ) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [${service}]' | '${name} (sand) [${service}]' | '${name} (sand) [${service}]' | '(${ref}) (sand) [${service}]' | '(sand) [${service}]' | '${name} (${ref}) (sand) [service]' | '${name} (sand) [service]' | '(${ref}) (sand) [service]' | '(sand) [service]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [${service}]' | '${name} (gravel) [${service}]' | '(${ref}) (gravel) [${service}]' | '(gravel) [${service}]' | '${name} (${ref}) (gravel) [service]' |  '${name} (gravel) [service]' | '(${ref}) (gravel) [service]' | '(gravel) [service]' 
+	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [${service}]' | '${name} (gravel) [${service}]' | '(${ref}) (gravel) [${service}]' | '(gravel) [${service}]' | '${name} (${ref}) (gravel) [service]' | '${name} (gravel) [service]' | '(${ref}) (gravel) [service]' | '(gravel) [service]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
 	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unp) [${service}]' | '${name} (unp) [${service}]' | '(${ref}) (unp) [${service}]' | '(unp) [${service}]' | '${name} (${ref}) (unp) [service]' | '${name} (unp) [service]' | '(${ref}) (unp) [service]' | '(unp) [service]' 
@@ -615,7 +616,7 @@ if ( highway=service ) then
 	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [${service}]' | '${name} (unkn) [${service}]' | '(${ref}) (unkn) [${service}]' | '(unkn) [${service}]' | '${name} (${ref}) (unkn) [service]' | '${name} (unkn) [service]' | '(${ref}) (unkn) [service]' | '(unkn) [service]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=* {name '${name} (${ref}) (pav) [${service}]' | '${name} (pav) [${service}]' | '(${ref}) (pav) [${service}]' | '(pav) [${service}]' | '${name} (${ref}) (pav) [service]' | '${name} (pav) [service]' |  '(${ref}) (pav) [service]' | '(pav) [service]' 
+	surface=* {name '${name} (${ref}) (pav) [${service}]' | '${name} (pav) [${service}]' | '(${ref}) (pav) [${service}]' | '(pav) [${service}]' | '${name} (${ref}) (pav) [service]' | '${name} (pav) [service]' | '(${ref}) (pav) [service]' | '(pav) [service]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
 end 
@@ -671,7 +672,7 @@ if ( highway=trail ) then
 	surface=ground {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [trail]' | '${name} (ground) [trail]' | '(${ref}) (ground) [trail]' | '(ground) [trail]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
-	surface!=* {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [trail]' | '${name} (unkn) [trail]' | '(${ref}) (unkn) [trail]' |  '(unkn) [trail]' 
+	surface!=* {set highway=path; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [trail]' | '${name} (unkn) [trail]' | '(${ref}) (unkn) [trail]' | '(unkn) [trail]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
 	surface=* {set highway=path; name '${name} (${ref}) (pav) [trail]' | '${name} (pav) [trail]' | '(${ref}) (pav) [trail]' | '(pav) [trail]' 
@@ -708,7 +709,7 @@ if ( highway=path ) then
 end 
 
 #highway=track [0x0a road_class=0 road_speed=1 resolution 23 default_name 'track'] 
-if ( highway=track & vehicle=no  ) then
+if ( highway=track & vehicle=no ) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [no vehicle track]' | '${name} (sand) [no vehicle track]' | '(${ref}) (sand) [no vehicle track]' | '(sand) [no vehicle track]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x0a road_class=1 road_speed=1 resolution 22-24]
@@ -939,7 +940,7 @@ power=line
 	'(${voltage}v) (${cables}) [powerline]' |
 	'(${cables}) [powerline]' |
 	'(${voltage}v) [powerline]' |
-	'[powerline]' ; addlabel '${phone}' | '${website}' | '${operator}'}  [0x29 resolution 21]
+	'[powerline]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 21]
 power=minor_line 
 	{name '${name} (${voltage}v) (${cables}) [minor_power]' | 
 	'${name} (${cables}) [minor_power]' |
@@ -966,14 +967,14 @@ railway=abandoned | railway=disused {name '${name} (abandoned) [railway]' | '(ab
 
 #man_made=pipeline & location=underground 
 #	{name '${name} (underground) (${diameter}) [pipeline]' | '${name} (underground) [pipeline]' | '(underground) (${diameter}) [pipeline]' | '(underground) [pipeline]' ; 
-#		addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+#		addlabel '${substance} ${operator}' | '${substance}' | '${operator}'} [0x28 resolution 22-24]
 #man_made=pipeline & location=underground 
 #	{name '${name} (underground) [pipeline]' | '(underground) [pipeline]' ; 
-#	addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+#	addlabel '${substance} ${operator}' | '${substance}' | '${operator}'} [0x28 resolution 22-24]
 #man_made=pipeline 
 #	{name '${name} (${diameter}) [pipeline]' | '${name} [pipeline]' | '(${diameter}) [pipeline]' | '[pipeline]' ; 
-#	addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
-#man_made=pipeline {name '${name} [pipeline]' | '[pipeline]' ; addlabel '${substance} ${operator}' |  '${substance}' | '${operator}'} [0x28 resolution 22-24]
+#	addlabel '${substance} ${operator}' | '${substance}' | '${operator}'} [0x28 resolution 22-24]
+#man_made=pipeline {name '${name} [pipeline]' | '[pipeline]' ; addlabel '${substance} ${operator}' | '${substance}' | '${operator}'} [0x28 resolution 22-24]
 
 man_made=pipeline & location=underground 
 	{name '${name} (underground) (${substance}) (${diameter}) [pipeline]' | '${name} (underground) (${diameter}) [pipeline]' | '${name} (${substance}) (underground) [pipeline]' | '${name} (underground) [pipeline]' | '(underground) (${substance}) (${diameter}) [pipeline]' | '(underground) (${diameter}) [pipeline]' | '(underground) (${substance}) [pipeline]' | '(underground) [pipeline]' ; 
@@ -1009,9 +1010,9 @@ man_made=cable & location=underground
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10805 resolution 24] #bold white line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x1c resolution 24] #administrive black line
 
-barrier=* & power=* {delete barrier}  # some power areas are marked with both
-barrier=* & landuse=* {delete barrier}  # some power areas are marked with both
-barrier=* & historic=* {delete barrier}  # some power areas are marked with both
+barrier=* & power=* {delete barrier} # some power areas are marked with both
+barrier=* & landuse=* {delete barrier} # some power areas are marked with both
+barrier=* & historic=* {delete barrier} # some power areas are marked with both
 
 barrier=* & barrier!=yes {name '(${height}) (${fence_type}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '(${height}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 barrier=yes {name '(${height}) (${fence_type}) [barrier]' | '(${fence_type}) [barrier]' | '(${height}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
@@ -1029,7 +1030,7 @@ route=ferry {name '${name} [ferry]' | '[ferry]' ; addlabel '${phone}' | '${websi
 (waterway=river | waterway=stream | waterway=rapids | waterway=waterfall) {add mkgmap:has-direction=true}
 
 waterway=river & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} (interm) (${width}m) [river]' |  '${name} (interm) [river]' | '(interm) (${width}m) [river]' |  '(interm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} (interm) (${width}m) [river]' | '${name} (interm) [river]' | '(interm) (${width}m) [river]' | '(interm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x1f resolution 20-24] 
 waterway=river & intermittent=no 
 	{name '${name} {${old_name}} (perm) (${width}m) [river]' | '${name} {${old_name}} (perm) (${width}m) [river]' | '${name} (perm) (${width}m) [river]' | '${name} (perm) [river]' | '(perm) (${width}m) [river]' | '(perm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
@@ -1040,19 +1041,19 @@ waterway=river
 
 waterway=canal & intermittent=yes 
 	{name '${name} 
-	{${old_name}} (interm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (interm) (${width}m) [canal]' | '${name} {${old_name}} (interm) (${usage}) [canal]' | '${name} {${old_name}} (interm)  [canal]' |
+	{${old_name}} (interm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (interm) (${width}m) [canal]' | '${name} {${old_name}} (interm) (${usage}) [canal]' | '${name} {${old_name}} (interm) [canal]' |
 	'${name} (interm) (${width}m) (${usage}) [canal]' | '${name} (interm) (${width}m) [canal]' | '${name} (interm) (${usage}) [canal]' | '${name} (interm) [canal]' | 
 	'(interm) (${width}m) (${usage}) [canal]' | '(interm) (${width}m) [canal]' | '(interm) (${usage}) [canal]' | '(interm) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24] 
 waterway=canal & intermittent=no 
 	{name '${name} 
-	{${old_name}} (perm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (perm) (${width}m) [canal]' | '${name} {${old_name}} (perm) (${usage}) [canal]' | '${name} {${old_name}} (perm)  [canal]' |
+	{${old_name}} (perm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (perm) (${width}m) [canal]' | '${name} {${old_name}} (perm) (${usage}) [canal]' | '${name} {${old_name}} (perm) [canal]' |
 	'${name} (perm) (${width}m) (${usage}) [canal]' | '${name} (perm) (${width}m) [canal]' | '${name} (perm) (${usage}) [canal]' | '${name} (perm) [canal]' | 
 	'(perm) (${width}m) (${usage}) [canal]' | '(perm) (${width}m) [canal]' | '(perm) (${usage}) [canal]' | '(perm) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
 waterway=canal 
 	{name '${name} 
-	{${old_name}} (unkn) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (unkn) (${width}m) [canal]' | '${name} {${old_name}} (unkn) (${usage}) [canal]' | '${name} {${old_name}} (unkn)  [canal]' |
+	{${old_name}} (unkn) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (unkn) (${width}m) [canal]' | '${name} {${old_name}} (unkn) (${usage}) [canal]' | '${name} {${old_name}} (unkn) [canal]' |
 	'${name} (unkn) (${width}m) (${usage}) [canal]' | '${name} (unkn) (${width}m) [canal]' | '${name} (unkn) (${usage}) [canal]' | '${name} (unkn) [canal]' | 
 	'(unkn) (${width}m) (${usage}) [canal]' | '(unkn) (${width}m) [canal]' | '(unkn) (${usage}) [canal]' | '(unkn) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
@@ -1065,7 +1066,7 @@ waterway=ditch
 	{name '${name} {${old_name}} (unkn) (${width}m) [ditch]' | '${name} {${old_name}} (unkn) (${width}m) [ditch]' | '${name} (unkn) (${width}m) [ditch]' | '${name} (unkn) [ditch]' | '(unkn) (${width}m) [ditch]' | '(unkn) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24]
 
 waterway=stream & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} (interm) (${width}m) [stream]' |  '${name} (interm) [stream]' | '(interm) (${width}m) [stream]' | '(interm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} (interm) (${width}m) [stream]' | '${name} (interm) [stream]' | '(interm) (${width}m) [stream]' | '(interm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x26 resolution 21] # 0x26 intermittent dotted
 waterway=stream & intermittent=no 
 	{name '${name} {${old_name}} (perm) (${width}m) [stream]' | '${name} {${old_name}} (perm) (${width}m) [stream]' | '${name} (perm) (${width}m) [stream]' | '${name} (perm) [stream]' | '(perm) (${width}m) [stream]' | '(perm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
@@ -1101,9 +1102,9 @@ waterway=drain {name '${name} (unkn) [drain]' | '(unkn) [drain]'} [0x18 resoluti
 #boundary=political [0x1c resolution 19]
 
 boundary=administrative & admin_level<3 {name '${mkgmap:boundary_name} [nat_boundary]' | '[nat_boundary]' ; addlabel '${admin_level}' } [0x1e resolution 12]
-#boundary=administrative & admin_level<5 {name '${mkgmap:boundary_name} [st_boundary]' | '[st_boundary]'}  [0x1d resolution 19]
+#boundary=administrative & admin_level<5 {name '${mkgmap:boundary_name} [st_boundary]' | '[st_boundary]'} [0x1d resolution 19]
 boundary=administrative & admin_level<3 {name '${name} [nat_boundary]' | '[nat_boundary]' ; addlabel '${admin_level}' } [0x1e resolution 12]
-#boundary=administrative & admin_level<5 {name '${name} [st_boundary]' | '[st_boundary]'}  [0x1d resolution 19]
+#boundary=administrative & admin_level<5 {name '${name} [st_boundary]' | '[st_boundary]'} [0x1d resolution 19]
 boundary=administrative & admin_level<5 {name '${name} [st_boundary]' | '[st_boundary]' ; addlabel '${admin_level}' } [0x1d resolution 19]
 boundary=administrative & admin_level<7 {name '${name} [ct_boundary]' | '[ct_boundary]' ; addlabel '${admin_level}' } [0x1c resolution 21]
 boundary=administrative & admin_level<9 {name '${mkgmap:boundary_name} [boundary]' | '[boundary]' ; addlabel '${admin_level}' } [0x1c resolution 22-24]
@@ -1133,9 +1134,9 @@ natural=ridge {name '${name} (${height}) [ridge]' | '${name} [ridge]' | '(${heig
 natural=mountain_range 
 	{name '${name} (${height}) [mountain_range]' | '${name} [mountain_range]' | '(${height}) [mountain_range]' | '[mountain_range]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} 
 	[0x10503 resolution 17]
-natural=valley {name '${name} (${height}) [valley]' | '${name} [valley]' | '(${height}) [valley]' | '[valley]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'}  [0x10503 resolution 17] # ????
+natural=valley {name '${name} (${height}) [valley]' | '${name} [valley]' | '(${height}) [valley]' | '[valley]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} [0x10503 resolution 17] # ????
 natural=arete 
-	{name '${name} (${height}) [peaked_ridges]' | '${name} [peaked_ridges]' | '(${height}) [peaked_ridges]' |  '[peaked_ridges]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} 
+	{name '${name} (${height}) [peaked_ridges]' | '${name} [peaked_ridges]' | '(${height}) [peaked_ridges]' | '[peaked_ridges]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} 
 	[0x10503 resolution 24] #peaked ridges
 natural=gorge | natural=canyon 
 	{name '${name} (${height}) [canyon]' | '${name} [canyon]' | '(${height}) [canyon]' | '[canyon]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} [0x26 resolution 22-24]
@@ -1152,7 +1153,7 @@ waterway=dam | man_made=dam
 waterway=lock_gate | waterway=weir {name '${name} [lock_gate]' | '[lock_gate]' ; addlabel '${operator}'} [0x10503 resolution 24] # Weir is a barrier built across a river to control water speed and depth.
 
 waterway=* & intermittent=yes & area!=yes & waterway!=no & is_closed()=false
-	{name '${name} {${old_name}} (interm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (interm) (${width}m) [${waterway]]' | '${name} (interm) (${width}m) [${waterway]]' |  '${name} (interm) [${waterway]]' | '(interm) (${width}m) [${waterway}]' | '(interm) [${waterway]]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${old_name}} (interm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (interm) (${width}m) [${waterway]]' | '${name} (interm) (${width}m) [${waterway]]' | '${name} (interm) [${waterway]]' | '(interm) (${width}m) [${waterway}]' | '(interm) [${waterway]]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21] # 0x26 intermittent dotted
 waterway=* & intermittent=no & area!=yes & waterway!=no & is_closed()=false
 	{name '${name} {${old_name}} (perm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (perm) (${width}m) [${waterway]]' | '${name} (perm) (${width}m) [${waterway]]' | '${name} (perm) [${waterway]]' | '(perm) (${width}m) [${waterway]]' | '(perm) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
@@ -1168,8 +1169,9 @@ waterway=* & waterway!=no & (area=no | (is_closed()=false & mkgmap:mp_created!=t
 
 include 'inc/contour_lines';
 
-#boundary=* {name '${name} (${boundary}) [boundary]' | '(${boundary}) [boundary]' ; addlabel '${admin_level}'} [0x1c resolution 24 continue]
-#abandoned=* {name '${name} (abandoned)  [${abandoned}]' | '(abandoned)  [${abandoned}]'} [0x1c resolution 24 continue]
+boundary=* {name '${name} {${alt_name}} [${boundary}]' | '${name} [${boundary}]' | '{${alt_name}} [${boundary}]' | '[${boundary}]' ; addlabel '${admin_level}'} [0x1c resolution 24 continue]
+#; echotags 'mop-up highway'
+#abandoned=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 continue]
 hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
 abandoned=* & abandoned!=no & is_closed()=false [0x1c resolution 24 continue]
 highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
@@ -1179,8 +1181,8 @@ route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${
 power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
 man_made=* & is_closed()=false {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
 construction=* & is_closed()=false {name '${name} [construction]' | '[construction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
-railway=* {name '${name} [${railway}]' |  '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
-historic=* {name '${name} [${historic}]' |  '[${historic}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+railway=* {name '${name} [${railway}]' | '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
+historic=* {name '${name} [${historic}]' | '[${historic}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
 
 <finalize>
@@ -1204,7 +1206,7 @@ highway=primary & ref=* {name '${ref|highway-symbol:box}' ; addlabel '${name}'}
 (highway=secondary | highway=tertiary) & ref=* {name '${ref|highway-symbol:oval}'; addlabel '${name}'}
 
 #highway=* & ref=* & highway!=motorway & highway!=trunk & highway!=primary & highway!=secondary & highway!=tertiary
-#highway=*  {addlabel '${ref}'}
+#highway=* {addlabel '${ref}'}
 
 highway=* & int_ref=* {addlabel '${int_ref}'}
 highway=* & nat_ref=* {addlabel '${nat_ref}'}
