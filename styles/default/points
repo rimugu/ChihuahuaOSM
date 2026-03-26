@@ -21,6 +21,9 @@ include 'inc/address';
 mkgmap:phone=* {add mkgmap:label:4='${mkgmap:phone}'}
 
 website!=* & url=* { set website='${url}' }
+leisure!=* & amenity=pitch { set leisure='pitch' }
+office!=* & government=* { set leisure='pitch' }
+(man_made=wastewater_plant | utility=sewerage | water=wastewater | content=sewage) & natural=water {delete natural}
 
 incline=up {name 'up [inc]'} [0x6411 resolution 22-24]
 incline=down {name 'down [inc]'} [0x6411 resolution 22-24]
@@ -226,7 +229,8 @@ amenity=car_sharing {name '${name} [car_sharing]' | '[car_sharing]' ; addlabel '
 amenity=car_wash {name '${name} [car_wash]' | '[car_wash]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f0e resolution 24]
 amenity=casino {name '${name} [casino]' | '[casino]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2d04 resolution 24]
 amenity=charging_station {name '${name} [charging_station]' | '[charging_station]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f01 resolution 24]
-amenity=cinema {name '${name} [cinema]' | '[cinema]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2d03 resolution 24]
+amenity=cinema {name '${name} (screen ${screen}) [cinema]' | '${name} [cinema]' | '(screen ${screen}) [cinema]' | '[cinema]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2d03 resolution 24]
 amenity=college {name '${name} [college]' | '[college]' ; addlabel '${phone}' | '${website}'} [0x2c05 resolution 24]
 amenity=concert_hall {name '${name} [concert_hall]' | '[concert_hall]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c09 resolution 24]
 amenity=conference_centre {name '${name} [conference_centre]' | '[conference_centre]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c09 resolution 24]
@@ -235,7 +239,7 @@ amenity=convention_center {name '${name} [convention_center]' | '[convention_cen
 	{name '${name} (${social_facility}) [${amenity}]' | '(${social_facility}) [${amenity}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3005 resolution 24]
 amenity=community_centre | amenity=community_center | amenity=social_facility 
 	{name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3005 resolution 24]
-amenity=courthouse [0x3004 resolution 24]
+amenity=courthouse {name '${name} [courthouse]' | '[courthouse]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3004 resolution 24]
 amenity=drinking_water | fountain=bottle_refill | fountain=drinking_water
 	{name '${name} (${access}) (fee ${fee}) [drinking_water]' | '${name} (fee ${fee}) [drinking_water]' | '(${access}) (fee ${fee}) [drinking_water]' | '(fee ${fee}) [drinking_water]' | '${name} (${access}) [drinking_water]' | '${name} [drinking_water]' | '(${access}) [drinking_water]' | '[drinking_water]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=water_cache 
@@ -356,7 +360,8 @@ amenity=toilets
 #amenity=toilets {name '${name} [toilets]' | '[toilets]' ; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
 amenity=townhall {name '${name} [townhall]' | '[townhall]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
 office=government | office=administrative 
-	{name '${name} (level ${admin_level}) [government]' | '${name} [government]' | ' (level ${admin_level}) [government]' | '[government]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
+	{name '${name} (level ${admin_level}) (${government}) [government]' | '${name} (level ${admin_level}) [government]' | '${name} (${government}) [government]' | '${name} [government]' | ' (level ${admin_level}) (${government}) [government]' | ' (level ${admin_level}) [government]' | '(${government}) [government]' | '[government]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
 amenity=university {name '${name} [university]' | '[university]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c05 resolution 24]
 # amenity=zoo is superceded by tourism=zoo
 amenity=zoo | tourism=zoo {name '${name} [zoo]' | '[zoo]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c07 resolution 24]
@@ -466,7 +471,8 @@ man_made=antenna | tower=communication {name '${name} [antenna]' | '[antenna]' ;
 monitoring:weather=* {name '${name} [weather_monitoring]' | '[weather_monitoring]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6411 resolution 24]
 man_made=monitoring_station | man_made=measurement_station {name '${name} [monitoring]' | '[monitoring]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6411 resolution 24]
 man_made=surveillance {name '${name} [surveillance]' | '[surveillance]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] 
-man_made=telescope {name '${name} (${access}) (${telescope:type}) [telescope]' | '${name} (${access}) [telescope]' | '${name} (${telescope:type}) [telescope]' | '${name} [telescope]' | '(${access}) (${telescope:type}) [telescope]' | '(${access}) [telescope]' | '(${telescope:type}) [telescope]' | '[telescope]' ; 
+man_made=telescope 
+	{name '${name} (${access}) (${telescope:type}) [telescope]' | '${name} (${access}) [telescope]' | '${name} (${telescope:type}) [telescope]' | '${name} [telescope]' | '(${access}) (${telescope:type}) [telescope]' | '(${access}) [telescope]' | '(${telescope:type}) [telescope]' | '[telescope]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x2f12 resolution 22-24] 
 man_made=observatory {name '${name} (${access}) [observatory]' | '${name} [observatory]' | '(${access}) [observatory]' | '[observatory]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f12 resolution 22-24] 
 
@@ -477,7 +483,8 @@ man_made=water_tower {name '${name} (${height}m) [water_tower]' | '${name} [wate
 man_made=water_tank {name '${name} [water_tank]' | '[water_tank]' ; addlabel '${operator}'} [0x6411 resolution 22-24 ]
 man_made=tank {name '${name} [tank]' | '[tank]' ; addlabel '${operator}'} [0x6411 resolution 24 ]
 man_made=water_well 
-	{name '${name} (access ${access}) pump ${pump}) [water_well]' | '${name} (access ${access}) [water_well]' | '${name} (pump ${pump}) [water_well]' | '${name} [water_well]' | '(access ${access}) [water_well]' | '(pump ${pump}) [water_well]' | '[water_well]' ; addlabel '${operator}'} [0x5000 resolution 22-24]
+	{name '${name} (access ${access}) pump ${pump}) [water_well]' | '${name} (access ${access}) [water_well]' | '${name} (pump ${pump}) [water_well]' | '${name} [water_well]' | '(access ${access}) [water_well]' | '(pump ${pump}) [water_well]' | '[water_well]' ; 
+	addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=storage_tank 
 	{name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' | '${name} [storage_tank]' | '[storage_tank]' ; addlabel '${operator}'} [0x6411 resolution 24]
 #man_made=storage_tank {name '${name} [${storage_tank}]' | '[${storage_tank}]' ; addlabel '${operator}'} [0x6411 resolution 24]
@@ -510,7 +517,7 @@ man_made=corral {name '(${name}) [corral]' | '[corral]' ; addlabel '${website}' 
 ford=yes {name '${name} (${surface}) (${depth}m) [ford]' | '${name} (${depth}m) [ford]' | '(${surface}) (${depth}m) [ford]' | '(${depth}m) [ford]' | '${name} (${surface}) [ford]' | '${name} [ford]' | '(${surface}) [ford]' | '[ford]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24 ]
 highway=rest_area {name '${name} [rest_area]' | '[rest_area]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f0c resolution 22-24] #0x2200
 inlet=* {name '${name} (${inlet}) [inlet]' | '({inlet}) [inlet]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
-man_name=manhole {name '${name} (${manhole}) [manhole]' | '(${manhole}) [manhole]' | '[manhole]'; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+man_name=manhole {name '${name} (${manhole}) [manhole]' | '(${manhole}) [manhole]' | '[manhole]'; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #storm drain
 
 # Edge 705 displays 0x650a(glacier),0x6511(spring),0x6512(stream),0x6513,0x6603,0x6614(rock) as hollow white circles, no menu
 natural=cave_entrance 
@@ -548,26 +555,26 @@ railway=halt {addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolu
 # if option --add-pois-to-lines in effect, add just 1 POI
 (railway=platform | (public_transport=platform & railway=*)) & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) 
 	{name '${name} [${railway}]' | '[platform]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 23]
-#highway=bus_stop {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
+#highway=bus_stop {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24] #0x2f08 bus icon, small square 0x2f17
 if ( highway=bus_stop ) then
 	if ( shelter=* ) then
 		if ( bench=* ) then
-			bin=* {name '${name} (shelter/bench/bin) [bus_stop]' | '(shelter/bench/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
-			() {name '${name} (shelter/bench) [bus_stop]' | '(shelter/bench) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
+			bin=* {name '${name} (shelter/bench/bin) [bus_stop]' | '(shelter/bench/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
+			() {name '${name} (shelter/bench) [bus_stop]' | '(shelter/bench) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
 		end
-		bin=* {name '${name} (shelter/bin) [bus_stop]' | '(shelter/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
-		() {name '${name} (shelter) [bus_stop]' | '(shelter) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
+		bin=* {name '${name} (shelter/bin) [bus_stop]' | '(shelter/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
+		() {name '${name} (shelter) [bus_stop]' | '(shelter) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
 	end
 	if ( bench=* ) then
-		bin=* {name '${name} (bench/bin) [bus_stop]' | '(bench/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
-		() {name '${name} (bench) [bus_stop]' | '(bench) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
+		bin=* {name '${name} (bench/bin) [bus_stop]' | '(bench/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
+		() {name '${name} (bench) [bus_stop]' | '(bench) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
 	end
-	bin=* {name '${name} (bin) [bus_stop]' | '(bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
-	() {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
+	bin=* {name '${name} (bin) [bus_stop]' | '(bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
+	() {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
 end 
-railway=tram_stop {name '${name} [tram_stop]' | '[tram_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
+railway=tram_stop {name '${name} [tram_stop]' | '[tram_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
 public_transport=platform & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) 
-	[0x2f17 resolution 24]
+	[0x2f08 resolution 24]
 
 shop=* & name!=* & shop!=yes & shop!=no & shop!=none & shop!=vacant {set name='${shop|subst:"_=> "}'}
 # Uncomment the following lines to enable these extra POI that some devices support
@@ -804,7 +811,7 @@ building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${he
 building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
 building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x0b00 resolution 24] # to use or not to use?
 
-landuse=cemetery | landuse=cemetary | amenity=grave_yard {name '${name} {${alt_name}} (${religion}) [cemetery]' | '${name} {${alt_name}} [cemetery]' | '${name} [cemetery]' | '[cemetery]' ;
+landuse=cemetery | landuse=cemetery | amenity=grave_yard {name '${name} {${alt_name}} (${religion}) [cemetery]' | '${name} {${alt_name}} [cemetery]' | '${name} [cemetery]' | '[cemetery]' ;
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x6403 resolution 24]
 cemetery=grave {name '${name} {${alt_name}} (${ele}m) [grave]' | '${name} {${alt_name}} (${religion}) [grave]' | '${name} {${alt_name}} [grave]' | '${name} [grave]' | '[grave]' ;
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x6403 resolution 24]
