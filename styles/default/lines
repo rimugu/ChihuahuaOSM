@@ -507,7 +507,7 @@ if ( highway=residential | highway=living_street) then
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
 	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [resi]' | '${name} (ground) [resi]' | '${ref} (ground) [resi]' | '(ground) [resi]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [resi]' | '${name} (unkn) (one_way) [resi]' | '$${ref} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]' 
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [resi]' | '${name} (unkn) (one_way) [resi]' | '(${ref}) (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
 		[0x06 road_class=0 road_speed=1 resolution 24]
 	#surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (unkn) (one_way) [resi]' | '(unkn) (one_way) [resi]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 	
@@ -1181,7 +1181,7 @@ route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${
 power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
 man_made=* & is_closed()=false {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
 construction=* & is_closed()=false {name '${name} [construction]' | '[construction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
-railway=* {name '${name} [${railway}]' | '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
+railway=* & railway!=station {name '${name} [${railway}]' | '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
 historic=* {name '${name} [${historic}]' | '[${historic}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
 
