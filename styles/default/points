@@ -249,7 +249,7 @@ man_made=water_tap | fountain=bottle_refill | man_made=water_cache | amenity = w
 amenity=embassy
 	{name '${name} (${country}) [embassy]' | '(${country}) [embassy]' | '${name} [embassy]' | '[embassy]' 
 	; addlabel '${phone}' | '${website}' | '${country}'} [0x3003 resolution 24]
-office=diplomatic | colsulate=* | diplomatic=* 
+office=diplomatic | consulate=* | diplomatic=* 
 	{name '${name} (${country}) [diplomatic]' | '(${country}) [diplomatic]' | '${name} [diplomatic]' | '[diplomatic]' 
 	; addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 22-24]
 amenity=emergency_phone | emergency=phone {name '${name} [emergency_phone]' | '[emergency_phone]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f12 resolution 22-24]
@@ -258,6 +258,14 @@ water_source=main {name '${name} (fee ${fee}) [main]' | '(fee ${fee}) [main]' | 
 amenity=ferry_terminal | ferry=yes {name '${name} [ferry_terminal]' | '[ferry_terminal]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 22-24]
 # handle amenity=fast_food rules later in file
 amenity=fire_station {name '${name} [fire_station]' | '[fire_station]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3008 resolution 24]
+amenity=bicycle_rental
+	{name '${name} (${website}) (${network}) (${operator}) [bicycle_rental]' | '(${website}) (${network}) (${operator}) [bicycle_rental]' |
+	'${name} (${website}) (${operator}) [bicycle_rental]' | '(${website}) (${operator}) [bicycle_rental]' |
+	'${name} (${website}) (${network}) [bicycle_rental]' | '(${network}) (${operator}) [bicycle_rental]' |
+	'${name} (${website}) [bicycle_rental]' | '(${website}) [bicycle_rental]' |
+	'${name} (${operator}) [bicycle_rental]' | '(${operator}) [bicycle_rental]' |
+	'${name} (${network}) [bicycle_rental]' | '(${network}) [bicycle_rental]' |
+	'${name} [bicycle_rental]' | '[bicycle_rental]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 amenity=bicycle_parking
 	{name '${name} (access ${access}) (cap ${capacity}) ($ ${charge}) [bicycle_parking]' | '(access ${access}) (cap ${capacity}) ($ ${charge}) [bicycle_parking]' |
 	'${name} (access ${access}) (cap ${capacity}) (fee ${fee}) [bicycle_parking]' | '(access ${access}) (cap ${capacity}) (fee ${fee}) [bicycle_parking]' |
@@ -274,14 +282,6 @@ amenity=bicycle_parking
 	'${name} (access ${access}) [bicycle_parking]' | '(access ${access}) [bicycle_parking]' |
 	'${name} ($ ${charge}) [bicycle_parking]' | '($ ${charge}) [bicycle_parking]' |
 	'${name} [bicycle_parking]' | '[bicycle_parking]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
-amenity=bicycle_rental
-	{name '${name} (${website}) (${network}) (${operator}) [bicycle_rental]' | '(${website}) (${network}) (${operator}) [bicycle_rental]' |
-	'${name} (${website}) (${operator}) [bicycle_rental]' | '(${website}) (${operator}) [bicycle_rental]' |
-	'${name} (${website}) (${network}) [bicycle_rental]' | '(${network}) (${operator}) [bicycle_rental]' |
-	'${name} (${website}) [bicycle_rental]' | '(${website}) [bicycle_rental]' |
-	'${name} (${operator}) [bicycle_rental]' | '(${operator}) [bicycle_rental]' |
-	'${name} (${network}) [bicycle_rental]' | '(${network}) [bicycle_rental]' |
-	'${name} [bicycle_rental]' | '[bicycle_rental]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 amenity=fountain {name '${name} (drink ${drinking_water}) (${fountain}) [${amenity}]' |'${name} (${fountain}) [${amenity}]' | '(drink ${drinking_water}) (${fountain}) [${amenity}]' | '(${fountain}) [${amenity}]' | '${name} (drink ${drinking_water}) [${amenity}]' | '${name} [${amenity}]' | '(drink ${drinking_water}) [${amenity}]' | '[${amenity}]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 amenity=sanitary_dump_station | amenity=dumpstation
@@ -374,7 +374,10 @@ amenity=weighbridge
 amenity=marketplace {name '${name} [marketplace]' | '[marketplace]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c09 resolution 24]
 amenity=events_venue {name '${name} [events_venue]' | '[events_venue]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c09 resolution 24] #0x2e06 is fuel
 amenity=ranger_station {name '${name} [ranger_station]' | '[ranger_station]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c17 resolution 22-24]
-	
+amenity=waste_disposal | landuse=landfill | amenity=waste_transfer_station 
+	{name '${name} (${waste}) [waste_disposal]' | '${name} [waste_disposal]' | '(${waste}) [waste_disposal]' | '[waste_disposal]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 24]
+
 man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack 
 	{name '${name} (${substance}) [petroleum_well]' | '${name} [petroleum_well]' | '(${substance}) [petroleum_well]' |'[petroleum_well]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x0640d resolution 24]
@@ -405,14 +408,14 @@ healthcare=*
 	{name '${name} (${healthcare:speciality}) (${healthcare}) [healthcare]' | '${name} (${healthcare}) [healthcare]' | '(${healthcare:speciality}) (${healthcare}) [healthcare]' | '(${healthcare}) [healthcare]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3002 resolution 24]
 
-highway=motorway_junction & exit:road_ref=* {add exit:to='${exit_to}' | '${destination}'} [0x2000 resolution 24]
-highway=motorway_junction [0x0b00 resolution 24 default_name '[junction]']
+highway=motorway_junction & exit:road_ref=* {add exit:to='${exit_to}' | '${destination}' ; name '(${ref}) [junction]' | '[junction]'} [0x2000 resolution 24]
+highway=motorway_junction {name '(${ref}) [junction]' | '[junction]'} [0x0b00 resolution 24]
 highway=milestone {name '${name} ${distance} [milestone]' | '${distance} [milestone]' | '${name} [milestone]' | '[milestone]'} [0x0b00 resolution 24]
 
 highway=services {add exit:facility="0x02,I,0x47,Features" ; name '${name} [services]' | '[services]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x230f resolution 20-24]
 
 historic=museum | tourism=museum 
-	{name '${name} {${alt_name}} (${inscription}) (${museum}) [museum]' | '${name} {${alt_name}} (${inscription}) [museum]' | '${name} (${inscription}) (${museum}) [museum]' | '${name} (${inscription}) [museum]' | '${name} {${alt_name}} (${museum}) [museum]' | '${name} {${alt_name}} [museum]' | '${name} (${museum}) [museum]' | '${name} [museum]' | '{${alt_name}} (${museum}) [museum]' | '{${alt_name}} [museum]' | '(${museum}) [museum]' | '[museum]' 
+	{name '${name} {${alt_name}} (fee ${fee}) (${museum}) [museum]' | '${name} {${alt_name}} (fee ${fee}) [museum]' | '${name} (fee ${fee}) (${museum}) [museum]' | '${name} (fee ${fee}) [museum]' | '${name} {${alt_name}} (${museum}) [museum]' | '${name} {${alt_name}} [museum]' | '${name} (${museum}) [museum]' | '${name} [museum]' | '{${alt_name}} (${museum}) [museum]' | '{${alt_name}} [museum]' | '(${museum}) [museum]' | '[museum]' 
 	; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c02 resolution 24] #tourism=museum below
 historic=archaeological_site
 	{name '${name} (${historic:civilization}) (${archaeological_site}) [archaeological_site]' | '${name} (${archaeological_site}) [archaeological_site]' | '${name} (${historic:civilization}) [archaeological_site]' | '${name} [archaeological_site]' | '(${historic:civilization}) (${archaeological_site}) [archaeological_site]' | '(${archaeological_site}) [archaeological_site]' | '(${historic:civilization}) [ruins]' | '[ruins]'; 
@@ -696,7 +699,7 @@ amenity=restaurant {name '${name} (${cuisine}) [restaurant]' | '${name} [restaur
 
 barrier=bollard | barrier=bus_trap | barrier=gate | barrier=block | barrier=cycle_barrier |
 	barrier=stile | barrier=kissing_gate | barrier=lift_gate | barrier=swing_gate | barrier=*
-	{name '${name} (${height}) (${barrier}) [barrier]' | '${name} (${barrier}) [barrier]' | '(${height}) (${barrier}) [barrier]' | '(${barrier}) [barrier]' ; 
+	{name '${name} (${height}) (${access}) (${barrier}) [barrier]' | '${name} (${height}) (${barrier}) [barrier]' | '${name} ${access}) (${barrier}) [barrier]' | '${name} (${barrier}) [barrier]' | '(${height}) (${access}) (${barrier}) [barrier]' | '(${height}) (${barrier}) [barrier]' | '(${access}) (${barrier}) [barrier]' | '(${barrier}) [barrier]' ; 
 	addlabel 'locked ${locked}' } [0x3200 resolution 22-24]
 	#{add name='${barrier|subst:"_=> "}'} [0x3200 resolution 24 default_name '[barrier]']
 
@@ -828,7 +831,7 @@ power=generator {name '${operator} [generator]' | '[generator]' ; addlabel '${we
 
 #crossing=marked {name '${name} {${alt_name}} [crossing]' | '${name} [crossing]' | '[crossing]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6406 resolution 24]
 crossing=* {name '${name} {${alt_name}} (${crossing}) [crossing]' | '${name} (${crossing}) [crossing]' | '(${crossing}) [crossing]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6406 resolution 24]
-#highway=turning_circle {name '${name} {${alt_name}} [turning_circle]' | '${name} [turning_circle]' | '[turning_circle]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+highway=turning_circle {name '${name} {${alt_name}} [turning_circle]' | '${name} [turning_circle]' | '[turning_circle]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 noexit=motor_vehicle | noexit=vehicle{name '${name} {${alt_name}} [noexit_wehicle]' | '${name} [noexit_wehicle]' | '[noexit_wehicle]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 noexit=yes {name '${name} {${alt_name}} [noexit]' | '${name} [noexit]' | '[noexit]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 entrance=* & entrance!=yes {name '${name} (${entrance}) [entrance]' | '(${entrance}) [entrance]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
@@ -850,6 +853,7 @@ leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${website}' 
 landuse=* & landuse!=farmland & landuse!=grass & landuse!=forest & landuse!=orchard & landuse!=vineyard & landuse!=mesa & landuse!=retail & landuse!=cemetery & landuse!=wood & landuse!=residential 
 	{name '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 amenity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+railway=* {name '${name} [${railway}]' | '[${railway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 boundary=* & boundary!=timezone {name '${name} [${boundary}]' | '[${boundary}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x32000 resolution 24]
 emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6410 resolution 24]
 tourism=yes {name '${name} [tourism]' | '[tourism]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 24]
