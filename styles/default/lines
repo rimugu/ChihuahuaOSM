@@ -467,7 +467,7 @@ highway=yes {set highway=footway} # fix common bad tagging - little bits of path
 
 # highway=pedestrian could be closed polygon to represent a 'square', add route regardless and continue for polygon processing
 #highway=pedestrian {set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 22-24 continue with_actions]
-if ( highway=pedestrian ) then
+if ( highway=pedestrian & place!=* ) then
 	surface=sand {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [pede]' | '${name} (sand) [pede]' | '${ref} (sand) [pede]' | '(sand) [pede]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
@@ -486,7 +486,7 @@ if ( highway=pedestrian ) then
 	surface=ground {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [pede]' | '${name} (ground) [pede]' | '${ref} (ground) [pede]' | '(ground) [pede]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
-	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [pede]' | '${name} (unkn) [pede]' | '${ref} (ground) [pede]' | '(unkn) [pede]' 
+	surface!=* {set tmp:stopMopUp=yes ; add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [pede]' | '${name} (unkn) [pede]' | '${ref} (ground) [pede]' | '(unkn) [pede]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
 	surface=* {set tmp:stopMopUp=yes ; name '${name} (${ref}) (pav) [pede]' | '${name} (pav) [pede]' | '${ref} (pav) [pede]' | '(pav) [pede]' 
@@ -494,7 +494,7 @@ if ( highway=pedestrian ) then
 		[0x16 road_class=0 road_speed=0 resolution 22-24]
 end 
 
-if ( highway=residential | highway=living_street) then
+if ( highway=residential | highway=living_street ) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${ref}) (sand) [resi]' | '${name} (sand) [resi]' | '${ref} (sand) [resi]' | '(sand) [resi]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x06 road_class=0 road_speed=1 resolution 24]
 	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${ref}) (gravel) [resi]' | '${name} (gravel) [resi]' | '${ref} (gravel) [resi]' | '(gravel) [resi]' 
@@ -905,7 +905,7 @@ highway=steps
 	; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	[0x16 road_class=0 road_speed=0 resolution 24]
 	
-if ( highway=* ) then
+if ( highway=* & place!=*) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [${highway}]' | '(sand) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
 	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [${highway}]' | '(gravel) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
@@ -1174,15 +1174,15 @@ boundary=* {name '${name} {${alt_name}} [${boundary}]' | '${name} [${boundary}]'
 #abandoned=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 continue]
 hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
 abandoned=* & abandoned!=no & is_closed()=false [0x1c resolution 24 continue]
-highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
-	[0x16 road_class=0 road_speed=0 resolution 22-24]
+#highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+#	[0x16 road_class=0 road_speed=0 resolution 24] #in line 908
 route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${phone}' | '${website}' | '${operator}' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x10805 resolution 24]
 power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
 man_made=* & is_closed()=false {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
 construction=* & is_closed()=false {name '${name} [construction]' | '[construction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 22-24]
 railway=* & railway!=station {name '${name} [${railway}]' | '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
-historic=* {name '${name} [${historic}]' | '[${historic}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
+historic=* & is_closed()=false {name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
 
 <finalize>
