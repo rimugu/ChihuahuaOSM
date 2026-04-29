@@ -905,7 +905,7 @@ highway=steps
 	; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	[0x16 road_class=0 road_speed=0 resolution 24]
 	
-if ( highway=* & place!=* & area!=yes) then
+if ( highway=* & place!=* & area!=yes & is_closed()=false) then
 	surface=sand {add mkgmap:unpaved=1 ; name '${name} (sand) [${highway}]' | '(sand) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x16 road_class=1 road_speed=0 resolution 22-24]
 	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (gravel) [${highway}]' | '(gravel) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
