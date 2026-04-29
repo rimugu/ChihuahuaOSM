@@ -5,7 +5,7 @@
 # Each line is a rule, of the generalised format:
 # OSM_tag(s)_to_match [Garmin_type_code resolution]
 # See http://wiki.openstreetmap.org/wiki/Mkgmap/help/style_rules
-# and http://wiki.openstreetmap.org/wiki/Mkgmap/help/Custom_styles
+# and http://wiki.openstreetmap.org/wiki/Mkgmap/help/Custom_styles-
 # for more information.
 
 addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
@@ -19,7 +19,7 @@ amenity=funeral_home {add shop='funeral_directors'}
 access=yes {set access=public}
 (man_made=wastewater_plant | utility=sewerage | water=wastewater | content=sewage) & natural=water {delete natural}
 
-#natural=fell & osmid()=411910723 { echotags "fell" }
+#building=yes & osmid()=262818915 { echotags "fell" }
 
 aeroway=airport | aeroway=aerodrome {name '${name} [airport]' | '[airport]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24]
 #aeroway=aerodrome {name '${name} [aerodrome]' | '[aerodrome]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24] 
@@ -63,7 +63,8 @@ amenity=school {name '${name} [school]' | '[school]' ; addlabel '${phone}' | '${
 amenity=supermarket {name '${name} [supermarket]' | '[supermarket]'} [0x08 resolution 22-24]
 amenity=university {name '${name} [university]' | '[university]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0a resolution 21]
 amenity=waste_disposal | landuse=landfill | amenity=waste_transfer_station 
-	{name '${name} (${waste}) [waste_disposal]' | '${name} [waste_disposal]' | '(${waste}) [waste_disposal]' | '[waste_disposal]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
+	{name '${name} (${waste}) [waste_disposal]' | '${name} [waste_disposal]' | '(${waste}) [waste_disposal]' | '[waste_disposal]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 power=plant {name '${name} (${plant:source}) [power_plant]' | '${name} [power_plant]' | '(${plant:source}) [power_plant]' | '[power_plant]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 20-24]
 power=substation {name '${name} [substation]' | '[substation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
@@ -97,7 +98,7 @@ amenity=embassy
 	{name '${name} (${country}) [embassy]' | '(${country}) [embassy]' | '${name} [embassy]' | '[embassy]' 
 	; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
 amenity=research_institute | office=research {name '${name} [research]' | '[research]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x0a resolution 22-24]
-office=diplomatic | colsulate=* | diplomatic=* 
+office=diplomatic | consulate=* | diplomatic=* 
 	{name '${name} (${country}) [diplomatic]' | '(${country}) [diplomatic]' | '${name} [diplomatic]' | '[diplomatic]' 
 	; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 office=* {name '${name} (${office}) [office]' | '(${office}) [office]' ; addlabel '${phone}' | '${website}' | '${country}'} [0x0c resolution 24]
@@ -130,13 +131,13 @@ place=hamlet
 shop=* {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x08 resolution 22-24]
 
 # squares and plazas
-place=square {name '${name} [square]' | '[square]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
-highway=pedestrian & (area=yes | mkgmap:mp_created=true) {name '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x25 resolution 22-24]
+place=square {name '${name} [square]' | '[square]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24] 
+highway=pedestrian & (area=yes | mkgmap:mp_created=true) {name '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24] #0x25 does not show
 # following rule also renders a closed way without area attribute as a plaza
-highway=pedestrian & area!=no {name '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x25 resolution 22-24]
+highway=pedestrian & area!=no {name '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
 
 # footways areas are similar, but should be explicity marked as such
-highway=footway & area=yes {name '${name} [footway]' | '[footway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x25 resolution 24]
+highway=footway & area=yes {name '${name} [footway]' | '[footway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
 
 highway=services | highway=service {name '${name} [services]' | '[services]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 22-24] # service station complex; show as retail
 highway=rest_area & area!=no {name '${name} (${opening_hours}) [rest_area]' | '${name} [rest_area]' | '(${opening_hours}) [rest_area]' | '[rest_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x05 resolution 22-24] # show as parking lot
@@ -274,7 +275,8 @@ landuse=farmland
 landuse=farmyard 
 	{name '${name} {${alt_name}} (${crop}) [farmyard]' | '${name} {${alt_name}} (${produce}) [farmyard]' | '${name} (${crop}) [farmyard]' | '${name} (${produce}) [farmyard]' | '${name} {${alt_name}} [farmyard]' | '${name} [farmyard]' | '(${crop}) [farmyard]' | '$({produce}) [farmyard]' | '[farmyard]' ;
 	addlabel '${phone}' | '${website}' | '${operator}'} 	[0x4e resolution 20-24] #0x26 0x0f 0x10 0x12 does not show
-landuse=forest | landuse=wood {name '${name} {${alt_name}} (${leaf_cycle}) [managed_wood]' | '${name} {${alt_name}} [managed_wood]' | '${name} [managed_wood]' | '(${leaf_cycle}) [managed_wood]' | '[managed_wood]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
+landuse=forest | landuse=wood {name '${name} {${alt_name}} (${leaf_cycle}) [managed_wood]' | '${name} {${alt_name}} [managed_wood]' | '${name} [managed_wood]' | '(${leaf_cycle}) [managed_wood]' | '[managed_wood]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x50 resolution 20-24]
 natural=wood {name '${name} {${alt_name}} (${leaf_cycle}) [forest]' | '${name} {${alt_name}} [forest]' | '${name} [forest]' | '(${leaf_cycle}) [forest]' | '[forest]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x50 resolution 20-24]
@@ -323,7 +325,7 @@ landuse=industrial
 	addlabel '${operator}' | '${phone}' | '${website}' } 
 	[0x0c resolution 22-24]
 landuse=railway 
-	{name '${name} [railway]' | '[railway]' ; 
+	{name '${name} (${railway}) [railway]' | '${name} [railway]' | '(${railway}) [railway]' | '[railway]' ; 
 	addlabel '${operator}' | '${phone}' | '${website}' } 
 	[0x0c resolution 24]
 
@@ -347,7 +349,7 @@ tourism=camp_pitch
 boundary=aboriginal_lands {name '${name} {${alt_name}} [aboriginal_lands]' | '${name} [aboriginal_lands]' | '[aboriginal_lands]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0d resolution 22-24] #rojiso
 #boundary=timezone {name '${name} [${boundary}]' | '[${boundary}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4b resolution 24] #no se muestra
-leisure=park | place=square {name '${name} [park]' | '[park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
+leisure=park {name '${name} [park]' | '[park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
 leisure=pitch {name '${name} (${sport}) [pitch]' | '${name} [pitch]' | '(${sport}) [pitch]' | '[pitch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 21] #smaller than a sport_centre
 leisure=playground {name '${name} [playground]' | '[playground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
 playground=* {name '${name} [${playground}]' | '[${playground}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
@@ -362,8 +364,10 @@ leisure=water_park {name '${name} {${alt_name}} [water_park]' | '${name} [water_
 leisure=miniature_golf {name '${name} [mini_golf]' | '[mini_golf]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
 leisure=dance {name '${name} [dance]' | '[dance]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 24]
 tourism=theme_park {name '${name} [theme_park]' | '[theme_park]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
-tourism=museum {name '${name} {${alt_name}} (${museum}) [museum]' | '${name} (${museum}) [museum]' | '{${alt_name}} (${museum}) [museum]' | '(${museum}) [museum]' 
-	; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
+historic=museum | tourism=museum  
+#{name '${name} {${alt_name}} (${museum}) [museum]' | '${name} (${museum}) [museum]' | '{${alt_name}} (${museum}) [museum]' | '(${museum}) [museum]' | '[museum]'
+	{name '${name} {${alt_name}} (fee ${fee}) (${museum}) [museum]' | '${name} {${alt_name}} (fee ${fee}) [museum]' | '${name} (fee ${fee}) (${museum}) [museum]' | '${name} (fee ${fee}) [museum]' | '${name} {${alt_name}} (${museum}) [museum]' | '${name} {${alt_name}} [museum]' | '${name} (${museum}) [museum]' | '${name} [museum]' | '{${alt_name}} (${museum}) [museum]' | '{${alt_name}} [museum]' | '(${museum}) [museum]' | '[museum]' 
+	; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 24]
 leisure=beach_resort {name '${name} (${fee}) [resort]' |'${name} [resort]' | '[resort]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x09 resolution 20-24]
 leisure=swimming_pool 
 	{name '${name} (${access}) (${swimming_pool}) [pool]' | '${name} (${access}) [pool]' | '${name} (${swimming_pool}) [pool]' | '${name} [pool]' | '(${access}) (${swimming_pool}) [pool]' | '(${access}) [pool]' | '(${swimming_pool}) [pool]' | '[pool]' ; 
@@ -383,7 +387,7 @@ hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabe
 
 building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
 building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
-building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] # to use or not to use?
+building=roof & amenity!=* {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] # to use or not to use?
 building=greenhouse | landuse=greenhouse_horticulture {name '${name} [greenhouse]' | '[greenhouse]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] 
 
 historic=archaeological_site
@@ -411,6 +415,8 @@ landuse=* & area_size() < 1000
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
 natural=* & natural!=land & area_size() < 1000 
 	{name '${name} {${alt_name}} [${natural}]' | '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4f resolution 24]
+tourism=* & area!=no & waterway!=* {name '${name} {${alt_name}} (${tourism}) [tourism]' | '${name} (${tourism}) [tourism]' | '{${alt_name}} (${tourism}) [tourism]' | '(${tourism}) [tourism]' 
+	; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 amenity=* & area_size() < 1000 {name '${name} {${alt_name}} [${amenity}]' | '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0b resolution 24]
 sport=* & area_size() < 1000 {name '${name} (${sport}) [sport]' | '(${sport}) [sport]'} [0x19 resolution 24]
 power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
@@ -418,8 +424,6 @@ power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${web
 #historic=* & historic!=no & boundary!=* {add name='${historic|subst:"_=> "}'
 historic=* & historic!=no & boundary!=* 
 	{name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 20-24]
-tourism=* & area!=no & waterway!=* {name '${name} {${alt_name}} (${tourism}) [tourism]' | '${name} (${tourism}) [tourism]' | '{${alt_name}} (${tourism}) [tourism]' | '(${tourism}) [tourism]' 
-	; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 place=* & area_size() < 1000 
 	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
