@@ -323,6 +323,8 @@ amenity=parking | parking=surface
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c0b resolution 20-24]
 (amenity=place_of_worship | building=church) & religion=christian 
 	{name '${name} [church]' | '[church]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6404 resolution 24]
+amenity=place_of_worship
+	{name '${name} (${religion}) [place_of_worship]' | '${name} [place_of_worship]' | '(${religion}) [place_of_worship]' | '[place_of_worship]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6404 resolution 24]
 amenity=monastery & religion=christian & (denomination=catholic | denomination=roman_catholic | denomination=greek_catholic) 
 	{name '${name} [catholic_monastery]' | '[catholic_monastery]' ; 
 	addlabel '${mkgmap:phone}' | '${website}' | '${operator}'} [0x2c0b resolution 20-24] #0x2c0e
@@ -493,6 +495,9 @@ man_made=storage_tank
 #man_made=storage_tank {name '${name} [${storage_tank}]' | '[${storage_tank}]' ; addlabel '${operator}'} [0x6411 resolution 24]
 
 man_made=survey_point {name '${name} (${ref}) [survey_point]' | '(${ref}) [survey_point]' | '${name} [survey_point]' | '[survey_point]' ; addlabel '${operator}'} [0x6411 resolution 24]
+man_made=surveillance 
+	{name '${name} (${surveillance}) (${surveillance:type}) [surveillance]' | '${name} (${surveillance}) [surveillance]' | '(${surveillance}) (${surveillance:type}) [surveillance]' | '(${surveillance}) [surveillance]' | '${name} (${surveillance:type}) [surveillance]' | '${name} [surveillance]' | '(${surveillance:type}) [surveillance]' | '[surveillance]' ; 
+	addlabel '${operator}'} [0x6411 resolution 24] #camera:type camera:direction
 
 
 barrier=toll_booth & ( payment:cash=* | payment:coins=* ) 
@@ -538,7 +543,7 @@ natural=peak
 natural=rock | natural=stone {name '${name} {${alt_name}} [rock]' | '${name} [rock]' | '[rock]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6614 resolution 24]
 natural=volcano 
 	{name '${name} (${ele}m) (${volcano:status}) [volcano]' | '${name} (${ele}m) [volcano]' | '${name} (${volcano:status}) [volcano]' | '(${ele}m) [volcano]' | '(${volcano:status}) [volcano]' | '${name} [volcano]' ; addlabel '${website}' | '${phone}' | '${operator}'} 
-	[0x6608 resolution 20-24]
+	[0x6608 resolution 20-24] #peak 0x6616 #volcano 0x6608
 natural=geyser
 	{name '${name} (${geyser:height}) (${ele}m) [geyser]' | '${name} (${ele}m) [geyser]' | '(${geyser:height}) (${ele}m) [geyser]' | '(${ele}m) [geyser]' | '${name} (${geyser:height}) [geyser]' | '${name} [geyser]' | '[geyser]' ; addlabel '${website}' | '${phone}' | '${operator}'} 
 	[0x6608 resolution 20-24]
