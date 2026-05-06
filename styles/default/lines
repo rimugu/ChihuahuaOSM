@@ -223,14 +223,22 @@ highway=* & disused=yes & maxspeed!=* {add mkgmap:road-speed='-2'}
 #highway=trunk_link [0x09 road_class=4 road_speed=2 resolution 20-24]
 #highway=* & motorroad=yes [0x02 road_class=4 road_speed=4 resolution 17]
 
-highway=motorway & mkgmap:fast_road=yes {name '${name} (${ref}) [motorway]' | '${name} [motorway]' | '${ref} [motorway]' | '[motorway]'} [0x01 road_class=4 road_speed=7 resolution 14]
-highway=motorway {name '${name} (${ref}) [motorway]' | '${name} [motorway]' | '${ref} [motorway]' | '[motorway]'} [0x01 road_class=4 road_speed=7 resolution 15]
+highway=motorway & mkgmap:fast_road=yes 
+	{name '${name} (${ref}) (${lanes}) [motorway]' | '${name} (${ref}) [motorway]' | '${name} (${lanes}) [motorway]' | '${name} [motorway]' | '(${ref}) (${lanes}) [motorway]'  | '${ref} [motorway]' | '(${lanes}) [motorway]' | '[motorway]'} 
+	[0x01 road_class=4 road_speed=7 resolution 14]
+highway=motorway 
+	{name '${name} (${ref}) (${lanes}) [motorway]' | '${name} (${ref}) [motorway]' | '${name} (${lanes}) [motorway]' | '${name} [motorway]' | '(${ref}) (${lanes}) [motorway]'  | '${ref} [motorway]' | '(${lanes}) [motorway]' | '[motorway]'}  
+	[0x01 road_class=4 road_speed=7 resolution 15]
 highway=motorway_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) 
 	{name '${name} (${ref}) [motorway_link]' | '${name} [motorway_link]' | '${ref} [motorway_link]' | '[motorway_link]'} [0x0b road_class=4 road_speed=2 resolution 16]
 highway=motorway_link {name '${name} (${ref}) [motorway_link]' | '${name} [motorway_link]' | ' (${ref}) [motorway_link]' | '[motorway_link]'} [0x09 road_class=4 road_speed=2 resolution 16]
 
-highway=trunk & mkgmap:fast_road=yes {name '${name} (${ref}) [trunk]' | '${name} [trunk]' | '${ref} [trunk]' | '[trunk]'} [0x02 road_class=4 road_speed=5 resolution 14]
-highway=trunk {name '${name} (${ref}) [trunk]' | '${name} [trunk]' | '${ref} [trunk]' | '[trunk]'} [0x02 road_class=4 road_speed=5 resolution 17]
+highway=trunk & mkgmap:fast_road=yes 
+	{name '${name} (${ref}) (${lanes}) [trunk]' | '${name} (${ref}) [trunk]' | '${name} (${lanes}) [trunk]' | '${name} [trunk]' | '(${ref}) (${lanes}) [trunk]' | '(${ref}) [trunk]' | '(${lanes}) [trunk]' | ' [trunk]'} 
+	[0x02 road_class=4 road_speed=5 resolution 14]
+highway=trunk 
+	{name '${name} (${ref}) (${lanes}) [trunk]' | '${name} (${ref}) [trunk]' | '${name} (${lanes}) [trunk]' | '${name} [trunk]' | '(${ref}) (${lanes}) [trunk]' | '(${ref}) [trunk]' | '(${lanes}) [trunk]' | ' [trunk]'}
+	[0x02 road_class=4 road_speed=5 resolution 17]
 highway=trunk_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) 
 	{name '${name} (${ref}) [trunk_link]' | '${name} [trunk_link]' | '${ref} [trunk_link]' | '[trunk_link]'} [0x0b road_class=4 road_speed=2 resolution 20-24]
 highway=trunk_link {name '${name} (${ref}) [trunk_link]' | '${name} [trunk_link]' | '${ref} [trunk_link]' | '[trunk_link]'} [0x09 road_class=4 road_speed=2 resolution 20-24]
@@ -250,12 +258,20 @@ highway=* & motorroad=yes {name '${name} (${ref}) [motorroad]' | '${name} [motor
 
 
 if ( highway=primary & surface!=sand & surface!=gravel & surface!=unpaved & surface!=dirt & surface!=compacted & surface!=ground & surface=*) then
-	highway=primary & mkgmap:fast_road=yes {name '${name} (pav) [primary]' | '(pav) [primary]'} [0x03 road_class=4 road_speed=4 resolution 17]
-	highway=primary {name '${name} (pav) [primary]' | '(pav) [primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
+	highway=primary & mkgmap:fast_road=yes 
+	{name '${name} (${ref}) (${lanes}) [primary]' | '${name} (${ref}) [primary]' | '${name} (${lanes}) [primary]' | '${name} [primary]' | '(${ref}) (${lanes}) [primary]' | '${ref} [primary]' | '[primary]' | '(${lanes}) [primary]'}  
+	[0x03 road_class=4 road_speed=4 resolution 17]
+	highway=primary 
+	{name '${name} (${ref}) (${lanes}) [primary]' | '${name} (${ref}) [primary]' | '${name} (${lanes}) [primary]' | '${name} [primary]' | '(${ref}) (${lanes}) [primary]' | '${ref} [primary]' | '[primary]' | '(${lanes}) [primary]'} 
+	[0x03 road_class=3 road_speed=4 resolution 17]
 end
 
-highway=primary & mkgmap:fast_road=yes {name '${name} (${ref}) [primary]' | '${name} [primary]' | '${ref} [primary]' | '[primary]'} [0x03 road_class=4 road_speed=4 resolution 17]
-highway=primary {name '${name} (${ref}) [primary]' | '${name} [primary]' | '${name} (${ref}) [primary]' | '[primary]'} [0x03 road_class=3 road_speed=4 resolution 17]
+highway=primary & mkgmap:fast_road=yes 
+	{name '${name} (${ref}) (${lanes}) [primary]' | '${name} (${ref}) [primary]' | '${name} (${lanes}) [primary]' | '${name} [primary]' | '(${ref}) (${lanes}) [primary]' | '${ref} [primary]' | '[primary]' | '(${lanes}) [primary]'} 
+	[0x03 road_class=4 road_speed=4 resolution 17]
+highway=primary 
+	{name '${name} (${ref}) (${lanes}) [primary]' | '${name} (${ref}) [primary]' | '${name} (${lanes}) [primary]' | '${name} [primary]' | '(${ref}) (${lanes}) [primary]' | '${ref} [primary]' | '[primary]' | '(${lanes}) [primary]'}  
+	[0x03 road_class=3 road_speed=4 resolution 17]
 
 if ( highway=primary_link & surface!=sand & surface!=gravel & surface!=unpaved & surface!=dirt & surface!=compacted & surface!=ground & surface=*) then
 	highway=primary_link & (mkgmap:exit_hint=true | mkgmap:dest_hint=*) & mkgmap:fast_road=yes 
@@ -1014,7 +1030,7 @@ barrier=* & power=* {delete barrier} # some power areas are marked with both
 barrier=* & landuse=* {delete barrier} # some power areas are marked with both
 barrier=* & historic=* {delete barrier} # some power areas are marked with both
 
-barrier=* & barrier!=yes {name '(${height}) (${fence_type}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '(${height}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+barrier=* & barrier!=yes & is_closed()=false {name '(${height}) (${fence_type}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '(${height}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 barrier=yes {name '(${height}) (${fence_type}) [barrier]' | '(${fence_type}) [barrier]' | '(${height}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=* & is_closed()=false {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=* & type()!=way {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}' ; echotags "way" } [0x10503 resolution 24] #pink line <----
