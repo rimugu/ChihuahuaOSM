@@ -475,7 +475,9 @@ man_made=antenna | tower=communication {name '${name} [antenna]' | '[antenna]' ;
 
 monitoring:weather=* {name '${name} [weather_monitoring]' | '[weather_monitoring]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6411 resolution 24]
 man_made=monitoring_station | man_made=measurement_station {name '${name} [monitoring]' | '[monitoring]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6411 resolution 24]
-man_made=surveillance {name '${name} [surveillance]' | '[surveillance]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] 
+man_made=surveillance 
+	{name '${name} (${surveillance}) (${surveillance:type}) [surveillance]' | '${name} (${surveillance}) [surveillance]' | '(${surveillance}) (${surveillance:type}) [surveillance]' | '(${surveillance}) [surveillance]' | '${name} (${surveillance:type}) [surveillance]' | '${name} [surveillance]' | '(${surveillance:type}) [surveillance]' | '[surveillance]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #camera:type camera:direction
 man_made=telescope 
 	{name '${name} (${access}) (${telescope:type}) [telescope]' | '${name} (${access}) [telescope]' | '${name} (${telescope:type}) [telescope]' | '${name} [telescope]' | '(${access}) (${telescope:type}) [telescope]' | '(${access}) [telescope]' | '(${telescope:type}) [telescope]' | '[telescope]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x2f12 resolution 22-24] 
@@ -495,9 +497,6 @@ man_made=storage_tank
 #man_made=storage_tank {name '${name} [${storage_tank}]' | '[${storage_tank}]' ; addlabel '${operator}'} [0x6411 resolution 24]
 
 man_made=survey_point {name '${name} (${ref}) [survey_point]' | '(${ref}) [survey_point]' | '${name} [survey_point]' | '[survey_point]' ; addlabel '${operator}'} [0x6411 resolution 24]
-man_made=surveillance 
-	{name '${name} (${surveillance}) (${surveillance:type}) [surveillance]' | '${name} (${surveillance}) [surveillance]' | '(${surveillance}) (${surveillance:type}) [surveillance]' | '(${surveillance}) [surveillance]' | '${name} (${surveillance:type}) [surveillance]' | '${name} [surveillance]' | '(${surveillance:type}) [surveillance]' | '[surveillance]' ; 
-	addlabel '${operator}'} [0x6411 resolution 24] #camera:type camera:direction
 
 
 barrier=toll_booth & ( payment:cash=* | payment:coins=* ) 
@@ -524,7 +523,7 @@ traffic_sign=* {name '(${maxspeed|conv:"mph=>kmh"}) (${traffic_sign}) [sign]' | 
 man_made=corral {name '(${name}) [corral]' | '[corral]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24 ]
 ford=yes {name '${name} (${surface}) (${depth}m) [ford]' | '${name} (${depth}m) [ford]' | '(${surface}) (${depth}m) [ford]' | '(${depth}m) [ford]' | '${name} (${surface}) [ford]' | '${name} [ford]' | '(${surface}) [ford]' | '[ford]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24 ]
 highway=rest_area {name '${name} [rest_area]' | '[rest_area]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f0c resolution 22-24] #0x2200
-inlet=* {name '${name} (${inlet}) [inlet]' | '({inlet}) [inlet]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+inlet=* {name '${name} (${inlet}) [inlet]' | '({inlet}) [inlet]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #inlet=kerb_opening sumidero, alcantarilla
 man_name=manhole {name '${name} (${manhole}) [manhole]' | '(${manhole}) [manhole]' | '[manhole]'; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #storm drain
 
 # Edge 705 displays 0x650a(glacier),0x6511(spring),0x6512(stream),0x6513,0x6603,0x6614(rock) as hollow white circles, no menu
