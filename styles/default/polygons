@@ -128,7 +128,7 @@ place=hamlet
 	[0x02 resolution 24]
 
 #shop=* {add name='${shop|subst:"_=> "}'} [0x08 resolution 22-24]
-shop=* {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x08 resolution 22-24]
+shop=* {name '${name} [${shop}]' | '[${shop}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x08 resolution 22-24]
 
 # squares and plazas
 place=square {name '${name} [square]' | '[square]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24] 
@@ -318,7 +318,7 @@ landuse=aquaculture
 (landuse=industrial & industrial=mine) | man_made=mine | man_mades=surface_mine
 	{name '${name} {${alt_name}} [mine]' | '${name} [mine]' | '[mine]' ; addlabel '${operator}' | '${phone}' | '${website}'} [0x0c resolution 22-24]
 landuse=salt_pond {name '${name} {${alt_name}} [salt_pond]' | '${name} [salt_pond]' | '[salt_pond]' ; addlabel '${operator}'} [0x3f resolution 20-24]
-landuse=auto_wrecker | industrial=scrap_yard
+landuse=auto_wrecker | industrial=scrap_yard | shop=junk_yard
 	{name '${name} {${alt_name}} [scrap_yard]' | '${name} [scrap_yard]' | '[scrap_yard]' ; addlabel '${operator}' | '${phone}' | '${website}'} [0x0c resolution 22-24] #yonke
 landuse=industrial 
 	{name '${name} {${alt_name}} (${industrial}) [industrial]' | '${name} (${industrial}) [industrial]' | '${name} {${alt_name}} [industrial]' | '${name} [industrial]' | '(${industrial}) [industrial]' | '[industrial]' ; 
@@ -377,10 +377,10 @@ leisure=swimming_pool
 #military=barracks {name '${name} [military]' | '[military]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 23]
 landuse=military | military=* 
 	{name '${name} (${military}) {${alt_name}} [military]' | '${name} {${alt_name}} [military]' | '${name} (${military}) [military]' | '(${military}) [military]' | '${name} [military]' | '[military]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
-	[0x04 resolution 20-24 ]
+	[0x04 resolution 20-24]
 
-emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 20-24 ]
-hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 20-24 ]
+emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 20-24]
+hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 20-24]
 
 # building tag should be last
 #amenity=* & area!=no & amenity!=grave_yard {add name='${amenity|subst:"_=> "}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
