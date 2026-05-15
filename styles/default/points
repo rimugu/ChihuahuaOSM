@@ -485,11 +485,11 @@ man_made=observatory {name '${name} (${access}) [observatory]' | '${name} [obser
 
 
 man_made=windpump {name '${name} (${height}m) [windpump]' | '${name} [windpump]' | '(${height}m) [windpump]' | '[windpump]' ; addlabel '${operator}'} [0x6411 resolution 24]
-man_made=windmill {name '${name} [windmill]' | '[windmill]' ; addlabel '${operator}'} [0x6411 resolution 24 ]
+man_made=windmill {name '${name} [windmill]' | '[windmill]' ; addlabel '${operator}'} [0x6411 resolution 24]
 man_made=water_tower {name '${name} (${height}m) [water_tower]' | '${name} [water_tower]' | '(${height}m) [water_tower]' | '[water_tower]' ; addlabel '${operator}'} [0x6411 resolution 24]
-man_made=water_tank {name '${name} [water_tank]' | '[water_tank]' ; addlabel '${operator}'} [0x6411 resolution 22-24 ]
-man_made=tank {name '${name} [tank]' | '[tank]' ; addlabel '${operator}'} [0x6411 resolution 24 ]
-man_made=water_well 
+man_made=water_tank {name '${name} [water_tank]' | '[water_tank]' ; addlabel '${operator}'} [0x6411 resolution 22-24]
+man_made=tank {name '${name} [tank]' | '[tank]' ; addlabel '${operator}'} [0x6411 resolution 24]
+man_made=water_well | man_made=village_pump
 	{name '${name} (access ${access}) pump ${pump}) [water_well]' | '${name} (access ${access}) [water_well]' | '${name} (pump ${pump}) [water_well]' | '${name} [water_well]' | '(access ${access}) [water_well]' | '(pump ${pump}) [water_well]' | '[water_well]' ; 
 	addlabel '${operator}'} [0x5000 resolution 22-24]
 man_made=storage_tank 
@@ -520,10 +520,10 @@ highway=speed_camera {name '(${maxspeed|conv:"mph=>kmh"}) [speed_camera]' | '[sp
 highway=trailhead {name '${name} (fee ${fee}) [trailhead]' | '${name} [trailhead]' | '(fee ${fee}) [trailhead]' | '[trailhead]' ; addlabel '${website}' | '${phone}' | '${operator}'} 
 	[0x3200 resolution 24]
 traffic_sign=* {name '(${maxspeed|conv:"mph=>kmh"}) (${traffic_sign}) [sign]' | '(${traffic_sign}) [sign]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x7010 resolution 24]
-man_made=corral {name '(${name}) [corral]' | '[corral]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24 ]
-ford=yes {name '${name} (${surface}) (${depth}m) [ford]' | '${name} (${depth}m) [ford]' | '(${surface}) (${depth}m) [ford]' | '(${depth}m) [ford]' | '${name} (${surface}) [ford]' | '${name} [ford]' | '(${surface}) [ford]' | '[ford]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24 ]
+man_made=corral {name '(${name}) [corral]' | '[corral]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+ford=yes {name '${name} (${surface}) (${depth}m) [ford]' | '${name} (${depth}m) [ford]' | '(${surface}) (${depth}m) [ford]' | '(${depth}m) [ford]' | '${name} (${surface}) [ford]' | '${name} [ford]' | '(${surface}) [ford]' | '[ford]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 highway=rest_area {name '${name} [rest_area]' | '[rest_area]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f0c resolution 22-24] #0x2200
-inlet=* {name '${name} (${inlet}) [inlet]' | '({inlet}) [inlet]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #inlet=kerb_opening sumidero, alcantarilla
+inlet=* {name '${name} (${inlet}) [inlet]' | '({inlet}) [inlet]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #inlet=kerb_opening sumidero, alcantarilla, coladera
 man_name=manhole {name '${name} (${manhole}) [manhole]' | '(${manhole}) [manhole]' | '[manhole]'; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #storm drain
 
 # Edge 705 displays 0x650a(glacier),0x6511(spring),0x6512(stream),0x6513,0x6603,0x6614(rock) as hollow white circles, no menu
@@ -787,10 +787,10 @@ tourism=cabin {name '${name} {${alt_name}} [cabin]' | '${name} [cabin]' | '[cabi
 #tourism=hotel {set tmp:stopMopUp=yes; name '${name} {${alt_name}} [hotel]' | '${name} [hotel]' | '[hotel]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2b01 resolution 24 continue with_actions] 
 tourism=hotel 
 	{name '${name} {${alt_name}} (int ${internet_access}) [hotel]' | '${name} {${alt_name}} [hotel]' | '${name} (int ${internet_access}) [hotel]' | '${name} [hotel]' | '(int ${internet_access}) [hotel]' | '[hotel]' ; 
-	addlabel '${website}' | '${phone}' | '${operator}'} [0x2b01 resolution 24 ] #continue with_actions set tmp:stopMopUp=yes; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2b01 resolution 24] #continue with_actions set tmp:stopMopUp=yes; 
 tourism=motel 
 	{name '${name} {${alt_name}} (int ${internet_access}) [motel]' | '${name} {${alt_name}} [motel]' | '${name} (int ${internet_access}) [motel]' | '${name} [motel]' | '(int ${internet_access}) [motel]' | '[motel]' ; 
-	addlabel '${website}' | '${phone}' | '${operator}'} [0x2b01 resolution 24 ] #continue with_actions set tmp:stopMopUp=yes; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2b01 resolution 24] #continue with_actions set tmp:stopMopUp=yes; 
 tourism=information 
 	{name '${operator} (${information}) [information]' | '${operator} [information]' | '(${information}) [information]' | '[information]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} 	[0x4c00 resolution 24]
@@ -828,7 +828,9 @@ natural=wood & name=* {name '${name} {${alt_name}} [forest]' | '${name} [forest]
 	[0x6618 resolution 24]
 
 #power=tower [0x6411 resolution 24]
-power=generator {name '${operator} [generator]' | '[generator]' ; addlabel '${website}' | '${phone}' | '${operator}' } [0x6411 resolution 24]
+power=generator 
+	{name '${operator} (${generator:method}) (${generator:source}) (${generator:type}) [generator]' |  '${operator} (${generator:method}) (${generator:source}) [generator]' | '${operator} (${generator:method}) (${generator:type}) [generator]' | '${operator} (${generator:method}) [generator]' | '${operator} (${generator:source}) (${generator:type}) [generator]' | '${operator} (${generator:source}) [generator]'  | '${operator} (${generator:type}) [generator]' | '${operator} [generator]' | '(${generator:method}) (${generator:source}) (${generator:type}) [generator]' | '(${generator:method}) (${generator:source}) [generator]' | '(${generator:method}) (${generator:type}) [generator]' | '(${generator:method}) [generator]' | '(${generator:source}) (${generator:type}) [generator]'  | '(${generator:source}) [generator]' | '(${generator:type}) [generator]' | '[generator]' ; 
+	addlabel '${website}' | '${phone}' | '${name}' } [0x6411 resolution 24]
 #power=generator {name '[generator]'} [0x6411 resolution 24 default_name 'generator']
 #power=pole
 #natural=tree [0x3200 resolution 24 default_name 'tree']
