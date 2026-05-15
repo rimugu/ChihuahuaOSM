@@ -154,7 +154,12 @@ highway=path & foot=designated
 leisure=track & area!=yes {name '${name} (${surface}) (${sport}) [track]' | '${name} (${sport}) [track]' | '${name} (${surface}) [track]' | '${name} [track]' | '(${surface}) (${sport}) [track]' | '(${sport}) [track]' | '(${surface}) [track]' | '[track]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x10705 resolution 22-24]
-man_made=pier | man_made=quay | man_made=groyn {name '${name} [pier]' | ' [pier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 24]# might also have natural=water
+(man_made=pier | man_made=quay | man_made=groyn) & lit=yes 
+	{name '${name} (lit) (${surface}) [pier]' | '${name} (lit) [pier]' | '(lit) (${surface}) [pier]' | '(lit) [pier]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 24]# might also have natural=water
+man_made=pier | man_made=quay | man_made=groyn 
+	{name '${name} (${surface}) [pier]' | '${name} [pier]' | '(${surface}) [pier]' | '[pier]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 24]# might also have natural=water
 man_made=storage_tank & content!=water 
 	{name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' | '[storage_tank]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x28 resolution 24]
