@@ -162,8 +162,19 @@ water=pond & intermittent=no {name '${name} (perm) [pond]' | '(perm) [pond]' ; a
 water=pond & salt=yes {name '${name} (salt) (unkn) [pond]' | '(salt) (unkn) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 water=pond {name '${name} (unkn) [pond]' | '(unkn) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 
-(water=basin | landuse=basin | landuse=basin | basin=*) & salt=yes {name '${name} (salt) (interm) [basin]' | '(salt) (interm) [basin]'} [0x3f resolution 20-24]
-water=basin | landuse=basin | landuse=basin | basin=* {name '${name} (interm) [basin]' | '(interm) [basin]'} [0x3f resolution 20-24]
+(water=basin | landuse=basin) & basin!=* & salt=yes 
+	{name '${name} (salt) (interm) [basin]' | '(salt) (interm) [basin]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+(water=basin | landuse=basin) & basin=* & salt=yes 
+	{name '${name} (salt) (interm) [${basin}]' | '(salt) (interm) [${basin}]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+(water=basin | landuse=basin) & basin=infiltration {name '${name} (interm) [infiltration]' | '(interm) [infiltration]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 24] #pozo absorcion
+(water=basin | landuse=basin) & basin!=*
+	{name '${name} (interm) [basin]' | '(interm) [basin]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+(water=basin | landuse=basin) & basin=*
+	{name '${name} (interm) [${basin}]' | '(interm) [${basin}]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 
 water=lake & intermittent=yes & salt=yes 
 	{name '${name} {${alt_name}} (salt) (interm) [lake]' | '${name} (salt) (interm) [lake]' | '(salt) (interm) [lake]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
