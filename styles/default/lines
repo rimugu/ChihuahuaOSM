@@ -14,7 +14,10 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 highway=* & name=* {set mkgmap:street='${name}'}
 access=yes {set access=public}
 
+#name='Butterfield Trail' {echotags "trail aba"}
+
 abandoned=* & abandoned!=no {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} 
+abandoned:highway=* & abandoned:highway!=no {name '${name} (abandoned) [${abandoned:highway}]' | '(abandoned) [${abandoned:highway}]'} 
 #abandoned=yes {deletealltags} # old, depreciated, ambiguous, method of handling abandoned
 #abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
 #name=* {name '${name} [${ref|highway-symbol:"box:4:8"}|${alt_name}]' | '${name}'}
@@ -195,35 +198,79 @@ junction=roundabout & highway=* [0x0c road_class=0 road_speed=1 resolution 22-24
 
 #highway=cycleway {name '${name} [cycleway]' | '[cycleway]'} [0x11 road_class=0 road_speed=1 resolution 23 default_name 'cycleway'] #0x11 linea negra delgada
 if ( highway=cycleway & oneway!=no & oneway=*) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${width}m) (sand) (one_way) [cycleway]' | '${name} (sand) (one_way) [cycleway]' | '(${width}m) (sand) (one_way) [cycleway]' | '(sand) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${width}m) (gravel) (one_way) [cycleway]' | '${name} (gravel) (one_way) [cycleway]' | '(${width}m) (gravel) (one_way) [cycleway]' | '(gravel) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${width}m) (unp) (one_way) [cycleway]' | '${name} (unp) (one_way) [cycleway]' | '(${width}m) (unp) (one_way) [cycleway]' | '(unp) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${width}m) (dirt) (one_way) [cycleway]' | '${name} (dirt) (one_way) [cycleway]' | '(${width}m) (dirt) (one_way) [cycleway]' | '(dirt) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${width}m) (compac) (one_way) [cycleway]' | '${name} (compac) (one_way) [cycleway]' | '(${width}m) (compac) (one_way) [cycleway]' | '(compac) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${width}m) (ground) (one_way) [cycleway]' | '${name} (ground) (one_way) [cycleway]' | '(${width}m) (ground) (one_way) [cycleway]' | '(ground) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${width}m) (unkn) (one_way) [cycleway]' | '${name} (unkn) (one_way) [cycleway]' | '(${width}m) (unkn) (one_way) [cycleway]' | '(unkn) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=* {name '${name} (${width}m) (pav) (one_way) [cycleway]' | '${name} (pav) (one_way) [cycleway]' | '(${width}m) (pav) (one_way) [cycleway]' | '(pav) (one_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=sand {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (sand) (${smoothness}) (one_way) [cycleway]' | '${name} (${width}m) (sand) (one_way) [cycleway]' | '${name} (sand) (${smoothness}) (one_way) [cycleway]' | '${name} (sand) (one_way) [cycleway]' | '(${width}m) (sand) (${smoothness}) (one_way) [cycleway]' | '(${width}m) (sand) (one_way) [cycleway]' | '(sand) (${smoothness}) (one_way) [cycleway]' | '(sand) (one_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=gravel {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (gravel) (${smoothness}) (one_way) [cycleway]' | '${name} (${width}m) (gravel) (one_way) [cycleway]' | '${name} (gravel) (${smoothness}) (one_way) [cycleway]' | '${name} (gravel) (one_way) [cycleway]' | '(${width}m) (gravel) (${smoothness}) (one_way) [cycleway]' | '(${width}m) (gravel) (one_way) [cycleway]' | '(gravel) (${smoothness}) (one_way) [cycleway]' | '(gravel) (one_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=unpaved {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (unp) (${smoothness}) (one_way) [cycleway]' | '${name} (${width}m) (unp) (one_way) [cycleway]' | '${name} (unp) (${smoothness}) (one_way) [cycleway]' | '${name} (unp) (one_way) [cycleway]' | '(${width}m) (unp) (${smoothness}) (one_way) [cycleway]' | '(${width}m) (unp) (one_way) [cycleway]' | '(unp) (${smoothness}) (one_way) [cycleway]' | '(unp) (one_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=dirt {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (dirt) (${smoothness}) (one_way) [cycleway]' | '${name} (${width}m) (dirt) (one_way) [cycleway]' | '${name} (dirt) (${smoothness}) (one_way) [cycleway]' | '${name} (dirt) (one_way) [cycleway]' | '(${width}m) (dirt) (${smoothness}) (one_way) [cycleway]' | '(${width}m) (dirt) (one_way) [cycleway]' | '(dirt) (${smoothness}) (one_way) [cycleway]' | '(dirt) (one_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=compacted {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (compac) (${smoothness}) (one_way) [cycleway]' | '${name} (${width}m) (compac) (one_way) [cycleway]' | '${name} (compac) (${smoothness}) (one_way) [cycleway]' | '${name} (compac) (one_way) [cycleway]' | '(${width}m) (compac) (${smoothness}) (one_way) [cycleway]' | '(${width}m) (compac) (one_way) [cycleway]' | '(compac) (${smoothness}) (one_way) [cycleway]' | '(compac) (one_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=ground {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (ground) (${smoothness}) (one_way) [cycleway]' | '${name} (${width}m) (ground) (one_way) [cycleway]' | '${name} (ground) (${smoothness}) (one_way) [cycleway]' | '${name} (ground) (one_way) [cycleway]' | '(${width}m) (ground) (${smoothness}) (one_way) [cycleway]' | '(${width}m) (ground) (one_way) [cycleway]' | '(ground) (${smoothness}) (one_way) [cycleway]' | '(ground) (one_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface!=* {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (unkn) (${smoothness}) (one_way) [cycleway]' | '${name} (${width}m) (unkn) (one_way) [cycleway]' | '${name} (unkn) (${smoothness}) (one_way) [cycleway]' | '${name} (unkn) (one_way) [cycleway]' | '(${width}m) (unkn) (${smoothness}) (one_way) [cycleway]' | '(${width}m) (unkn) (one_way) [cycleway]' | '(unkn) (${smoothness}) (one_way) [cycleway]' | '(unkn) (one_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=* {name '${name} (${width}m) (pav) (one_way) [cycleway]' | '${name} (pav) (one_way) [cycleway]' | '(${width}m) (pav) (one_way) [cycleway]' | '(pav) (one_way) [cycleway]'
+	addlabel '${website}' | '${phone}' | '${operator}'}	[0x16 road_class=0 road_speed=1 resolution 23]
 end 
 
 if ( highway=cycleway & oneway=no) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${width}m) (sand) (two_way) [cycleway]' | '${name} (sand) (two_way) [cycleway]' | '(${width}m) (sand) (two_way) [cycleway]' | '(sand) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${width}m) (gravel) (two_way) [cycleway]' | '${name} (gravel) (two_way) [cycleway]' | '(${width}m) (gravel) (two_way) [cycleway]' | '(gravel) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${width}m) (unp) (two_way) [cycleway]' | '${name} (unp) (two_way) [cycleway]' | '(${width}m) (unp) (two_way) [cycleway]' | '(unp) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${width}m) (dirt) (two_way) [cycleway]' | '${name} (dirt) (two_way) [cycleway]' | '(${width}m) (dirt) (two_way) [cycleway]' | '(dirt) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${width}m) (compac) (two_way) [cycleway]' | '${name} (compac) (two_way) [cycleway]' | '(${width}m) (compac) (two_way) [cycleway]' | '(compac) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${width}m) (ground) (two_way) [cycleway]' | '${name} (ground) (two_way) [cycleway]' | '(${width}m) (ground) (two_way) [cycleway]' | '(ground) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${width}m) (unkn) (two_way) [cycleway]' | '${name} (unkn) (two_way) [cycleway]' | '(${width}m) (unkn) (two_way) [cycleway]' | '(unkn) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=* {name '${name} (${width}m) (pav) (two_way) [cycleway]' | '${name} (pav) (two_way) [cycleway]' | '(${width}m) (pav) (two_way) [cycleway]' | '(pav) (two_way) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
+surface=sand {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (sand) (${smoothness}) (two_way) [cycleway]' | '${name} (${width}m) (sand) (two_way) [cycleway]' | '${name} (sand) (${smoothness}) (two_way) [cycleway]' | '${name} (sand) (two_way) [cycleway]' | '(${width}m) (sand) (${smoothness}) (two_way) [cycleway]' | '(${width}m) (sand) (two_way) [cycleway]' | '(sand) (${smoothness}) (two_way) [cycleway]' | '(sand) (two_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=gravel {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (gravel) (${smoothness}) (two_way) [cycleway]' | '${name} (${width}m) (gravel) (two_way) [cycleway]' | '${name} (gravel) (${smoothness}) (two_way) [cycleway]' | '${name} (gravel) (two_way) [cycleway]' | '(${width}m) (gravel) (${smoothness}) (two_way) [cycleway]' | '(${width}m) (gravel) (two_way) [cycleway]' | '(gravel) (${smoothness}) (two_way) [cycleway]' | '(gravel) (two_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=unpaved {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (unp) (${smoothness}) (two_way) [cycleway]' | '${name} (${width}m) (unp) (two_way) [cycleway]' | '${name} (unp) (${smoothness}) (two_way) [cycleway]' | '${name} (unp) (two_way) [cycleway]' | '(${width}m) (unp) (${smoothness}) (two_way) [cycleway]' | '(${width}m) (unp) (two_way) [cycleway]' | '(unp) (${smoothness}) (two_way) [cycleway]' | '(unp) (two_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=dirt {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (dirt) (${smoothness}) (two_way) [cycleway]' | '${name} (${width}m) (dirt) (two_way) [cycleway]' | '${name} (dirt) (${smoothness}) (two_way) [cycleway]' | '${name} (dirt) (two_way) [cycleway]' | '(${width}m) (dirt) (${smoothness}) (two_way) [cycleway]' | '(${width}m) (dirt) (two_way) [cycleway]' | '(dirt) (${smoothness}) (two_way) [cycleway]' | '(dirt) (two_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=compacted {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (compac) (${smoothness}) (two_way) [cycleway]' | '${name} (${width}m) (compac) (two_way) [cycleway]' | '${name} (compac) (${smoothness}) (two_way) [cycleway]' | '${name} (compac) (two_way) [cycleway]' | '(${width}m) (compac) (${smoothness}) (two_way) [cycleway]' | '(${width}m) (compac) (two_way) [cycleway]' | '(compac) (${smoothness}) (two_way) [cycleway]' | '(compac) (two_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=ground {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (ground) (${smoothness}) (two_way) [cycleway]' | '${name} (${width}m) (ground) (two_way) [cycleway]' | '${name} (ground) (${smoothness}) (two_way) [cycleway]' | '${name} (ground) (two_way) [cycleway]' | '(${width}m) (ground) (${smoothness}) (two_way) [cycleway]' | '(${width}m) (ground) (two_way) [cycleway]' | '(ground) (${smoothness}) (two_way) [cycleway]' | '(ground) (two_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface!=* {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (unkn) (${smoothness}) (two_way) [cycleway]' | '${name} (${width}m) (unkn) (two_way) [cycleway]' | '${name} (unkn) (${smoothness}) (two_way) [cycleway]' | '${name} (unkn) (two_way) [cycleway]' | '(${width}m) (unkn) (${smoothness}) (two_way) [cycleway]' | '(${width}m) (unkn) (two_way) [cycleway]' | '(unkn) (${smoothness}) (two_way) [cycleway]' | '(unkn) (two_way) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=* {name '${name} (${width}m) (pav) (two_way) [cycleway]' | '${name} (pav) (two_way) [cycleway]' | '(${width}m) (pav) (two_way) [cycleway]' | '(pav) (two_way) [cycleway]'
+	addlabel '${website}' | '${phone}' | '${operator}'}	[0x16 road_class=0 road_speed=1 resolution 23]
 end 
 
 if ( highway=cycleway ) then
-	surface=sand {add mkgmap:unpaved=1 ; name '${name} (${width}m) (sand) [cycleway]' | '${name} (sand) [cycleway]' | '(${width}m) (sand) [cycleway]' | '(sand) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=gravel {add mkgmap:unpaved=1 ; name '${name} (${width}m) (gravel) [cycleway]' | '${name} (gravel) [cycleway]' | '(${width}m) (gravel) [cycleway]' | '(gravel) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=unpaved {add mkgmap:unpaved=1 ; name '${name} (${width}m) (unp) [cycleway]' | '${name} (unp) [cycleway]' | '(${width}m) (unp) [cycleway]' | '(unp) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=dirt {add mkgmap:unpaved=1 ; name '${name} (${width}m) (dirt) [cycleway]' | '${name} (dirt) [cycleway]' | '(${width}m) (dirt) [cycleway]' | '(dirt) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=compacted {add mkgmap:unpaved=1 ; name '${name} (${width}m) (compac) [cycleway]' | '${name} (compac) [cycleway]' | '(${width}m) (compac) [cycleway]' | '(compac) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${width}m) (ground) [cycleway]' | '${name} (ground) [cycleway]' | '(${width}m) (ground) [cycleway]' | '(ground) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${width}m) (unkn) [cycleway]' | '${name} (unkn) [cycleway]' | '(${width}m) (unkn) [cycleway]' | '(unkn) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=sand {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (sand) (${smoothness}) [cycleway]' | '${name} (${width}m) (sand) [cycleway]' | '${name} (sand) (${smoothness}) [cycleway]' | '${name} (sand) [cycleway]' | '(${width}m) (sand) (${smoothness}) [cycleway]' | '(${width}m) (sand) [cycleway]' | '(sand) (${smoothness}) [cycleway]' | '(sand) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=gravel {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (gravel) (${smoothness}) [cycleway]' | '${name} (${width}m) (gravel) [cycleway]' | '${name} (gravel) (${smoothness}) [cycleway]' | '${name} (gravel) [cycleway]' | '(${width}m) (gravel) (${smoothness}) [cycleway]' | '(${width}m) (gravel) [cycleway]' | '(gravel) (${smoothness}) [cycleway]' | '(gravel) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'}	[0x16 road_class=0 road_speed=1 resolution 23]
+	surface=unpaved {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (unp) (${smoothness}) [cycleway]' | '${name} (${width}m) (unp) [cycleway]' | '${name} (unp) (${smoothness}) [cycleway]' | '${name} (unp) [cycleway]' | '(${width}m) (unp) (${smoothness}) [cycleway]' | '(${width}m) (unp) [cycleway]' | '(unp) (${smoothness}) [cycleway]' | '(unp) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'}	[0x16 road_class=0 road_speed=1 resolution 23]
+	surface=dirt {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (dirt) (${smoothness}) [cycleway]' | '${name} (${width}m) (dirt) [cycleway]' | '${name} (dirt) (${smoothness}) [cycleway]' | '${name} (dirt) [cycleway]' | '(${width}m) (dirt) (${smoothness}) [cycleway]' | '(${width}m) (dirt) [cycleway]' | '(dirt) (${smoothness}) [cycleway]' | '(dirt) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=compacted {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (compac) (${smoothness}) [cycleway]' | '${name} (${width}m) (compac) [cycleway]' | '${name} (compac) (${smoothness}) [cycleway]' | '${name} (compac) [cycleway]' | '(${width}m) (compac) (${smoothness}) [cycleway]' | '(${width}m) (compac) [cycleway]' | '(compac) (${smoothness}) [cycleway]' | '(compac) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface=ground {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (ground) (${smoothness}) [cycleway]' | '${name} (${width}m) (ground) [cycleway]' | '${name} (ground) (${smoothness}) [cycleway]' | '${name} (ground) [cycleway]' | '(${width}m) (ground) (${smoothness}) [cycleway]' | '(${width}m) (ground) [cycleway]' | '(ground) (${smoothness}) [cycleway]' | '(ground) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
+	surface!=* {add mkgmap:unpaved=1 ; 
+	name '${name} (${width}m) (unkn) (${smoothness}) [cycleway]' | '${name} (${width}m) (unkn) [cycleway]' | '${name} (unkn) (${smoothness}) [cycleway]' | '${name} (unkn) [cycleway]' | '(${width}m) (unkn) (${smoothness}) [cycleway]' | '(${width}m) (unkn) [cycleway]' | '(unkn) (${smoothness}) [cycleway]' | '(unkn) [cycleway]' ;
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x16 road_class=0 road_speed=1 resolution 23]
 	surface=* {name '${name} (${width}m) (pav) [cycleway]' | '${name} (pav) [cycleway]' | '(${width}m) (pav) [cycleway]' | '(pav) [cycleway]'} [0x16 road_class=0 road_speed=1 resolution 23]
 end 
 
@@ -231,7 +278,8 @@ end
 # Ways that may or may not be useable
 
 # Treat ways under construction almost as highway=path, see also extra rule in inc/access
-highway=construction {name '[construction]' ; add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
+highway=construction {name '${name} [construction]' | '[construction]' ; add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
+razed:highway=* {name '${name} (razed) [${razed:highway}]' | '(razed)  [${razed:highway}]' ; add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
 
 # Lower the road speed of ways under some construction.
 highway=* & construction=* & maxspeed!=* {add mkgmap:road-speed='-1'} 
