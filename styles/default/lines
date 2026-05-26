@@ -280,6 +280,7 @@ end
 # Treat ways under construction almost as highway=path, see also extra rule in inc/access
 highway=construction {name '${name} [construction]' | '[construction]' ; add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
 razed:highway=* {name '${name} (razed) [${razed:highway}]' | '(razed)  [${razed:highway}]' ; add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
+construction=* {name '${name} (construction) [${construction}]' | '(construction) [${construction}]' ; add mkgmap:dead-end-check=false} [0x16 road_class=0 road_speed=0 resolution 23]
 
 # Lower the road speed of ways under some construction.
 highway=* & construction=* & maxspeed!=* {add mkgmap:road-speed='-1'} 
@@ -1091,8 +1092,11 @@ highway=turning_loop | highway=turning_circle | highway=layby | highway=escape |
 #highway=raceway | highway=gallop {add name='${highway}'} [0x30 resolution 23]
 #highway=raceway | highway=gallop {add name='${highway}'} [0x1c resolution 23]
 #highway=raceway | highway=gallop | sport=motor {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
-highway=raceway {name '${name} [raceway]' | '[raceway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 23] # brown line
-highway=gallop {name '${name} [${sport}]' | '[${sport}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 23] # brown line
+highway=raceway 
+	{name '${name} (${sport}) (${surface}) [raceway]' | '${name} (${sport}) [raceway]' | '${name} (${surface}) [raceway]'  | '${name} [raceway]' | '(${sport}) (${surface}) [raceway]' | '(${sport}) [raceway]' | '(${surface}) [raceway]' | '[raceway]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 23] # brown line
+highway=gallop {name '${name} [gallop]' | '[gallop]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 23] # brown line
 #highway=raceway | highway=gallop {add name='${highway}'} [0x23 resolution 23] #blue line
 #highway=raceway | highway=gallop {add name='${highway}'} [0x0a resolution 23] #dotter wide lane
 
