@@ -481,22 +481,28 @@ if ( highway=tertiary ) then
 	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [tertiary]' | '${name} (ground) [tertiary]' | '${ref} (ground) [tertiary]' | '(ground) [tertiary]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [tertiary]' | '${name} (unkn) (one_way) [tertiary]' | '${ref} (unkn) (one_way) [tertiary]' | '(unkn) (one_way) [tertiary]' 
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (one_way) (${lanes}) [tertiary]' | '${name} (${ref}) (unkn) (one_way) [tertiary]' | '${name} (unkn) (one_way) (${lanes}) [tertiary]' | '${name} (unkn) (one_way) [tertiary]' | '${ref} (unkn) (one_way) (${lanes}) [tertiary]'  | '${ref} (unkn) (one_way) [tertiary]' | '(unkn) (one_way) (${lanes}) [tertiary]' | '(unkn) (one_way) [tertiary]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* & (oneway=no) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (two_way) [tertiary]' | '${name} (unkn) (two_way) [tertiary]' | '${ref} (unkn) (two_way) [tertiary]' | '(unkn) (two_way) [tertiary]' 
+	surface!=* & (oneway=no) {add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (two_way) (${lanes}) [tertiary]' | '${name} (${ref}) (unkn) (two_way) [tertiary]' | '${name} (unkn) (two_way) (${lanes}) [tertiary]'  | '${name} (unkn) (two_way) [tertiary]' | '${ref} (unkn) (two_way) (${lanes}) [tertiary]'  | '${ref} (unkn) (two_way) [tertiary]' | '(unkn) (two_way) (${lanes}) [tertiary]' | '(unkn) (two_way) [tertiary]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [tertiary]' | '${name} (unkn) [tertiary]' | '${ref} (unkn) [tertiary]' | '(unkn) [tertiary]' 
+	surface!=* {add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (${lanes}) [tertiary]' | '${name} (${ref}) (unkn) [tertiary]' | '${name} (unkn) (${lanes}) [tertiary]' | '${name} (unkn) [tertiary]' | '${ref} (unkn) (${lanes}) [tertiary]' | '${ref} (unkn) [tertiary]' | '(unkn) (${lanes}) [tertiary]' | '(unkn) [tertiary]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=3 resolution 20-24]	
-	surface=* & (oneway!=no & oneway=*) {name '${name} (${ref}) (pav) (one_way) [tertiary]' | '${name} (pav) (one_way) [tertiary]' | '${ref} (pav) (one_way) [tertiary]' | '(pav) (one_way) [tertiary]' 
+	surface=* & (oneway!=no & oneway=*) 
+		{name '${name} (${ref}) (pav) (one_way) (${lanes}) [tertiary]' | '${name} (${ref}) (pav) (one_way) [tertiary]' | '${name} (pav) (one_way) (${lanes}) [tertiary]' | '${name} (pav) (one_way) [tertiary]' | '${ref} (pav) (one_way) (${lanes}) [tertiary]' | '${ref} (pav) (one_way) [tertiary]' | '(pav) (one_way) [tertiary]'  | '(pav) (one_way) (${lanes}) [tertiary]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=1 resolution 17]
-	surface=* & (oneway=no) {name '${name} (${ref}) (pav) (two_way) [tertiary]' | '${name} (pav) (two_way) [tertiary]' | '${ref} (pav) (two_way) [tertiary]' | '(pav) (two_way) [tertiary]' 
+	surface=* & (oneway=no) 
+		{name '${name} (${ref}) (pav) (two_way) (${lanes}) [tertiary]' | '${name} (${ref}) (pav) (two_way) [tertiary]' | '${name} (pav) (two_way) (${lanes}) [tertiary]'  | '${name} (pav) (two_way) [tertiary]' | '${ref} (pav) (two_way) (${lanes}) [tertiary]' | '${ref} (pav) (two_way) [tertiary]' | '(pav) (two_way) (${lanes}) [tertiary]' | '(pav) (two_way) [tertiary]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=1 resolution 17]
-	surface=* {name '${name} (${ref}) (pav) [tertiary]' | '${name} (pav) [tertiary]' | '${ref} (pav) [tertiary]' | '(pav) [tertiary]' 
+	surface=* 
+		{name '${name} (${ref}) (pav) (${lanes}) [tertiary]' | '${name} (${ref}) (pav) [tertiary]' | '${name} (pav) (${lanes}) [tertiary]' | '${name} (pav) [tertiary]' | '${ref} (pav) (${lanes}) [tertiary]' | '${ref} (pav) [tertiary]' | '(pav) (${lanes}) [tertiary]' | '(pav) [tertiary]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x05 road_class=1 road_speed=1 resolution 17]
 end 
@@ -523,22 +529,28 @@ if ( highway=unclassified | highway=minor ) then
 	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [minor]' | '${name} (ground) [minor]' | '${ref} (ground) [minor]' | '(ground) [minor]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21]
-	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (one_way) [minor]' | '${name} (unkn) (one_way) [minor]' | '${ref} (unkn) (one_way) [minor]' | '(unkn) (one_way) [minor]' 
+	surface!=* & (oneway!=no & oneway=*) {add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (one_way) (${lanes}) [minor]' | '${name} (${ref}) (unkn) (one_way) [minor]' | '${name} (unkn) (one_way) (${lanes}) [minor]' | '${name} (unkn) (one_way) [minor]' | '${ref} (unkn) (one_way)  (${lanes}) [minor]' | '${ref} (unkn) (one_way) [minor]' | '(unkn) (one_way) [minor]' | '(unkn) (one_way) (${lanes}) [minor]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21] 			#change resolution to find roads with no surface
-	surface!=* & (oneway=no) {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) (two_way) [minor]' | '${name} (unkn) (two_way) [minor]' | '${ref} (unkn) (two_way) [minor]' | '(unkn) (two_way) [minor]' 
+	surface!=* & (oneway=no) {add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (two_way) (${lanes}) [minor]' | '${name} (${ref}) (unkn) (two_way) [minor]' | '${name} (unkn) (two_way) (${lanes}) [minor]'  | '${name} (unkn) (two_way) [minor]' | '${ref} (unkn) (two_way) (${lanes}) [minor]'  | '${ref} (unkn) (two_way) [minor]' | '(unkn) (two_way) (${lanes}) [minor]' | '(unkn) (two_way) [minor]'
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21] 			#change resolution to find roads with no surface
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [minor]' | '${name} (unkn) [minor]' | '${ref} (unkn) [minor]' | '(unkn) [minor]' 
+	surface!=* {add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (${lanes}) [minor]' | '${name} (${ref}) (unkn) [minor]' | '${name} (unkn) (${lanes}) [minor]' | '${name} (unkn) [minor]' | '${ref} (unkn) (${lanes}) [minor]' | '${ref} (unkn) [minor]' | '(unkn) (${lanes}) [minor]' | '(unkn) [minor]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 21] 			#change resolution to find roads with no surface
-	surface=* & (oneway!=no & oneway=*) {name '${name} (${ref}) (pav) (one_way) [minor]' | '${name} (pav) (one_way) [minor]' | '${ref} (pav) (one_way) [minor]' | '(pav) (one_way) [minor]' 
+	surface=* & (oneway!=no & oneway=*) 
+		{name '${name} (${ref}) (pav) (one_way) (${lanes}) [minor]' | '${name} (${ref}) (pav) (one_way) [minor]' | '${name} (pav) (one_way) (${lanes}) [minor]' | '${name} (pav) (one_way) [minor]' | '${ref} (pav) (one_way) (${lanes}) [minor]' | '${ref} (pav) (one_way) [minor]' | '(pav) (one_way) [minor]'  | '(pav) (one_way) (${lanes}) [minor]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 20-24]
-	surface=* & (oneway=no) {name '${name} (${ref}) (pav) (two_way) [minor]' | '${name} (pav) (two_way) [minor]' | '${ref} (pav) (two_way) [minor]' | '(pav) (two_way) [minor]' 
+	surface=* & (oneway=no) 
+		{name '${name} (${ref}) (pav) (two_way) (${lanes}) [minor]' | '${name} (${ref}) (pav) (two_way) [minor]' | '${name} (pav) (two_way) (${lanes}) [minor]'  | '${name} (pav) (two_way) [minor]' | '${ref} (pav) (two_way) (${lanes}) [minor]' | '${ref} (pav) (two_way) [minor]' | '(pav) (two_way) (${lanes}) [minor]' | '(pav) (two_way) [minor]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 20-24]
-	surface=* {name '${name} (${ref}) (pav) [minor]' | '${name} (pav) [minor]' | '${ref} (pav) [minor]' | '(pav) [minor]' 
+	surface=* 
+		{name '${name} (${ref}) (pav) (${lanes}) [minor]' | '${name} (${ref}) (pav) [minor]' | '${name} (pav) (${lanes}) [minor]' | '${name} (pav) [minor]' | '${ref} (pav) (${lanes}) [minor]' | '${ref} (pav) [minor]' | '(pav) (${lanes}) [minor]' | '(pav) [minor]' 
 		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
 		[0x06 road_class=1 road_speed=3 resolution 20-24]
 end 
