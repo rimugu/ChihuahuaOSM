@@ -13,11 +13,15 @@ addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 # Assign the street name for house number search
 highway=* & name=* {set mkgmap:street='${name}'}
 access=yes {set access=public}
+barrier=* & is_closed()=true & area_size() < 40000 {delete barrier} # process as areas
 
-#name='Butterfield Trail' {echotags "trail aba"}
+#disused:highway=trunk_link {echotags "disused"}
 
-abandoned=* & abandoned!=no {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} 
-abandoned:highway=* & abandoned:highway!=no {name '${name} (abandoned) [${abandoned:highway}]' | '(abandoned) [${abandoned:highway}]'} 
+abandoned:highway=* & abandoned:highway!=no & is_closed()=false {name '${name} (abandoned) [${abandoned:highway}]' | '(abandoned) [${abandoned:highway}]'} [0x1c resolution 24 continue]
+abandoned=* & abandoned!=no & is_closed()=false {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 continue]
+disused:highway=* & disused:highway!=no & is_closed()=false {name '${name} (disused) [${disused:highway}]' | '(disused) [${disused:highway}]'} [0x1c resolution 24 continue]
+disused=* & disused!=no & is_closed()=false {name '${name} (disused) [${disused}]' | '(disused) [${disused}]'}  [0x1c resolution 24 continue]
+highway:disused=* & highway:disused!=no & is_closed()=false {name '${name} (disused) [${highway:disused}]' | '(disused) [${highway:disused}]'}  [0x1c resolution 24 continue]
 #abandoned=yes {deletealltags} # old, depreciated, ambiguous, method of handling abandoned
 #abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
 #name=* {name '${name} [${ref|highway-symbol:"box:4:8"}|${alt_name}]' | '${name}'}
@@ -1398,7 +1402,7 @@ boundary=* {name '${name} {${alt_name}} [${boundary}]' | '${name} [${boundary}]'
 #; echotags 'mop-up highway'
 #abandoned=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 continue]
 hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
-abandoned=* & abandoned!=no & is_closed()=false [0x1c resolution 24 continue]
+# abandoned=* & abandoned!=no & is_closed()=false [0x1c resolution 24 continue] #moved to top
 #highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 #	[0x16 road_class=0 road_speed=0 resolution 24] #in line 908
 route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${phone}' | '${website}' | '${operator}' ; addlabel '${phone}' | '${website}' | '${operator}'} 
