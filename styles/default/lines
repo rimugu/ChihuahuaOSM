@@ -17,6 +17,13 @@ barrier=* & is_closed()=true & area_size() < 40000 {delete barrier} # process as
 
 #disused:highway=trunk_link {echotags "disused"}
 
+#surface=sand
+#surface=gravel
+#surface=unpaved
+#surface=dirt
+#surface=compacted 
+#surface=ground 
+
 abandoned:highway=* & abandoned:highway!=no & is_closed()=false {name '${name} (abandoned) [${abandoned:highway}]' | '(abandoned) [${abandoned:highway}]'} [0x1c resolution 24 continue]
 abandoned=* & abandoned!=no & is_closed()=false {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 continue]
 disused:highway=* & disused:highway!=no & is_closed()=false {name '${name} (disused) [${disused:highway}]' | '(disused) [${disused:highway}]'} [0x1c resolution 24 continue]
@@ -1398,13 +1405,14 @@ waterway=* & waterway!=no & (area=no | (is_closed()=false & mkgmap:mp_created!=t
 
 include 'inc/contour_lines';
 
+hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x1c resolution 24]
+playground=* & is_closed()=false {name '${name} [${playground}]' | '[${playground}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
+leisure=* & is_closed()=false {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24]
+attraction=* & is_closed()=false {name '${name} [${attraction}]' | '[${attraction}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24]
 boundary=* {name '${name} {${alt_name}} [${boundary}]' | '${name} [${boundary}]' | '{${alt_name}} [${boundary}]' | '[${boundary}]' ; addlabel '${admin_level}'} [0x1c resolution 24 continue]
 #; echotags 'mop-up highway'
 #abandoned=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 continue]
-hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
 # abandoned=* & abandoned!=no & is_closed()=false [0x1c resolution 24 continue] #moved to top
-#highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
-#	[0x16 road_class=0 road_speed=0 resolution 24] #in line 908
 route=* {name '${name} (${route}) [route]' | '(${route}) [route]' ; addlabel '${phone}' | '${website}' | '${operator}' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x10805 resolution 24]
 power=* & is_closed()=false {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x29 resolution 24]
@@ -1413,6 +1421,8 @@ construction=* & is_closed()=false {name '${name} [construction]' | '[constructi
 railway=* & railway!=station & is_closed()=false {name '${name} [${railway}]' | '[${railway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x14 resolution 22-24]
 historic=* & is_closed()=false {name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
+highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+	[0x1c road_class=0 road_speed=0 resolution 24] #in line 908 0x16
 
 <finalize>
 # The finalizer section is executed for each element when a rule with an element type matches
