@@ -204,7 +204,7 @@ aeroway=helipad
 	'${name} ${ref} (lit ${lit}) [helipad]' | '${ref} (lit ${lit}) [helipad]' | '(lit ${lit}) [helipad]' | '${name} ${ref} [helipad]' | '${ref} [helipad]' | '[helipad]'} 
 [0x5904 resolution 23]
 aeroway=terminal {name '${name} [terminal]' | '[terminal]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24]
-aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24]
+aeroway=navigationaid {name '${name} [navigationaid]' | '[navigationaid]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 
 amenity=bank & atm=yes {name '${name} (atm) [bank]' | '(atm) [bank]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f06 resolution 24]
 amenity=bank {name '${name} [bank]' | '[bank]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f06 resolution 24]
@@ -850,7 +850,8 @@ power=generator
 #natural=tree [0x3200 resolution 24 default_name 'tree']
 
 #crossing=marked {name '${name} {${alt_name}} [crossing]' | '${name} [crossing]' | '[crossing]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6406 resolution 24]
-crossing=* {name '${name} {${alt_name}} (${crossing}) [crossing]' | '${name} (${crossing}) [crossing]' | '(${crossing}) [crossing]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6406 resolution 24]
+#crossing=* {name '${name} {${alt_name}} (${crossing}) [crossing]' | '${name} (${crossing}) [crossing]' | '(${crossing}) [crossing]' ; 
+#	addlabel '${website}' | '${phone}' | '${operator}'} [0x6406 resolution 24]	#dissabled to reduce city items
 highway=turning_circle {name '${name} {${alt_name}} [turning_circle]' | '${name} [turning_circle]' | '[turning_circle]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 noexit=motor_vehicle | noexit=vehicle{name '${name} {${alt_name}} [noexit_wehicle]' | '${name} [noexit_wehicle]' | '[noexit_wehicle]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 noexit=yes {name '${name} {${alt_name}} [noexit]' | '${name} [noexit]' | '[noexit]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
@@ -864,6 +865,7 @@ internet_access=yes {name '${name} [Internet]' | '[Internet]'} [0x2f12 resolutio
 internet_access=* & internet_access!=no & internet_access!=yes 
 	{name '${name} (${internet_access}) [Internet]' | '(${internet_access}) [Internet]'} [0x2f12 resolution 24 continue with_actions]
 
+aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24]
 hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 office=* {name '${name} (${building}) (${office}) [office]' | '${name} (${office}) [office]' | '(${building}) (${office}) [office]' | '(${office}) [office]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
