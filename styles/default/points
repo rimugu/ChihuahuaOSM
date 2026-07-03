@@ -410,8 +410,8 @@ healthcare=*
 	{name '${name} (${healthcare:speciality}) (${healthcare}) [healthcare]' | '${name} (${healthcare}) [healthcare]' | '(${healthcare:speciality}) (${healthcare}) [healthcare]' | '(${healthcare}) [healthcare]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3002 resolution 24]
 
-highway=motorway_junction & exit:road_ref=* {add exit:to='${exit_to}' | '${destination}' ; name '(${ref}) [junction]' | '[junction]'} [0x2000 resolution 24]
-highway=motorway_junction {name '(${ref}) [junction]' | '[junction]'} [0x0b00 resolution 24]
+highway=motorway_junction & exit:road_ref=* {add exit:to='${exit_to}' | '${destination}' ; name '${name} (${ref}) [junction]' | '${name} [junction]' | '(${ref}) [junction]'} [0x2000 resolution 24]
+highway=motorway_junction & (ref!=* | name!=*) {name '${name} (${ref}) [junction]' | '${name} [junction]' | '(${ref}) [junction]'} [0x0b00 resolution 24]
 highway=milestone {name '${name} ${distance} [milestone]' | '${distance} [milestone]' | '${name} [milestone]' | '[milestone]'} [0x0b00 resolution 24]
 
 highway=services {add exit:facility="0x02,I,0x47,Features" ; name '${name} [services]' | '[services]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x230f resolution 20-24]
@@ -524,7 +524,6 @@ barrier=toll_booth {name '${name} [${barrier}]' | '[${barrier}]' ; addlabel '$
 barrier=cattle_grid {name '${name} vehicle ${motor_vehicle} [cattle_grid]' | '${name} [cattle_grid]' | 'vehicle ${motor_vehicle} [cattle_grid]' | '[cattle_grid]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 military=checkpoint | military=check_point {name '${name} [military_checkpoint]' | '[military_checkpoint]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2500 resolution 24]
 highway=stop {name '${name} [stop]' | '[stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
-hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 
 #highway=traffic_signals [0x3200 resolution 24 default_name '[traffic_signals]']
 highway=traffic_signals {name '(${traffic_signals}) [traffic_signals]' | '[traffic_signals]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x7010 resolution 24] # 0x0001c8
@@ -866,7 +865,7 @@ internet_access=* & internet_access!=no & internet_access!=yes
 	{name '${name} (${internet_access}) [Internet]' | '(${internet_access}) [Internet]'} [0x2f12 resolution 24 continue with_actions]
 
 aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24]
-hazard=* {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 24]
 office=* {name '${name} (${building}) (${office}) [office]' | '${name} (${office}) [office]' | '(${building}) (${office}) [office]' | '(${office}) [office]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
 natural=* & natural!=heath & natural!=scrub & natural!=sand & natural!=grassland & natural!=tree 
