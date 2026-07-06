@@ -39,7 +39,7 @@ highway:disused=* & highway:disused!=no & is_closed()=false {name '${name} (disu
 aeroway=runway & area!=yes {name '${ref} [runway]' | '[runway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 20-24 continue]
 (aeroway=taxiway | aeroway=taxilane) & area!=yes {name '${ref} [taxiway]' | '[taxiway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
 aeroway=airstrip | abandoned=yes {name '${ref} (abandoned) [airstrip]' | '(abandoned) [airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
-aeroway=airstrip | aeroway=aerodrome {name '${ref} [airstrip]' | '[airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
+aeroway=airstrip {name '${ref} [airstrip]' | '[airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 24 continue]
 
 #aerialway=gondola | aerialway=cable_car | aerialway=chair_lift [0x1b resolution 22-24 default_name 'aerialway']
 aerialway=gondola | aerialway=cable_car | aerialway=chair_lift {name '${name} (${ref}) [aerialway]' | '${ref} [aerialway]' | '${name} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22-24]
@@ -1423,6 +1423,13 @@ historic=* & is_closed()=false {name '${name} (${historic}) [historic]' | '(${hi
 name=* & (area=no | (is_closed()=false & mkgmap:mp_created!=true)) {name '${name}'} [0x1c resolution 24 continue]
 highway=* & is_closed()=false {name '${name} (unkn) [${highway}]' | '(unkn) [${highway}]' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 	[0x1c road_class=0 road_speed=0 resolution 24] #in line 908 0x16
+aeroway=* & 
+	aeroway!=airport &
+	aeroway!=aerodrome &
+	aeroway!=heliport &
+	aeroway!=helipad &
+	aeroway!=apron 
+	{name '${ref} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 24]
 
 <finalize>
 # The finalizer section is executed for each element when a rule with an element type matches
