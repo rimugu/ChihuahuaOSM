@@ -196,13 +196,14 @@ place=county | place=district {name '${name}
 place=island {name '${name} [island]' | '[island]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x650c resolution 20-24]
 place=islet {name '${name} [islet]' | '[islet]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x650c resolution 22-24]
 
-#aeroway=airport [0x5900 resolution 22-24]
-aeroway=airport {name '${name} [airport]' | '[airport]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 22-24]
-aeroway=aerodrome {name '${name} [aerodrome]' | '[aerodrome]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 22-24]
+#aeroway=airport [0x5900 resolution 22-24]	#for osm airport and aerodrome are the same, airport is discontinued
+aeroway=airport | aeroway=aerodrome {name '${name} (${iata}) [airport]' | '${name} [airport]' | '(${iata}) [airport]' | '[airport]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 22-24]
+#aeroway=aerodrome {name '${name} (${iata}) [aerodrome]' | '${name} [aerodrome]' | '(${iata}) [aerodrome]' | '[aerodrome]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 22-24]
+aeroway=heliport {name '${name} ${ref} [heliport]' | '${ref} [heliport]' | '[heliport]'} [0x5904 resolution 20-24]
 aeroway=helipad 
 	{name '${name} ${ref} (${surface}) (lit ${lit}) [helipad]' | '${ref} (${surface}) (lit ${lit}) [helipad]' | '(${surface}) (lit ${lit}) [helipad]' | '${name} ${ref} (${surface}) [helipad]' | '${ref} (${surface}) [helipad]' | '(${surface}) [helipad]' |
 	'${name} ${ref} (lit ${lit}) [helipad]' | '${ref} (lit ${lit}) [helipad]' | '(lit ${lit}) [helipad]' | '${name} ${ref} [helipad]' | '${ref} [helipad]' | '[helipad]'} 
-[0x5904 resolution 23]
+	[0x5904 resolution 23]
 aeroway=terminal {name '${name} [terminal]' | '[terminal]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24]
 aeroway=navigationaid {name '${name} [navigationaid]' | '[navigationaid]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 
@@ -893,8 +894,6 @@ water_source=* {name '${name} (${water_source}) [water_source]' | '(${water_sour
 building=* & building!=yes & building!=house 
 	{name '${name} (${building:levels}s) (${building}) [building]' | '${name} (${building}) [building]' | '(${building:levels}s) (${building}) [building]' | '(${building}) [building]' ; 
 	addlabel 'levels ${levels}'} [0x0b00 resolution 24] # to use or not to use?
-aerialway=* 
-	{name '${name} [aerialway]' | '[aerialway]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 23]
 geological=*
 	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x32000 resolution 24]
 advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]

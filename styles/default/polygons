@@ -22,8 +22,8 @@ access=yes {set access=public}
 
 #man_made=* & osmid()=1523803899 { echotags "shaft1" }
 
-aeroway=airport | aeroway=aerodrome {name '${name} [airport]' | '[airport]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24]
-#aeroway=aerodrome {name '${name} [aerodrome]' | '[aerodrome]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24] 
+aeroway=airport | aeroway=aerodrome {name '${name} (${iata}) [airport]' | '${name} [airport]' | '(${iata}) [airport]' | '[airport]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24]
+#aeroway=aerodrome {name '${name} (${iata}) [aerodrome]' | '${name} [aerodrome]' | '(${iata}) [aerodrome]' | '[aerodrome]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 24] 
 aeroway=runway & area=yes {name '${name} ${ref} [runway]' | '${ref} [runway]' | '[runway]'} [0x0e resolution 20-24]
 (aeroway=taxiway | aeroway=taxilane) & area=yes {name '${name} ${ref} [taxiway]' | '${ref} [taxiway]' | '[taxiway]'} [0x0e resolution 24]
 aeroway=heliport {name '${name} ${ref} [heliport]' | '${ref} [heliport]' | '[heliport]'} [0x07 resolution 20-24]
@@ -376,7 +376,7 @@ leisure=sports_center | leisure=sports_centre
 leisure=stadium | building=stadium {name '${name} {${alt_name}} [stadium]' | '${name} [stadium]' | '[stadium]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 20-24]
 leisure=track & area=yes {name '${name} [track]' | '[track]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 21]
 leisure=water_park {name '${name} {${alt_name}} [water_park]' | '${name} [water_park]' | '[water_park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x09 resolution 20-24]
-leisure=miniature_golf {name '${name} [mini_golf]' | '[mini_golf]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
+leisure=miniature_golf {name '${name} [mini_golf]' | '[mini_golf]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 24]
 leisure=dance {name '${name} [dance]' | '[dance]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 24]
 tourism=theme_park {name '${name} [theme_park]' | '[theme_park]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
 historic=museum | tourism=museum  
@@ -458,6 +458,7 @@ building=* & building!=no
 	addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use?
 geological=*
 	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4d resolution 24] #0x52 does not show in basecamp
+aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24] 
 abandoned=* & abandoned:!=no [0x03 resolution 24]
 abandoned:landuse=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]' } [0x03 resolution 24]
 
