@@ -755,10 +755,24 @@ if ( highway=service ) then
 	surface=ground {add mkgmap:unpaved=1 ; name '${name} (${ref}) (ground) [${service}]' | '${name} (ground) [${service}]' | '(${ref}) (ground) [${service}]' | '(ground) [${service}]' | '${name} (${ref}) (ground) [service]' | '${name} (ground) [service]' | '(${ref}) (ground) [service]' | '(ground) [service]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface!=* {add mkgmap:unpaved=1 ; name '${name} (${ref}) (unkn) [${service}]' | '${name} (unkn) [${service}]' | '(${ref}) (unkn) [${service}]' | '(unkn) [${service}]' | '${name} (${ref}) (unkn) [service]' | '${name} (unkn) [service]' | '(${ref}) (unkn) [service]' | '(unkn) [service]' 
+	surface!=* & (oneway=no){add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (two_way) (${lanes}) [${service}]' | '${name} (${ref}) (unkn) (two_way) [${service}]' | '${name} (unkn) (two_way) (${lanes}) [${service}]'  | '${name} (unkn) (two_way) [${service}]' | '${ref} (unkn) (two_way) (${lanes}) [${service}]'  | '${ref} (unkn) (two_way) [${service}]' | '(unkn) (two_way) (${lanes}) [${service}]' | '(unkn) (two_way) [${service}]'
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 24]
-	surface=* {name '${name} (${ref}) (pav) [${service}]' | '${name} (pav) [${service}]' | '(${ref}) (pav) [${service}]' | '(pav) [${service}]' | '${name} (${ref}) (pav) [service]' | '${name} (pav) [service]' | '(${ref}) (pav) [service]' | '(pav) [service]' 
+	surface!=* {add mkgmap:unpaved=1 ; 
+		name '${name} (${ref}) (unkn) (${lanes}) [${service}]' | '${name} (${ref}) (unkn) [${service}]' | '${name} (unkn) (${lanes}) [${service}]' | '${name} (unkn) [${service}]' | '${ref} (unkn) (${lanes}) [${service}]' | '${ref} (unkn) [${service}]' | '(unkn) (${lanes}) [${service}]' | '(unkn) [${service}]' 
+		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
+		[0x07 road_class=0 road_speed=2 resolution 24]
+	surface=* & (oneway!=no & oneway=*) 
+		{name '${name} (${ref}) (pav) (one_way) (${lanes}) [${service}]' | '${name} (${ref}) (pav) (one_way) [${service}]' | '${name} (pav) (one_way) (${lanes}) [${service}]' | '${name} (pav) (one_way) [${service}]' | '${ref} (pav) (one_way) (${lanes}) [${service}]' | '${ref} (pav) (one_way) [${service}]' | '(pav) (one_way) [${service}]'  | '(pav) (one_way) (${lanes}) [${service}]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+		[0x06 road_class=1 road_speed=3 resolution 24]
+	surface=* & (oneway=no) 
+		{name '${name} (${ref}) (pav) (two_way) (${lanes}) [${service}]' | '${name} (${ref}) (pav) (two_way) [${service}]' | '${name} (pav) (two_way) (${lanes}) [${service}]'  | '${name} (pav) (two_way) [${service}]' | '${ref} (pav) (two_way) (${lanes}) [${service}]' | '${ref} (pav) (two_way) [${service}]' | '(pav) (two_way) (${lanes}) [${service}]' | '(pav) (two_way) [${service}]' 
+		; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} 
+		[0x06 road_class=1 road_speed=3 resolution 20-24]
+	surface=* 
+		{name '${name} (${ref}) (pav) (${lanes}) [${service}]' | '${name} (${ref}) (pav) [${service}]' | '${name} (pav) (${lanes}) [${service}]' | '${name} (pav) [${service}]' | '${ref} (pav) (${lanes}) [${service}]' | '${ref} (pav) [${service}]' | '(pav) (${lanes}) [${service}]' | '(pav) [${service}]' 
 		; addlabel '${access} ${incline}' | '${access}' | '${incline}'} 
 		[0x07 road_class=0 road_speed=2 resolution 22-24]
 end 
