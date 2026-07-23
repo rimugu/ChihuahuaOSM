@@ -12,6 +12,9 @@
 addr:housenumber=* {set mkgmap:execute_finalize_rules=true}
 phone=* {set mkgmap:phone='${phone}'}
 
+name!=* & name:es=* { set name='${name:es}' }
+name!=* & name:en=* { set name='${name:en}' }
+
 #water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 #water=pond | natural=water | water=reservoir | water=basin
 

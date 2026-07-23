@@ -20,6 +20,9 @@ include 'inc/address';
 #mkgmap:phone!=* & contact:phone=* { add mkgmap:phone='${contact:phone}' }
 mkgmap:phone=* {add mkgmap:label:4='${mkgmap:phone}'}
 
+name!=* & name:es=* { set name='${name:es}' }
+name!=* & name:en=* { set name='${name:en}' }
+
 website!=* & url=* { set website='${url}' }
 leisure!=* & amenity=pitch { set leisure='pitch' }
 office!=* & government=* { set leisure='pitch' }
