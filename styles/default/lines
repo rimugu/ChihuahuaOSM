@@ -15,6 +15,9 @@ highway=* & name=* {set mkgmap:street='${name}'}
 access=yes {set access=public}
 barrier=* & is_closed()=true & area_size() < 40000 {delete barrier} # process as areas
 
+name!=* & name:es=* { set name='${name:es}' }
+name!=* & name:en=* { set name='${name:en}' }
+
 #disused:highway=trunk_link {echotags "disused"}
 
 #surface=sand
