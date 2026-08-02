@@ -17,6 +17,10 @@ barrier=* & is_closed()=true & area_size() < 40000 {delete barrier} # process as
 
 name!=* & name:es=* { set name='${name:es}' }
 name!=* & name:en=* { set name='${name:en}' }
+name!=* & name_1=* { set name='${name_1}' }
+alt_name!=* & official_name=* { set alt_name='${official_name}' }
+alt_name!=* & alt_name=* { set alt_name='${alt_name}' }
+alt_name!=* & designation=* { set alt_name='${designation}' }
 
 #disused:highway=trunk_link {echotags "disused"}
 
@@ -1283,59 +1287,59 @@ route=ferry {name '${name} [ferry]' | '[ferry]' ; addlabel '${phone}' | '${websi
 (waterway=river | waterway=stream | waterway=rapids | waterway=waterfall) {add mkgmap:has-direction=true}
 
 waterway=river & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} {${old_name}} (interm) (${width}m) [river]' | '${name} (interm) (${width}m) [river]' | '${name} (interm) [river]' | '(interm) (${width}m) [river]' | '(interm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (interm) (${width}m) [river]' | '${name} {${alt_name}} (interm) (${width}m) [river]' | '${name} (interm) (${width}m) [river]' | '${name} (interm) [river]' | '(interm) (${width}m) [river]' | '(interm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x1f resolution 20-24] 
 waterway=river & intermittent=no 
-	{name '${name} {${old_name}} (perm) (${width}m) [river]' | '${name} {${old_name}} (perm) (${width}m) [river]' | '${name} (perm) (${width}m) [river]' | '${name} (perm) [river]' | '(perm) (${width}m) [river]' | '(perm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (perm) (${width}m) [river]' | '${name} {${alt_name}} (perm) (${width}m) [river]' | '${name} (perm) (${width}m) [river]' | '${name} (perm) [river]' | '(perm) (${width}m) [river]' | '(perm) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x1f resolution 17] # 0x1f river
 waterway=river 
-	{name '${name} {${old_name}} (unkn) (${width}m) [river]' | '${name} {${old_name}} (unkn) (${width}m) [river]' | '${name} (unkn) (${width}m) [river]' | '${name} (unkn) [river]' | '(unkn) (${width}m) [river]' | '(unkn) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (unkn) (${width}m) [river]' | '${name} {${alt_name}} (unkn) (${width}m) [river]' | '${name} (unkn) (${width}m) [river]' | '${name} (unkn) [river]' | '(unkn) (${width}m) [river]' | '(unkn) [river]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x1f resolution 17] #continuous
 
 waterway=canal & intermittent=yes 
 	{name '${name} 
-	{${old_name}} (interm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (interm) (${width}m) [canal]' | '${name} {${old_name}} (interm) (${usage}) [canal]' | '${name} {${old_name}} (interm) [canal]' |
+	{${alt_name}} (interm) (${width}m) (${usage}) [canal]' | '${name} {${alt_name}} (interm) (${width}m) [canal]' | '${name} {${alt_name}} (interm) (${usage}) [canal]' | '${name} {${alt_name}} (interm) [canal]' |
 	'${name} (interm) (${width}m) (${usage}) [canal]' | '${name} (interm) (${width}m) [canal]' | '${name} (interm) (${usage}) [canal]' | '${name} (interm) [canal]' | 
 	'(interm) (${width}m) (${usage}) [canal]' | '(interm) (${width}m) [canal]' | '(interm) (${usage}) [canal]' | '(interm) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24] 
 waterway=canal & intermittent=no 
 	{name '${name} 
-	{${old_name}} (perm) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (perm) (${width}m) [canal]' | '${name} {${old_name}} (perm) (${usage}) [canal]' | '${name} {${old_name}} (perm) [canal]' |
+	{${alt_name}} (perm) (${width}m) (${usage}) [canal]' | '${name} {${alt_name}} (perm) (${width}m) [canal]' | '${name} {${alt_name}} (perm) (${usage}) [canal]' | '${name} {${alt_name}} (perm) [canal]' |
 	'${name} (perm) (${width}m) (${usage}) [canal]' | '${name} (perm) (${width}m) [canal]' | '${name} (perm) (${usage}) [canal]' | '${name} (perm) [canal]' | 
 	'(perm) (${width}m) (${usage}) [canal]' | '(perm) (${width}m) [canal]' | '(perm) (${usage}) [canal]' | '(perm) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
 waterway=canal 
 	{name '${name} 
-	{${old_name}} (unkn) (${width}m) (${usage}) [canal]' | '${name} {${old_name}} (unkn) (${width}m) [canal]' | '${name} {${old_name}} (unkn) (${usage}) [canal]' | '${name} {${old_name}} (unkn) [canal]' |
+	{${alt_name}} (unkn) (${width}m) (${usage}) [canal]' | '${name} {${alt_name}} (unkn) (${width}m) [canal]' | '${name} {${alt_name}} (unkn) (${usage}) [canal]' | '${name} {${alt_name}} (unkn) [canal]' |
 	'${name} (unkn) (${width}m) (${usage}) [canal]' | '${name} (unkn) (${width}m) [canal]' | '${name} (unkn) (${usage}) [canal]' | '${name} (unkn) [canal]' | 
 	'(unkn) (${width}m) (${usage}) [canal]' | '(unkn) (${width}m) [canal]' | '(unkn) (${usage}) [canal]' | '(unkn) [canal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
 	
 waterway=ditch & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}m) [ditch]' | '${name} {${old_name}} (interm) (${width}m) [ditch]' | '${name} (interm) (${width}m) [ditch]' | '${name} (interm) [ditch]' | '(interm) (${width}m) [ditch]' | '(interm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24] 
+	{name '${name} {${alt_name}} (interm) (${width}m) [ditch]' | '${name} {${alt_name}} (interm) (${width}m) [ditch]' | '${name} (interm) (${width}m) [ditch]' | '${name} (interm) [ditch]' | '(interm) (${width}m) [ditch]' | '(interm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24] 
 waterway=ditch & intermittent=no 
-	{name '${name} {${old_name}} (perm) (${width}m) [ditch]' | '${name} {${old_name}} (perm) (${width}m) [ditch]' | '${name} (interm) (${width}m) [ditch]' | '${name} (perm) [ditch]' | '(perm) (${width}m) [ditch]' | '(perm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 20-24]
+	{name '${name} {${alt_name}} (perm) (${width}m) [ditch]' | '${name} {${alt_name}} (perm) (${width}m) [ditch]' | '${name} (interm) (${width}m) [ditch]' | '${name} (perm) [ditch]' | '(perm) (${width}m) [ditch]' | '(perm) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 20-24]
 waterway=ditch 
-	{name '${name} {${old_name}} (unkn) (${width}m) [ditch]' | '${name} {${old_name}} (unkn) (${width}m) [ditch]' | '${name} (unkn) (${width}m) [ditch]' | '${name} (unkn) [ditch]' | '(unkn) (${width}m) [ditch]' | '(unkn) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24]
+	{name '${name} {${alt_name}} (unkn) (${width}m) [ditch]' | '${name} {${alt_name}} (unkn) (${width}m) [ditch]' | '${name} (unkn) (${width}m) [ditch]' | '${name} (unkn) [ditch]' | '(unkn) (${width}m) [ditch]' | '(unkn) [ditch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24]
 
 waterway=stream & intermittent=yes 
-	{name '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} {${old_name}} (interm) (${width}m) [stream]' | '${name} (interm) (${width}m) [stream]' | '${name} (interm) [stream]' | '(interm) (${width}m) [stream]' | '(interm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (interm) (${width}m) [stream]' | '${name} {${alt_name}} (interm) (${width}m) [stream]' | '${name} (interm) (${width}m) [stream]' | '${name} (interm) [stream]' | '(interm) (${width}m) [stream]' | '(interm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x26 resolution 21] # 0x26 intermittent dotted
 waterway=stream & intermittent=no 
-	{name '${name} {${old_name}} (perm) (${width}m) [stream]' | '${name} {${old_name}} (perm) (${width}m) [stream]' | '${name} (perm) (${width}m) [stream]' | '${name} (perm) [stream]' | '(perm) (${width}m) [stream]' | '(perm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (perm) (${width}m) [stream]' | '${name} {${alt_name}} (perm) (${width}m) [stream]' | '${name} (perm) (${width}m) [stream]' | '${name} (perm) [stream]' | '(perm) (${width}m) [stream]' | '(perm) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 19] # 0x18 stream
 waterway=stream 
-	{name '${name} {${old_name}} (unkn) (${width}m) [stream]' | '${name} {${old_name}} (unkn) (${width}m) [stream]' | '${name} (unkn) (${width}m) [stream]' | '${name} (unkn) [stream]' | '(unkn) (${width}m) [stream]' | '(unkn) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (unkn) (${width}m) [stream]' | '${name} {${alt_name}} (unkn) (${width}m) [stream]' | '${name} (unkn) (${width}m) [stream]' | '${name} (unkn) [stream]' | '(unkn) (${width}m) [stream]' | '(unkn) [stream]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21]
 	
 natural=water & intermittent=yes & area!=yes & is_closed()=false
-	{name '${name} {${old_name}} (interm) [water]' | '${name} {${alt_name}} (interm) [water]' | '${name} (interm) [water]' | '(interm) [water]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (interm) [water]' | '${name} {${alt_name}} (interm) [water]' | '${name} (interm) [water]' | '(interm) [water]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x26 resolution 21] # 0x26 intermittent dotted
 natural=water & intermittent=no & area!=yes& is_closed()=false
-	{name '${name} {${old_name}} (perm) [water]' | '${name} {${alt_name}} (perm) [water]' | '${name} (perm) [water]' | '(perm) [water]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (perm) [water]' | '${name} {${alt_name}} (perm) [water]' | '${name} (perm) [water]' | '(perm) [water]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 19] # 0x18 stream
 natural=water & area!=yes& is_closed()=false
-	{name '${name} {${old_name}} (unkn) [water]' | '${name} {${alt_name}} (unkn) [water]' | '${name} (unkn) [water]' |'(unkn) [water]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (unkn) [water]' | '${name} {${alt_name}} (unkn) [water]' | '${name} (unkn) [water]' |'(unkn) [water]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21]
 
 
@@ -1406,13 +1410,13 @@ waterway=dam | man_made=dam
 waterway=lock_gate | waterway=weir {name '${name} [lock_gate]' | '[lock_gate]' ; addlabel '${operator}'} [0x10503 resolution 24] # Weir is a barrier built across a river to control water speed and depth.
 
 waterway=* & intermittent=yes & area!=yes & waterway!=no & is_closed()=false
-	{name '${name} {${old_name}} (interm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (interm) (${width}m) [${waterway]]' | '${name} (interm) (${width}m) [${waterway]]' | '${name} (interm) [${waterway]]' | '(interm) (${width}m) [${waterway}]' | '(interm) [${waterway]]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (interm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (interm) (${width}m) [${waterway]]' | '${name} (interm) (${width}m) [${waterway]]' | '${name} (interm) [${waterway]]' | '(interm) (${width}m) [${waterway}]' | '(interm) [${waterway]]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21] # 0x26 intermittent dotted
 waterway=* & intermittent=no & area!=yes & waterway!=no & is_closed()=false
-	{name '${name} {${old_name}} (perm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (perm) (${width}m) [${waterway]]' | '${name} (perm) (${width}m) [${waterway]]' | '${name} (perm) [${waterway]]' | '(perm) (${width}m) [${waterway]]' | '(perm) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (perm) (${width}m) [${waterway]]' | '${name} {${alt_name}} (perm) (${width}m) [${waterway]]' | '${name} (perm) (${width}m) [${waterway]]' | '${name} (perm) [${waterway]]' | '(perm) (${width}m) [${waterway]]' | '(perm) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 19] # 0x18 stream
 waterway=* & area!=yes & waterway!=no & is_closed()=false
-	{name '${name} {${old_name}} (unkn) (${width}m) [${waterway]]' | '${name} {${alt_name}} (unkn) (${width}m) [${waterway]]' | '${name} (unkn) (${width}m) [${waterway]]' | '${name} (unkn) [${waterway]]' | '(unkn) (${width}m) [${waterway]]' | '(unkn) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
+	{name '${name} {${alt_name}} (unkn) (${width}m) [${waterway]]' | '${name} {${alt_name}} (unkn) (${width}m) [${waterway]]' | '${name} (unkn) (${width}m) [${waterway]]' | '${name} (unkn) [${waterway]]' | '(unkn) (${width}m) [${waterway]]' | '(unkn) [${waterway}]' ; addlabel '${width}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x18 resolution 21]
 
 

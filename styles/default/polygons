@@ -14,6 +14,10 @@ phone=* {set mkgmap:phone='${phone}'}
 
 name!=* & name:es=* { set name='${name:es}' }
 name!=* & name:en=* { set name='${name:en}' }
+name!=* & name_1=* { set name='${name_1}' }
+alt_name!=* & official_name=* { set alt_name='${official_name}' }
+alt_name!=* & old_name=* { set alt_name='${old_name}' }
+alt_name!=* & designation=* { set alt_name='${designation}' }
 
 #water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 #water=pond | natural=water | water=reservoir | water=basin
@@ -122,12 +126,12 @@ healthcare=* {name '${name} (${healthcare}) [healthcare]' | '(${healthcare}) [he
 sport=horse_racing | leisure=horse_riding {name '${name} [horse_racing]' | '[horse_racing]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 
 place=village 
-	{name '${name} {${official_name}} [village]' | '${name} {${designation}} [village]' | '${name} {${alt_name}} [village]' | '${name} {${old_name}} [village]' | '${name} [village]' | '[village]'} [0x03 resolution 19] # grey
+	{name '${name} {${alt_name}} [village]' | '${name} [village]' | '{$alt_{name}} [village]' | '[village]'} [0x03 resolution 19] # grey
 place=suburb 
-	{name '${name} {${official_name}} [suburb]' | '${name} {${designation}} [suburb]' | '${name} {${alt_name}} [suburb]' | '${name} {${old_name}} [suburb]' | '${name} [suburb]' | '[suburb]'} 
+	{name '${name} {${alt_name}} [suburb]' | '${name} [suburb]' | '{$alt_{name}} [suburb]' | '[suburb]'} 
 	[0x02 resolution 19]
 place=hamlet 
-	{name '${name} {${official_name}} [hamlet]' | '${name} {${designation}} [hamlet]' | '${name} {${alt_name}} [hamlet]' | '${name} {${old_name}} [hamlet]' | '${name} [hamlet]' | '[hamlet]'} 
+	{name '${name} {${alt_name}} [hamlet]' | '${name} [hamlet]' | '{$alt_{name}} [hamlet]' | '[hamlet]'} 
 	[0x02 resolution 24]
 
 #shop=* {add name='${shop|subst:"_=> "}'} [0x08 resolution 22-24]
@@ -145,38 +149,58 @@ highway=footway & area=yes {name '${name} [footway]' | '[footway]' ; addlabel '$
 highway=services | highway=service {name '${name} [services]' | '[services]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 22-24] # service station complex; show as retail
 highway=rest_area & area!=no {name '${name} (${opening_hours}) [rest_area]' | '${name} [rest_area]' | '(${opening_hours}) [rest_area]' | '[rest_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x05 resolution 22-24] # show as parking lot
 
-(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=yes & salt=yes {name '${name} (salt) (interm) [reservoir]' | '(salt) (interm) [reservoir]' ; 
+(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=yes & salt=yes 
+	{name '${name} {${alt_name}} (salt) (interm) [reservoir]' | '${name} (salt) (interm) [reservoir]' | ' {${alt_name}} (salt) (interm) [reservoir]' | '(salt) (interm) [reservoir]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=yes {name '${name} (interm) [reservoir]' | '(interm) [reservoir]' ; 
+(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=yes 
+	{name '${name} {${alt_name}} (interm) [reservoir]' | '${name} (interm) [reservoir]' | '{${alt_name}} (interm) [reservoir]' | '(interm) [reservoir]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=no & salt=yes {name '${name} (salt) (perm) [reservoir]' | '(salt) (perm) [reservoir]' ; 
+(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=no & salt=yes 
+	{name '${name} {${alt_name}} (salt) (perm) [reservoir]' | '${name} (salt) (perm) [reservoir]' | '{${alt_name}} (salt) (perm) [reservoir]' | '(salt) (perm) [reservoir]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=no {name '${name} (perm) [reservoir]' | '(perm) [reservoir]' ; 
+(landuse=reservoir | water=reservoir | man_made=reservoir) & intermittent=no 
+	{name '${name} {${alt_name}} (perm) [reservoir]' | '${name} (perm) [reservoir]' | '{${alt_name}} (perm) [reservoir]' | '(perm) [reservoir]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-(landuse=reservoir | water=reservoir | man_made=reservoir) & salt=yes {name '${name} (salt) (unkn) [reservoir]' | '(salt) (unkn) [reservoir]' ; 
+(landuse=reservoir | water=reservoir | man_made=reservoir) & salt=yes 
+	{name '${name} {${alt_name}} (salt) (unkn) [reservoir]' | '${name} (salt) (unkn) [reservoir]' | '{${alt_name}} (salt) (unkn) [reservoir]' | '(salt) (unkn) [reservoir]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-(landuse=reservoir | water=reservoir | man_made=reservoir) {name '${name} (unkn) [reservoir]' | '(unkn) [reservoir]' ; 
+(landuse=reservoir | water=reservoir | man_made=reservoir) 
+	{name '${name} {${alt_name}} (unkn) [reservoir]' | '${name} (unkn) [reservoir]' | '{${alt_name}} (unkn) [reservoir]' | '(unkn) [reservoir]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 
-water=pond & intermittent=yes & salt=yes {name '${name} (salt) (interm) [pond]' | '(salt) (interm) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-water=pond & intermittent=yes {name '${name} (interm) [pond]' | '(interm) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-water=pond & intermittent=no & salt=yes {name '${name} (salt) (perm) [pond]' | '(salt) (perm) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-water=pond & intermittent=no {name '${name} (perm) [pond]' | '(perm) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-water=pond & salt=yes {name '${name} (salt) (unkn) [pond]' | '(salt) (unkn) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-water=pond {name '${name} (unkn) [pond]' | '(unkn) [pond]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+water=pond & intermittent=yes & salt=yes 
+	{name '${name} {${alt_name}} (salt) (interm) [pond]' | '${name} (salt) (interm) [pond]' | '{${alt_name}} (salt) (interm) [pond]' | '(salt) (interm) [pond]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+water=pond & intermittent=yes 
+	{name '${name} {${alt_name}} (interm) [pond]' | '${name} (interm) [pond]' | '{${alt_name}} (interm) [pond]' | '(interm) [pond]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+water=pond & intermittent=no & salt=yes 
+	{name '${name} {${alt_name}} (salt) (perm) [pond]' | '${name} (salt) (perm) [pond]' | '{${alt_name}} (salt) (perm) [pond]' | '(salt) (perm) [pond]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+water=pond & intermittent=no 
+	{name '${name} {${alt_name}} (perm) [pond]' | '${name} (perm) [pond]' | '{${alt_name}} (perm) [pond]' | '(perm) [pond]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+water=pond & salt=yes 
+	{name '${name} {${alt_name}} (salt) (unkn) [pond]' | '${name} (salt) (unkn) [pond]' | '{${alt_name}} (salt) (unkn) [pond]' | '(salt) (unkn) [pond]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+water=pond 
+	{name '${name} {${alt_name}} (unkn) [pond]' | '${name} (unkn) [pond]' | '{${alt_name}} (unkn) [pond]' | '(unkn) [pond]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 
 (water=basin | landuse=basin) & basin!=* & salt=yes 
-	{name '${name} (salt) (interm) [basin]' | '(salt) (interm) [basin]' ; 
+	{name '${name} {${alt_name}} (salt) (interm) [basin]' | '${name} (salt) (interm) [basin]' | '{${alt_name}} (salt) (interm) [basin]' | '(salt) (interm) [basin]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 (water=basin | landuse=basin) & basin=* & salt=yes 
-	{name '${name} (salt) (interm) [${basin}]' | '(salt) (interm) [${basin}]' ; 
+	{name '${name} {${alt_name} (salt) (interm) [${basin}]' | '${name} (salt) (interm) [${basin}]' | '{${alt_name}} (salt) (interm) [${basin}]' | '(salt) (interm) [${basin}]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
-(water=basin | landuse=basin) & basin=infiltration {name '${name} (interm) [infiltration]' | '(interm) [infiltration]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 24] #pozo absorcion
+(water=basin | landuse=basin) & basin=infiltration 
+	{name '${name} {${alt_name} (interm) [infiltration]' | '${name} (interm) [infiltration]' | '{${alt_name} (interm) [infiltration]' | '(interm) [infiltration]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 24] #pozo absorcion
 (water=basin | landuse=basin) & basin!=*
-	{name '${name} (interm) [basin]' | '(interm) [basin]' ; 
+	{name '${name} {${alt_name}} (interm) [basin]' | '${name} (interm) [basin]' | '{${alt_name} (interm) [basin]' | '(interm) [basin]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 (water=basin | landuse=basin) & basin=*
-	{name '${name} (interm) [${basin}]' | '(interm) [${basin}]' ; 
+	{name '${name} {${alt_name}} (interm) [${basin}]' | '${name} (interm) [${basin}]' | '{${alt_name}} (interm) [${basin}]' | '(interm) [${basin}]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 
 water=lake & intermittent=yes & salt=yes 
@@ -195,12 +219,15 @@ water=lake & salt=yes
 	[0x3f resolution 20-24]
 water=lake {name '${name} {${alt_name}} (unkn) [lake]' | '${name} (unkn) [lake]' | '(unkn) [lake]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
 
-(natural=water & water=river & tidal=yes & intermitent=yes) {name '${name} (interm) (tidal) [river]' | '(interm) (tidal) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
-	[0x46 resolution 20-24]
-(natural=water & water=river & tidal=yes & intermitent=no) {name '${name} (perm) (tidal) [river]' | '(perm) (tidal) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
-	[0x46 resolution 20-24]
-(natural=water & water=river & tidal=yes) {name '${name} (unkn) (tidal) [river]' | '(unkn) (tidal) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
-	[0x46 resolution 20-24]
+(natural=water & water=river & tidal=yes & intermitent=yes) 
+	{name '${name} {${alt_name}} (interm) (tidal) [river]' | '${name} (interm) (tidal) [river]' | '{${alt_name}} (interm) (tidal) [river]' | '(interm) (tidal) [river]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'}  [0x46 resolution 20-24]
+(natural=water & water=river & tidal=yes & intermitent=no) 
+	{name '${name} {${alt_name}} (perm) (tidal) [river]' | '${name} (perm) (tidal) [river]' | '{${alt_name}} (perm) (tidal) [river]' | '(perm) (tidal) [river]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'}  [0x46 resolution 20-24]
+(natural=water & water=river & tidal=yes) 
+	{name '${name} {${alt_name}} (unkn) (tidal) [river]' | '${name} (unkn) (tidal) [river]' | '{${alt_name}} (unkn) (tidal) [river]' | '(unkn) (tidal) [river]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'}  [0x46 resolution 20-24]
 	
 (natural=water & water=river & intermitent=yes) {name '${name} (interm) [river]' | '(interm) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
 (natural=water & water=river & intermitent=no) {name '${name} (perm) [river]' | '(perm) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
@@ -453,7 +480,7 @@ power=* {name '${name} [${power}]' | '[${power}]' ; addlabel '${phone}' | '${web
 historic=* & historic!=no & boundary!=* 
 	{name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 20-24]
 place=* & area_size() < 40000 
-	{name '${name} {${official_name}} [${place}]' | '${name} {${designation}} [${place}]' | '${name} {${alt_name}} [${place}]' | '${name} {${old_name}} [${place}]' | '${name} [${place}]' | '[${place}]'} 
+	{name '${name} {${alt_name}} [${place}]' | '${name} [${place}]' | '{${alt_name}} [${place}]' | '[${place}]'} 
 	[0x03 resolution 19] # grey
 boundary=* & area_size() < 40000 {name '${name} [${boundary}]' | '[${boundary}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
 building=* & building!=no 
