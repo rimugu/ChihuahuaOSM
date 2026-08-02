@@ -386,6 +386,9 @@ amenity=ranger_station {name '${name} [ranger_station]' | '[ranger_station]' ; a
 amenity=waste_disposal | landuse=landfill | amenity=waste_transfer_station 
 	{name '${name} (${waste}) [waste_disposal]' | '${name} [waste_disposal]' | '(${waste}) [waste_disposal]' | '[waste_disposal]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 24]
+amenity=waste_basket
+	{name '${name} (${waste}) [waste_basket]' | '${name} [waste_basket]' | '(${waste}) [waste_basket]' | '[waste_basket]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x640c resolution 24]
 
 man_made=petroleum_well | man_made=pumping_rig | industrial=wellsite | man_made=oil_well | man_made=pumpjack 
 	{name '${name} (${substance}) [petroleum_well]' | '${name} [petroleum_well]' | '(${substance}) [petroleum_well]' |'[petroleum_well]' ; 
@@ -883,6 +886,8 @@ internet_access=yes {name '${name} [Internet]' | '[Internet]'} [0x2f12 resolutio
 internet_access=* & internet_access!=no & internet_access!=yes 
 	{name '${name} (${internet_access}) [Internet]' | '(${internet_access}) [Internet]'} [0x2f12 resolution 24 continue with_actions]
 
+obstacle=*
+	{name '${name} (${obstacle}) [obstacle]' | '(${obstacle}) [obstacle]' } [0x3200 resolution 24]
 aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24]
 hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 22]
 office=* {name '${name} (${building}) (${office}) [office]' | '${name} (${office}) [office]' | '(${building}) (${office}) [office]' | '(${office}) [office]' ; 
