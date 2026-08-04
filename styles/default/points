@@ -293,6 +293,9 @@ amenity=fountain {name '${name} (drink ${drinking_water}) (${fountain}) [${ameni
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 amenity=sanitary_dump_station | amenity=dumpstation
 	{name '${name} (${access}) (fee ${fee}) [sanitary_dump_station]' | '${name} (fee ${fee}) [sanitary_dump_station]' | '(${access}) (fee ${fee}) [sanitary_dump_station]' | '(fee ${fee}) [sanitary_dump_station]' | '${name} (${access}) [sanitary_dump_station]' | '${name} [sanitary_dump_station]' | '(${access}) [sanitary_dump_station]' | '[sanitary_dump_station]' ; addlabel '${operator}'} [0x3200 resolution 24]
+amenity=public_bookcase {name '${name} (${public_bookcase:type}) [public_bookcase]' | '${name} [public_bookcase]' | '(${public_bookcase:type}) [public_bookcase]' | '[public_bookcase]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+	
 
 amenity=fuel & fuel:HGV_diesel=yes {name '${name} (HGV_diesel) [fuel]' | '(HGV_diesel) [fuel]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f16 resolution 23]
 amenity=fuel & fuel:diesel=yes {name '${name} (diesel) [fuel]' | '(diesel) [fuel]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f16 resolution 23]
