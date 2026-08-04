@@ -62,12 +62,17 @@ highway=* & (toll=yes | toll=true) {set mkgmap:toll=yes}
 #bridge=* & highway=* {name '${name} [bridge]' | '[bridge]'} [0x0107 resolution 24 continue with_actions]
 #highway=* & oneway=yes [0x10013 resolution 24 continue with_actions]
 
+bridge=yes & highway=* & (bridge:structure=suspension | bridge:structure=simple-suspension) {name '${name} [suspension_bridge]' | '[suspension_bridge]'} [0x10101 resolution 23 continue with_actions]
 bridge=yes & highway=* {name '${name} [bridge]' | '[bridge]'} [0x10101 resolution 24 continue with_actions]
+bridge=* & highway=* & (bridge:structure=suspension | bridge:structure=simple-suspension) {name '${name} (${bridge}) [suspension_bridge]' | '(${bridge}) [suspension_bridge]'} [0x10101 resolution 23 continue with_actions]
 bridge=* & highway=* {name '${name} (${bridge}) [bridge]' | '(${bridge}) [bridge]'} [0x10101 resolution 24 continue with_actions]
+bridge=yes & railway=* & (bridge:structure=suspension | bridge:structure=simple-suspension) {name '${name} [suspension_bridge]' | '[suspension_bridge]'} [0x14 resolution 23 continue with_actions]
+bridge=yes & railway=* {name '${name} [bridge]' | '[bridge]'} [0x14 resolution 24 continue with_actions]
+bridge=* & railway=* & (bridge:structure=suspension | bridge:structure=simple-suspension) {name '${name} (${bridge}) [suspension_bridge]' | '(${bridge}) [suspension_bridge]'} [0x14 resolution 23 continue with_actions]
+bridge=* & railway=* {name '${name} (${bridge}) [bridge]' | '(${bridge}) [bridge]'} [0x14 resolution 24 continue with_actions]
+
 (tunnel=yes | culvert=yes) & highway=* {name '${name} [tunnel]' | '[tunnel]'} [0x10101 resolution 24 continue with_actions]
 (tunnel=* | culvert=*) & highway=* {name '${name} (${tunnel}) [tunnel]' | '${name} (${culvert}) [tunnel]' | '(${tunnel}) [tunnel]' | '(${culvert}) [tunnel]'} [0x10101 resolution 24 continue with_actions]
-bridge=yes & railway=* {name '${name} [bridge]' | '[bridge]'} [0x14 resolution 24 continue with_actions]
-bridge=* & railway=* {name '${name} (${bridge}) [bridge]' | '(${bridge}) [bridge]'} [0x14 resolution 24 continue with_actions]
 (tunnel=yes | culvert=yes) & railway=* {name '${name} [tunnel]' | '[tunnel]'} [0x14 resolution 24 continue with_actions]
 (tunnel=* | culvert=*) & railway=* {name '${name} (${tunnel}) [tunnel]' | '${name} (${culvert}) [tunnel]' | '(${tunnel}) [tunnel]' | '(${culvert}) [tunnel]'} 
 	[0x14 resolution 24 continue with_actions]
