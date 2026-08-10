@@ -19,6 +19,9 @@ alt_name!=* & official_name=* { set alt_name='${official_name}' }
 alt_name!=* & old_name=* { set alt_name='${old_name}' }
 alt_name!=* & designation=* { set alt_name='${designation}' }
 
+#natural=water & leisure=park { delete natural }
+#water=basin & leisure=park { delete water }
+
 #water=lake & intermittent=yes {name '${name} (intermittent)' | '(intermittent)'}
 #water=pond | natural=water | water=reservoir | water=basin
 
@@ -221,13 +224,13 @@ water=lake {name '${name} {${alt_name}} (unkn) [lake]' | '${name} (unkn) [lake]'
 
 (natural=water & water=river & tidal=yes & intermitent=yes) 
 	{name '${name} {${alt_name}} (interm) (tidal) [river]' | '${name} (interm) (tidal) [river]' | '{${alt_name}} (interm) (tidal) [river]' | '(interm) (tidal) [river]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'}  [0x46 resolution 20-24]
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
 (natural=water & water=river & tidal=yes & intermitent=no) 
 	{name '${name} {${alt_name}} (perm) (tidal) [river]' | '${name} (perm) (tidal) [river]' | '{${alt_name}} (perm) (tidal) [river]' | '(perm) (tidal) [river]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'}  [0x46 resolution 20-24]
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
 (natural=water & water=river & tidal=yes) 
 	{name '${name} {${alt_name}} (unkn) (tidal) [river]' | '${name} (unkn) (tidal) [river]' | '{${alt_name}} (unkn) (tidal) [river]' | '(unkn) (tidal) [river]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'}  [0x46 resolution 20-24]
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
 	
 (natural=water & water=river & intermitent=yes) {name '${name} (interm) [river]' | '(interm) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
 (natural=water & water=river & intermitent=no) {name '${name} (perm) [river]' | '(perm) [river]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x46 resolution 20-24]
@@ -376,11 +379,11 @@ leisure=golf_course {name '${name} [golf_course]' | '[golf_course]' ; addlabel '
 leisure=ice_rink {name '${name} [ice_rink]' | '[ice_rink]8' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 22-24]
 boundary=state_park {name '${name} {${alt_name}} [state_park]' | '${name} [state_park]' | '{${alt_name}} [state_park]' | '[state_park]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 20-24]
-leisure=nature_reserve {name '${name} {${alt_name}} [nature_reserve]' |  '${name} [nature_reserve]' | '{${alt_name}} [nature_reserve]' | '[nature_reserve]'; 
+leisure=nature_reserve {name '${name} {${alt_name}} [nature_reserve]' | '${name} [nature_reserve]' | '{${alt_name}} [nature_reserve]' | '[nature_reserve]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
-boundary=national_park {name '${name} {${alt_name}} [national_park]' |  '${name} [national_park]' | '{${alt_name}} [national_park]' | '[national_park]'; 
+boundary=national_park {name '${name} {${alt_name}} [national_park]' | '${name} [national_park]' | '{${alt_name}} [national_park]' | '[national_park]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
-boundary=protected_area {name '${name} {${alt_name}} [protected_area]' |  '${name} [protected_area]' | '{${alt_name}} [protected_area]' | '[protected_area]'; 
+boundary=protected_area {name '${name} {${alt_name}} [protected_area]' | '${name} [protected_area]' | '{${alt_name}} [protected_area]' | '[protected_area]'; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x16 resolution 19]
 tourism=camp_site & fee=yes
 	{name '${name} {${alt_name}} (access ${access}) (fee) [camp_site]' | '${name} (access ${access}) (fee) [camp_site]' | '${name} (fee) [camp_site]' | '(access ${access}) (fee) [camp_site]' | '(fee) [camp_site]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
@@ -409,7 +412,7 @@ leisure=water_park {name '${name} {${alt_name}} [water_park]' | '${name} [water_
 leisure=miniature_golf {name '${name} [mini_golf]' | '[mini_golf]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 24]
 leisure=dance {name '${name} [dance]' | '[dance]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 24]
 tourism=theme_park {name '${name} [theme_park]' | '[theme_park]'; ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 20-24]
-historic=museum | tourism=museum  
+historic=museum | tourism=museum 
 #{name '${name} {${alt_name}} (${museum}) [museum]' | '${name} (${museum}) [museum]' | '{${alt_name}} (${museum}) [museum]' | '(${museum}) [museum]' | '[museum]'
 	{name '${name} {${alt_name}} (fee ${fee}) (${museum}) [museum]' | '${name} {${alt_name}} (fee ${fee}) [museum]' | '${name} (fee ${fee}) (${museum}) [museum]' | '${name} (fee ${fee}) [museum]' | '${name} {${alt_name}} (${museum}) [museum]' | '${name} {${alt_name}} [museum]' | '${name} (${museum}) [museum]' | '${name} [museum]' | '{${alt_name}} (${museum}) [museum]' | '{${alt_name}} [museum]' | '(${museum}) [museum]' | '[museum]' 
 	; addlabel '${phone}' | '${website}' | '${operator}' } [0x13 resolution 24]
