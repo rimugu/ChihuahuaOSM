@@ -129,12 +129,13 @@ healthcare=* {name '${name} (${healthcare}) [healthcare]' | '(${healthcare}) [he
 sport=horse_racing | leisure=horse_riding {name '${name} [horse_racing]' | '[horse_racing]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 
 place=village 
-	{name '${name} {${alt_name}} [village]' | '${name} [village]' | '{$alt_{name}} [village]' | '[village]'} [0x03 resolution 19] # grey
+	{name '${name} {${alt_name}} [village]' | '${name} [village]' | '{$alt_{name}} [village]' | '[village]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'}  
+	[0x03 resolution 19] # grey
 place=suburb 
-	{name '${name} {${alt_name}} [suburb]' | '${name} [suburb]' | '{$alt_{name}} [suburb]' | '[suburb]'} 
+	{name '${name} {${alt_name}} [suburb]' | '${name} [suburb]' | '{$alt_{name}} [suburb]' | '[suburb]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'}  
 	[0x02 resolution 19]
 place=hamlet 
-	{name '${name} {${alt_name}} [hamlet]' | '${name} [hamlet]' | '{$alt_{name}} [hamlet]' | '[hamlet]'} 
+	{name '${name} {${alt_name}} [hamlet]' | '${name} [hamlet]' | '{$alt_{name}} [hamlet]' | '[hamlet]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'}  
 	[0x02 resolution 24]
 
 #shop=* {add name='${shop|subst:"_=> "}'} [0x08 resolution 22-24]
