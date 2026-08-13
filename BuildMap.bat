@@ -1,4 +1,5 @@
 @echo off
+
 rem ################################################################################
 rem #                                                                              #
 rem #  Script Name: BuidlMap.bat                                                   #
@@ -7,43 +8,16 @@ rem #                                                                           
 rem # 1. Creates garmin maps from OSM info                                         #
 rem # -109.344,25.414 to -102.054,34.306
 rem #
-rem # with gmapsupp using gmapsupp.img, can be made transparent and remove accents
+rem # with gmapsupp using gmapsupp.img, can be made transparent
 rem #                                                                              #
 rem ################################################################################
 
 echo(
 echo(
-echo ....STARTING BuildMap.bat v2025-11-19 %TIME%
+echo ....STARTING BuildMap.bat 2026-03-19 %TIME%
 echo(
 
-set Source_Server=http://overpass.openstreetmap.ru/cgi/xapi_meta?
-rem http://www.overpass-api.de/api/xapi_meta?
-rem http://overpass.openstreetmap.ru/cgi/status STATUS
-rem https://overpass.kumi.systems/api/xapi_meta?
-rem https://overpass-api.de/api/map?bbox=-106.8736,28.2790,-105.2943,29.0358
-rem https://api.openstreetmap.org/api/0.6/map?bbox=
-rem %5B [ %5D ]
-rem http://www.informationfreeway.org/api/0.6/*%5Bname=Sylt%5D
-echo Source_Server %Source_Server%
-set Home_DIR=C:\temp\DirectChihuahuaOSM\
-echo Home_DIR %Home_DIR%
-set osmosis_DIR=%Home_DIR%osmosis-0.49.2\bin\
-echo osmosis_DIR %osmosis_DIR%
-set osm_temp=%Home_DIR%osm-temp\
-echo osm_temp %osm_temp%
-set osmconvert=%Home_DIR%osmconvert64-0.8.8p.exe
-set Split_temp_DIR=%Home_DIR%split-temp\
-echo Split_temp_DIR %Split_temp_DIR%
-set split_DIR=%Home_DIR%splitter-r654\
-echo split_DIR %split_DIR%
-set mkgmap_DIR=%Home_DIR%mkgmap-r4923\
-echo mkgmap_DIR %mkgmap_DIR% 
-set Img_DIR=%Home_DIR%img\
-echo Img_DIR %Img_DIR%
-set DEM_DIR=%Home_DIR%dem\
-echo DEM_DIR %DEM_DIR%
-set input_DIR=%Home_DIR%input\
-echo input_DIR %input_DIR%
+call buildmapconfig.bat
 
 echo(
 java --version
@@ -64,6 +38,7 @@ IF "%~1"=="90" goto get_data_section_90
 IF "%~1"=="--split" goto split_section
 IF "%~1"=="--make" goto mkgmap_section
 IF "%~1"=="--join" goto join_section_osmosis
+IF "%~1"=="--gmt" goto gmaptool_write
 
 :usage
 
@@ -81,6 +56,7 @@ echo "BuildMap 90" get data section 90
 echo "BuildMap --join"  go directly to join_section_osmosis
 echo "BuildMap --split" go directly to split_section
 echo "BuildMap --make"  go directly to mkgmap_section
+echo "BuildMap --gmt" go directly to gmt section
 
 echo .... exit 100 .... %TIME%
 exit /b 100
@@ -91,6 +67,9 @@ rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input
 rem curl --parallel --keepalive-time 5 --output C:\temp\DirectChihuahuaOSM\input\ChihuahuaOSM83.osm --url "http://www.overpass-api.de/api/xapi_meta?*%5Bbbox=-103.674,27.39,-102.864,28.3
 
 :get_data_section_10
+call :Deprecated
+exit /b 100
+
 echo(
 echo GET OSM DATA 1 %TIME%
 echo 51.9Mb average	
@@ -117,6 +96,9 @@ rem goto join_section_osmconvert
 
 
 :get_data_section_20
+call :Deprecated
+exit /b 100
+
 echo 21	113Mb 0:43
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM21.osm --url "%Source_Server%*%%5Bbbox=-108.534,25.414,-107.724,26.402%%5D"
 echo 22	047Mb 0:21
@@ -139,6 +121,9 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM29
 rem goto join_section_osmconvert
 
 :get_data_section_30
+call :Deprecated
+exit /b 100
+
 echo 31	054Mb 0:33
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM31.osm --url "%Source_Server%*%%5Bbbox=-107.724,25.414,-106.914,26.402%%5D"
 echo 32	035Mb 0:21
@@ -162,6 +147,9 @@ goto join_section_osmconvert
 rem pause
 
 :get_data_section_40
+call :Deprecated
+exit /b 100
+
 echo GET OSM DATA 2 %TIME%
 echo 38.0Mb average
 echo 41	028Mb 0:15
@@ -186,6 +174,9 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM49
 rem goto join_section_osmconvert
 
 :get_data_section_50
+call :Deprecated
+exit /b 100
+
 echo 51	024Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM51.osm --url "%Source_Server%*%%5Bbbox=-106.104,25.414,-105.294,26.402%%5D"
 echo 52	043Mb 0:19
@@ -208,6 +199,9 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM59
 rem goto join_section_osmconvert
 
 :get_data_section_60
+call :Deprecated
+exit /b 100
+
 echo 61	021Mb 0:10
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM61.osm --url "%Source_Server%*%%5Bbbox=-105.294,25.414,-104.484,26.402%%5D"
 echo 62	020Mb 0:12
@@ -231,6 +225,9 @@ goto join_section_osmconvert
 rem pause
 
 :get_data_section_70
+call :Deprecated
+exit /b 100
+
 echo GET OSM DATA 3 %TIME%
 echo 19.0Mb average
 echo 71	016Mb 0:11
@@ -255,6 +252,9 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM79
 rem goto join_section_osmconvert
 
 :get_data_section_80
+call :Deprecated
+exit /b 100
+
 echo 81	078Mb 0:33
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM81.osm --url "%Source_Server%*%%5Bbbox=-103.674,25.414,-102.864,26.402%%5D"
 echo 82	007Mb 0:08
@@ -277,6 +277,9 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM89
 rem goto join_section_osmconvert
 
 :get_data_section_90
+call :Deprecated5
+exit /b 100
+
 echo 91	011Mb 0:13
 cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM91.osm --url "%Source_Server%*%%5Bbbox=-102.864,25.414,-102.054,26.402%%5D"
 echo 92	010Mb 0:07
@@ -301,6 +304,11 @@ rem pause
 goto join_section_osmconvert
 
 :join_section_osmosis
+echo(
+echo Deprecated option 
+echo .... exit 100 .... %TIME%
+exit /b 100
+
 echo(
 echo JOIN THE DATA - multiple osm files into one and trim using osmosis %TIME%
 echo(
@@ -361,9 +369,14 @@ del /q %Split_temp_DIR%
 
 @echo(
 
-java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=5 --max-nodes=2400000 --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
+
+java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=auto --max-nodes=%max_nodes% --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
  --geonames-file=%Home_DIR%cities15000.zip --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
 @echo off
+
+rem --max-nodes=2400000
+rem --max-threads=5
+rem --max-threads can be specified one less than number of cores to make machine more responsive during execution
 
 rem geonames http://download.geonames.org/export/dump
 
@@ -396,18 +409,21 @@ del /q %Img_DIR%
 
 @echo(
 
-java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=5 --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=nearest,is_in,bounds^
+java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=%max_jobs% --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=is_in,bounds,nearest^
  --index --show-profiles=1 --make-opposite-cycleways --housenumbers --generate-sea=land-tag=natural=land --precomp-sea=%Home_DIR%sea-latest.zip^
  --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name="Chihuahua" --code-page=1252 --improve-overview --order-by-decreasing-area^
  --allow-reverse-merge --remove-ovm-work-files "--style-file=%Home_DIR%styles\default" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=auto^
  --family-name="ChihuahuaOSM crisol.snowdrift175@passinbox.com" --process-destination --process-exits --max-routing-island-len=500^
  --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right --copyright-message=" crisol.snowdrift175@passinbox.com "^
- --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=15 --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
+ --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=%draw_priority% --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
  --link-pois-to-ways --split-name-index --road-name-config=%Home_DIR%styles\roadNameConfig.txt --poi-address --gmapsupp --hide-gmapsupp-on-pc^
- --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" --add-pois-to-lines=mid^
+ --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" --add-pois-to-lines=mid ^
  --overview-dem-dist=276160 %Split_temp_DIR%*.pbf 
 
 @echo off
+
+rem --max-jobs=5
+rem --max-jobs can be specified one less than number of cores to make machine more responsive during execution
 
 IF %ERRORLEVEL% NEQ 0 ( 
 	echo ....ERROR 400 - %ERRORLEVEL% .... %TIME%
@@ -430,7 +446,7 @@ rem --preserve-element-order ^
 rem --link-pois-to-ways make barriers part of routes
 rem --transparent (makes it not routable if used in the same pass)
 rem --hide-gmapsupp-on-pc sets bit to not copy from device to pc
-rem --description="Chihuahua Texas New Mexico Coahuila Durango OSM" 
+rem --description="Chihuahua Texas New Mexico Coahuila Durango OSM" -
 rem --gmapsupp --hide-gmapsupp-on-pc 
 rem -reduce-point-density=4 --reduce-point-density-polygon=8
 rem --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" -add-pois-to-lines=mid^
@@ -443,8 +459,106 @@ rem https://cferrero.net/maps/improve_OSM.html
 
 rem start javaw.exe -Xmx12G -Djava.util.logging.config.file=logging.properties --add-opens java.base/java.util=ALL-UNNAMED -jar OsmAndMapCreator.jar
 
+
+CHOICE /C YN /T 60 /D Y /M "Do you want to continue?"
+IF %ERRORLEVEL% EQU 2 GOTO end_section
+
+
+
+:gmaptool_write
+echo(
+echo GMT SECTION - generete distributables %TIME%
+echo(	
+
+rem transparency priority
+echo(
+echo Preparing original img %TIME%
+echo(	
+echo %gmt% -v -w -t -p %draw_priority%  %Img_DIR%gmapsupp.img
+%gmt% -v -w -t -p %draw_priority%  %Img_DIR%gmapsupp.img
+rem %gmt% -w -m "crisol.snowdrift175@passinbox.com OpenStreetMap.org" %Img_DIR%gmapsupp.img
+
+rem plain
+echo(
+echo(	
+echo Writing plain %TIME%
+echo(	
+del /Q %plain%\*
+echo %gmt% -S -v -m "ChihuahuaOSMPlain" -o %plain%/ -f 6776,1 %Img_DIR%gmapsupp.img
+%gmt% -S -v -m "ChihuahuaOSMPlain" -o %plain%/ -f 6776,1 %Img_DIR%gmapsupp.img
+echo(	
+
+setlocal enabledelayedexpansion
+
+set "infile=%plain%\install.bat"
+set "outfile=%plain%\install2.bat"
+set "search=mapset.img"
+set "replace=24741887.img"
+
+(for /f "tokens=* delims=" %%a in (%infile%) do (
+    set "line=%%a"
+    set "line=!line:%search%=%replace%!"
+    echo !line!
+)) > %outfile%
+
+del /Q %infile%
+ren %outfile% install.bat
+echo(	
+
+echo java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=24741887 --output-dir=%plain%/ %plain%/mapset.mp 
+java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=24741887 --output-dir=%plain%/ %plain%/mapset.mp 
+
+echo(	
+CHOICE /C YN /T 5 /D Y /M "Do you want to continue?"
+IF %ERRORLEVEL% EQU 2 GOTO end_section
+
+rem full
+echo(
+echo(	
+echo Writing full %TIME%
+echo(
+del /Q %full%\*
+echo %gmt% -S -m "ChihuahuaOSM" -o %full%/ -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
+%gmt% -S -m "ChihuahuaOSM" -o %full%/ -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
+echo(	
+
+setlocal enabledelayedexpansion
+
+set "infile=%full%\install.bat"
+set "outfile=%full%\install2.bat"
+set "search=mapset.img"
+set "replace=24741887.img"
+
+(for /f "tokens=* delims=" %%a in (%infile%) do (
+    set "line=%%a"
+    set "line=!line:%search%=%replace%!"
+    echo !line!
+)) > %outfile%
+
+del /Q %infile%
+ren %outfile% install.bat
+echo(	
+
+echo java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=99999999 --output-dir=%full%/ %full%/mapset.mp
+echo(	
+java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=99999999 --output-dir=%full%/ %full%/mapset.mp
+
+echo(	
+CHOICE /C YN /T 5 /D Y /M "Do you want to continue?"
+IF %ERRORLEVEL% EQU 2 GOTO end_section
+
+rem join
+echo(
+echo Writing new img %TIME%
+echo(
+echo %gmt% -j -a -m "ChihuahuaOSM" -o c:\temp\gmapsupp.img -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
+%gmt% -j -a -m "ChihuahuaOSM" -o c:\temp\gmapsupp.img -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
+
+
 REM disable next line if osmand map should be created
 goto end_section
+
+
 
 :OsmAnd_Map_Creator
 echo(
@@ -462,3 +576,15 @@ IF %ERRORLEVEL% NEQ 0 (
 echo(
 echo ....SUCCESS 0 .... %TIME%
 exit /b 0
+goto :EOF
+
+
+:Deprecated
+echo(
+echo Deprecated option 
+echo .... exit 100 .... %TIME%
+
+goto :EOF
+
+
+
