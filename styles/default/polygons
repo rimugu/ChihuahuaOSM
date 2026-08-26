@@ -15,8 +15,8 @@ phone=* {set mkgmap:phone='${phone}'}
 name!=* & name:es=* { set name='${name:es}' }
 name!=* & name:en=* { set name='${name:en}' }
 name!=* & name_1=* { set name='${name_1}' }
-alt_name!=* & official_name=* { set alt_name='${official_name}' }
 alt_name!=* & old_name=* { set alt_name='${old_name}' }
+alt_name!=* & official_name=* { set alt_name='${official_name}' }
 alt_name!=* & designation=* { set alt_name='${designation}' }
 
 #natural=water & leisure=park { delete natural }

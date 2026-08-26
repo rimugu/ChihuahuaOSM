@@ -23,8 +23,8 @@ mkgmap:phone=* {add mkgmap:label:4='${mkgmap:phone}'}
 name!=* & name:es=* { set name='${name:es}' }
 name!=* & name:en=* { set name='${name:en}' }
 name!=* & name_1=* { set name='${name_1}' }
-alt_name!=* & official_name=* { set alt_name='${official_name}' }
 alt_name!=* & old_name=* { set alt_name='${old_name}' }
+alt_name!=* & official_name=* { set alt_name='${official_name}' }
 alt_name!=* & designation=* { set alt_name='${designation}' }
 
 website!=* & url=* { set website='${url}' }
@@ -923,7 +923,7 @@ water=* {name '${name} (${water}) [water]' | '(${water}) [water]' ; addlabel '${
 geological=* {name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 power=* & ( power!=tower & power!=pole ) {name '${name} (${power}) [power]' | '(${power}) [power]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 place=* & place!=islet {name '${name} [${place}]' | '[${place}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
-playground=* {name '${name} [${playground}]' | '[${playground}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+playground=* {name '${name} (${playground}) [playground]' | '(${playground}) [playground]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 leisure=* {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 landuse=* & landuse!=farmland & landuse!=grass & landuse!=forest & landuse!=orchard & landuse!=vineyard & landuse!=mesa & landuse!=retail & landuse!=cemetery & landuse!=wood & landuse!=residential 
 	{name '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
