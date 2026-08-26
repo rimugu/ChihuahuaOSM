@@ -18,8 +18,8 @@ barrier=* & is_closed()=true & area_size() < 40000 {delete barrier} # process as
 name!=* & name:es=* { set name='${name:es}' }
 name!=* & name:en=* { set name='${name:en}' }
 name!=* & name_1=* { set name='${name_1}' }
+alt_name!=* & old_name=* { set alt_name='${alt_name}' }
 alt_name!=* & official_name=* { set alt_name='${official_name}' }
-alt_name!=* & alt_name=* { set alt_name='${alt_name}' }
 alt_name!=* & designation=* { set alt_name='${designation}' }
 
 #disused:highway=trunk_link {echotags "disused"}
