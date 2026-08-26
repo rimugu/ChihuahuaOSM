@@ -45,7 +45,7 @@ highway:disused=* & highway:disused!=no & is_closed()=false {name '${name} (disu
 # do these as lines regardless of being closed unless explicity marked as area. continue in case also a highway
 aeroway=runway & area!=yes {name '${ref} [runway]' | '[runway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 20-24 continue]
 (aeroway=taxiway | aeroway=taxilane) & area!=yes {name '${ref} [taxiway]' | '[taxiway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
-aeroway=airstrip | abandoned=yes {name '${ref} (abandoned) [airstrip]' | '(abandoned) [airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
+aeroway=airstrip & abandoned=yes {name '${ref} (abandoned) [airstrip]' | '(abandoned) [airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22-24 continue]
 aeroway=airstrip {name '${ref} [airstrip]' | '[airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 24 continue]
 
 #aerialway=gondola | aerialway=cable_car | aerialway=chair_lift [0x1b resolution 22-24 default_name 'aerialway']
@@ -1276,8 +1276,12 @@ barrier=* & power=* {delete barrier} # some power areas are marked with both
 barrier=* & landuse=* {delete barrier} # some power areas are marked with both
 barrier=* & historic=* {delete barrier} # some power areas are marked with both
 
-barrier=* & barrier!=yes & is_closed()=false {name '(${height}) (${fence_type}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '(${height}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
-barrier=yes {name '(${height}) (${fence_type}) [barrier]' | '(${fence_type}) [barrier]' | '(${height}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+barrier=* & barrier!=yes & is_closed()=false 
+	{name '${name} (${height}) (${fence_type}) (${material}) [barrier]' | '${name} (${height}) (${fence_type}) [barrier]' | '(${height}) (${fence_type}) (${material}) [barrier]' | '(${height}) (${fence_type}) [barrier]' | '${name} (${fence_type}) (${material}) [barrier]' | '${name} (${fence_type}) [barrier]' | '(${fence_type}) (${material}) [barrier]' | '(${fence_type}) [barrier]' | '${name} (${height}) (${material}) [barrier]' | '${name} (${height}) [barrier]' | '(${height}) (${material}) [barrier]' | '(${height}) [barrier]' | '${name} (${material}) [barrier]' | '${name} [barrier]' | '(${material}) [barrier]' | '[barrier]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+barrier=yes 
+	{name '${name} (${height}) (${fence_type}) (${material}) [barrier]' | '${name} (${height}) (${fence_type}) [barrier]' | '(${height}) (${fence_type}) (${material}) [barrier]' | '(${height}) (${fence_type}) [barrier]' | '${name} (${fence_type}) (${material}) [barrier]' | '${name} (${fence_type}) [barrier]' | '(${fence_type}) (${material}) [barrier]' | '(${fence_type}) [barrier]' | '${name} (${height}) (${material}) [barrier]' | '${name} (${height}) [barrier]' | '(${height}) (${material}) [barrier]' | '(${height}) [barrier]' | '${name} (${material}) [barrier]' | '${name} [barrier]' | '(${material}) [barrier]' | '[barrier]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=* & is_closed()=false {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=* & type()!=way {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}' ; echotags "way" } [0x10503 resolution 24] #pink line <----
 # type()=way
