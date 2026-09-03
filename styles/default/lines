@@ -31,11 +31,11 @@ alt_name!=* & designation=* { set alt_name='${designation}' }
 #surface=compacted 
 #surface=ground 
 
-abandoned:highway=* & abandoned:highway!=no & is_closed()=false {name '${name} (abandoned) [${abandoned:highway}]' | '(abandoned) [${abandoned:highway}]'} [0x1c resolution 24 continue]
-abandoned=* & abandoned!=no & is_closed()=false {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 continue]
-disused:highway=* & disused:highway!=no & is_closed()=false {name '${name} (disused) [${disused:highway}]' | '(disused) [${disused:highway}]'} [0x1c resolution 24 continue]
-disused=* & disused!=no & is_closed()=false {name '${name} (disused) [${disused}]' | '(disused) [${disused}]'} [0x1c resolution 24 continue]
-highway:disused=* & highway:disused!=no & is_closed()=false {name '${name} (disused) [${highway:disused}]' | '(disused) [${highway:disused}]'} [0x1c resolution 24 continue]
+abandoned:highway=* & abandoned:highway!=no & is_closed()=false {name '${name} (abandoned) [${abandoned:highway}]' | '(abandoned) [${abandoned:highway}]'} [0x1c resolution 24 ] # continue duplicates path
+abandoned=* & abandoned!=no & is_closed()=false {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x1c resolution 24 ]
+disused:highway=* & disused:highway!=no & is_closed()=false {name '${name} (disused) [${disused:highway}]' | '(disused) [${disused:highway}]'} [0x1c resolution 24 ]
+disused=* & disused!=no & is_closed()=false {name '${name} (disused) [${disused}]' | '(disused) [${disused}]'} [0x1c resolution 24 ]
+highway:disused=* & highway:disused!=no & is_closed()=false {name '${name} (disused) [${highway:disused}]' | '(disused) [${highway:disused}]'} [0x1c resolution 24 ]
 #abandoned=yes {deletealltags} # old, depreciated, ambiguous, method of handling abandoned
 #abandoned=yes {name '${name} (abandoned)' | '(abandoned)'}
 #name=* {name '${name} [${ref|highway-symbol:"box:4:8"}|${alt_name}]' | '${name}'}
@@ -1141,6 +1141,9 @@ highway=turning_loop | highway=turning_circle | highway=layby | highway=escape |
 #highway=raceway | highway=gallop {add name='${highway}'} [0x30 resolution 23]
 #highway=raceway | highway=gallop {add name='${highway}'} [0x1c resolution 23]
 #highway=raceway | highway=gallop | sport=motor {add name='${raceway|subst:"_=> "}'} [0x10705 resolution 23 default_name 'raceway'] # brown line
+highway=raceway & lit=yes
+	{name '${name} (${sport}) (${surface}) (lit) [raceway]' | '${name} (${sport}) (lit) [raceway]' | '${name} (${surface}) (lit) [raceway]' | '${name} (lit) [raceway]' | '(${sport}) (${surface}) (lit) [raceway]' | '(${sport}) (lit) [raceway]' | '(${surface}) (lit) [raceway]' | '(lit) [raceway]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 23] # brown line
 highway=raceway 
 	{name '${name} (${sport}) (${surface}) [raceway]' | '${name} (${sport}) [raceway]' | '${name} (${surface}) [raceway]' | '${name} [raceway]' | '(${sport}) (${surface}) [raceway]' | '(${sport}) [raceway]' | '(${surface}) [raceway]' | '[raceway]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 23] # brown line
@@ -1258,8 +1261,8 @@ man_made=cable & location=underground
 #0x10705 brown line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10605 resolution 24] #blue line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=yes {add name='${barrier|subst:"_=> "}'} [0x10503 resolution 24 default_name 'barrier'] #pink line <----
-#barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=* {name '${barrier} [barrier]' | '[barrier]' ; addlabel '${operator}'} [0x10503 resolution 24] #pink line <----
-#barrier=* & ( barrier!=toll_booth | barrier!=border_control ) {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${operator}'} [0x10503 resolution 24] #pink line <----
+#barrier=wall | barrier=fence | barrier=hedge | barrier=ditch | barrier=* {name '${barrier} [${barrier}]' | '[${barrier}]' ; addlabel '${operator}'} [0x10503 resolution 24] #pink line <----
+#barrier=* & ( barrier!=toll_booth | barrier!=border_control ) {name '(${barrier}) [${barrier}]' | '[${barrier}]' ; addlabel '${operator}'} [0x10503 resolution 24] #pink line <----
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10403 resolution 24] #black line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10703 resolution 24] #grey line
 #barrier=wall | barrier=fence | barrier=hedge | barrier=ditch {add name='${barrier|subst:"_=> "}'} [0x10505 resolution 24] #pink line
@@ -1276,14 +1279,15 @@ barrier=* & power=* {delete barrier} # some power areas are marked with both
 barrier=* & landuse=* {delete barrier} # some power areas are marked with both
 barrier=* & historic=* {delete barrier} # some power areas are marked with both
 
+barrier=yes & is_closed()=false 
+	{name '${name} (${height}) (${fence_type}) (${material}) [${barrier}]' | '${name} (${height}) (${fence_type}) [${barrier}]' | '(${height}) (${fence_type}) (${material}) [${barrier}]' | '(${height}) (${fence_type}) [${barrier}]' | '${name} (${fence_type}) (${material}) [${barrier}]' | '${name} (${fence_type}) [${barrier}]' | '(${fence_type}) (${material}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '${name} (${height}) (${material}) [${barrier}]' | '${name} (${height}) [${barrier}]' | '(${height}) (${material}) [${barrier}]' | '(${height}) [${barrier}]' | '${name} (${material}) [${barrier}]' | '${name} [${barrier}]' | '(${material}) [${barrier}]' | '[${barrier}]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
 barrier=* & barrier!=yes & is_closed()=false 
-	{name '${name} (${height}) (${fence_type}) (${material}) [barrier]' | '${name} (${height}) (${fence_type}) [barrier]' | '(${height}) (${fence_type}) (${material}) [barrier]' | '(${height}) (${fence_type}) [barrier]' | '${name} (${fence_type}) (${material}) [barrier]' | '${name} (${fence_type}) [barrier]' | '(${fence_type}) (${material}) [barrier]' | '(${fence_type}) [barrier]' | '${name} (${height}) (${material}) [barrier]' | '${name} (${height}) [barrier]' | '(${height}) (${material}) [barrier]' | '(${height}) [barrier]' | '${name} (${material}) [barrier]' | '${name} [barrier]' | '(${material}) [barrier]' | '[barrier]' ; 
+	{name '${name} (${height}) (${fence_type}) (${material}) [${barrier}]' | '${name} (${height}) (${fence_type}) [${barrier}]' | '(${height}) (${fence_type}) (${material}) [${barrier}]' | '(${height}) (${fence_type}) [${barrier}]' | '${name} (${fence_type}) (${material}) [${barrier}]' | '${name} (${fence_type}) [${barrier}]' | '(${fence_type}) (${material}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '${name} (${height}) (${material}) [${barrier}]' | '${name} (${height}) [${barrier}]' | '(${height}) (${material}) [${barrier}]' | '(${height}) [${barrier}]' | '${name} (${material}) [${barrier}]' | '${name} [${barrier}]' | '(${material}) [${barrier}]' | '[${barrier}]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
-barrier=yes 
-	{name '${name} (${height}) (${fence_type}) (${material}) [barrier]' | '${name} (${height}) (${fence_type}) [barrier]' | '(${height}) (${fence_type}) (${material}) [barrier]' | '(${height}) (${fence_type}) [barrier]' | '${name} (${fence_type}) (${material}) [barrier]' | '${name} (${fence_type}) [barrier]' | '(${fence_type}) (${material}) [barrier]' | '(${fence_type}) [barrier]' | '${name} (${height}) (${material}) [barrier]' | '${name} (${height}) [barrier]' | '(${height}) (${material}) [barrier]' | '(${height}) [barrier]' | '${name} (${material}) [barrier]' | '${name} [barrier]' | '(${material}) [barrier]' | '[barrier]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
-#barrier=* & is_closed()=false {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
-#barrier=* & type()!=way {name '(${barrier}) [barrier]' | '[barrier]' ; addlabel '${phone}' | '${website}' | '${operator}' ; echotags "way" } [0x10503 resolution 24] #pink line <----
+
+#barrier=* & is_closed()=false {name '(${barrier}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24] #pink line <----
+#barrier=* & type()!=way {name '(${barrier}) [${barrier}]' | '[${barrier}]' ; addlabel '${phone}' | '${website}' | '${operator}' ; echotags "way" } [0x10503 resolution 24] #pink line <----
 # type()=way
 
 route=ferry & (toll=no | toll=false) {set mkgmap:toll=no}
