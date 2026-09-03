@@ -726,13 +726,13 @@ amenity=restaurant {name '${name} (${cuisine}) [restaurant]' | '${name} [restaur
 #common ones not handled:
 # ice_cream,greek,turkish,noodle,portugese,pasties,lebanese,brazilian,mediterranean,oriental,caribbean,vegetarian
 
-# Have the following 2 lines here rather than before cuisine=... so that, for amenity=fast_food, cuisine is respected
-#amenity=fast_food & cuisine=* {add name='${cuisine|subst:"_=> "}'} [0x2a07 resolution 24]
-#amenity=fast_food [0x2a07 resolution 24]
+barrier=yes
+	{name '${name} (${height}) (${fence_type}) (${material}) [barrier]' | '${name} (${height}) (${fence_type}) [barrier]' | '(${height}) (${fence_type}) (${material}) [barrier]' | '(${height}) (${fence_type}) [barrier]' | '${name} (${fence_type}) (${material}) [barrier]' | '${name} (${fence_type}) [barrier]' | '(${fence_type}) (${material}) [barrier]' | '(${fence_type}) [barrier]' | '${name} (${height}) (${material}) [barrier]' | '${name} (${height}) [barrier]' | '(${height}) (${material}) [barrier]' | '(${height}) [barrier]' | '${name} (${material}) [barrier]' | '${name} [barrier]' | '(${material}) [barrier]' | '[barrier]' ; 
+	addlabel 'locked ${locked}' } [0x3200 resolution 24]
 
 barrier=bollard | barrier=bus_trap | barrier=gate | barrier=block | barrier=cycle_barrier |
 	barrier=stile | barrier=kissing_gate | barrier=lift_gate | barrier=swing_gate | barrier=*
-	{name '${name} (${height}) (${access}) (${barrier}) [barrier]' | '${name} (${height}) (${barrier}) [barrier]' | '${name} ${access}) (${barrier}) [barrier]' | '${name} (${barrier}) [barrier]' | '(${height}) (${access}) (${barrier}) [barrier]' | '(${height}) (${barrier}) [barrier]' | '(${access}) (${barrier}) [barrier]' | '(${barrier}) [barrier]' ; 
+	{name '${name} (${height}) (${fence_type}) (${material}) [${barrier}]' | '${name} (${height}) (${fence_type}) [${barrier}]' | '(${height}) (${fence_type}) (${material}) [${barrier}]' | '(${height}) (${fence_type}) [${barrier}]' | '${name} (${fence_type}) (${material}) [${barrier}]' | '${name} (${fence_type}) [${barrier}]' | '(${fence_type}) (${material}) [${barrier}]' | '(${fence_type}) [${barrier}]' | '${name} (${height}) (${material}) [${barrier}]' | '${name} (${height}) [${barrier}]' | '(${height}) (${material}) [${barrier}]' | '(${height}) [${barrier}]' | '${name} (${material}) [${barrier}]' | '${name} [${barrier}]' | '(${material}) [${barrier}]' | '[${barrier}]' ; 
 	addlabel 'locked ${locked}' } [0x3200 resolution 24]
 	#{add name='${barrier|subst:"_=> "}'} [0x3200 resolution 24 default_name '[barrier]']
 
@@ -791,8 +791,6 @@ waterway=rapids {name '${name} [rapids]' | '[rapids]' ; addlabel '${website}' | 
 waterway=dam | man_made=dam {name '${name} [dam]' | '[dam]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x650e resolution 22-24]
 waterway=lock_gate | waterway=weir {name '${name} [lock_gate]' | '[lock_gate]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x650e resolution 24]
 
-tourism=attraction & historic=* 
-	{name '${name} {${alt_name}} [historic]' | '${name} [historic]' | '[historic]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c02 resolution 24]
 tourism=attraction {name '${name} {${alt_name}} [attraction]' | '${name} [attraction]' | '[attraction]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c04 resolution 24]
 attraction=* {name '${name} {${alt_name}} (${attraction}) [attraction]' | '${name} (${attraction}) [attraction]' | '(${attraction}) [attraction]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c04 resolution 24]
@@ -872,9 +870,15 @@ tourism=hunting_lodge {name '${name} {${alt_name}} [hunting_lodge]' | '${name} [
 #tourism=* & tourism!=no & tmp:stopMopUp!=yes {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c0d resolution 24]
 
 building=ruins {name '${name} [ruins]' | '[ruins]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 24]
-building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
-building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
-building=roof {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x0b00 resolution 24] # to use or not to use?
+building=cowshed {name '${name} (${height}m) [cowshed]' | '${name} [cowshed]' | '(${height}m) [cowshed]' | '[cowshed]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x0b00 resolution 24]
+	#addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
+building=stable {name '${name} (${levels}) (${height}m) [stable]' | '${name} (${height}m) [stable]' | '${name} (${levels}) [stable]' | '${name} [stable]' | '(${levels}) (${height}m) [stable]'  | '(${height}m) [stable]' | '(${levels}) [stable]' | '[stable]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x0b00 resolution 24]
+	#addlabel 'height ${height:ft=>m}' | '${levels}' } [0x0b00 resolution 24]
+building=roof {name '${name} (${height}m) [roof]' | '${name} [roof]' | '(${height}m) [roof]' | '[roof]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x0b00 resolution 24]
+	#addlabel 'height ${height:ft=>m}'} [0x0b00 resolution 24] # to use or not to use?
 
 landuse=cemetery | landuse=cemetery | amenity=grave_yard {name '${name} {${alt_name}} (${religion}) [cemetery]' | '${name} {${alt_name}} [cemetery]' | '${name} [cemetery]' | '[cemetery]' ;
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x6403 resolution 24]
@@ -906,14 +910,17 @@ internet_access=yes {name '${name} [Internet]' | '[Internet]'} [0x2f12 resolutio
 internet_access=* & internet_access!=no & internet_access!=yes 
 	{name '${name} (${internet_access}) [Internet]' | '(${internet_access}) [Internet]'} [0x2f12 resolution 24 continue with_actions]
 
-historic=* {name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c02 resolution 24] #0x6415
+#historic=* {name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c02 resolution 24] #0x6415
+historic=* 
+	{name '${name} {${alt_name}} (${historic}) [historic]' | '${name} {${alt_name}} [historic]' | '${name} (${historic}) [historic]' | '${name} [historic]' | '(${historic}) [historic]' | '[historic]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c02 resolution 24]
 shop=* {name '${name} (${shop}) [shop]' | '(${shop}) [shop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2e0c resolution 24]
 climbing=*
 	{name '${name} (${climbing}) [climbing]' | '(${climbing}) [climbing]' } [0x3200 resolution 24]
 sport=* {name '${name} [${sport}]' | '[${sport}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2d09 resolution 24]
 obstacle=*
-	{name '${name} (${obstacle}) [obstacle]' | '(${obstacle}) [obstacle]' } [0x3200 resolution 24]
-aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24]
+	{name '${name} (${obstacle}) [obstacle]' | '(${obstacle}) [obstacle]' } [0x4c00 resolution 24]
+aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24] # 0x4c00 0x2f04
 hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 22]
 office=* {name '${name} (${building}) (${office}) [office]' | '${name} (${office}) [office]' | '(${building}) (${office}) [office]' | '(${office}) [office]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
@@ -948,6 +955,7 @@ geological=*
 advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 abandoned=* & abandoned!=no [0x0b00 resolution 24]
 is_in=* {name '${name} (${is_in}) [is_in]'} [0x0b00 resolution 24 default_name 'is_in'] #should't this be at the end?
+addr:street=* & addr:housenumber=* {addlabel '${addr:street} #${sddr:housenumber}'} 
 
 include 'inc/name';
 <finalize>
