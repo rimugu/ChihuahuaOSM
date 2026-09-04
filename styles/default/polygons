@@ -84,6 +84,8 @@ office=government | office=administration
 	{name '${name} (level ${admin_level}) (${building:levels}s) [${office}]' | '${name} (level ${admin_level}) [${office}]' | '${name} (${building:levels}s) [${office}]' | '${name} [${office}]' | '(level ${admin_level}) (${building:levels}s) [${office}]' | '(level ${admin_level}) [${office}]' | '(${building:levels}s) [${office}]' | '[${office}]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
 amenity=courthouse {name '${name} [courthouse]' | '[courthouse]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 24]
+amenity=theatre {name '${name} (${theatre:type}) [theatre]' | '${name} [theatre]' | '(${theatre:type}) [theatre]' | '[theatre]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x0b resolution 24]
+amenity=stage {name '${name} [stage]' | '[stage]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x0b resolution 24]
 
 (amenity=place_of_worship | building=church) & religion=christian & (denomination=catholic | denomination=roman_catholic | denomination=greek_catholic) 
 	{name '${name} [catholic_church]' | '[catholic_church]' ; 
@@ -101,7 +103,8 @@ building=convent {name '${name} [${convent}]' | '[${convent}]' ; addlabel '${pho
 	{name '${name} (${social_facility}) [${amenity}]' | '(${social_facility}) [${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 amenity=community_centre | amenity=community_center | amenity=social_facility 
 	{name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
-amenity=marketplace {name '${name} [marketplace]' | '[marketplace]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x08 resolution 22-24]
+amenity=marketplace {name '${name} (${opening_hours}) [marketplace]' | '${name} [marketplace]' | '(${opening_hours}) [marketplace]' | '[marketplace]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x08 resolution 22-24]
 amenity=toilets 
 	{name '${name} (access ${access}) (fee ${fee}) [toilets]' | '(access ${access}) (fee ${fee}) [toilets]' | '${name} (fee ${fee}) [toilets]' | '(fee ${fee}) [toilets]' | '${name} (access ${access}) [toilets]' | '(access ${access}) [toilets]' | '${name} [toilets]' | '[toilets]' 
 	; addlabel '${access}' | '${operator}'} [0x13 resolution 24]
@@ -435,9 +438,15 @@ hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabe
 # building tag should be last
 #amenity=* & area!=no & amenity!=grave_yard {add name='${amenity|subst:"_=> "}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 
-building=cowshed {name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
-building=stable {name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
-building=roof & amenity!=* {name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] # to use or not to use?
+building=cowshed {name '${name} (${height}m) [cowshed]' | '${name} [cowshed]' | '(${height}m) [cowshed]' | '[cowshed]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x13 resolution 24]
+	#{name '${name} [cowshed]' | '[cowshed]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
+building=stable {name '${name} (${levels}) (${height}m) [stable]' | '${name} (${height}m) [stable]' | '${name} (${levels}) [stable]' | '${name} [stable]' | '(${levels}) (${height}m) [stable]'  | '(${height}m) [stable]' | '(${levels}) [stable]' | '[stable]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x13 resolution 24]
+	#{name '${name} [stable]' | '[stable]' ; addlabel 'height ${height:ft=>m}' | '${levels}' } [0x13 resolution 24]
+building=roof {name '${name} (${height}m) [roof]' | '${name} [roof]' | '(${height}m) [roof]' | '[roof]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x13 resolution 24]
+	#{name '${name} [roof]' | '[roof]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] # to use or not to use?
 building=greenhouse | landuse=greenhouse_horticulture {name '${name} [greenhouse]' | '[greenhouse]' ; addlabel 'height ${height:ft=>m}'} [0x13 resolution 24] 
 
 historic=archaeological_site

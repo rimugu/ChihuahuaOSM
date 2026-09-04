@@ -365,7 +365,8 @@ amenity=supermarket [0x2e02 resolution 24]
 amenity=taxi {name '${name} [taxi]' | '[taxi]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24]
 amenity=telephone {name '${name} (fee ${fee}) [telephone]' | '${name} [telephone]' | '(fee ${fee}) [telephone]' | '[telephone]' ; addlabel '${website}' | '${phone}' | '${operator}'} 
 	[0x2f12 resolution 24]
-amenity=theatre [0x2d01 resolution 24]
+amenity=theatre {name '${name} (${theatre:type}) [theatre]' | '${name} [theatre]' | '(${theatre:type}) [theatre]' | '[theatre]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2d01 resolution 24]
+amenity=stage {name '${name} [stage]' | '[stage]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2d01 resolution 24]
 amenity=toilets | building=toilets
 	{name '${name} (${access}) (fee ${fee}) [toilets]' | '(${access}) (fee ${fee}) [toilets]' | '${name} (fee ${fee}) [toilets]' | '(fee ${fee}) [toilets]' | '${name} (${access}) [toilets]' | '(${access}) [toilets]' | '${name} [toilets]' | '[toilets]' 
 	; addlabel '${access}' | '${operator}'} [0x2f0c resolution 24]
@@ -383,7 +384,8 @@ amenity=payment_centre | amenity=payment_terminal {name '${name} [payment]' | '[
 amenity=weighbridge 
 	{name '${name} ${maxweight}t (${access}) [weighbridge]' | '${name} (${access}) [weighbridge]' | '${name} ${maxweight}t [weighbridge]' | '${name} [weighbridge]' | '(${access}) ${maxweight}t [weighbridge]' | '(${access}) [weighbridge]' | '${maxweight}t [weighbridge]' | '[weighbridge]' ; addlabel '${website}' | '${phone}' | '${operator}'} 
 	[0x2400 resolution 24] # Weight station 0x3200
-amenity=marketplace {name '${name} [marketplace]' | '[marketplace]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c09 resolution 24]
+amenity=marketplace {name '${name} (${opening_hours}) [marketplace]' | '${name} [marketplace]' | '(${opening_hours}) [marketplace]' | '[marketplace]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c09 resolution 24]
 amenity=events_venue {name '${name} [events_venue]' | '[events_venue]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c09 resolution 24] #0x2e06 is fuel
 amenity=ranger_station {name '${name} [ranger_station]' | '[ranger_station]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c17 resolution 22-24]
 amenity=waste_disposal | landuse=landfill | amenity=waste_transfer_station 
