@@ -21,7 +21,9 @@ set Split_temp_DIR=%Home_DIR%split-temp\
 echo Split_temp_DIR			%Split_temp_DIR%
 set split_DIR=%Home_DIR%splitter-r654\
 echo split_DIR 			%split_DIR%
-set max_nodes=1600000
+rem --max-nodes=2400000 10 areas
+rem set max_nodes=1600000 15 areas
+set max_nodes=1200000
 echo split max nodes			%max_nodes%
 set mkgmap_DIR=%Home_DIR%mkgmap-r4924\
 echo mkgmap_DIR 			%mkgmap_DIR% 
@@ -43,3 +45,5 @@ set full=c:\temp\ChihuahuaOSM
 echo full 				%full%
 set curves=C:\temp\DirectChihuahuaOSM\CurvasNivel
 echo curves				%curves%
+set map_style=%Home_DIR%styles\default
+echo map_style			%map_style%

@@ -412,7 +412,7 @@ del /q %Img_DIR%
 java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=%max_jobs% --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=is_in,bounds,nearest^
  --index --show-profiles=1 --make-opposite-cycleways --housenumbers --generate-sea=land-tag=natural=land --precomp-sea=%Home_DIR%sea-latest.zip^
  --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name="Chihuahua" --code-page=1252 --improve-overview --order-by-decreasing-area^
- --allow-reverse-merge --remove-ovm-work-files "--style-file=%Home_DIR%styles\default" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=auto^
+ --allow-reverse-merge --remove-ovm-work-files "--style-file=%map_style%" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=auto^
  --family-name="ChihuahuaOSM crisol.snowdrift175@passinbox.com" --process-destination --process-exits --max-routing-island-len=500^
  --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right --copyright-message=" crisol.snowdrift175@passinbox.com "^
  --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=%draw_priority% --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
@@ -459,7 +459,7 @@ rem https://cferrero.net/maps/improve_OSM.html
 
 rem start javaw.exe -Xmx12G -Djava.util.logging.config.file=logging.properties --add-opens java.base/java.util=ALL-UNNAMED -jar OsmAndMapCreator.jar
 
-
+echo(	
 CHOICE /C YN /T 60 /D Y /M "Do you want to continue?"
 IF %ERRORLEVEL% EQU 2 GOTO end_section
 
