@@ -265,8 +265,8 @@ highway=* & tempnamehighway!=* & service!=* { set tempnamehighway='[${highway}]'
 #extras
 highway=* & oneway!=no & oneway=* { set tempnamehighway='(one_way) ${tempnamehighway}' }
 highway=* & oneway=no { set tempnamehighway='(two_way) ${tempnamehighway}' }
-highway=* & surface=* { set tempnamehighway='(${surface}) ${tempnamehighway}' }
-highway=* & surface!=* { set tempnamehighway='(unkn) ${tempnamehighway}' } 
+highway=* & surface=* { set tempnamehighway='<${surface}> ${tempnamehighway}' }
+highway=* & surface!=* { set tempnamehighway='<unkn> ${tempnamehighway}' } 
 highway=* & tracktype=* { set tempnamehighway='(${tracktype}) ${tempnamehighway}' }
 highway=* & smoothness=* { set tempnamehighway='(${smoothness}) ${tempnamehighway}' }
 highway=* & mtb:scale=* { set tempnamehighway='(mtb ${mtb:scale}) ${tempnamehighway}' }
@@ -300,7 +300,7 @@ highway=p_link {name '${tempnamehighway}' ; addlabel '${maxspeed} ${lanes}' | '$
 highway=secondary & mkgmap:fast_road=yes {name '${tempnamehighway}' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x04 road_class=3 road_speed=3 resolution 18]
 highway=secondary {name '${tempnamehighway}' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x04 road_class=2 road_speed=3 resolution 20]
 
-highway=se_link & mkgmap:fast_road=yes {name '${tempnamehighway}' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=3 road_speed=1 resolution 22]
+highway=s_link & mkgmap:fast_road=yes {name '${tempnamehighway}' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=3 road_speed=1 resolution 22]
 highway=s_link {name '${tempnamehighway}' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x08 road_class=2 road_speed=1 resolution 22]
 
 highway=tertiary {name '${tempnamehighway}' ; addlabel '${maxspeed} ${lanes}' | '${maxspeed}' | '${lanes}'} [0x05 road_class=1 road_speed=3 resolution 20]
@@ -480,8 +480,9 @@ route=ferry {name '${name} [ferry]' | '[ferry]' ; addlabel '${phone}' | '${websi
 waterway=* { set tempnamewaterway='[${waterway}]' }
 
 #extras
-waterway=* & intermittent=yes { set tempnamewaterway='(interm) ${tempnamewaterway}' }
-waterway=* & intermittent=no { set tempnamewaterway='(perm) ${tempnamewaterway}' }
+waterway=* & intermittent=yes { set tempnamewaterway='<interm> ${tempnamewaterway}' }
+waterway=* & intermittent=no { set tempnamewaterway='<perm> ${tempnamewaterway}' }
+waterway=* & intermittent!=* { set tempnamewaterway='<unkn> ${tempnamewaterway}' }
 waterway=* & width=* { set tempnamewaterway='(${width}m) ${tempnamewaterway}' }
 waterway=* & usage=* { set tempnamewaterway='(${usage}) ${tempnamewaterway}' }
 waterway=* & alt_name=* { set tempnamewaterway='{${alt_name}} ${tempnamewaterway}' }
@@ -564,7 +565,8 @@ natural=tree_row {name '${name} (${denotation}) [tree_row]' | '(${denotation}) [
 natural=divide {name '${name} [divide]' | '[divide]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24] #gray admin line
 natural=* & area=no {name '${name} [${natural}]' | '[${natural}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10503 resolution 24]
 
-waterway=waterfall & intermittent=yes {name '${name} (${height}) (interm) [waterfall]' | '${name} (interm) [waterfall]' | '(${height}) (interm) [waterfall]' | '(interm) [waterfall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1f resolution 22-24]
+waterway=waterfall & intermittent=yes {name '${name} (${height}) <interm> [waterfall]' | '${name} <interm> [waterfall]' | '(${height}) <interm> [waterfall]' | '<interm> [waterfall]' ; 
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x1f resolution 22-24]
 waterway=waterfall {name '${name} (${height}) [waterfall]' | '${name} [waterfall]' | '(${height}) [waterfall]' | '[waterfall]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1f resolution 22-24]
 waterway=dam | man_made=dam 
 	{name '${name} (${material}) [dam]' | '${name} [dam]' | '(${material}) [dam]' | '[dam]' ; addlabel '${height} ${operator}' | '${operator}' | '${height}'} [0x10503 resolution 22-24]
@@ -581,7 +583,7 @@ waterway=* & waterway!=no & (area=no | (is_closed()=false & mkgmap:mp_created!=t
 
 include 'inc/contour_lines';
 
-hazard=* & is_closed()=false {name '${name} (${hazard) [hazard]' | ' (${hazard) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x1c resolution 24]
+hazard=* & is_closed()=false {name '${name} (${hazard}) [hazard]' | ' (${hazard}) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x1c resolution 24]
 playground=* & is_closed()=false {name '${name} [${playground}]' | '[${playground}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 24]
 leisure=* & is_closed()=false {name '${name} [${leisure}]' | '[${leisure}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24]
 attraction=* & is_closed()=false {name '${name} (${attraction}) [attraction]' | '(${attraction}) [attraction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x1c resolution 22-24]

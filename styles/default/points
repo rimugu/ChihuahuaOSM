@@ -546,7 +546,7 @@ highway=mini_roundabout {name '[mini_roundabout]' ; addlabel '${website}' | '${p
 highway=speed_camera {name '(${maxspeed|conv:"mph=>kmh"}) [speed_camera]' | '[speed_camera]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 highway=trailhead {name '${name} (fee ${fee}) [trailhead]' | '${name} [trailhead]' | '(fee ${fee}) [trailhead]' | '[trailhead]' ; addlabel '${website}' | '${phone}' | '${operator}'} 
 	[0x3200 resolution 24]
-traffic_sign=* {name '(${maxspeed|conv:"mph=>kmh"}) (${traffic_sign}) [sign]' | '(${traffic_sign}) [sign]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x7010 resolution 24]
+
 man_made=corral {name '(${name}) [corral]' | '[corral]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 ford=yes & seasonal=yes
 	{name '${name} (${surface}) (${depth}m) [ford_seasonal]' | '${name} (${depth}m) [ford_seasonal]' | '(${surface}) (${depth}m) [ford_seasonal]' | '(${depth}m) [ford_seasonal]' | '${name} (${surface}) [ford_seasonal]' | '${name} [ford_seasonal]' | '(${surface}) [ford_seasonal]' | '[ford_seasonal]' ; 
@@ -591,29 +591,39 @@ natural=gorge | natural=canyon {name '${name} {${alt_name}} [canyon]' | '${name}
 natural=mesa | natural=plateau {name '${name} {${alt_name}} [mesa]' | '${name} [mesa]' | '[mesa]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6606 resolution 24]
 
 railway=station | railway:historic=station {name '${name} [railway_station]' | '[railway_station]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 22-24]
+railway=station | railway:historic=station {name '${name} [railway_station]' | '[railway_station]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 22-24]
 railway=halt {addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 23]
 # if option --add-pois-to-lines in effect, add just 1 POI
 (railway=platform | (public_transport=platform & railway=*)) & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) 
 	{name '${name} [${railway}]' | '[platform]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 23]
-#highway=bus_stop {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24] #0x2f08 bus icon, small square 0x2f17
-if ( highway=bus_stop ) then
-	if ( shelter=* ) then
-		if ( bench=* ) then
-			bin=* {name '${name} (shelter/bench/bin) [bus_stop]' | '(shelter/bench/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-			() {name '${name} (shelter/bench) [bus_stop]' | '(shelter/bench) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-		end
-		bin=* {name '${name} (shelter/bin) [bus_stop]' | '(shelter/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-		() {name '${name} (shelter) [bus_stop]' | '(shelter) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-	end
-	if ( bench=* ) then
-		bin=* {name '${name} (bench/bin) [bus_stop]' | '(bench/bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-		() {name '${name} (bench) [bus_stop]' | '(bench) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-	end
-	bin=* {name '${name} (bin) [bus_stop]' | '(bin) [bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-	() {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-end 
 railway=tram_stop {name '${name} [tram_stop]' | '[tram_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f08 resolution 24]
-public_transport=platform & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid) 
+
+#highway=bus_stop {name '${name} [bus_stop]' | '[bus_stop]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f17 resolution 24] #0x2f08 bus icon, small square 0x2f17
+
+#default for highway=bus_stop
+highway=bus_stop { set tempnamebus_stop='[bus_stop]' }
+
+#extras
+highway=bus_stop & shelter=yes { set tempnamebus_stop='(shelter) ${tempnamebus_stop}' }
+highway=bus_stop & bench=yes { set tempnamebus_stop='(bench) ${tempnamebus_stop}' }
+highway=bus_stop & bin=yes { set tempnamebus_stop='(bin) ${tempnamebus_stop}' }
+highway=bus_stop & alt_name=* { set tempnamebus_stop='{${alt_name}} ${tempnamebus_stop}' }
+highway=bus_stop & name=* { set tempnamebus_stop='${name} ${tempnamebus_stop}' }
+
+highway=bus_stop {name '${tempnamebus_stop}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2f08 resolution 24]
+
+
+#default for public_transport=platform
+public_transport=platform { set tempnamepublic_transport='[bus_stop]' }
+
+#extras
+public_transport=platform & shelter=yes { set tempnamepublic_transport='(shelter) ${tempnamepublic_transport}' }
+public_transport=platform & bench=yes { set tempnamepublic_transport='(bench) ${tempnamepublic_transport}' }
+public_transport=platform & bin=yes { set tempnamepublic_transport='(bin) ${tempnamepublic_transport}' }
+public_transport=platform & alt_name=* { set tempnamepublic_transport='{${alt_name}} ${tempnamepublic_transport}' }
+public_transport=platform & name=* { set tempnamepublic_transport='${name} ${tempnamepublic_transport}' } 
+
+public_transport=platform & (mkgmap:line2poi!=true | mkgmap:line2poitype=mid)  {name '${tempnamepublic_transport}' ; addlabel '${phone}' | '${website}' | '${operator}'}
 	[0x2f08 resolution 24]
 
 shop=* & name!=* & shop!=yes & shop!=no & shop!=none & shop!=vacant {set name='${shop|subst:"_=> "}'}
@@ -738,20 +748,37 @@ barrier=bollard | barrier=bus_trap | barrier=gate | barrier=block | barrier=cycl
 	addlabel 'locked ${locked}' } [0x3200 resolution 24]
 	#{add name='${barrier|subst:"_=> "}'} [0x3200 resolution 24 default_name '[barrier]']
 
-landuse=basin {name '${name} [basin]' | '[basin]' ; addlabel 'intermittent=$[intermittent]' } [0x6603 resolution 24]
+
+#non default name for water
+(landuse=reservoir | man_made=reservoir) & water !=* { set water=reservoir }
+landuse=basin & water !=* { set water=basin }
+natural=water & water !=* { set water=water }
+
+#default for water
+water=* { set tempnamewaterbody='[${water}]' }
+
+#extras
+tidal=yes { set tempnamewaterbody='(tidal) ${tempnamewaterbody}' }
+water=* & intermittent=yes { set tempnamewaterbody='<interm> ${tempnamewaterbody}' }
+water=* & intermittent=no { set tempnamewaterbody='<perm> ${tempnamewaterbody}' }
+water=* & intermittent!=* { set tempnamewaterbody='<unkn> ${tempnamewaterbody}' }
+water=* & salt=yes { set tempnamewaterbody='(salt) ${tempnamewaterbody}' }
+water=* & width=* { set tempnamewaterbody='(${width}m) ${tempnamewaterbody}' }
+water=* & usage=* { set tempnamewaterbody='(${usage}) ${tempnamewaterbody}' }
+water=* & alt_name=* { set tempnamewaterbody='{${alt_name}} ${tempnamewaterbody}' }
+water=* & name=* { set tempnamewaterbody='${name} ${tempnamewaterbody}' }
+
+(landuse=reservoir | water=reservoir | man_made=reservoir)
+	{name '${tempnamewaterbody}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x650f resolution 20-24]
+
+landuse=basin {name '${tempnamewaterbody}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6603 resolution 24]
 #landuse=reservoir is deprectaded in favor of natural=water water=reservoir
-(landuse=reservoir | water=reservoir) & intermittent=* & salt=yes 
-	{name '${name} {${alt_name}} (salt) [reservoir]' | '${name} (salt) [reservoir]' | '{${alt_name}} (salt) [reservoir]' | '(salt) [reservoir]' ; 
-	addlabel 'intermittent ${intermittent}' ; addlabel '${operator}'} [0x650f resolution 22-24]
-(landuse=reservoir | water=reservoir) & intermittent=* 
-	{name '${name} {${alt_name}} [reservoir]' | '${name} [reservoir]' | '{${alt_name}} [reservoir]' | '[reservoir]' ; 
-	addlabel 'intermittent ${intermittent}' ; addlabel '${operator}'} [0x650f resolution 22-24]
-(landuse=reservoir | water=reservoir) & salt=yes 
-	{name '${name} {${alt_name}} (salt) [reservoir]' | '${name} (salt) [reservoir]' | '{${alt_name}} (salt) [reservoir]' | '(salt) [reservoir]' ; 
-	addlabel 'unknown' ; addlabel '${operator}'} [0x650f resolution 22-24]
-landuse=reservoir | water=reservoir 
-	{name '${name} {${alt_name}} [reservoir]' | '${name} [reservoir]' | '{${alt_name}} [reservoir]' | '[reservoir]' ; 
-	addlabel 'unknown' ; addlabel '${operator}'} [0x650f resolution 22-24]
+(landuse=reservoir | water=reservoir) {name '${tempnamewaterbody}' ; addlabel '${phone}' | '${website}' | '${operator}' ; addlabel '${operator}'} [0x650f resolution 22-24]
+natural=stream {name '${tempnamewaterbody}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6512 resolution 24]
+(water=canal | water=lock) {name '${tempnamewaterbody}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x6505 resolution 24]
+water=* {name '${name} (${water}) [water]' | '(${water}) [water]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6603 resolution 24]
+
+(water=lake | water=pond) {name '${tempnamewaterbody}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x650d resolution 24]
 
 landuse=quarry {name '${name} {${alt_name}} [quarry]' | '${name} [quarry]' | '{${alt_name}} [quarry]' | '[quarry]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x640c resolution 22-24]
 ( landuse=industrial & industrial=mine ) | historic=mine | man_made=adit | man_made=mine 
@@ -772,13 +799,7 @@ natural=glacier {name '${name} [glacier]' | '[glacier]' ; addlabel 'drinkable ${
 natural=spring & intermittent=yes {name '${name} (interm) [spring]' | '(interm) [spring]' ; addlabel 'drinkable ${drinkable}' | '${operator}'} [0x6511 resolution 24]
 natural=spring {name '${name} [spring]' | '[spring]' ; addlabel 'drinkable ${drinkable}' | '${operator}'} [0x6511 resolution 22-24]
 natural=hot_spring | leisure=hot_spring {name '${name} [hot_spring]' | '[hot_spring]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c0c resolution 24]
-natural=stream {name '${name} [stream]' | '[stream]' ; addlabel 'intermittent=$[intermittent]' } [0x6512 resolution 24]
-natural=water & (water=canal | water=lock) & name=* {name '${name} [water]' | '[water]' ; addlabel 'intermittent=$[intermittent]' } [0x6505 resolution 24]
 
-(water=lake | water=pond) & salt=yes {name '${name} (salt) [water]' | '(salt) [water]' ; addlabel 'intermittent=$[intermittent]' } [0x650d resolution 24]
-(water=lake | water=pond) {name '${name} [water]' | '[water]' ; addlabel 'intermittent=$[intermittent]' } [0x650d resolution 24]
-natural=water & salt=yes {name '${name} (salt) [water]' | '(salt) [water]' ; addlabel 'intermittent=$[intermittent]' } [0x6603 resolution 24]
-natural=water {name '${name} [water]' | '[water]' ; addlabel 'intermittent=$[intermittent]' } [0x6603 resolution 24]
 
 (natural=waterfall | waterway=waterfall ) & intermittent=yes # natural=waterfall is deprecated
 	{name '${name} {${alt_name}} (${height}m) (interm) [waterfall]' | '${name} (${height}m) (interm) [waterfall]' | '(${height}m) (interm) [waterfall]' | '${name} (${height}m) (interm) [waterfall]' | '(${height}m) (interm) [waterfall]' | '${name} {${alt_name}} (interm) [waterfall]' | '${name} (interm) [waterfall]' | '(interm) [waterfall]' ; addlabel '${website}' | '${phone}' | '${operator}'}
@@ -805,23 +826,22 @@ tourism=bed_and_breakfast {name '${name} {${alt_name}} [bed_and_breakfast]' | '$
 	[0x2b02 resolution 24]
 	
 # NB: different devices use different codes for camp/caravan_site, have both!
-if ( tourism=camp_site ) then
-	if ( drinking_water=yes ) then
-		tourism=camp_site & fee=yes
-			{name '${name} {${alt_name}} (${access}) (fee) (water yes) [camp_site]' | '${name} (${access}) (fee) (water yes) [camp_site]' | '${name} (fee) (water yes) [camp_site]' | '(${access}) (fee) (water yes) [camp_site]' | '(fee) (water yes) [camp_site]' ; 
-			addlabel '${website}' | '${phone}' | '${operator}'} 	[0x2b05 resolution 20-24]
-		tourism=camp_site 
-			{name '${name} {${alt_name}} (${access}) (water yes) [camp_site]' | '${name} (${access}) (water yes) [camp_site]' | '${name} (water yes) [camp_site]' | '(${access}) (water yes) [camp_site]' | '(water yes) [camp_site]' ; 
-			addlabel '${website}' | '${phone}' | '${operator}'} [0x2b05 resolution 20-24]
-	end
-end
-tourism=camp_site & fee=yes
-	{name '${name} {${alt_name}} (${access}) (fee) [camp_site]' | '${name} {${alt_name}} (${access}) (fee) [camp_site]' | '${name} (${access}) (fee) [camp_site]' | '${name} (fee) [camp_site]' | '(${access}) (fee) [camp_site]' | '(fee) [camp_site]' ; 
-	addlabel '${website}' | '${phone}' | '${operator}'} 	[0x2b05 resolution 20-24]
-tourism=camp_site 
-	{name '${name} {${alt_name}} (${access}) [camp_site]' | '${name} (${access}) [camp_site]' | '${name} [camp_site]' | '(${access}) [camp_site]' | '[camp_site]' ; 
-	addlabel '${website}' | '${phone}' | '${operator}'} [0x2b05 resolution 20-24]
 
+#default for tourism=camp_site 
+tourism=camp_site  { set tempnamecamp_site='[camp_site]' }
+
+#extras
+tourism=camp_site & drinking_water=yes { set tempnamecamp_site='(water yes) ${tempnamecamp_site}' }
+tourism=camp_site & fee=yes { set tempnamecamp_site='(fee) ${tempnamecamp_site}' }
+tourism=camp_site & access=* { set tempnamecamp_site='(${access}) ${tempnamecamp_site}' }
+tourism=camp_site & toilets=yes { set tempnamecamp_site='(toilets) ${tempnamecamp_site}' }
+tourism=camp_site & openfire=yes { set tempnamecamp_site='(fire) ${tempnamecamp_site}' }
+tourism=camp_site & ref=* { set tempnamecamp_site='(${ref}) ${tempnamecamp_site}' }
+tourism=camp_site & alt_name=* { set tempnamecamp_site='{${alt_name}} ${tempnamecamp_site}' }
+tourism=camp_site & name=* { set tempnamecamp_site='${name} ${tempnamecamp_site}' }
+
+tourism=camp_site {name '${tempnamecamp_site}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x2b05 resolution 20-24]
+	
 tourism=camp_pitch & drinking_water=yes 
 	{name '${name} (${ref}) (water yes) [camp_pitch]' | '${name} (water yes) [camp_pitch]' | '(${ref}) (water yes) [camp_pitch]' | '(water yes) [camp_pitch]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x2b05 resolution 24]
@@ -912,6 +932,7 @@ internet_access=yes {name '${name} [Internet]' | '[Internet]'} [0x2f12 resolutio
 internet_access=* & internet_access!=no & internet_access!=yes 
 	{name '${name} (${internet_access}) [Internet]' | '(${internet_access}) [Internet]'} [0x2f12 resolution 24 continue with_actions]
 
+traffic_sign=* {name '(${maxspeed|conv:"mph=>kmh"}) (${traffic_sign}) [sign]' | '(${traffic_sign}) [sign]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x7010 resolution 24]
 #historic=* {name '${name} (${historic}) [historic]' | '(${historic}) [historic]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c02 resolution 24] #0x6415
 historic=* 
 	{name '${name} {${alt_name}} (${historic}) [historic]' | '${name} {${alt_name}} [historic]' | '${name} (${historic}) [historic]' | '${name} [historic]' | '(${historic}) [historic]' | '[historic]' ; 
@@ -928,7 +949,6 @@ office=* {name '${name} (${building}) (${office}) [office]' | '${name} (${office
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
 natural=* & natural!=heath & natural!=scrub & natural!=sand & natural!=grassland & natural!=tree 
 	{name '${name} {${alt_name}} [${natural}]' | '${name} [${natural}]' | '[${natural}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] # 0x6606
-water=* {name '${name} (${water}) [water]' | '(${water}) [water]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6603 resolution 24]
 geological=* {name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 power=* & ( power!=tower & power!=pole ) {name '${name} (${power}) [power]' | '(${power}) [power]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 place=* & place!=islet {name '${name} [${place}]' | '[${place}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
@@ -954,7 +974,7 @@ building=* & building!=yes & building!=house
 	addlabel 'levels ${levels}'} [0x0b00 resolution 24] # to use or not to use?
 geological=*
 	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x32000 resolution 24]
-advertising=* {name '${name} (${advertising}) [sign]' | '(${advertising}) [sign]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
+advertising=* {name '${name} (${advertising}) [advertising]' | '(${advertising}) [advertising]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 abandoned=* & abandoned!=no [0x0b00 resolution 24]
 is_in=* {name '${name} (${is_in}) [is_in]'} [0x0b00 resolution 24 default_name 'is_in'] #should't this be at the end?
 addr:street=* & addr:housenumber=* {addlabel '${addr:street} #${sddr:housenumber}'} 
