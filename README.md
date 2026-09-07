@@ -14,3 +14,5 @@ Personalmente espero usar este mapa para continuar extendiendo el Great Divide M
 Descargas
  
 https://libreriacrisol.blogspot.com/p/mapa-de-aventura-en-chihuahua-para-gps.html
+
+Aqui incluimos el estilo y el script usado para general el mapa usando mkgmap y gmaptool.
