@@ -277,7 +277,7 @@ cmd /c curl.exe --parallel --keepalive-time 5 --output %input_DIR%ChihuahuaOSM89
 rem goto join_section_osmconvert
 
 :get_data_section_90
-call :Deprecated5
+call :Deprecated
 exit /b 100
 
 echo 91	011Mb 0:13
@@ -370,13 +370,17 @@ del /q %Split_temp_DIR%
 @echo(
 
 
-java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=512 --max-threads=auto --max-nodes=%max_nodes% --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
- --geonames-file=%Home_DIR%cities15000.zip --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
+java -jar %split_DIR%splitter.jar --resolution=13 --max-areas=%max_areas% --max-threads=auto --max-nodes=%max_nodes% --mapid=24740001 --precomp-sea=%Home_DIR%sea-latest.zip^
+ --search-limit=250000 --geonames-file=%Home_DIR%%geonames_file%  --output-dir=%Split_temp_DIR% %osm_temp%Chihuahua.osm
 @echo off
 
+rem --mixed --stop-after=dist
+rem --search-limit=200000
 rem --max-nodes=2400000
 rem --max-threads=5
 rem --max-threads can be specified one less than number of cores to make machine more responsive during execution
+rem --geonames-file=%Home_DIR%%geonames_file% 
+rem --overlap=4000 --no-trim 
 
 rem geonames http://download.geonames.org/export/dump
 
@@ -409,7 +413,8 @@ del /q %Img_DIR%
 
 @echo(
 
-java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=%max_jobs% --keep-going --family-id=6775 --product-id=1 --remove-short-arcs --route --location-autofill=is_in,bounds,nearest^
+
+java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=%max_jobs% --keep-going --family-id=%family_id1% --product-id=1 --remove-short-arcs --route --location-autofill=is_in,bounds,nearest^
  --index --show-profiles=1 --make-opposite-cycleways --housenumbers --generate-sea=land-tag=natural=land --precomp-sea=%Home_DIR%sea-latest.zip^
  --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name="Chihuahua" --code-page=1252 --improve-overview --order-by-decreasing-area^
  --allow-reverse-merge --remove-ovm-work-files "--style-file=%map_style%" --check-styles --dem=%DEM_DIR% --dem-dists=3312,13248,26512,53024 --dem-interpolation=auto^
@@ -417,8 +422,9 @@ java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --max-jobs=%max_jobs% --keep-goin
  --fix-roundabout-direction --merge-lines --polygon-size-limits=24:12,18:10,16:8 --drive-on=detect,right --copyright-message=" crisol.snowdrift175@passinbox.com "^
  --region-name="Chihuahua Texas New Mexico Coahuila Durango OSM" --draw-priority=%draw_priority% --levels=0:24,1:22,2:20,3:18,4:16,5:14 --make-poi-index^
  --link-pois-to-ways --split-name-index --road-name-config=%Home_DIR%styles\roadNameConfig.txt --poi-address --gmapsupp --hide-gmapsupp-on-pc^
- --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" --add-pois-to-lines=mid ^
- --overview-dem-dist=276160 %Split_temp_DIR%*.pbf 
+ --add-pois-to-areas --pois-to-areas-placement="entrance=main;entrance=yes;building=entrance" --add-pois-to-lines=mid^
+ --road-name-config=%road_name_config% --overview-dem-dist=276160^
+ %Split_temp_DIR%*.pbf %typ_file%
 
 @echo off
 
@@ -428,12 +434,18 @@ rem --max-jobs can be specified one less than number of cores to make machine mo
 IF %ERRORLEVEL% NEQ 0 ( 
 	echo ....ERROR 400 - %ERRORLEVEL% .... %TIME%
 	exit /b 400
-)
+) 
 
 rem bounds and sea preconfig files https://www.thkukuk.de/osm/data/
 
+rem --nearby-poi-rules=*/named:10,*/unnamed:25,0x2f17-0x2f1f:30
+rem --add-boundary-nodes-at-admin-boundaries=4   Add aditional time to processing at the end (default 2)
+rem --read-config=%Split_temp_DIR%template.args 
+rem -Dlog.config=logging.properties
+rem --code-page=1252  # Windows-1252
+rem --code-page=0  # ASCII 7 bit
 rem --bounds=%Home_DIR%bounds-latest.zip --output-dir=%Img_DIR% --mapname=24740001 --area-name="Chihuahua" --code-page=1252 --improve-overview --order-by-decreasing-area^
-rem C:\temp\DirectChihuahuaOSM\styles\default\CFMaster.TYP
+rem C:\temp\DirectChihuahuaOSM\typ\ChihuOSM.TYP
 rem --dem-interpolation=auto
 rem --dem-interpolation=bilinear
 rem --levels=0:24,1:22,2:20,3:18,4:16,5:14
@@ -455,7 +467,7 @@ rem --split-name-index #increase index size but improves search?
 rem --code-page=1252
 rem  --report-roundabout-issues --report-routing-islands^
 rem --ignore-fixme-values
-rem https://cferrero.net/maps/improve_OSM.html
+rem --mdr7-excl= --road-name-config= --mdr7-del=
 
 rem start javaw.exe -Xmx12G -Djava.util.logging.config.file=logging.properties --add-opens java.base/java.util=ALL-UNNAMED -jar OsmAndMapCreator.jar
 
@@ -466,6 +478,9 @@ IF %ERRORLEVEL% EQU 2 GOTO end_section
 
 
 :gmaptool_write
+
+rem goto gmapsuppimg
+
 echo(
 echo GMT SECTION - generete distributables %TIME%
 echo(	
@@ -484,8 +499,8 @@ echo(
 echo Writing plain %TIME%
 echo(	
 del /Q %plain%\*
-echo %gmt% -S -v -m "ChihuahuaOSMPlain" -o %plain%/ -f 6776,1 %Img_DIR%gmapsupp.img
-%gmt% -S -v -m "ChihuahuaOSMPlain" -o %plain%/ -f 6776,1 %Img_DIR%gmapsupp.img
+echo %gmt% -S -h -v -m "ChihuahuaOSMPlain" -o %plain%/ -f %family_id2%,1 %Img_DIR%gmapsupp.img
+%gmt% -S -h -v -m "ChihuahuaOSMPlain" -o %plain%/ -f %family_id2%,1 %Img_DIR%gmapsupp.img
 echo(	
 
 setlocal enabledelayedexpansion
@@ -508,6 +523,9 @@ echo(
 echo java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=24741887 --output-dir=%plain%/ %plain%/mapset.mp 
 java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=24741887 --output-dir=%plain%/ %plain%/mapset.mp 
 
+rem Refresh in basecamp
+del /Q %basecamp_tiles%
+
 echo(	
 CHOICE /C YN /T 5 /D Y /M "Do you want to continue?"
 IF %ERRORLEVEL% EQU 2 GOTO end_section
@@ -518,8 +536,8 @@ echo(
 echo Writing full %TIME%
 echo(
 del /Q %full%\*
-echo %gmt% -S -m "ChihuahuaOSM" -o %full%/ -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
-%gmt% -S -m "ChihuahuaOSM" -o %full%/ -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
+echo %gmt% -S -h -m "ChihuahuaOSM" -o %full%/ -f %family_id1%,1 %curves%\*.img %Img_DIR%gmapsupp.img
+%gmt% -S -h -m "ChihuahuaOSM" -o %full%/ -f %family_id1%,1 %curves%\*.img %Img_DIR%gmapsupp.img
 echo(	
 
 setlocal enabledelayedexpansion
@@ -543,16 +561,29 @@ echo java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=99999999 --output-d
 echo(	
 java -jar %mkgmap_DIR%mkgmap.jar --no-tdbfile --mapname=99999999 --output-dir=%full%/ %full%/mapset.mp
 
+
+rem Refresh in basecamp
+del /Q %basecamp_tiles%
+
 echo(	
 CHOICE /C YN /T 5 /D Y /M "Do you want to continue?"
 IF %ERRORLEVEL% EQU 2 GOTO end_section
 
+:gmapsuppimg
 rem join
 echo(
 echo Writing new img %TIME%
 echo(
-echo %gmt% -j -a -m "ChihuahuaOSM" -o c:\temp\gmapsupp.img -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
-%gmt% -j -a -m "ChihuahuaOSM" -o c:\temp\gmapsupp.img -f 6775,1 %curves%\*.img %Img_DIR%gmapsupp.img
+
+echo %gmt% -j -a -h -m "ChihuahuaOSM" -o c:\temp\gmapsupp.img -f %family_id1%,1 %curves%\*.img %Img_DIR%gmapsupp.img
+%gmt% -j -a -h -m "ChihuahuaOSM" -o c:\temp\gmapsupp.img -f %family_id1%,1 %curves%\*.img %Img_DIR%gmapsupp.img
+
+
+rem copy %Img_DIR%gmapsupp.img %curves%\
+rem dir rC:\temp\DirectChihuahuaOSM\curvasnivel\g*
+rem echo java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --mapname=24740001 --gmapsupp --family-id=%family_id1% --output-dir=c:\temp %curves%\*.img %Img_DIR%gmapsupp.img
+rem java -ea -jar %mkgmap_DIR%mkgmap.jar --verbose --gmapsupp --family-id=%family_id1% --output-dir=c:\temp %curves%\*.img
+rem del /Q %curves%\gmapsupp.img
 
 
 REM disable next line if osmand map should be created

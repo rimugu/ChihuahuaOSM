@@ -21,10 +21,13 @@ set Split_temp_DIR=%Home_DIR%split-temp\
 echo Split_temp_DIR			%Split_temp_DIR%
 set split_DIR=%Home_DIR%splitter-r654\
 echo split_DIR 			%split_DIR%
-rem --max-nodes=2400000 10 areas
+rem set max-nodes=2400000 10 areas
 rem set max_nodes=1600000 15 areas
 set max_nodes=1200000
 echo split max nodes			%max_nodes%
+rem set max_areas=2048 
+set max_areas=512
+echo split max areas			%max_areas%
 set mkgmap_DIR=%Home_DIR%mkgmap-r4924\
 echo mkgmap_DIR 			%mkgmap_DIR% 
 set draw_priority=15
@@ -47,3 +50,15 @@ set curves=C:\temp\DirectChihuahuaOSM\CurvasNivel
 echo curves				%curves%
 set map_style=%Home_DIR%styles\default
 echo map_style			%map_style%
+set geonames_file=cities15000.zip
+echo geonames_file			%geonames_file%
+set family_id1=6775
+echo family_id1			%family_id1%
+set family_id2=6776
+echo family_id2			%family_id2%
+set typ_file=C:\temp\DirectChihuahuaOSM\typ-files\ChihuOSM.TYP
+echo typ_file			%typ_file%
+set road_name_config=%Home_DIR%styles\default\roadNameConfig.txt
+echo road_name_config		%road_name_config%
+set basecamp_tiles=C:\Users\<user>\AppData\Local\Garmin\BaseCamp\TileCache
+echo basecamp_tiles			%basecamp_tiles%
