@@ -1,7 +1,7 @@
-; ChihuOSMv6.typ
-; Longueur: 6391 octets
-; Fichier TYP compilé     09/11/2026     12:53:49
-; Décompilé le 9/11/2026 à 12:53:49
+; ChihuOSMv8.typ
+; Longueur: 6646 octets
+; Fichier TYP compilé     13/09/2026     10:10:22
+; Décompilé le 9/13/2026 à 10:10:32
 
 [_id]
 ProductCode=1
@@ -14,7 +14,7 @@ CodePage=1252
 Based on CFMaster.TYP and jbm.typ
 Thank you!
 https://wiki.openstreetmap.org/wiki/Mkgmap/help/typ_compile
-v6
+v8
 [End]
 
 
@@ -25,8 +25,11 @@ v6
 Type=0x004,1
 Type=0x008,1
 Type=0x00c,1
+Type=0x026,1
+Type=0x053,1
 Type=0x018,2
 Type=0x03f,2
+Type=0x04e,2
 Type=0x046,3
 Type=0x013,4
 Type=0x017,4
@@ -51,8 +54,28 @@ Xpm="0 0 2 0"
 
 
 [_polygon]
+Type=0x07
+;GRMN_TYPE: Large Manmade Areas/AIRPORT/Airport area/Non NT
+ExtendedLabels=N
+Xpm="0 0 2 0"
+"1 c #D8E478"
+"2 c #381048"
+[end]
+
+
+[_polygon]
 Type=0x08
 ;GRMN_TYPE: Large Manmade Areas/SHOPPING_AREA/Shopping area/Non NT
+ExtendedLabels=N
+Xpm="0 0 2 0"
+"1 c #D8E478"
+"2 c #381048"
+[end]
+
+
+[_polygon]
+Type=0x0a
+;GRMN_TYPE: Large Manmade Areas/COLLEGE/College or university area/Non NT
 ExtendedLabels=N
 Xpm="0 0 2 0"
 "1 c #E8F488"
@@ -120,8 +143,8 @@ Type=0x17
 ;GRMN_TYPE: Park Areas/URBAN_PARK/Small urban park, typically only a few square blocks in size/Non NT
 ExtendedLabels=N
 Xpm="0 0 2 0"
-"1 c #58FD10"
-"2 c #009000"
+"1 c #68FD20"
+"2 c #10A010"
 [end]
 
 
@@ -130,8 +153,8 @@ Type=0x18
 ;GRMN_TYPE: Large Manmade Areas/GOLF_COURSE/Golf course area/Non NT
 ExtendedLabels=N
 Xpm="0 0 2 0"
-"1 c #18CA10"
-"2 c #006000"
+"1 c #18DA10"
+"2 c #007000"
 [end]
 
 
@@ -196,6 +219,94 @@ Xpm="32 32 2 1"
 
 
 [_polygon]
+Type=0x4e
+;GRMN_TYPE: Surface Cover Areas/ORCHARD/Orchard or plantation area/Non NT
+String1=0x04,Orchard
+ExtendedLabels=N
+Xpm="32 32 2 1"
+"! c #BD9500"
+"# c #BDFF8B"
+"################################"
+"################################"
+"################################"
+"#####!!!!!######################"
+"####!!!!!!!#####################"
+"####!!!!!!!#####################"
+"####!!!!!!!#####################"
+"####!!!!!!!#####################"
+"#####!!!!!######################"
+"#######!########################"
+"#######!########################"
+"#######!########################"
+"#######!########################"
+"######!!!#######################"
+"################################"
+"################################"
+"################################"
+"################################"
+"################################"
+"#####################!!!!!######"
+"####################!!!!!!!#####"
+"####################!!!!!!!#####"
+"####################!!!!!!!#####"
+"####################!!!!!!!#####"
+"#####################!!!!!######"
+"#######################!########"
+"#######################!########"
+"#######################!########"
+"#######################!########"
+"######################!!!#######"
+"################################"
+"################################"
+;12345678901234567890123456789012
+[end]
+
+
+[_polygon]
+Type=0x53
+;GRMN_TYPE: Surface Cover Areas/FLAT/Sand, tidal, mud, etc. flat area/Non NT
+String1=0x04,Scree
+ExtendedLabels=N
+Xpm="32 32 2 1"
+"! c #B4B494"
+"# c #E6E6E6"
+"!!#####!####!!##!!#####!########"
+"##!!##!!#####!!##!!####!##!!!!##"
+"###!##!##!!!!#####!!!!#!#####!!!"
+"!####!!######!!!#####!##!!######"
+"!!###!#########!!!!#!!###!!!!!!#"
+"##!####!!!!!########!#########!!"
+"###!!######!!!!!###!##!###!!####"
+"####!!!########!!!#!!#!!!###!!##"
+"#!####!!!!!#######!#!!###!!!!###"
+"#!#########!!!###!###!!!####!!!#"
+"!###!!!##########!#####!!!!#####"
+"#!#####!!!!#####!!#!!#####!!!!##"
+"#!#########!!!######!!#######!##"
+"#!#!!!!#######!!!#####!!########"
+"#######!!!!######!!####!!!!####!"
+"!#!#######!#######!!!#########!!"
+"##!!##########!!#####!!######!!#"
+"!###!!!!!!####!##!#####!!!#!!!##"
+"!!#######!!##!####!!!####!#!####"
+"#!!########!###!#####!!!###!##!!"
+"##!!!#######!##!!!#####!!!#!###!"
+"#####!!!###!!####!!!!!!####!####"
+"#######!!##!##!!######!!!#!!#!##"
+"#!!#######!!####!!######!#####!!"
+"##!!!####!!#######!!#####!#####!"
+"!###!###!###!!#####!!!###!!!#!##"
+"#!!####!######!!#####!!##!###!!!"
+"##!!!!!!!#!#####!!!#####!!#!####"
+"########!##!######!!###!!##!!!##"
+"!!#########!!!#####!!##!######!!"
+"#!!!!#!!#####!!########!#!######"
+"####!!!#######!!!#####!!#!!!!###"
+;12345678901234567890123456789012
+[end]
+
+
+[_polygon]
 Type=0x10f05
 ;GRMN_TYPE: Customizable Areas/CUSTOMIZABLE_AREA_6/Customizable area/Non NT, NT
 ExtendedLabels=N
@@ -241,6 +352,103 @@ Xpm="32 32 4 1"
 
 
 ;====================== LINES ===========================
+
+
+[_line]
+Type=0x18
+;GRMN_TYPE: Water Features/STREAM/Small stream or creek/Non NT
+UseOrientation=Y
+LineWidth=1
+BorderWidth=0
+Xpm="0 0 4 0"
+"1 c #7BCAFF"
+"2 c #000000"
+"3 c #8BDAFF"
+"4 c #FFFFFF"
+String1=0x04,Stream
+ExtendedLabels=N
+[end]
+
+
+[_line]
+Type=0x1f
+;GRMN_TYPE: Water Features/RIVER/Large stream or river/Non NT
+UseOrientation=Y
+LineWidth=2
+BorderWidth=0
+Xpm="0 0 4 0"
+"1 c #7BCAFF"
+"2 c #000000"
+"3 c #8BDAFF"
+"4 c #FFFFFF"
+String1=0x04,River
+ExtendedLabels=N
+[end]
+
+
+[_line]
+Type=0x26
+;GRMN_TYPE: Water Features/INTERMITTENT_STREAM/Intermittent or dry stream, creek, or ditch/Non NT
+UseOrientation=N
+Xpm="32 3 4  1"
+"! c #71C1F1"
+"  c none"
+"3 c #8BDAFF"
+"4 c none"
+"!       !       !       !       "
+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+"!       !       !       !       "
+;12345678901234567890123456789012
+String1=0x04,Fence
+ExtendedLabels=N
+[end]
+
+
+[_line]
+Type=0x27
+;GRMN_TYPE: Misc. Line Types/AIRPORT_RUNWAY/Airport runway centerline/Non NT
+UseOrientation=Y
+LineWidth=1
+Xpm="0 0 2 0"
+"1 c #808080"
+"2 c #C0C4C0"
+ExtendedLabels=N
+[end]
+
+
+[_line]
+Type=0x28
+;GRMN_TYPE: Misc. Line Types/PIPELINE/Oil or water pipeline/Non NT
+UseOrientation=N
+Xpm="32 3 2  1"
+"! c #009520"
+"  c none"
+"! !!! !!!!    !!   !!!   !!!  !!"
+"!!! !!!  !! !!!!  !! !  !! !!!! "
+"    !!    !!!  !!!!  !!!!   !!  "
+;12345678901234567890123456789012
+String1=0x04,Hedge
+ExtendedLabels=N
+[end]
+
+
+[_line]
+Type=0x29
+;GRMN_TYPE: Misc. Line Types/POWERLINE/Powerline/Non NT
+UseOrientation=N
+Xpm="32 4 4  1"
+"! c #626262"
+"  c none"
+"3 c #B2B2B2"
+"4 c none"
+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+"  !                             "
+" ! !                            "
+"!   !                           "
+;12345678901234567890123456789012
+String1=0x04,Power line
+ExtendedLabels=N
+[end]
 
 
 [_line]
@@ -1200,6 +1408,37 @@ DayXpm="16 16 8 1"   Colormode=16
 
 
 [_point]
+Type=0x06509
+;GRMN_TYPE: Geographical Named Points of Interest - Water Related/GEYSER/Geyser/Non NT, NT
+String1=0x01,Passer à gué
+String2=0x02,Furt
+String3=0x04,Ford
+String4=0x03,Doorwaadbare plaats
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+ContourColor=No
+DayXpm="15 13 2 1"   Colormode=16
+"!	c #0095FF"
+"  	c none"
+"               "
+"      !!!      "
+"     !!!!!     "
+"    ! !!! !    "
+"   !   !   !   "
+"       !       "
+"       !       "
+"      !!!      "
+"      !!!      "
+"     !!!!!     "
+"     !!!!!     "
+"     !!!!!     "
+"     !!!!!     "
+;123456789012345
+[end]
+
+
+[_point]
 Type=0x06604
 ;GRMN_TYPE: Geographical Named Points of Interest - Land Related/BEACH/Beach/Non NT, NT
 String1=0x04,Beach
@@ -1263,32 +1502,87 @@ DayXpm="16 16 37 2"   Colormode=32
 
 
 [_point]
+Type=0x06608
+;GRMN_TYPE: Geographical Named Points of Interest - Land Related/CRATER/Crater/Non NT, NT
+String1=0x01,Volcan
+String2=0x02,Vulkan
+String3=0x04,Vulcano
+String4=0x03,Vulkaan
+String5=0x15,Wulkan
+String6=0x05,Vulcano
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=Day
+DaycustomColor:#BD3000
+ContourColor=No
+DayXpm="14 10 2 1"   Colormode=16
+"!	c #D40000"
+"  	c none"
+"     !        "
+"     !        "
+"    !!!       "
+"    !!!       "
+"   !!!!!      "
+"   !!!!!      "
+"  !!!!!!!     "
+"  !!!!!!!     "
+" !!!!!!!!!    "
+" !!!!!!!!!    "
+;12345678901234
+[end]
+
+
+[_point]
 Type=0x06616
 ;GRMN_TYPE: Geographical Named Points of Interest - Land Related/SUMMIT/Summit, top of a hill or mountain/Non NT, NT
-String1=0x04,Peak
-ExtendedLabels=N
-DayXpm="16 16 4 1"   Colormode=32
-"!	c #000000"  alpha=15
-"#	c #7B0000"  alpha=0
-"%	c #BD3041"  alpha=0
-"?	c #FF0000"  alpha=0
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!##!!!!!!!"
-"!!!!!!#%?#!!!!!!"
-"!!!!!#%???#!!!!!"
-"!!!!#%?????#!!!!"
-"!!!#%???????#!!!"
-"!!############!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-"!!!!!!!!!!!!!!!!"
-;1234567890123456
+String1=0x04,Summit
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=Day
+DaycustomColor:#734A08
+ContourColor=No
+DayXpm="14 10 2 1"   Colormode=16
+"!	c #D08F55"
+"  	c none"
+"     !        "
+"     !        "
+"    !!!       "
+"    !!!       "
+"   !!!!!      "
+"   !!!!!      "
+"  !!!!!!!     "
+"  !!!!!!!     "
+" !!!!!!!!!    "
+" !!!!!!!!!    "
+;12345678901234
+[end]
+
+
+[_point]
+Type=0x06617
+;GRMN_TYPE: Geographical Named Points of Interest - Land Related/VALLEY/Valley/Non NT, NT
+String1=0x01,Col de montange
+String2=0x02,Sattel
+String3=0x04,Saddle
+String4=0x03,Bergpas, Zadel
+ExtendedLabels=Y
+FontStyle=SmallFont
+CustomColor=Day
+DaycustomColor:#734A08
+ContourColor=No
+DayXpm="12 9 2 1"   Colormode=16
+"!	c #D08F55"
+"  	c none"
+"!          !"
+"!!        !!"
+"!!!      !!!"
+"!!!!    !!!!"
+"!!!!!  !!!!!"
+"!!!!!!!!!!!!"
+"!!!!!!!!!!!!"
+"!!!!!!!!!!!!"
+"!!!!!!!!!!!!"
+;123456789012
 [end]
 
 
