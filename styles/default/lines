@@ -376,7 +376,7 @@ highway=service {name '${tempnamehighway}' ; addlabel '${access} ${incline}' | '
 # highway=footway is often an area as well, continue for polygon processing
 highway=footway {name '${tempnamehighway}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}' ; set tmp:stopMopUp=yes} [0x16 road_class=0 road_speed=0 resolution 23 continue with_actions]
 
-highway=cycleway {name '${tempnamehighway}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x11 road_class=0 road_speed=1 resolution 23]
+highway=cycleway {name '${tempnamehighway}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x16 road_class=0 road_speed=1 resolution 23] #0x11
 
 highway=trail {name '${tempnamehighway}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'; set highway=path; add bicycle=no} # fix common bad tagging
 highway=path {name '${tempnamehighway}' ; addlabel '${access} ${incline}' | '${access}' | '${incline}'} [0x16 road_class=0 road_speed=0 resolution 23]
