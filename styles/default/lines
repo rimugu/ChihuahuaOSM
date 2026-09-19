@@ -213,7 +213,7 @@ leisure=track & area!=yes
 man_made=pier | man_made=quay | man_made=groyn 
 	{name '${name} (${surface}) [pier]' | '${name} [pier]' | '(${surface}) [pier]' | '[pier]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x28 resolution 24]# might also have natural=water
-man_made=storage_tank & content!=water 
+man_made=storage_tank & is_closed()=false
 	{name '${name} (${content}) [storage_tank]' | '(${content}) [storage_tank]' | '[storage_tank]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x28 resolution 24]
 dock=drydock | waterway=dock {add highway=footway; name '${ref} ${name} [drydock]' | '${ref} [drydock]' | '${name} [drydock]' | '[drydock]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10705 resolution 24]

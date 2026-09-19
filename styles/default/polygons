@@ -48,23 +48,23 @@ amenity=fast_food {name '${name} (${cuisine}) [fast_food]' | '${name} [fast_food
 amenity=college {name '${name} [college]' | '[college]' ; addlabel '${phone}' | '${website}' ; addlabel 'fee ${fee}' | '${phone}' | '${website}' | '${operator}'} [0x0a resolution 22-24]
 parking=multi-storey & charge=*
 	{name '${name} (access ${access}) ($ ${charge}) [multi-storey parking]' | '(access ${access}) ($ ${charge}) [multi-storey parking]' | '${name} ($ ${charge}) [multi-storey parking]' | '($ ${charge}) [multi-storey parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x06 resolution 22-24]
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x05 resolution 22-24] #0x06
 parking=multi-storey 
 	{name '${name} (access ${access}) ($ ${fee}) [multi-storey parking]' | '(access ${access}) ($ ${fee}) [multi-storey parking]' | '${name} (access ${access}) [multi-storey parking]' | '(access ${access}) [multi-storey parking]' | '${name} ($ ${fee}) [multi-storey parking]' | '($ ${fee}) [multi-storey parking]' | '${name} [multi-storey parking]' | '[multi-storey parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x06 resolution 22-24]
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x05 resolution 22-24]
 parking=underground & charge=*
 	{name '${name} (access ${access}) ($ ${charge}) [underground parking]' | '(access ${access}) ($ ${charge}) [underground parking]' | '${name} ($ ${charge}) [underground parking]' | '($ ${charge}) [underground parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x06 resolution 22-24]
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x05 resolution 22-24]
 parking=underground
 	{name '${name} (access ${access}) ($ ${fee}) [underground parking]' | '(access ${access}) ($ ${fee}) [underground parking]' | '${name} (access ${access}) [underground parking]' | '(access ${access}) [underground parking]'| '${name} ($ ${fee}) [underground parking]' | '($ ${fee}) [underground parking]' | '${name} [underground parking]' | '[underground parking]' 
-	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x06 resolution 22-24]
+	; addlabel '${operator}' | '${phone}' | '${website}' | '${operator}'} [0x05 resolution 22-24]
 ( amenity=parking | parking=surface ) & charge=*
 	{name '${name} (access ${access}) ($ ${charge}) [parking]' | '(access ${access}) ($ ${charge}) [parking]' | '${name} ($ ${charge}) [parking]' | '($ ${charge}) [parking]' 
-	; addlabel '${operator}' | '${website}' | '${operator}'} [0x06 resolution 20-24]
+	; addlabel '${operator}' | '${website}' | '${operator}'} [0x05 resolution 20-24]
 amenity=parking | parking=surface 
 	{name '${name} (access ${access}) ($ ${fee}) [parking]' | '(access ${access}) ($ ${fee}) [parking]' | '${name} (access ${access}) [parking]' | '${name} ($ ${fee}) [parking]' | '(access ${access}) [parking]' | '${name} [parking]' | '($ ${fee}) [parking]' | '[parking]'
-	; addlabel '${operator}' | '${website}' | '${operator}'} [0x06 resolution 20-24]
-amenity=prison {name '${name} [prison]' | '[prison]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 22-24]
+	; addlabel '${operator}' | '${website}' | '${operator}'} [0x05 resolution 20-24]
+amenity=prison {name '${name} [prison]' | '[prison]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 22-24] 
 
 amenity=school & building=yes & name!=* { set building='school'; delete amenity}	#fix common issue
 amenity=school & religion=christian & (denomination=catholic | denomination=roman_catholic | denomination=greek_catholic)
@@ -160,7 +160,7 @@ highway=pedestrian & area!=no {name '${name} [pedestrian]' | '[pedestrian]' ; ad
 highway=footway & area=yes {name '${name} [footway]' | '[footway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
 
 highway=services | highway=service {name '${name} [services]' | '[services]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 22-24] # service station complex; show as retail
-highway=rest_area & area!=no {name '${name} (${opening_hours}) [rest_area]' | '${name} [rest_area]' | '(${opening_hours}) [rest_area]' | '[rest_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x05 resolution 22-24] # show as parking lot
+highway=rest_area & area!=no {name '${name} (${opening_hours}) [rest_area]' | '${name} [rest_area]' | '(${opening_hours}) [rest_area]' | '[rest_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x06 resolution 22-24] # show as parking lot
 
 #non default name for water
 (landuse=reservoir | man_made=reservoir) & water !=* { set water=reservoir }
@@ -265,7 +265,7 @@ landuse=religious & religion=christian & (denomination=catholic | denomination=r
 landuse=religious {name '${name} [religious_area]' | '[religious_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 21]
 landuse=commercial {name '${name} {${alt_name}} [commercial]' | '${name} [commercial]' | '[commercial]'} [0x08 resolution 24]
 landuse=construction {name '${name} {${alt_name}} [construction]' | '${name} [construction]' | '[construction]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 21]
-landuse=farm {name '${name} {${alt_name}} [farm]' | '${name} [farm]' | '[farm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x26 resolution 22-24]
+landuse=farm {name '${name} {${alt_name}} [farm]' | '${name} [farm]' | '[farm]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4e resolution 22-24]
 landuse=farmland 
 	{name '${name} {${alt_name}} (${crop}) [farmland]' | '${name} {${alt_name}} (${produce}) [farmland]' | '${name} (${crop}]) [farmland]' | '${name} (${produce}) [farmland]' | '${name} {${alt_name}} [farmland]' | '${name} [farmland]' | '(${crop}) [farmland]' | '$({produce}) [farmland]' | '[farmland]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x4e resolution 20-24]
@@ -370,7 +370,7 @@ tourism=theme_park {name '${name} [theme_park]' | '[theme_park]'; ; addlabel '${
 leisure=beach_resort {set tourism=resort}
 leisure=swimming_pool 
 	{name '${name} (access ${access}) (${swimming_pool}) [pool]' | '${name} (access ${access}) [pool]' | '${name} (${swimming_pool}) [pool]' | '${name} [pool]' | '(access ${access}) (${swimming_pool}) [pool]' | '(access ${access}) [pool]' | '(${swimming_pool}) [pool]' | '[pool]' ; 
-	addlabel '${phone}' | '${website}' | '${operator}'} [0x3f resolution 20-24]
+	addlabel '${phone}' | '${website}' | '${operator}'} [0x3e resolution 20-24]
 	
 tourism=hotel & mkgmap:area2poi=true
 	{name '${name} {${alt_name}} [hotel]' | '${name} [hotel]' | '[hotel]' ; 
@@ -424,8 +424,8 @@ historic=ruins
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 20-24]
 	
 # man_made can be used on areas or lines
-man_made=wastewater_plant | utility=sewerage | water=wastewarer | content=sewage {name '${name} [wastewater]' | '[wastewater]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 22-24]
-man_made=water_works {name '${name} [water_works]' | '[water_works]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 22-24]
+man_made=wastewater_plant | utility=sewerage | water=wastewarer | content=sewage {name '${name} [wastewater]' | '[wastewater]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24] #0x13
+man_made=water_works {name '${name} [water_works]' | '[water_works]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0c resolution 22-24]
 man_made=observatory | man_made=telescope {name '${name} [observatory]' | '[observatory]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0a resolution 20-24] 
 
 # render small named islands
