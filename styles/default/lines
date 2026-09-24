@@ -62,10 +62,12 @@ highway=* & (toll=yes | toll=true) {set mkgmap:toll=yes}
 #To identify as tunnel labeling, railroad image of things to update
 
 #default for bridge
-bridge=* & highway=* & (bridge:structure=suspension | bridge:structure=simple-suspension) { set tempnamebridge='[suspension_bridge]' }
+#bridge=* & highway=* & (bridge:structure=suspension | bridge:structure=simple-suspension) { set tempnamebridge='[suspension_bridge]' }
 bridge=* & highway=* { set tempnamebridge='[bridge]' }
 
 #extras
+bridge=* & highway=* & bridge:structure=* { set tempnamebridge='(${bridge:structure}) ${tempnamebridge}' }
+bridge=* & highway=* & bridge:structure=* { set tempnamebridge='(${bridge:support}) ${tempnamebridge}' }
 bridge=* & highway=* & width=* { set tempnamebridge='(${width}m) ${tempnamebridge}' }
 bridge=* & highway=* & surface=* { set tempnamebridge='<${surface}> ${tempnamebridge}' }
 bridge=* & highway=* & surface!=* { set tempnamebridge='<unkn> ${tempnamebridge}' } 
