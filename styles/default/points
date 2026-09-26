@@ -28,6 +28,7 @@ name!=* & name:en=* { set name='${name:en}' }
 name!=* & name_1=* { set name='${name_1}' }
 name!=* & alt_name=* { set name='${alt_name}' ; delete alt_name}
 name=* { set name='${name|subst:á=>a|subst:é=>e|subst:í=>i|subst:ó=>o|subst:ú=>u|subst:ñ=>n|subst:Á=>A|subst:É=>E|subst:Í=>I|subst:Ó=>O|subst:Ú=>Usubst:Ñ=>N}' }	# To allow search by name with regular characters
+name=* { set name='${name|subst:Nuestra=>Nstra|subst:Senor=>Sr|subst:Senora=>Sra|subst:Maria=>Ma|subst:Virgen=>V|subst:Santo=>S|subst:Santa=>S}' }
 name=* & highway=* 
 	{ set name='${name|subst:Calle =>|subst:Street=>|subst:Avenue=>|subst:Avenida =>|subst:Paseo =>|subst:Boulevard =>|subst:Camino =>|subst:Road=>|subst:Rinconada =>|subst:Circuito =>|subst:Carretera =>|subst:Privada =>|subst:Prolongacion =>|subst:Paseo =>|subst:Paseos =>|subst:Calzada =>|subst:Drive=>|subst:Place=>|subst:Lane=>}' }
 
@@ -35,6 +36,7 @@ alt_name!=* & old_name=* { set alt_name='${old_name}' }
 alt_name!=* & official_name=* { set alt_name='${official_name}' }
 alt_name!=* & designation=* { set alt_name='${designation}' }
 alt_name=* { set alt_name='${alt_name|subst:á=>a|subst:é=>e|subst:í=>i|subst:ó=>o|subst:ú=>u|subst:ñ=>n|subst:Á=>A|subst:É=>E|subst:Í=>I|subst:Ó=>O|subst:Ú=>Usubst:Ñ=>N}' }	# To allow search by name with regular characters
+alt_name=* { set alt_name='${alt_name|subst:Nuestra=>Nstra|subst:Senor=>Sr|subst:Senora=>Sra|subst:Maria=>Ma|subst:Virgen=>V|subst:Santo=>S|subst:Santa=>S}' }
 alt_name=* & highway=* 
 	{ set alt_name='${alt_name|subst:Calle =>|subst:Street=>|subst:Avenue=>|subst:Avenida =>|subst:Paseo =>|subst:Boulevard =>|subst:Camino =>|subst:Road=>|subst:Rinconada =>|subst:Circuito =>|subst:Carretera =>|subst:Privada =>|subst:Prolongacion =>|subst:Paseo =>|subst:Paseos =>|subst:Calzada =>|subst:Drive=>|subst:Place|subst:Lane=>}' }
 
@@ -131,53 +133,53 @@ barrier=* & access=* {addaccess '${access|subst:private=>no}'}
 	{set ref='${ref|def:}-'}
 
 place=city & population > 999999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0100 resolution 12]
 place=city & population > 799999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0200 resolution 14]
 place=city & population > 399999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0300 resolution 15]
 place=city & population > 299999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0400 resolution 16]
 place=city & population > 199999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0500 resolution 16]
 place=city & population > 99999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0600 resolution 17]
 place=city & population > 49999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0700 resolution 17]
 place=city & population > 9999 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0800 resolution 18]
 place=city & population > 0 & name=* 
-	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ;
+	{name '${name} {${alt_name}} (${population} pop) [city]' | '${name} [city]' | '[city]' ;
 	addlabel '${population}' } [0x0800 resolution 18]
 place=city 
 	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' } 
 	[0x0900 resolution 18]
 
 place=town & population > 69999 & name=* 
-	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]'
+	{name '${name} {${alt_name}} (${population} pop) [town]' | '${name} [town]' | '[town]'
 	; addlabel '${population}' } [0x0600 resolution 17]
 place=town & population > 19999 & name=* 
-	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]'
+	{name '${name} {${alt_name}} (${population} pop) [town]' | '${name} [town]' | '[town]'
 	; addlabel '${population}' } [0x0700 resolution 18]
 place=town & population > 9999 & name=* 
-	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]'
+	{name '${name} {${alt_name}} (${population} pop) [town]' | '${name} [town]' | '[town]'
 	; addlabel '${population}' } [0x0800 resolution 19]
 place=town & population > 4999 & name=* 
-	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]'
+	{name '${name} {${alt_name}} (${population} pop) [town]' | '${name} [town]' | '[town]'
 	; addlabel '${population}' } [0x0900 resolution 19]
 place=town & population > 999 & name=* 
-	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]'
+	{name '${name} {${alt_name}} (${population} pop) [town]' | '${name} [town]' | '[town]'
 	; addlabel '${population}' } [0x0a00 resolution 19]
 place=town & population > 0 & name=* 
-	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]'
+	{name '${name} {${alt_name}} (${population} pop) [town]' | '${name} [town]' | '[town]'
 	; addlabel '${population}' } [0x0b00 resolution 20-24]
 #place=town & name=* 
 #	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]'
@@ -817,7 +819,7 @@ natural=beach {name '${name} [beach]' | '[beach]' ; addlabel 'drinkable ${drinka
 natural=glacier {name '${name} [glacier]' | '[glacier]' ; addlabel 'drinkable ${drinkable}' | '${operator}'} [0x650a resolution 24]
 natural=spring & intermittent=yes {name '${name} (interm) [spring]' | '(interm) [spring]' ; addlabel 'drinkable ${drinkable}' | '${operator}'} [0x6511 resolution 24]
 natural=spring {name '${name} [spring]' | '[spring]' ; addlabel 'drinkable ${drinkable}' | '${operator}'} [0x6511 resolution 22-24]
-natural=hot_spring | leisure=hot_spring {name '${name} [hot_spring]' | '[hot_spring]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c0c resolution 24]
+natural=hot_spring | leisure=hot_spring {name '${name} [hot_spring]' | '[hot_spring]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6511 resolution 24] #0x2c0c
 
 
 (natural=waterfall | waterway=waterfall ) & intermittent=yes # natural=waterfall is deprecated
@@ -992,7 +994,7 @@ sport=* {name '${name} [${sport}]' | '[${sport}]' ; addlabel '${website}' | '${p
 obstacle=*
 	{name '${name} (${obstacle}) [obstacle]' | '(${obstacle}) [obstacle]' } [0x4c00 resolution 24]
 aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2f04 resolution 24] # 0x4c00 0x2f04
-hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 22]
+hazard=* {name '${name} (${hazard}) [hazard]' | '(${hazard}) [hazard]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 22]		#warning
 office=* & name=* {name '${name} (${building}) (${office}) [office]' | '${name} (${office}) [office]' | '(${building}) (${office}) [office]' | '(${office}) [office]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x3003 resolution 24]
 #natural=* & natural!=heath & natural!=scrub & natural!=sand & natural!=grassland & natural!=tree 
