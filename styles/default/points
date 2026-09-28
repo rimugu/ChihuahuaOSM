@@ -189,13 +189,16 @@ place=town
 	[0x0900 resolution 20]
 	
 place=village 
-	{name '${name} {${alt_name}} [village]' | '${name} [village]' | '[village]'
+	{name '${name} {${alt_name}} (${population} pop) [village]' | '${name} {${alt_name}} [village]' | '${name} (${population} pop) [village]' | '${name} [village]' | '(${population} pop) [village]' | '[village]'
 	; addlabel '${population}' } [0x0900 resolution 22-24]
 place=suburb | place=neighbourhood | place=borough 
-	{name '${name} {${alt_name}} [suburb]' | '${name} [suburb]' | '[suburb]'
+	{name '${name} {${alt_name}} (${population} pop) [suburb]' |  '${name} {${alt_name}} [suburb]' | '${name} (${population} pop) [suburb]' | '${name} [suburb]' | '(${population} pop) [suburb]' | '[suburb]'
 	; addlabel '${population}' } [0x0a00 resolution 24]
-place=hamlet | place=allotments 
+place=hamlet
 	{name '${name} {${alt_name}} [hamlet]' | '${name} [hamlet]' | '[hamlet]'
+	; addlabel '${population}' } [0x0b00 resolution 24]
+place=allotments 
+	{name '${name} {${alt_name}} [allotments]' | '${name} [hamlet]' | '[allotments]'
 	; addlabel '${population}' } [0x0b00 resolution 24]
 	
 place=farm 
@@ -205,10 +208,10 @@ place=isolated_dwelling
 	{name '${name} {${alt_name}} [dwelling]' | '${name} [dwelling]' | '[dwelling]'} 
 	[0x0b00 resolution 24]
 place=locality 
-	{name '${name} {${alt_name}} [locality]' | '${name} [locality]' | '[locality]'} 
+	{name '${name} {${alt_name}} (${population} pop) [locality]' | '${name} {${alt_name}} [locality]' | '${name} (${population} pop) [locality]' | '${name} [locality]' | '(${population} pop) [locality]' | '[locality]'} 
 	[0x0b00 resolution 24]
 place=county | place=district 
-	{name '${name} {${alt_name}} [county]' | '${name} [county]' | '[county]'} 
+	{name '${name} {${alt_name}} (${population} pop) [county]' | '${name} {${alt_name}} [county]' | '${name} (${population} pop) [county]' |  '${name} [county]' | '(${population} pop) [county]' | '[county]'} 
 	[0x0b00 resolution 24]
 
 place=island {name '${name} {${alt_name}} [island]' | '${name} [island]' | '[island]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x650c resolution 20-24]
@@ -234,7 +237,8 @@ amenity=atm {name '${operator} (${network}) [atm]' | '${operator} [atm]' | '[atm
 amenity=arts_centre {name '${name} [arts_centre]' | '[arts_centre]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c04 resolution 24]
 amenity=bureau_de_change {name '${name} [currency_exchange]' | '[currency_exchange]'} [0x2f06 resolution 24]
 amenity=bar {name '${name} [bar]' | '[bar]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2d02 resolution 24 continue]
-amenity=bench {name '${name} (${material}) (backrest ${backrest}) [bench]' | '(${material}) (backrest ${backrest}) [bench]' | '${name} (${material}) [bench]' | '(${material}) [bench]' | {name '${name} (backrest ${backrest}) [bench]' | '(backrest ${backrest}) [bench]' | '${name} [bench]' | '[bench]' ; 
+amenity=bench 
+	{name '${name} (${material}) (back ${backrest}) (${seats}) [bench]' | '${name} (${material}) (back ${backrest}) [bench]' | '${name} (${material}) (back ${backrest}) (${seats}) [bench]' | '${name} (${material}) (back ${backrest}) [bench]' | '(${material}) (back ${backrest}) (${seats}) [bench]' | '(${material}) (back ${backrest}) [bench]' | '${name} (${material}) (${seats}) [bench]' | '${name} (${material}) [bench]' | '(${material}) (${seats}) [bench]' | '(${material}) [bench]' | '${name} (back ${backrest}) (${seats}) [bench]' | '${name} (back ${backrest}) [bench]' | '(back ${backrest}) (${seats}) [bench]' | '(back ${backrest}) [bench]' | '${name} (${seats}) [bench]' | '${name} [bench]' | '(${seats}) [bench]' | '[bench]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x6605 resolution 24]
 amenity=biergarten {name '${name} [biergarten]' | '[biergarten]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2d02 resolution 24] #An open-air area where beer is served and you are allowed to bring your own food.
 amenity=border_control | barrier=border_control {name '${name} [border_control]' | '[border_control]' ;
@@ -835,14 +839,17 @@ waterway=rapids {name '${name} [rapids]' | '[rapids]' ; addlabel '${website}' | 
 waterway=dam | man_made=dam {name '${name} [dam]' | '[dam]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x650e resolution 22-24]
 waterway=lock_gate | waterway=weir {name '${name} [lock_gate]' | '[lock_gate]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x650e resolution 24]
 
-tourism=attraction {name '${name} {${alt_name}} [attraction]' | '${name} [attraction]' | '[attraction]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c04 resolution 24]
-attraction=* {name '${name} {${alt_name}} (${attraction}) [attraction]' | '${name} (${attraction}) [attraction]' | '(${attraction}) [attraction]' ; 
+tourism=attraction {name '${name} {${alt_name}} (fee ${fee}) [attraction]' | '${name} {${alt_name}} [attraction]' | '${name} (fee ${fee})  [attraction]' | '${name} [attraction]' | '(fee ${fee}) [attraction]' | '[attraction]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c04 resolution 24]
+attraction=* 
+	{name '${name} {${alt_name}} (fee ${fee}) (${attraction}) [attraction]' | '${name} {${alt_name}} (${attraction}) [attraction]' | '${name} (${attraction}) (fee ${fee}) [attraction]' | '${name} (${attraction}) [attraction]' | '(${attraction}) (fee ${fee}) [attraction]' | '(${attraction}) [attraction]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c04 resolution 24]
 tourism=alpine_hut {name '${name} {${alt_name}} [alpine_hut]' | '${name} [alpine_hut]' | '[alpine_hut]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2b02 resolution 24]
 tourism=artwork 
 	{name '${name} {${alt_name}} (${artwork_type}) [artwork]' | '${name} {${alt_name}} [artwork]' | '${name} (${artwork_type}) [artwork]' | '${name} [artwork]' | '(${artwork_type}) [artwork]' | '[artwork]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c04 resolution 24]
-tourism=aquarium {name '${name} {${alt_name}} [aquarium]' | '${name} [aquarium]' | '[aquarium]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c07 resolution 24]
+tourism=aquarium {name '${name} {${alt_name}} (fee ${fee}) [aquarium]' | '${name} {${alt_name}} [aquarium]' | '${name} (fee ${fee}) [aquarium]' | '${name} [aquarium]' | '(fee ${fee}) [aquarium]' | '[aquarium]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c07 resolution 24]
 tourism=bed_and_breakfast {name '${name} {${alt_name}} [bed_and_breakfast]' | '${name} [bed_and_breakfast]' | '[bed_and_breakfast]' ; addlabel '${website}' | '${phone}' | '${operator}'} 
 	[0x2b02 resolution 24]
 	
@@ -918,12 +925,13 @@ tourism=wilderness_hut {name '${name} [wilderness_hut]' | '[wilderness_hut]' ; a
 tourism=picnic_site 
 	{name '${name} (${access}) [picnic_site]' |'${name} [picnic_site]' | '(${access}) [picnic_site]' | '[picnic_site]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4a00 resolution 24]
 
-tourism=theme_park {name '${name} {${alt_name}} [theme_park]' | '${name} [theme_park]' | '[theme_park]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c01 resolution 20-24]
+tourism=theme_park {name '${name} {${alt_name}} (fee ${fee}) [theme_park]' | '${name} {${alt_name}} [theme_park]' | '${name} (fee ${fee}) [theme_park]' | '${name} [theme_park]' | '(fee ${fee}) [theme_park]' | '[theme_park]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x2c01 resolution 20-24]
 tourism=viewpoint 
 	{name '${name} {${alt_name}} ${description} (${direction}) [viewpoint]' | '${name} {${alt_name}} ${description} [viewpoint]' | '${name} ${description} (${direction}) [viewpoint]' | '${name} ${description} [viewpoint]' | '${name} {${alt_name}} (${direction}) [viewpoint]' | '${name} {${alt_name}} [viewpoint]' | '${name} (${direction}) [viewpoint]' | '${name} [viewpoint]' | '(${direction}) [viewpoint]' | '[viewpoint]' ; 
 	addlabel '${website}' | '${phone}' | '${operator}'} [0x05200 resolution 24] #0x2c04
 tourism=wine_cellar {name '${name} {${alt_name}} [wine_cellar]' | '${name} [wine_cellar]' | '[wine_cellar]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c0a resolution 24]
-tourism=zoo {name '${name} {${alt_name}} [zoo]' | '${name} [zoo]' | '[zoo]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c07 resolution 24]
+tourism=zoo {name '${name} {${alt_name}} (fee ${fee}) [zoo]' | '${name} {${alt_name}} [zoo]' | '${name} (fee ${fee}) [zoo]' | '${name} [zoo]' | '(fee ${fee}) [zoo]' | '[zoo]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c07 resolution 24]
 tourism=hunting_lodge {name '${name} {${alt_name}} [hunting_lodge]' | '${name} [hunting_lodge]' | '[hunting_lodge]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2b04 resolution 24]
 #tourism=* & name!=* & tourism!=yes & tourism!=no {set name='${tourism|subst:"_=> "}' ; addlabel '${website}' | '${phone}' | '${operator}'}
 #tourism=* & tourism!=no & tmp:stopMopUp!=yes {name '${name} (${tourism}) [tourism]' | '(${tourism}) [tourism]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x2c0d resolution 24]
@@ -1012,10 +1020,11 @@ landuse=* & landuse!=farmland & landuse!=grass & landuse!=forest & landuse!=orch
 	{name '${name} [${landuse}]' | '[${landuse}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 amenity=* {name '${name} [${amenity}]' | '[${amenity}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
 railway=* & name=* {name '${name} [${railway}]' | '[${railway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24]
-boundary=* & boundary!=timezone {name '${name} [${boundary}]' | '[${boundary}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x32000 resolution 24]
-emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x6410 resolution 24]
-tourism=yes {name '${name} [tourism]' | '[tourism]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 24]
-tourism=* {name '${name} [${tourism}]' | '[${tourism}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 24]
+boundary=* & boundary!=timezone {name '${name} [${boundary}]' | '[${boundary}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c01 resolution 24]	# 0x32000
+emergency=* {name '${name} (${emergency}) [emergency]' | '(${emergency}) [emergency]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c00 resolution 24] #0x6410
+tourism=yes {name '${name} (fee ${fee}) [tourism]' | '${name} [tourism]' | '(fee ${fee}) [tourism]' | '[tourism]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c01 resolution 24]
+tourism=* {name '${name} {${alt_name}} (fee ${fee}) [${tourism}]' | '${name} (fee ${fee}) [${tourism}]' | '${name} {${alt_name}} [${tourism}]' | '${name} [${tourism}]' | ' (fee ${fee}) [${tourism}]' | '[${tourism}]' ; 
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x4c01 resolution 24]
 man_made=* {name '${name} [${man_made}]' | '[${man_made}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] 
 #information=guidepost [0x4c02 resolution 24 default_name '[guidepost]']
 information=* {name '${name} (${information}) [information]' | '(${information}) [information]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x4c02 resolution 24]
