@@ -17,20 +17,17 @@
 # Currently, the matching relations will be processed and the names
 # appended to the boundary lines in an arbitrary order.
 
-#(type=boundary | type=multipolygon) & boundary=administrative & name=* 
-(type=boundary | type=multipolygon) & boundary=administrative
-{ apply
-  {
-    #set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name} [boundary]' | '${name} [boundary]' | '[boundary]'; addlabel '${admin_level}' 
-	set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name} [boundary]' | '${name} [boundary]' | '[boundary]' 
-  }
-}
+#(type=boundary | type=multipolygon) & boundary=administrative & name=*
+#{ apply
+#  {
+#    set mkgmap:boundary_name='$(mkgmap:boundary_name)/${name}' | '${name}';
+#  }
+#}
 
 # Public transportation routes.
 # We could want to sort the matching relations by ref first.
 type=route
-#& (route=bus|route=trolleybus|route=ferry|route=subway|route=train|route=tram)
-& (route=bus|route=trolleybus|route=ferry|route=subway|route=train|route=tram|route=road)
+& (route=bus|route=trolleybus|route=ferry|route=subway|route=train|route=tram)
 & (ref=* | name=*)
 {
   add ref='${name}'; # if ref is missing, use name

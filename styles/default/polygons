@@ -23,7 +23,6 @@ alt_name!=* & designation=* { set alt_name='${designation}' }
 #natural=water & leisure=park { delete natural }
 #water=basin & leisure=park { delete water }
 
-
 abandoned=* & abandoned!=no {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]'} [0x03 resolution 24]
 amenity=funeral_home {add shop='funeral_directors'}
 access=yes {set access=public}
@@ -137,6 +136,12 @@ healthcare=* {name '${name} (${healthcare}) [healthcare]' | '(${healthcare}) [he
 #sport=horse_racing | leisure=horse_riding {add name='${horse_racing|subst:"_=> "}'} [0x13 resolution 24 default_name 'horse_racing']
 sport=horse_racing | leisure=horse_riding {name '${name} [horse_racing]' | '[horse_racing]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 24]
 
+place=city
+	{name '${name} {${alt_name}} [city]' | '${name} [city]' | '[city]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'} 
+	[0x03 resolution 19] # grey
+place=town
+	{name '${name} {${alt_name}} [town]' | '${name} [town]' | '[town]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'} 
+	[0x03 resolution 19] # grey
 place=village 
 	{name '${name} {${alt_name}} [village]' | '${name} [village]' | '[village]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x03 resolution 19] # grey
@@ -145,6 +150,9 @@ place=suburb
 	[0x02 resolution 19]
 place=hamlet 
 	{name '${name} {${alt_name}} [hamlet]' | '${name} [hamlet]' | '[hamlet]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'} 
+	[0x02 resolution 24]
+place=allotments 
+	{name '${name} {${alt_name}} [allotments]' | '${allotments} [allotments]' | '[hamlet]' ; addlabel '${residential}' | '${phone}' | '${website}' | '${operator}'} 
 	[0x02 resolution 24]
 
 #shop=* {add name='${shop|subst:"_=> "}'} [0x08 resolution 22-24]
@@ -395,7 +403,7 @@ tourism=motel
 #military=danger_area {name '${name} [military]' | '[military]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x11 resolution 20-24]
 #military=barracks {name '${name} [military]' | '[military]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x04 resolution 23]
 landuse=military | military=* 
-	{name '${name} (${military}) {${alt_name}} [military]' | '${name} {${alt_name}} [military]' | '${name} (${military}) [military]' | '(${military}) [military]' | '${name} [military]' | '[military]' ; 
+	{name '${name} {${alt_name}} (${military}) [military]' | '${name} {${alt_name}} [military]' | '${name} (${military}) [military]' | '(${military}) [military]' | '${name} [military]' | '[military]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x04 resolution 20-24]
 
