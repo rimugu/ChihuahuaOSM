@@ -614,8 +614,8 @@ man_name=manhole {name '${name} (${manhole}) [manhole]' | '(${manhole}) [manhole
 
 # Edge 705 displays 0x650a(glacier),0x6511(spring),0x6512(stream),0x6513,0x6603,0x6614(rock) as hollow white circles, no menu
 natural=cave_entrance 
-	{name '${name} {${alt_name}} (${access}) (${fee}) [cave]' | '${name} (${access}) (${fee}) [cave]' | '(${access}) (${fee}) [cave]' | 
-	'${name} {${alt_name}} (${fee}) [cave]' | '${name} {${alt_name}} [cave]' | '${name} (${fee}) [cave]' | '(${fee}) [cave]' | 
+	{name '${name} {${alt_name}} (${access}) (fee ${fee}) [cave]' | '${name} (${access}) (fee ${fee}) [cave]' | '(${access}) (fee ${fee}) [cave]' | 
+	'${name} {${alt_name}} (fee ${fee}) [cave]' | '${name} {${alt_name}} [cave]' | '${name} (fee ${fee}) [cave]' | '(fee ${fee}) [cave]' | 
 	'${name} {${alt_name}} (${access}) [cave]' | '${name} {${alt_name}} [cave]' | '${name} (${access}) [cave]' | '${name} [cave]' | '(${access}) [cave]' | '[cave]' ; 
 	addlabel '${ele}m ${direction}' | '${ele}m' | '${direction}'} 
 	[0x6601 resolution 20-24]
