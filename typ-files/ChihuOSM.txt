@@ -1,7 +1,7 @@
-; ChihuOSMv17.typ
-; Longueur: 8037 octets
-; Fichier TYP compilé     10/01/2026     21:11:52
-; Décompilé le 10/2/2026 à 08:15:14
+; ChihuOSMv19.typ
+; Longueur: 8257 octets
+; Fichier TYP compilé     19/10/2026     10:21:04
+; Décompilé le 10/19/2026 à 11:19:56
 
 [_id]
 ProductCode=1
@@ -14,7 +14,7 @@ CodePage=1252
 Based on CFMaster.TYP and jbm.typ
 Thank you!
 https://wiki.openstreetmap.org/wiki/Mkgmap/help/typ_compile
-v17
+v19
 [End]
 
 
@@ -395,38 +395,38 @@ ExtendedLabels=N
 Xpm="32 32 2 1"
 "! c #5D6A2B"
 "  c none"
-"! ! !!! !!!!! !!      !   !!!!! "
-"    !!  !! !!!!!! !!    !! !  !!"
-"  !! !  !!!     !!!!    ! !!!  !"
-" !! !!! ! !  ! !!   !! !  ! !!! "
-" ! !!  ! !!   !   !   !!! !   ! "
-" !!!  !  !!  !!        !!!!   ! "
-"  !!  !   !  !  !!!   !! !! ! ! "
-"  !  !    !! ! !   !  !!      ! "
-" !!! !  !  !! !! !!! !!!   !!!  "
-" ! ! !      !!!!!!!! !!!  !! ! !"
-"!! !!!!!!! !! !  !    ! !!!!!!! "
-"      ! ! !!  ! !!    ! ! !  !! "
-"!    ! ! !!!! !  !   !!!  !  ! !"
-" !  !! !!! !! ! !!!!!! !  !  !! "
-"  ! !  !!!! ! !!! !!!  ! !   !! "
-"  ! ! !!    !!!!   !   !    !!!!"
-"   ! !!!   ! ! !!   !  !!! !!  !"
-"   !! !!!!!!!!!!!   !  ! !!!!   "
-"  !!!!     !!! !     !!!    ! !!"
-"!! ! !!!!!!!!!! !!!  !!!   ! !  "
-"  ! !  !  !  !!!!!!!!!!!   ! !  "
-"  ! ! !   !! !  !!  !  !  ! !!  "
-"  !!! !   !!     !!!   !  ! !!!!"
-"  !!! !   !    !  !   !! !!  !  "
-"  !!!!!!  ! !!!  ! !  !!!!   ! !"
-"     !!!!!!!   !!  ! ! !!!!! !  "
-"!!     !!!  ! ! !  !  !! !!!!!!!"
-"  !!! !  !  !!  ! !   !!  !! !  "
-"    !!   ! !!!  ! !!!!!!   !!!  "
-"    !  ! ! !!    !!   !!  !  !  "
-"  !!    !         !    !     !! "
-" !!    !!!!!!!! !!     !!!!!!!! "
+"! ! ! ! !  !  !       !   !  !  "
+"     !   !  !  !  !      ! !    "
+"  !     !       !  !      !    !"
+" !  ! !   !  !       ! !    !   "
+"   !   !      !   !   !   !   ! "
+" !       !   !           !      "
+"   !  !   !     ! !   !   ! ! ! "
+"  !  !     ! ! !   !   !        "
+" ! !    !         !  !     ! !  "
+"     !       ! ! ! !   !  !    !"
+"!   !  ! !  !            !  !   "
+"        !     ! !     !   !  !  "
+"!    !    ! !    !   ! !       !"
+" !     !   !  ! !   !     !     "
+"    !     !       !    ! !    ! "
+"  !   !     ! !    !        !   "
+"     !       !          !  !   !"
+"    !  ! ! !    !   !    !  !   "
+"  !         !  !     ! !       !"
+" ! !  ! !  !      !          !  "
+"    !  !  !   !    ! ! !   !    "
+"  !   !      !  !   !     ! !   "
+"    !      !           !     ! !"
+"  !   !        !  !       !     "
+"    !     ! ! !  ! !  ! !    ! !"
+"     !  !  !   !     ! !   !    "
+"!        !  ! ! !  !      !    !"
+"  !   !           !    !     !  "
+"     !   ! ! !  !  ! !      !   "
+"       !    !    !     !  !     "
+"   !    !         !          !  "
+" !     !  ! ! !  !     ! ! !  ! "
 ;12345678901234567890123456789012
 [end]
 
@@ -1834,6 +1834,33 @@ DayXpm="9 9 2 1"   Colormode=16
 
 
 [_point]
+Type=0x06601
+;GRMN_TYPE: Geographical Named Points of Interest - Land Related/ARCH/Arch/Non NT, NT
+String1=0x01,Grotte
+String2=0x04,Cave
+String3=0x03,Grot
+String4=0x15,Jaskinia
+String5=0x10,Caverna
+String6=0x05,Grotta
+ExtendedLabels=Y
+FontStyle=NoLabel (invisible)
+CustomColor=No
+ContourColor=No
+DayXpm="13 7 2 1"   Colormode=16
+"!	c #EE2222"
+"  	c none"
+"    !!!!!    "
+"   !     !   "
+"  !  !!!  !  "
+" !  !!!!!  ! "
+" ! !!!!!!! ! "
+" ! !!!!!!! ! "
+"!  !!!!!!!  !"
+;1234567890123
+[end]
+
+
+[_point]
 Type=0x06604
 ;GRMN_TYPE: Geographical Named Points of Interest - Land Related/BEACH/Beach/Non NT, NT
 String1=0x04,Beach
@@ -2012,4 +2039,25 @@ DayXpm="16 16 8 1"   Colormode=32
 "!!!!!#1===1#!!!!"
 "!!!!!#######!!!!"
 ;1234567890123456
+[end]
+
+
+[_point]
+Type=0x11707
+;GRMN_TYPE: User Customizable Points/CUSTOMIZABLE_POINT_72/User customizable point type/Non NT, NT
+String1=0x01,
+ExtendedLabels=N
+DayXpm="6 6 5 1"   Colormode=16
+"!	c #00A000"
+"#	c #F8FCF8"
+"%	c #000000"
+"?	c #00C800"
+"  	c none"
+"  ##  "
+" #%%# "
+"#%??%#"
+"#%?!%#"
+" #%%# "
+"  ##  "
+;123456
 [end]
