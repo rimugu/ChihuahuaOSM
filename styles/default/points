@@ -539,7 +539,7 @@ man_made=monitoring_station | man_made=measurement_station {name '${name} [monit
 #man_made=surveillance & operator:wikidata="Q368804" & unsigned_ref:US:eff="LPOE019" { echotags "surveillance"}
 man_made=surveillance 
 	{name '${name} (${surveillance}) (${surveillance:type}) [surveillance]' | '${name} (${surveillance}) [surveillance]' | '(${surveillance}) (${surveillance:type}) [surveillance]' | '(${surveillance}) [surveillance]' | '${name} (${surveillance:type}) [surveillance]' | '${name} [surveillance]' | '(${surveillance:type}) [surveillance]' | '[surveillance]' ; 
-	addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #camera:type camera:direction	surveillance:type
+	addlabel '${website}' | '${phone}' | '${operator}'} [0x11707 resolution 24] #camera:type camera:direction	surveillance:type 0x3200 0x11707
 	
 man_made=telescope 
 	{name '${name} (${access}) (${telescope:type}) [telescope]' | '${name} (${access}) [telescope]' | '${name} (${telescope:type}) [telescope]' | '${name} [telescope]' | '(${access}) (${telescope:type}) [telescope]' | '(${access}) [telescope]' | '(${telescope:type}) [telescope]' | '[telescope]' ; 
