@@ -59,14 +59,30 @@ highway:disused=* & highway:disused!=no & is_closed()=false {name '${name} (disu
 #location=underground {name '${name} (underground)' | '(underground)'}
 # [0x0a continue with_actions]
 
-# do these as lines regardless of being closed unless explicity marked as area. continue in case also a highway
-aeroway=runway & area!=yes {name '${ref} [runway]' | '[runway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 20-24 continue]
-(aeroway=taxiway | aeroway=taxilane) & area!=yes {name '${ref} [taxiway]' | '[taxiway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22 continue]
-aeroway=airstrip & abandoned=yes {name '${ref} (abandoned) [airstrip]' | '(abandoned) [airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22 continue]
-aeroway=airstrip {name '${ref} [airstrip]' | '[airstrip]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 24 continue]
+#default for aeroway
+aeroway=runway { set tempnameaeroway='[runway]' }
+aeroway=taxiway { set tempnameaeroway='[taxiway]' }
+aeroway=airstrip { set tempnameaeroway='[airstrip]' }
+aeroway=apron { set tempnameaeroway='[apron]' }
+abandoned=yes { set tempnameaeroway='(abandoned) ${tempnameaeroway}' }
+surface=* { set tempnameaeroway='<${surface}> ${tempnameaeroway}' }
+width=* { set tempnameaeroway='(${width} wid) ${tempnameaeroway}' }
+length=* { set tempnameaeroway='(${length} len) ${tempnameaeroway}' }
+ref=* { set tempnameaeroway='(${ref}) ${tempnameaeroway}' }
+name=* { set tempnameaeroway='${name} ${tempnameaeroway}' }
 
-#aerialway=gondola | aerialway=cable_car | aerialway=chair_lift [0x1b resolution 22 default_name 'aerialway']
-aerialway=gondola | aerialway=cable_car | aerialway=chair_lift {name '${name} (${ref}) [aerialway]' | '${ref} [aerialway]' | '${name} [aerialway]' | '[aerialway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22]
+# do these as lines regardless of being closed unless explicity marked as area. continue in case also a highway
+aeroway=runway & area!=yes 
+	{name '${tempnameaeroway}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 20-24]
+(aeroway=taxiway | aeroway=taxilane) & area!=yes {name '${tempnameaeroway}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22]
+aeroway=airstrip & abandoned=yes & area!=yes {name '${tempnameaeroway}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22]
+aeroway=airstrip & area!=yes  {name '${tempnameaeroway}' | '${operator}'} [0x27 resolution 24]
+aeroway=apron & abandoned=yes & area!=yes {name '${tempnameaeroway}' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 22]
+aeroway=apron & area!=yes  {name '${tempnameaeroway}' | '${operator}'} [0x27 resolution 24]
+
+aerialway=gondola {name '${name} (${ref}) [gondola]' | '${ref} [gondola]' | '${name} [gondola]' | '[gondola]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22]
+aerialway=cable_car {name '${name} (${ref}) [cable_car]' | '${ref} [cable_car]' | '${name} [cable_car]' | '[cable_car]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22]
+aerialway=chair_lift {name '${name} (${ref}) [chair_lift]' | '${ref} [chair_lift]' | '${name} [chair_lift]' | '[chair_lift]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10403 resolution 22]
 aerialway=zip_line | aerialway=zipline {name '${name} (${ref}) [zipline]' | '${ref} [zipline]' | '${name} [zipline]' | '[zipline]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 highway=via_ferrata {name '${name} (${ref}) [via_ferrata]' | '${ref} [via_ferrata]' | '${name} [via_ferrata]' | '[via_ferrata]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
 highway=piste | highway=ski | piste:difficulty=* | piste:type=* | piste=* {name '${name} (${ref}) [ski]' | '${ref} [ski]' | '${name} [ski]' | '[ski]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x10101 resolution 24]
@@ -666,7 +682,8 @@ aeroway=* &
 	aeroway!=aerodrome &
 	aeroway!=heliport &
 	aeroway!=helipad &
-	aeroway!=apron 
+	aeroway!=apron &
+	area!=yes
 	{name '${ref} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x27 resolution 24]
 
 <finalize>

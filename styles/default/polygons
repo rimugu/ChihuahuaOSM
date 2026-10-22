@@ -32,14 +32,29 @@ access=yes {set access=public}
 
 aeroway=airport | aeroway=aerodrome 
 	{name '${name} {${alt_name}} (${iata}) [airport]' | '${name} (${iata}) [airport]' | '${name} {${alt_name}} [airport]' | '${name} [airport]' | '(${iata}) [airport]' | '[airport]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x07 resolution 20-24]
-aeroway=runway & area=yes {name '${name} ${ref} [runway]' | '${ref} [runway]' | '[runway]'} [0x0e resolution 20-24]
-(aeroway=taxiway | aeroway=taxilane) & area=yes {name '${name} ${ref} [taxiway]' | '${ref} [taxiway]' | '[taxiway]'} [0x0e resolution 24]
+	
+#default for aeroway
+aeroway=runway { set tempnameaeroway='[runway]' }
+aeroway=taxiway { set tempnameaeroway='[taxiway]' }
+aeroway=airstrip { set tempnameaeroway='[airstrip]' }
+aeroway=apron { set tempnameaeroway='[apron]' }
+abandoned=yes { set tempnameaeroway='(abandoned) ${tempnameaeroway}' }
+surface=* { set tempnameaeroway='<${surface}> ${tempnameaeroway}' }
+width=* { set tempnameaeroway='(${width} wid) ${tempnameaeroway}' }
+length=* { set tempnameaeroway='(${length} len) ${tempnameaeroway}' }
+ref=* { set tempnameaeroway='(${ref}) ${tempnameaeroway}' }
+name=* { set tempnameaeroway='${name} ${tempnameaeroway}' }
+
+aeroway=runway & area=yes {name '${tempnameaeroway}'} [0x0e resolution 20-24]
+(aeroway=taxiway | aeroway=taxilane) & area=yes {name '${tempnameaeroway}' | '[taxiway]'} [0x0e resolution 24]
+aeroway=airstrip & area=yes {name '${tempnameaeroway}'} [0x0e resolution 20-24]
+aeroway=apron & area=yes {name '${tempnameaeroway}'} [0x0e resolution 20-24]
+
 aeroway=heliport {name '${name} ${ref} [heliport]' | '${ref} [heliport]' | '[heliport]'} [0x07 resolution 20-24]
 aeroway=helipad 
 	{name '${name} ${ref} (${surface}) (lit ${lit}) [helipad]' | '${ref} (${surface}) (lit ${lit}) [helipad]' | '(${surface}) (lit ${lit}) [helipad]' | '${name} ${ref} (${surface}) [helipad]' | '${ref} (${surface}) [helipad]' | '(${surface}) [helipad]' |
 	'${name} ${ref} (lit ${lit}) [helipad]' | '${ref} (lit ${lit}) [helipad]' | '(lit ${lit}) [helipad]' | '${name} ${ref} [helipad]' | '${ref} [helipad]' | '[helipad]'} 
 	[0x0e resolution 22-24]
-aeroway=apron {name '${name} [apron]' | '[apron]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x0e resolution 24] # An apron or ramp is the surfaced part of an airport where planes park. 
 
 amenity=kindergarten {name '${name} [kindergarten]' | '[kindergarten]'} [0x0a resolution 22-24]
 amenity=cafe | amenity=restaurant | amenity=food_court {name '${name} (${cuisine}) [food]' | '${name} [food]' | '(${cuisine}) [food]' | '[food]'} [0x08 resolution 24]
@@ -300,7 +315,7 @@ natural=heath {name '${name} {${alt_name}} [heath]' | '${name} [heath]' | '[heat
 landuse=quarry 
 	{name '${name} {${alt_name}} (${resource}) [quarry]' | '${name} {${alt_name}} [quarry]' | '${name} (${resource}) [quarry]' | '${name} [quarry]' | '(${resource}) [quarry]' | '[quarry]' ; addlabel '${operator}' | '${phone}' | '${website}'} 
 	[0x13 resolution 19]
-landuse=recreation_ground {name '${name} {${alt_name}} [recreation]' | '${name} [recreation]' | '[recreation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x19 resolution 19]
+landuse=recreation_ground {name '${name} {${alt_name}} [recreation]' | '${name} [recreation]' | '[recreation]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 19] #0x19
 # dedicate resolution 24 for building=* instead of related landuse=*
 industrial=machinery | industrial=machine_shop {name '${name} {${alt_name}} [machinery]' | '${name} [machinery]' | '[machinery]' ; addlabel '${phone}' | '${website}' | '${operator}'} 
 	[0x13 resolution 24]
@@ -476,7 +491,7 @@ building=* & building!=no
 	addlabel 'levels ${levels}'} [0x13 resolution 24] # to use or not to use? #0x13 0x1150c
 geological=*
 	{name '${name} (${geological}) [geological]' | '(${geological}) [geological]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4d resolution 24] #0x52 does not show in basecamp
-aeroway=* {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24] 
+aeroway=* & area=yes {name '${name} [${aeroway}]' | '[${aeroway}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x07 resolution 20-24] 
 abandoned=* & abandoned:!=no [0x03 resolution 24]
 abandoned:landuse=* {name '${name} (abandoned) [${abandoned}]' | '(abandoned) [${abandoned}]' } [0x03 resolution 24]
 
