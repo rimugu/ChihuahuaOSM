@@ -20,6 +20,9 @@ alt_name!=* & old_name=* { set alt_name='${old_name}' }
 alt_name!=* & official_name=* { set alt_name='${official_name}' }
 alt_name!=* & designation=* { set alt_name='${designation}' }
 
+alt_name=* & gnis:feature_id=* { set alt_name='${alt_name} ${gnis:feature_id}' }
+alt_name!=* & gnis:feature_id=* { set alt_name='${gnis:feature_id}' }
+
 #natural=water & leisure=park { delete natural }
 #water=basin & leisure=park { delete water }
 
@@ -174,13 +177,13 @@ place=allotments
 shop=* {name '${name} [${shop}]' | '[${shop}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x13 resolution 22-24] #0x08
 
 # squares and plazas
-place=square {name '${name} [square]' | '[square]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
-highway=pedestrian & (area=yes | mkgmap:mp_created=true) {name '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24] #0x25 does not show
+place=square {name '${name} {${alt_name}} [square]' | '${name} [square]' | '[square]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 22-24] 
+highway=pedestrian & (area=yes | mkgmap:mp_created=true) {name '${name} {${alt_name}} [pedestrian]' | '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24] #0x25 does not show
 # following rule also renders a closed way without area attribute as a plaza
-highway=pedestrian & area!=no {name '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
+highway=pedestrian & area!=no {name '${name} {${alt_name}} [pedestrian]' |  '${name} [pedestrian]' | '[pedestrian]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
 
 # footways areas are similar, but should be explicity marked as such
-highway=footway & area=yes {name '${name} [footway]' | '[footway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
+highway=footway & area=yes {name '${name} {${alt_name}} [footway]' | '${name} [footway]' | '[footway]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 24]
 
 highway=services | highway=service {name '${name} [services]' | '[services]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x12 resolution 22-24] # service station complex; show as retail
 highway=rest_area & area!=no {name '${name} (${opening_hours}) [rest_area]' | '${name} [rest_area]' | '(${opening_hours}) [rest_area]' | '[rest_area]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x06 resolution 22-24] # show as parking lot
@@ -373,12 +376,12 @@ tourism=camp_pitch
 boundary=aboriginal_lands {name '${name} {${alt_name}} [aboriginal_lands]' | '${name} [aboriginal_lands]' | '[aboriginal_lands]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x0d resolution 22-24] #rojiso
 #boundary=timezone {name '${name} [${boundary}]' | '[${boundary}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x4b resolution 24] #no se muestra
-leisure=park {name '${name} [park]' | '[park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 20-24] #0x17
+leisure=park {name '${name} {${alt_name}} [park]' | '${name} [park]' | '[park]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 20-24] #0x17
 leisure=pitch {name '${name} (${sport}) [pitch]' | '${name} [pitch]' | '(${sport}) [pitch]' | '[pitch]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 21] #smaller than a sports_centre 0x19
 leisure=playground {name '${name} [playground]' | '[playground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
-playground=* {name '${name} [${playground}]' | '[${playground}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
+playground=* {name '${name} {${alt_name}} [${playground}]' | '${name} [${playground}]' | '[${playground}]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
 
-leisure=recreation_ground {name '${name} [recreation_ground]' | '[recreation_ground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
+leisure=recreation_ground {name '${name} {${alt_name}} [recreation_ground]' | '${name} [recreation_ground]' | '[recreation_ground]' ; addlabel '${phone}' | '${website}' | '${operator}'} [0x17 resolution 22-24]
 leisure=sports_center | leisure=sports_centre 
 	{name '${name} {${alt_name}} (${sport}) [sports_center]' | '${name} (${sport}) [sports_center]' | '${name} [sports_center]' | ' (${sport}) [sports_center]' | '[sport_cente]' ; 
 	addlabel '${phone}' | '${website}' | '${operator}'} [0x18 resolution 20-24]
