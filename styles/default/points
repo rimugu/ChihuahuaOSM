@@ -993,6 +993,9 @@ waterway=* & name=* {name '${name} {${alt_name}} [${waterway}]' | '${name} [${wa
 #highway=* & highway!=street_lamp & highway!=residential & highway!=cycleway & highway!=motorway & highway!=trunk & highway!=motorway_link & highway!=trunk_link & highway!=primary & highway!=primary_link & highway!=secondary & highway!=secondary_link & highway!=tertiary & highway!=tertiary_link & highway!=unclassified & highway!=pedestrian & highway!=bridleway & highway!=byway & highway!=driveway & highway!=service & highway!=footway & highway!=trail & highway!=path & highway!=track & highway!=unsurfaced & highway!=road & highway!=embankment & highway!=raceway
 #	{name '${name} {${alt_name}} [${highway}]' | '${name} [${highway}]' | '[${highway}]' ; addlabel '${website}' | '${phone}' | '${operator}'} [0x3200 resolution 24] #Test 2026-07-23
 
+highway=cycleway & name=* {name '${name} {${alt_name}} [cycleway]' | '${name} [cycleway]' } [0x1f00  resolution 24] 
+highway=path & name=* {name '${name} {${alt_name}} [path]' | '${name} [path]' } [0x1f00  resolution 24] 
+highway=footway & name=* {name '${name} {${alt_name}} [footway]' | '${name} [footway]' } [0x1f00  resolution 24] 
 #alt_name=* & highway=* { echo '${alt_name}' ; echo ' ${name}' }
 highway=* & highway!=street_lamp & name=* {name '${name} {${alt_name}} [road]' | '${name} [road]' } [0x1f00  resolution 24] 
 #### 0x3200 can accept four labels, 0x0500 0x7300 is label only, 0x1f00 text no icon, 0x12d08 typ
